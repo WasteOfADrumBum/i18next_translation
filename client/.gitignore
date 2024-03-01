@@ -1,0 +1,6 @@
+# Ignore node_modules in the client directory
+node_modules/
+
+# Ignore build artifacts
+build/
+dist/

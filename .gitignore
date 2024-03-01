@@ -1,0 +1,7 @@
+# Ignore node_modules in the root directory
+node_modules/
+
+# Ignore compiled TypeScript files
+*.js
+*.js.map
+*.d.ts
