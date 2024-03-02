@@ -1,21 +1,59 @@
-import React from 'react'
-import { Container, Typography, Button } from '@mui/material'
+import React, { useState } from 'react'
+import { Container, Typography, Button, TextField, Box, Paper } from '@mui/material'
 
 const Login: React.FC = () => {
-	// Dummy login function for demonstration
+	const [username, setUsername] = useState('')
+	const [password, setPassword] = useState('')
+
 	const handleLogin = () => {
-		// Perform login logic here
-		console.log('Logged in')
+		// Perform login logic here using username and password
+		console.log('Username:', username)
+		console.log('Password:', password)
 	}
 
 	return (
 		<Container>
-			<Typography variant='h2' gutterBottom>
-				Login
-			</Typography>
-			<Button variant='contained' color='primary' onClick={handleLogin}>
-				Login
-			</Button>
+			<Box
+				sx={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					minHeight: 'calc(100vh - 128px)',
+					marginTop: '2rem',
+					marginBottom: '2rem',
+				}}>
+				<Paper elevation={3} sx={{ padding: '2rem', width: '300px' }}>
+					<Typography variant='h4' align='center' gutterBottom>
+						Login
+					</Typography>
+					<TextField
+						label='Username'
+						variant='outlined'
+						value={username}
+						onChange={(e) => setUsername(e.target.value)}
+						fullWidth
+						margin='normal'
+					/>
+					<TextField
+						label='Password'
+						variant='outlined'
+						type='password'
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						fullWidth
+						margin='normal'
+					/>
+					<Button
+						variant='contained'
+						color='primary'
+						onClick={handleLogin}
+						disabled={!username || !password} // Disable button if username or password is empty
+						fullWidth
+						sx={{ marginTop: '1rem' }}>
+						Login
+					</Button>
+				</Paper>
+			</Box>
 		</Container>
 	)
 }

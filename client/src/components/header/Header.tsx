@@ -73,19 +73,17 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle, darkMode, toggleDarkMode
 					</MenuItem>
 					{loginState && (
 						<MenuItem onClick={handleClose} component={Link} to='/dashboard'>
-							{/* Change to loginState */}
 							Dashboard
 						</MenuItem>
 					)}
 					{!loginState && (
 						<MenuItem onClick={handleClose} component={Link} to='/login'>
-							{/* Change to !loginState */}
 							Login
 						</MenuItem>
 					)}
 				</Menu>
 				<Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-					Your Website Name
+					Content Management System
 				</Typography>
 				<FormGroup sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 					<FormControlLabel
@@ -98,7 +96,6 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle, darkMode, toggleDarkMode
 						label={darkMode ? 'Dark Mode' : 'Light Mode'}
 					/>
 				</FormGroup>
-
 				{isAuthenticated && (
 					<div>
 						<IconButton

@@ -1,7 +1,7 @@
 {
 	"name": "i18next-translation",
 	"version": "1.0.0",
-	"description": "Description of your MERN stack app",
+	"description": "This is a MERN (MongoDB, Express.js, React.js, Node.js) stack application with Redux for state management and Docker support.",
 	"main": "server/app.js",
 	"scripts": {
 		"start": "cd client && npm start",

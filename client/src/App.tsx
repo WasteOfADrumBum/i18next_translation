@@ -49,7 +49,7 @@ function App() {
 						{/* Apply margin-top to prevent content overlap Adjust according to header height */}
 						<div style={{ marginTop: '64px' }}>
 							<Routes>
-								<Route path='/' element={<Home />} />
+								<Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Home />} />
 								<Route path='/login' element={<Login />} />
 								<Route path='/about' element={<About />} />
 								{/* Private Routes */}
