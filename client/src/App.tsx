@@ -1,13 +1,13 @@
-import React, { useState, createContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import { AuthProvider, useAuth } from './features/auth/AuthProvider'
 import { Home, About, Login, Dashboard, NotFound, UserListView, UserInputForm, UserDetailsView } from './features'
 import { lightTheme, darkTheme } from './styles/theme'
-import { Footer, Header, ThemeSwitcher } from './components'
+import { Footer, Header } from './components'
 
 // Create a Theme Context
-export const ThemeContext = createContext<any>(null)
+export const ThemeContext = React.createContext<any>(null)
 
 function PrivateRoute({ element, isAuthenticated }: { element: React.ReactNode; isAuthenticated: boolean }) {
 	return isAuthenticated ? element : <Navigate to='/login' />
@@ -44,7 +44,8 @@ function App() {
 			<AuthProvider>
 				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 					<Router>
-						<Header onLoginToggle={handleLoginToggle} /> {/* Pass callback */}
+						<Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />{' '}
+						{/* Pass darkMode and toggleDarkMode */}
 						{/* Apply margin-top to prevent content overlap Adjust according to header height */}
 						<div style={{ marginTop: '64px' }}>
 							<Routes>
@@ -78,7 +79,6 @@ function App() {
 						</div>
 						<Footer />
 					</Router>
-					<ThemeSwitcher darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 				</ThemeProvider>
 			</AuthProvider>
 		</ThemeContext.Provider>

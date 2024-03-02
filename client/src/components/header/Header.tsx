@@ -14,12 +14,15 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../features'
+import { ThemeSwitcher } from '../../components'
 
 interface HeaderProps {
 	onLoginToggle: (newState: boolean) => void
+	darkMode: boolean
+	toggleDarkMode: () => void
 }
 
-const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
+const Header: React.FC<HeaderProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) => {
 	const location = useLocation()
 	const { isAuthenticated, logout } = useAuth()
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -70,14 +73,12 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
 					</MenuItem>
 					{loginState && (
 						<MenuItem onClick={handleClose} component={Link} to='/dashboard'>
-							{' '}
 							{/* Change to loginState */}
 							Dashboard
 						</MenuItem>
 					)}
 					{!loginState && (
 						<MenuItem onClick={handleClose} component={Link} to='/login'>
-							{' '}
 							{/* Change to !loginState */}
 							Login
 						</MenuItem>
@@ -86,12 +87,18 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
 				<Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
 					Your Website Name
 				</Typography>
-				<FormGroup>
+				<FormGroup sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 					<FormControlLabel
+						sx={{ mr: 5 }}
 						control={<Switch checked={loginState} onChange={handleLoginToggle} aria-label='login switch' />}
 						label={loginState ? 'Logout' : 'Login'}
 					/>
+					<FormControlLabel
+						control={<ThemeSwitcher darkMode={darkMode} toggleDarkMode={toggleDarkMode} />}
+						label={darkMode ? 'Dark Mode' : 'Light Mode'}
+					/>
 				</FormGroup>
+
 				{isAuthenticated && (
 					<div>
 						<IconButton

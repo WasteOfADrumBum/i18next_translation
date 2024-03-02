@@ -1,4 +1,5 @@
 import React from 'react'
+import { Switch, FormControlLabel } from '@mui/material'
 
 interface ThemeSwitcherProps {
 	darkMode: boolean
@@ -7,9 +8,10 @@ interface ThemeSwitcherProps {
 
 const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ darkMode, toggleDarkMode }) => {
 	return (
-		<div>
-			<button onClick={toggleDarkMode}>{darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}</button>
-		</div>
+		<FormControlLabel
+			control={<Switch checked={darkMode} onChange={toggleDarkMode} color='primary' />}
+			label={darkMode ? 'Dark Mode' : 'Light Mode'}
+		/>
 	)
 }
 
