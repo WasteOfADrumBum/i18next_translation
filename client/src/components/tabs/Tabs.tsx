@@ -22,12 +22,16 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ isAuthenticated, tabs, ch
 	const [value, setValue] = React.useState('/')
 
 	React.useEffect(() => {
+		console.log('useEffect called: ', location.pathname, tabs, value)
 		// Find the first tab whose route exactly matches the current location
 		const matchedTab = tabs.find((tab) => `/dashboard${tab.route}` === location.pathname)
-		// If a tab is matched, update the value
+		// If a tab is matched and it's different from the current value, update the value
 		if (matchedTab && matchedTab.route !== value) {
 			setValue(matchedTab.route)
 			console.log('matched value:', matchedTab.route)
+		} else if (!matchedTab && value !== '/') {
+			// Reset the value if there's no matched tab
+			setValue('/')
 		}
 	}, [location.pathname, tabs, value])
 
