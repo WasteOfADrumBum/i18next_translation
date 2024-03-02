@@ -4,15 +4,18 @@
     "module": "CommonJS",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "jsx": "react",
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
       "*": [
-        "types/*"
+        "src/*"
+      ],
+      "shared/types/*": [
+        "shared/types/*"
       ]
     }
   }
