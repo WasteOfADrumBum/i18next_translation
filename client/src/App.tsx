@@ -19,7 +19,7 @@ function App() {
 		console.log('%cApp Loaded', 'color: green; font-size: 24px;')
 	}, [])
 
-	const [darkMode, setDarkMode] = useState<boolean>(false)
+	const [darkMode, setDarkMode] = useState<boolean>(true)
 
 	const toggleDarkMode = () => {
 		setDarkMode((prevMode) => !prevMode)
@@ -36,19 +36,22 @@ function App() {
 				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 					<Router>
 						<Header />
-						<Routes>
-							<Route path='/' element={<Home />} />
-							<Route path='/login' element={<Login />} />
-							<Route path='/about' element={<About />} />
-							{/* Private Routes */}
-							<Route path='/dashboard' element={<PrivateRoute element={<Dashboard />} />} />
-							<Route path='/users' element={<PrivateRoute element={<UserListView />} />} />
-							<Route path='/users/new' element={<PrivateRoute element={<UserInputForm />} />} />
-							<Route path='/users/edit/:id' element={<PrivateRoute element={<UserInputForm />} />} />
-							<Route path='/users/:id' element={<PrivateRoute element={<UserDetailsView />} />} />
-							{/* Catch-all route for 404 */}
-							<Route path='*' element={<NotFound />} />
-						</Routes>
+						{/* Apply margin-top to prevent content overlap Adjust according to header height */}
+						<div style={{ marginTop: '64px' }}>
+							<Routes>
+								<Route path='/' element={<Home />} />
+								<Route path='/login' element={<Login />} />
+								<Route path='/about' element={<About />} />
+								{/* Private Routes */}
+								<Route path='/dashboard' element={<PrivateRoute element={<Dashboard />} />} />
+								<Route path='/users' element={<PrivateRoute element={<UserListView />} />} />
+								<Route path='/users/new' element={<PrivateRoute element={<UserInputForm />} />} />
+								<Route path='/users/edit/:id' element={<PrivateRoute element={<UserInputForm />} />} />
+								<Route path='/users/:id' element={<PrivateRoute element={<UserDetailsView />} />} />
+								{/* Catch-all route for 404 */}
+								<Route path='*' element={<NotFound />} />
+							</Routes>
+						</div>
 						<Footer />
 					</Router>
 					<ThemeSwitcher darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
