@@ -1,14 +1,18 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import store from './store'
 import App from './App'
 
-ReactDOM.render(
-	<Provider store={store}>
+const rootElement = document.getElementById('root')
+if (rootElement) {
+	createRoot(rootElement).render(
 		<React.StrictMode>
-			<App />
-		</React.StrictMode>
-	</Provider>,
-	document.getElementById('root'),
-)
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</React.StrictMode>,
+	)
+} else {
+	throw new Error('Root element not found')
+}
