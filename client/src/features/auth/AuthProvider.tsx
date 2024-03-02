@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react'
 interface AuthState {
 	isAuthenticated: boolean
 	login: () => void
+	logout: () => void // Define logout function
 }
 
 // Create context for authentication
@@ -28,9 +29,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 		setIsAuthenticated(true)
 	}
 
+	const logout = () => {
+		// Perform logout logic here
+		// For demonstration, simply set isAuthenticated to false
+		setIsAuthenticated(false)
+	}
+
 	const value = {
 		isAuthenticated,
 		login,
+		logout, // Include logout function in context value
 	}
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
