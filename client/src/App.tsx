@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
-import { AuthProvider, useAuth } from './features/auth/AuthProvider'
+import { AuthProvider } from './features/auth/AuthProvider'
 import { Home, About, Login, Dashboard, NotFound, UserListView, UserInputForm, UserDetailsView } from './features'
 import { lightTheme, darkTheme } from './styles/theme'
-import { Footer, Header } from './components'
+import { Header, Footer, TabsComponent } from './components'
 
 // Create a Theme Context
 export const ThemeContext = React.createContext<any>(null)
@@ -39,32 +39,38 @@ function App() {
 		setIsAuthenticated(newState) // Update the authentication state
 	}
 
+	const tabs = [
+		{ label: 'Dashboard', route: '/', element: <Dashboard /> },
+		{ label: 'Users', route: '/users', element: <UserListView /> },
+	]
+
 	return (
 		<ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
 			<AuthProvider>
 				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 					<Router>
-						<Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />{' '}
-						{/* Pass darkMode and toggleDarkMode */}
-						{/* Apply margin-top to prevent content overlap Adjust according to header height */}
+						<Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />
 						<div style={{ marginTop: '64px' }}>
 							<Routes>
 								<Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Home />} />
-								<Route path='/login' element={<Login />} />
+								<Route path='/login' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Login />} />
 								<Route path='/about' element={<About />} />
 								{/* Private Routes */}
 								<Route
-									path='/dashboard'
-									element={<PrivateRoute element={<Dashboard />} isAuthenticated={isAuthenticated} />}
+									path='/dashboard/*'
+									element={
+										<PrivateRoute
+											isAuthenticated={isAuthenticated}
+											element={
+												<TabsComponent isAuthenticated={isAuthenticated} tabs={tabs}>
+													<Route path='/' element={<Dashboard />} />
+													<Route path='/users' element={<UserListView />} />
+												</TabsComponent>
+											}
+										/>
+									}
 								/>
-								<Route
-									path='/users'
-									element={<PrivateRoute element={<UserListView />} isAuthenticated={isAuthenticated} />}
-								/>
-								<Route
-									path='/users/new'
-									element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}
-								/>
+
 								<Route
 									path='/users/edit/:id'
 									element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}

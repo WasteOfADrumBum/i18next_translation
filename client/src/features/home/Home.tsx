@@ -16,15 +16,25 @@ const Home: React.FC = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<Container maxWidth='md'>
-				<Box sx={{ py: 8, textAlign: 'center' }}>
+				<Box
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
+						alignItems: 'center',
+						textAlign: 'center',
+						minHeight: 'calc(100vh - 128px)',
+						marginTop: '2rem',
+						marginBottom: '2rem',
+					}}>
 					<Typography variant='h1' component='h1' gutterBottom>
 						Welcome to our Content Management System
 					</Typography>
-					<Typography variant='caption' component='p' gutterBottom>
+					<Typography variant='body1' component='p' gutterBottom>
 						This is a MERN (MongoDB, Express.js, React.js, Node.js) stack application with Redux for state management
 						and Docker support.
 					</Typography>
-					<Typography variant='body1' component='p' gutterBottom>
+					<Typography variant='body2' component='p' gutterBottom>
 						This is the home page of my application. To access the secure content management system, please log in and
 						authenticate using your credentials.
 					</Typography>
