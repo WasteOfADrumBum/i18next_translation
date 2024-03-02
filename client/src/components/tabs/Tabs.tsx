@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { Box, Tab } from '@mui/material'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
@@ -19,16 +19,15 @@ interface TabsComponentProps {
 
 const TabsComponent: React.FC<TabsComponentProps> = ({ isAuthenticated, tabs, children }) => {
 	const location = useLocation()
+	const navigate = useNavigate()
 	const [value, setValue] = React.useState('/')
 
-	React.useEffect(() => {
-		console.log('useEffect called: ', location.pathname, tabs, value)
+	useEffect(() => {
 		// Find the first tab whose route exactly matches the current location
 		const matchedTab = tabs.find((tab) => `/dashboard${tab.route}` === location.pathname)
 		// If a tab is matched and it's different from the current value, update the value
 		if (matchedTab && matchedTab.route !== value) {
 			setValue(matchedTab.route)
-			console.log('matched value:', matchedTab.route)
 		} else if (!matchedTab && value !== '/') {
 			// Reset the value if there's no matched tab
 			setValue('/')
@@ -42,7 +41,8 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ isAuthenticated, tabs, ch
 
 	const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
 		setValue(newValue)
-		console.log('New value:', newValue)
+		// Navigate programmatically to the selected tab route
+		navigate(`/dashboard${newValue}`)
 	}
 
 	return (
@@ -51,15 +51,7 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ isAuthenticated, tabs, ch
 				<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 					<TabList onChange={handleChange} aria-label='tab list'>
 						{tabs.map((tab, index) => (
-							<Tab
-								key={index}
-								label={
-									<Link to={`/dashboard${tab.route}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-										{tab.label}
-									</Link>
-								}
-								value={tab.route}
-							/>
+							<Tab key={index} label={tab.label} value={tab.route} />
 						))}
 					</TabList>
 				</Box>
