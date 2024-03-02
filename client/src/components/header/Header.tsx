@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
 	AppBar,
 	Toolbar,
@@ -15,11 +15,21 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../features'
 
-const Header: React.FC = () => {
+interface HeaderProps {
+	onLoginToggle: (newState: boolean) => void
+}
+
+const Header: React.FC<HeaderProps> = ({ onLoginToggle }) => {
 	const location = useLocation()
 	const { isAuthenticated, logout } = useAuth()
-	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
+	const [loginState, setLoginState] = useState<boolean>(isAuthenticated)
+
+	useEffect(() => {
+		// Update loginState when isAuthenticated changes
+		setLoginState(isAuthenticated)
+	}, [isAuthenticated])
 
 	const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget)
@@ -27,6 +37,12 @@ const Header: React.FC = () => {
 
 	const handleClose = () => {
 		setAnchorEl(null)
+	}
+
+	const handleLoginToggle = () => {
+		const newLoginState = !loginState
+		setLoginState(newLoginState)
+		onLoginToggle(newLoginState)
 	}
 
 	return (
@@ -52,13 +68,17 @@ const Header: React.FC = () => {
 					<MenuItem onClick={handleClose} component={Link} to='/'>
 						Home
 					</MenuItem>
-					{isAuthenticated && (
+					{loginState && (
 						<MenuItem onClick={handleClose} component={Link} to='/dashboard'>
+							{' '}
+							{/* Change to loginState */}
 							Dashboard
 						</MenuItem>
 					)}
-					{!isAuthenticated && (
+					{!loginState && (
 						<MenuItem onClick={handleClose} component={Link} to='/login'>
+							{' '}
+							{/* Change to !loginState */}
 							Login
 						</MenuItem>
 					)}
@@ -68,8 +88,8 @@ const Header: React.FC = () => {
 				</Typography>
 				<FormGroup>
 					<FormControlLabel
-						control={<Switch checked={isAuthenticated} onChange={logout} aria-label='login switch' />}
-						label={isAuthenticated ? 'Logout' : 'Login'}
+						control={<Switch checked={loginState} onChange={handleLoginToggle} aria-label='login switch' />}
+						label={loginState ? 'Logout' : 'Login'}
 					/>
 				</FormGroup>
 				{isAuthenticated && (

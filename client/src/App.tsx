@@ -9,8 +9,7 @@ import { Footer, Header, ThemeSwitcher } from './components'
 // Create a Theme Context
 export const ThemeContext = createContext<any>(null)
 
-function PrivateRoute({ element }: { element: React.ReactNode }) {
-	const { isAuthenticated } = useAuth()
+function PrivateRoute({ element, isAuthenticated }: { element: React.ReactNode; isAuthenticated: boolean }) {
 	return isAuthenticated ? element : <Navigate to='/login' />
 }
 
@@ -20,6 +19,7 @@ function App() {
 	}, [])
 
 	const [darkMode, setDarkMode] = useState<boolean>(true)
+	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false) // State to manage authentication
 
 	const toggleDarkMode = () => {
 		setDarkMode((prevMode) => !prevMode)
@@ -30,12 +30,21 @@ function App() {
 		console.log('Dark Mode State (App):', darkMode)
 	}, [darkMode])
 
+	useEffect(() => {
+		// Log isAuthenticated state and handleLoginToggle function
+		console.log('Authenticated State (App):', isAuthenticated)
+	}, [isAuthenticated])
+
+	const handleLoginToggle = (newState: boolean) => {
+		setIsAuthenticated(newState) // Update the authentication state
+	}
+
 	return (
 		<ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
 			<AuthProvider>
 				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 					<Router>
-						<Header />
+						<Header onLoginToggle={handleLoginToggle} /> {/* Pass callback */}
 						{/* Apply margin-top to prevent content overlap Adjust according to header height */}
 						<div style={{ marginTop: '64px' }}>
 							<Routes>
@@ -43,11 +52,26 @@ function App() {
 								<Route path='/login' element={<Login />} />
 								<Route path='/about' element={<About />} />
 								{/* Private Routes */}
-								<Route path='/dashboard' element={<PrivateRoute element={<Dashboard />} />} />
-								<Route path='/users' element={<PrivateRoute element={<UserListView />} />} />
-								<Route path='/users/new' element={<PrivateRoute element={<UserInputForm />} />} />
-								<Route path='/users/edit/:id' element={<PrivateRoute element={<UserInputForm />} />} />
-								<Route path='/users/:id' element={<PrivateRoute element={<UserDetailsView />} />} />
+								<Route
+									path='/dashboard'
+									element={<PrivateRoute element={<Dashboard />} isAuthenticated={isAuthenticated} />}
+								/>
+								<Route
+									path='/users'
+									element={<PrivateRoute element={<UserListView />} isAuthenticated={isAuthenticated} />}
+								/>
+								<Route
+									path='/users/new'
+									element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}
+								/>
+								<Route
+									path='/users/edit/:id'
+									element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}
+								/>
+								<Route
+									path='/users/:id'
+									element={<PrivateRoute element={<UserDetailsView />} isAuthenticated={isAuthenticated} />}
+								/>
 								{/* Catch-all route for 404 */}
 								<Route path='*' element={<NotFound />} />
 							</Routes>
