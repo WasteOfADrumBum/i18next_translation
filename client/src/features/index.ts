@@ -7,6 +7,10 @@ export { default as Home } from './home/Home'
 export { default as Login } from './auth/Login'
 export { AuthProvider, useAuth } from './auth/AuthProvider'
 
+// Export event feature
+export { default as EventDetailsView } from './events/EventDetailsView'
+export { default as EventInputForm } from './events/EventInputForm'
+
 // Export user feature
 export { default as UserDetailsView } from './user/UserDetailsView'
 export { default as UserInputForm } from './user/UserInputForm'

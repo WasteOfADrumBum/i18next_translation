@@ -10,6 +10,9 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "baseUrl": "./",
+    "types": [
+      "react-hook-form"
+    ],
     "paths": {
       "*": [
         "src/*"

@@ -2,7 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import { AuthProvider } from './features/auth/AuthProvider'
-import { Home, About, Login, Dashboard, NotFound, UserListView, UserInputForm, UserDetailsView } from './features'
+import {
+	Home,
+	About,
+	Login,
+	Dashboard,
+	NotFound,
+	UserListView,
+	UserInputForm,
+	UserDetailsView,
+	EventDetailsView,
+	EventInputForm,
+} from './features'
 import { lightTheme, darkTheme } from './styles/theme'
 import { Header, Footer, TabsComponent } from './components'
 import { CssBaseline } from '@mui/material'
@@ -71,6 +82,22 @@ function App() {
 											}
 										/>
 									}
+								/>
+								<Route
+									path='/event/new'
+									element={<PrivateRoute element={<EventInputForm />} isAuthenticated={isAuthenticated} />}
+								/>
+								<Route
+									path='/event/edit/:id'
+									element={<PrivateRoute element={<EventInputForm />} isAuthenticated={isAuthenticated} />}
+								/>
+								<Route
+									path='/event/:id'
+									element={<PrivateRoute element={<EventDetailsView />} isAuthenticated={isAuthenticated} />}
+								/>
+								<Route
+									path='/users/new'
+									element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}
 								/>
 								<Route
 									path='/users/edit/:id'
