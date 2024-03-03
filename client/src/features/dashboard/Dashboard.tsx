@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Typography } from '@mui/material'
 import translations from '../../i18n/locales'
-import { DynamicDataTable } from '../../components'
+import { DynamicDataTable, ActionsMenu } from '../../components'
 import { generateFakeReduxState } from '../../utils/FakeReduxEvent'
 import TimeConversionsHelper from '../../utils/TimeConversionsHelper'
 
@@ -23,6 +23,17 @@ const Dashboard: React.FC = () => {
 		{ id: 'recordedDate', label: dashboardTranslations.recordedDate },
 		{ id: 'lastUpdatedBy', label: dashboardTranslations.lastUpdatedBy },
 		{ id: 'status', label: dashboardTranslations.status },
+		{
+			id: 'actions',
+			label: dashboardTranslations.actions,
+			render: (rowData: any) => (
+				<ActionsMenu
+					onView={() => handleView(rowData)}
+					onEdit={() => handleEdit(rowData)}
+					onDelete={() => handleDelete(rowData)}
+				/>
+			),
+		},
 	]
 
 	// Format date/time values in events
@@ -31,6 +42,24 @@ const Dashboard: React.FC = () => {
 		eventDate: TimeConversionsHelper.convertTime(event.eventDate, 'MM/DD/YYYY HH:mm', true, 'America/New_York'),
 		recordedDate: TimeConversionsHelper.convertTime(event.recordedDate, 'MM/DD/YYYY HH:mm', true, 'America/New_York'),
 	}))
+
+	// Define handleView function
+	const handleView = (rowData: any) => {
+		console.log('View action for row:', rowData)
+		// TODO: Implement view action
+	}
+
+	// Define handleEdit function
+	const handleEdit = (rowData: any) => {
+		console.log('Edit action for row:', rowData)
+		// TODO: Implement edit action
+	}
+
+	// Define handleDelete function
+	const handleDelete = (rowData: any) => {
+		console.log('Delete action for row:', rowData)
+		// TODO: Implement delete action
+	}
 
 	return (
 		<Container>

@@ -8,5 +8,6 @@
 	"reporter": "Reporter",
 	"recordedDate": "Recorded Date",
 	"lastUpdatedBy": "Last Updated By",
-	"status": "Status"
+	"status": "Status",
+	"actions": "Actions"
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination } from '@mui/material'
 
 /*
@@ -30,6 +29,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 interface Column {
 	id: string
 	label: string
+	render?: (rowData: any) => React.ReactNode
 }
 
 interface Pagination {
@@ -84,7 +84,7 @@ const DynamicDataTable: React.FC<DynamicDataTableProps> = ({
 							return (
 								<TableRow key={index}>
 									{columns.map((column) => (
-										<TableCell key={column.id}>{row[column.id]}</TableCell>
+										<TableCell key={column.id}>{column.render ? column.render(row) : row[column.id]}</TableCell>
 									))}
 								</TableRow>
 							)

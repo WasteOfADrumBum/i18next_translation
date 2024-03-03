@@ -50,7 +50,7 @@ function App() {
 				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 					<Router>
 						<Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />
-						<div style={{ marginTop: '64px' }}>
+						<div style={{ marginTop: '64px', marginBottom: '64px' }}>
 							<Routes>
 								<Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Home />} />
 								<Route path='/login' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Login />} />
@@ -70,7 +70,6 @@ function App() {
 										/>
 									}
 								/>
-
 								<Route
 									path='/users/edit/:id'
 									element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}
