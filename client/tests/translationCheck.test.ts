@@ -1,13 +1,10 @@
-// tests/translationCheck.test.ts
-
 import fs from 'fs'
 import path from 'path'
-
-const translationKeys: { [key: string]: any } = require('../src/i18n/locales/index') // Import your translation keys
+import translations from '../src/i18n/locales/index' // Import your translation keys
 
 const directoriesToCheck: string[] = [
-	path.join(__dirname, '../client/src/components'),
-	path.join(__dirname, '../client/src/features'),
+	path.join(__dirname, '../src/components'),
+	path.join(__dirname, '../src/features'),
 ]
 
 describe('Translation Check', () => {
@@ -23,7 +20,7 @@ describe('Translation Check', () => {
 					if (hardcodedStringMatches) {
 						hardcodedStringMatches.forEach((match: string) => {
 							// Check if the match is a translation key
-							if (!translationKeys.hasOwnProperty(match.replace(/["`]/g, ''))) {
+							if (!isTranslationKey(match)) {
 								throw new Error(`Hardcoded string found in file ${filePath}: ${match}`)
 							}
 						})
@@ -33,3 +30,8 @@ describe('Translation Check', () => {
 		})
 	})
 })
+
+function isTranslationKey(key: string): boolean {
+	// Check if the key exists in the translations object
+	return key.replace(/["`]/g, '') in translations.buttons || key.replace(/["`]/g, '') in translations.pages
+}
