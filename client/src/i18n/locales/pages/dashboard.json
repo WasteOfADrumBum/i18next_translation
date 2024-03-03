@@ -1,4 +1,12 @@
 {
 	"title": "Dashboard",
-	"navLabel": "Dashboard"
+	"id": "ID",
+	"eventDate": "Event Date",
+	"eventType": "Event Type",
+	"eventSubtype": "Event Subtype",
+	"location": "Location",
+	"reporter": "Reporter",
+	"recordedDate": "Recorded Date",
+	"lastUpdatedBy": "Last Updated By",
+	"status": "Status"
 }
