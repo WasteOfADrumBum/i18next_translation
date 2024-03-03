@@ -1,5 +1,11 @@
-import { createTheme, ThemeOptions } from '@mui/material/styles'
+import { createTheme, ThemeOptions, PaletteOptions } from '@mui/material/styles'
 
+// Define the extended PaletteOptions type
+interface ExtendedPaletteOptions extends PaletteOptions {
+	html?: {
+		backgroundColor: string
+	}
+}
 // Define typography options
 const typography: ThemeOptions['typography'] = {
 	fontFamily: 'Roboto, Arial, sans-serif',
@@ -73,7 +79,7 @@ const createCustomTheme = (mode: 'light' | 'dark'): ThemeOptions => {
 	const isDarkMode = mode === 'dark'
 
 	// Define common palette colors based on the theme mode
-	const commonPalette = {
+	const commonPalette: ExtendedPaletteOptions = {
 		primary: {
 			main: isDarkMode ? '#90caf9' : '#1976d2',
 		},
@@ -95,6 +101,9 @@ const createCustomTheme = (mode: 'light' | 'dark'): ThemeOptions => {
 		text: {
 			primary: isDarkMode ? '#fff' : '#000',
 			secondary: isDarkMode ? '#c7c7c7' : '#666',
+		},
+		html: {
+			backgroundColor: isDarkMode ? '#121212' : '#fff',
 		},
 	}
 

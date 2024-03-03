@@ -1,3 +1,11 @@
+:root {
+	--html-background-color: #fff; /* Default value */
+}
+
+html {
+	background-color: var(--html-background-color);
+}
+
 body {
 	font-family: 'Roboto', sans-serif;
 	margin: 0;

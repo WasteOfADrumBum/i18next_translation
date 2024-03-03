@@ -5,6 +5,7 @@ import { AuthProvider } from './features/auth/AuthProvider'
 import { Home, About, Login, Dashboard, NotFound, UserListView, UserInputForm, UserDetailsView } from './features'
 import { lightTheme, darkTheme } from './styles/theme'
 import { Header, Footer, TabsComponent } from './components'
+import { CssBaseline } from '@mui/material'
 
 // Create a Theme Context
 export const ThemeContext = React.createContext<any>(null)
@@ -48,9 +49,10 @@ function App() {
 		<ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
 			<AuthProvider>
 				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+					<CssBaseline />
 					<Router>
 						<Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />
-						<div style={{ marginTop: '64px', marginBottom: '64px' }}>
+						<div style={{ minHeight: '100vh', marginTop: '64px', marginBottom: '64px' }}>
 							<Routes>
 								<Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Home />} />
 								<Route path='/login' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Login />} />

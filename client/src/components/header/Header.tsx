@@ -91,10 +91,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginToggle, darkMode, toggleDarkMode
 						control={<Switch checked={loginState} onChange={handleLoginToggle} aria-label='login switch' />}
 						label={loginState ? 'Logout' : 'Login'}
 					/>
-					<FormControlLabel
-						control={<ThemeSwitcher darkMode={darkMode} toggleDarkMode={toggleDarkMode} />}
-						label={darkMode ? 'Dark Mode' : 'Light Mode'}
-					/>
+					<ThemeSwitcher darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 				</FormGroup>
 				{isAuthenticated && (
 					<div>
