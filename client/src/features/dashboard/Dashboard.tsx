@@ -3,6 +3,7 @@ import { Container, Typography } from '@mui/material'
 import translations from '../../i18n/locales'
 import { DynamicDataTable } from '../../components'
 import { generateFakeReduxState } from '../../utils/FakeReduxEvent'
+import TimeConversionsHelper from '../../utils/TimeConversionsHelper'
 
 const dashboardTranslations = translations.pages.dashboard
 
@@ -24,13 +25,20 @@ const Dashboard: React.FC = () => {
 		{ id: 'status', label: dashboardTranslations.status },
 	]
 
+	// Format date/time values in events
+	const formattedEvents = events.map((event) => ({
+		...event,
+		eventDate: TimeConversionsHelper.convertTime(event.eventDate, 'MM/DD/YYYY HH:mm', true, 'America/New_York'),
+		recordedDate: TimeConversionsHelper.convertTime(event.recordedDate, 'MM/DD/YYYY HH:mm', true, 'America/New_York'),
+	}))
+
 	return (
 		<Container>
 			<Typography variant='h2' gutterBottom>
 				{dashboardTranslations.title}
 			</Typography>
 			<DynamicDataTable
-				data={events}
+				data={formattedEvents}
 				columns={columns}
 				rowsPerPageOptions={[5, 10, 25]}
 				pagination={{ rowsPerPage: 5 }}

@@ -1,14 +1,4 @@
 const TimeConversionsHelper = {
-	/*
-	 * Eample Usage:
-	 * const epochTime = 1614690000000; // Example epoch time
-	 * const format = 'MM/DD/YYYY HH:mm:ss'; // Example format
-	 * const includeTime = true; // Include time in the output
-	 * const timeZone = 'America/New_York'; // Example time zone
-	 * const formattedTime = TimeConversionsHelper.convertTime(epochTime, format, includeTime, timeZone);
-	 * console.log(formattedTime); // Output: 03/02/2021 12:00:00
-	 */
-
 	convertTime: (input: any, format: string, includeTime: boolean, timeZone: string): string => {
 		const date = new Date(input)
 
@@ -43,22 +33,22 @@ const TimeConversionsHelper = {
 
 			if (format.includes('hh')) {
 				const hours12 = date.getHours() % 12 || 12 // Convert 24-hour to 12-hour format
-				formattedDate += hours12.toString().padStart(2, '0') + '/'
+				formattedDate += hours12.toString().padStart(2, '0') + ':'
 			}
 
 			if (format.includes('HH')) {
 				const hours24 = date.getHours()
-				formattedDate += hours24.toString().padStart(2, '0') + '/'
+				formattedDate += hours24.toString().padStart(2, '0') + ':'
 			}
 
 			if (format.includes('mm')) {
 				const minutes = date.getMinutes()
-				formattedDate += minutes.toString().padStart(2, '0') + '/'
+				formattedDate += minutes.toString().padStart(2, '0')
 			}
 
 			if (format.includes('ss')) {
 				const seconds = date.getSeconds()
-				formattedDate += seconds.toString().padStart(2, '0') + '/'
+				formattedDate += ':' + seconds.toString().padStart(2, '0')
 			}
 		}
 
