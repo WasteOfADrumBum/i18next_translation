@@ -17,20 +17,56 @@ const Header: React.FC<HeaderProps> = ({ header, subHeader, children }) => {
 		return currentDate.toLocaleString()
 	}
 
-	return (
-		<Box>
-			<Box mb={2}>
+	const Headers = () => {
+		return (
+			<Box>
 				<Typography variant='h4'>{header}</Typography>
-				<Typography variant='body1'>{subHeader}</Typography>
+				<Typography variant='h6'>{subHeader}</Typography>
 			</Box>
-			<Box display='flex' justifyContent='space-between' alignItems='center' mb={2}>
-				<Box>
-					{/* TODO: <Typography variant='body1'>User: {user.name}</Typography> */}
-					<Typography variant='body1'>User: John M. Doe</Typography>
-					<Typography variant='body1'>{getCurrentDateTime()}</Typography>
+		)
+	}
+
+	const UserInfo = () => {
+		return (
+			<Box>
+				<Typography variant='h6'>User: User Name Here</Typography>
+				<Typography variant='h6'>Role: User Role Here</Typography>
+			</Box>
+		)
+	}
+
+	const DateTime = () => {
+		return (
+			<Box>
+				<Typography variant='h6'>Date/Time: {getCurrentDateTime()}</Typography>
+			</Box>
+		)
+	}
+
+	const ContentBox = ({ children }: { children: ReactNode }) => {
+		return (
+			<Box p={2} boxShadow={2}>
+				{children}
+			</Box>
+		)
+	}
+
+	return (
+		<Box display='flex' flexDirection='row'>
+			<Box flex='8'>
+				<Box mb={2}>
+					<Headers />
+				</Box>
+				<Box mb={2}>
+					<UserInfo />
+				</Box>
+				<Box mb={2}>
+					<DateTime />
 				</Box>
 			</Box>
-			<Box>{children}</Box>
+			<Box flex='4'>
+				<ContentBox>{children}</ContentBox>
+			</Box>
 		</Box>
 	)
 }
