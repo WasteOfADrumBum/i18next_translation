@@ -1,130 +1,37 @@
-import React, { useState, useEffect } from 'react'
-import {
-	AppBar,
-	Toolbar,
-	Typography,
-	IconButton,
-	Menu,
-	MenuItem,
-	Switch,
-	FormGroup,
-	FormControlLabel,
-} from '@mui/material'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import MenuIcon from '@mui/icons-material/Menu'
-import { Link, useLocation } from 'react-router-dom'
-import { useAuth } from '../../features'
-import { ThemeSwitcher } from '../../components'
+import React, { ReactNode } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store'
+import { Box, Typography } from '@mui/material'
 
 interface HeaderProps {
-	onLoginToggle: (newState: boolean) => void
-	darkMode: boolean
-	toggleDarkMode: () => void
+	header: string
+	subHeader: string
+	children: ReactNode
 }
 
-const Header: React.FC<HeaderProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) => {
-	const location = useLocation()
-	const { isAuthenticated, logout } = useAuth()
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-	const open = Boolean(anchorEl)
-	const [loginState, setLoginState] = useState<boolean>(isAuthenticated)
+const Header: React.FC<HeaderProps> = ({ header, subHeader, children }) => {
+	const user = useSelector((state: RootState) => state.user) // TODO: have user state in Redux store
 
-	useEffect(() => {
-		// Update loginState when isAuthenticated changes
-		setLoginState(isAuthenticated)
-	}, [isAuthenticated])
-
-	const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorEl(event.currentTarget)
-	}
-
-	const handleClose = () => {
-		setAnchorEl(null)
-	}
-
-	const handleLoginToggle = () => {
-		const newLoginState = !loginState
-		setLoginState(newLoginState)
-		onLoginToggle(newLoginState)
+	const getCurrentDateTime = () => {
+		const currentDate = new Date()
+		return currentDate.toLocaleString()
 	}
 
 	return (
-		<AppBar position='fixed'>
-			<Toolbar>
-				<IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }} onClick={handleMenu}>
-					<MenuIcon />
-				</IconButton>
-				<Menu
-					id='menu-appbar'
-					anchorEl={anchorEl}
-					anchorOrigin={{
-						vertical: 'top',
-						horizontal: 'right',
-					}}
-					keepMounted
-					transformOrigin={{
-						vertical: 'top',
-						horizontal: 'right',
-					}}
-					open={open}
-					onClose={handleClose}>
-					<MenuItem onClick={handleClose} component={Link} to='/'>
-						Home
-					</MenuItem>
-					{loginState && (
-						<MenuItem onClick={handleClose} component={Link} to='/dashboard'>
-							Dashboard
-						</MenuItem>
-					)}
-					{!loginState && (
-						<MenuItem onClick={handleClose} component={Link} to='/login'>
-							Login
-						</MenuItem>
-					)}
-				</Menu>
-				<Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-					Content Management System
-				</Typography>
-				<FormGroup sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-					<FormControlLabel
-						sx={{ mr: 5 }}
-						control={<Switch checked={loginState} onChange={handleLoginToggle} aria-label='login switch' />}
-						label={loginState ? 'Logout' : 'Login'}
-					/>
-					<ThemeSwitcher darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-				</FormGroup>
-				{isAuthenticated && (
-					<div>
-						<IconButton
-							size='large'
-							aria-label='account of current user'
-							aria-controls='menu-appbar'
-							aria-haspopup='true'
-							onClick={handleMenu}
-							color='inherit'>
-							<AccountCircleIcon />
-						</IconButton>
-						<Menu
-							id='menu-appbar'
-							anchorEl={anchorEl}
-							anchorOrigin={{
-								vertical: 'top',
-								horizontal: 'right',
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: 'top',
-								horizontal: 'right',
-							}}
-							open={open}
-							onClose={handleClose}>
-							<MenuItem onClick={handleClose}>Profile</MenuItem>
-							<MenuItem onClick={handleClose}>My account</MenuItem>
-						</Menu>
-					</div>
-				)}
-			</Toolbar>
-		</AppBar>
+		<Box>
+			<Box mb={2}>
+				<Typography variant='h4'>{header}</Typography>
+				<Typography variant='body1'>{subHeader}</Typography>
+			</Box>
+			<Box display='flex' justifyContent='space-between' alignItems='center' mb={2}>
+				<Box>
+					{/* TODO: <Typography variant='body1'>User: {user.name}</Typography> */}
+					<Typography variant='body1'>User: John M. Doe</Typography>
+					<Typography variant='body1'>{getCurrentDateTime()}</Typography>
+				</Box>
+			</Box>
+			<Box>{children}</Box>
+		</Box>
 	)
 }
 

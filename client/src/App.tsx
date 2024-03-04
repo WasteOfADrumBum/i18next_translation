@@ -15,7 +15,7 @@ import {
 	EventInputForm,
 } from './features'
 import { lightTheme, darkTheme } from './styles/theme'
-import { Header, Footer, TabsComponent } from './components'
+import { NavBar, Header, Footer, TabsComponent } from './components'
 import { CssBaseline } from '@mui/material'
 
 // Create a Theme Context
@@ -62,7 +62,18 @@ function App() {
 				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 					<CssBaseline />
 					<Router>
-						<Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />
+						<NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />
+						{/* if is atuhenticated render header */}
+						{isAuthenticated && (
+							<Header
+								header='React MUI Template'
+								subHeader='A template for building React applications with Material-UI'>
+								<TabsComponent isAuthenticated={isAuthenticated} tabs={tabs}>
+									<Route path='/' element={<Dashboard />} />
+									<Route path='/users' element={<UserListView />} />
+								</TabsComponent>
+							</Header>
+						)}
 						<div style={{ minHeight: '100vh', marginTop: '64px', marginBottom: '64px' }}>
 							<Routes>
 								<Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Home />} />
