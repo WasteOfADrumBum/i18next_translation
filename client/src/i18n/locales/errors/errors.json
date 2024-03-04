@@ -1,0 +1,5 @@
+{
+	"rootElementNotFound": "Root element not found",
+	"useAuthMustBeUsedWithinAuthProvider": "useAuth must be used within an AuthProvider",
+	"invalidDateInput": "Invalid date"
+}

@@ -1,4 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react'
+import translations from '../../i18n/locales'
+
+const errorTranslations = translations.errors
 
 // Define types for authentication state and context
 interface AuthState {
@@ -14,7 +17,7 @@ const AuthContext = createContext<AuthState | undefined>(undefined)
 export const useAuth = () => {
 	const context = useContext(AuthContext)
 	if (!context) {
-		throw new Error('useAuth must be used within an AuthProvider')
+		throw new Error(errorTranslations.useAuthMustBeUsedWithinAuthProvider)
 	}
 	return context
 }

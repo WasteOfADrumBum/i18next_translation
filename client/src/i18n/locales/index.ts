@@ -1,4 +1,8 @@
+// Components
 import buttons from './components/buttons.json'
+// Errors
+import errors from './errors/errors.json'
+// Pages
 import about from './pages/about.json'
 import contact from './pages/contact.json'
 import dashboard from './pages/dashboard.json'
@@ -14,6 +18,7 @@ import user from './pages/user.json'
 
 const translations = {
 	buttons,
+	errors,
 	pages: {
 		about,
 		contact,

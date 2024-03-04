@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "es6",
     "module": "CommonJS",
     "strict": true,
     "esModuleInterop": true,
@@ -10,6 +10,11 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "baseUrl": "./",
+    "lib": [
+      "es6",
+      "dom",
+      "es2017" // Include padStart method
+    ],
     "types": [
       "react-hook-form"
     ],

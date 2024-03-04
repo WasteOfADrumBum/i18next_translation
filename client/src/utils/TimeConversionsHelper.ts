@@ -1,9 +1,13 @@
+import translations from '../i18n/locales'
+
+const errorTranslations = translations.errors
+
 const TimeConversionsHelper = {
 	convertTime: (input: any, format: string, includeTime: boolean, timeZone: string): string => {
 		const date = new Date(input)
 
 		if (isNaN(date.getTime())) {
-			throw new Error('Invalid date')
+			throw new Error(errorTranslations.invalidDateInput)
 		}
 
 		const options: Intl.DateTimeFormatOptions = {

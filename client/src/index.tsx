@@ -4,6 +4,9 @@ import { Provider } from 'react-redux'
 import store from './store'
 import App from './App'
 import './styles/global.css'
+import translations from './i18n/locales'
+
+const errorTranslations = translations.errors
 
 const rootElement = document.getElementById('root')
 if (rootElement) {
@@ -15,5 +18,5 @@ if (rootElement) {
 		</React.StrictMode>,
 	)
 } else {
-	throw new Error('Root element not found')
+	throw new Error(errorTranslations.rootElementNotFound)
 }
