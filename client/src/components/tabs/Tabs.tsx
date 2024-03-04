@@ -1,26 +1,44 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, ReactNode, Children, SyntheticEvent, isValidElement, useState } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { Box, Tab } from '@mui/material'
+import { Box, Menu, MenuItem, Tab } from '@mui/material'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 
+/* 
+	? How to use this component: 
+	const tabs = [
+			{ label: 'Tab Label', route: '/', element: <Cpomonent /> },
+			{
+					label: 'Dropdown Label',
+					route: '/route', // You can set this to any route you want
+					dropdown: true,
+					options: [
+							{ label: 'Option 1', route: '/option1', element: <Component1 /> }, 
+							{ label: 'Option 2', route: '/option2', element: <Component2 /> }, 
+					],
+			},
+	] 
+*/
+
 interface Tab {
 	label: string
 	route: string
-	element: React.ReactNode
+	element: ReactNode
+	dropdown?: boolean
+	options?: { label: string; route: string; element: ReactNode }[]
 }
 
 interface TabsComponentProps {
 	isAuthenticated: boolean
 	tabs: Tab[]
-	children: React.ReactNode
+	children: ReactNode
 }
 
 const TabsComponent: React.FC<TabsComponentProps> = ({ isAuthenticated, tabs, children }) => {
 	const location = useLocation()
 	const navigate = useNavigate()
-	const [value, setValue] = React.useState('/')
+	const [value, setValue] = useState('/')
 
 	useEffect(() => {
 		// Find the first tab whose route exactly matches the current location
@@ -39,10 +57,23 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ isAuthenticated, tabs, ch
 		return <Navigate to='/login' />
 	}
 
-	const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
+	const handleChange = (_event: SyntheticEvent, newValue: string) => {
 		setValue(newValue)
 		// Navigate programmatically to the selected tab route
 		navigate(`/dashboard${newValue}`)
+	}
+
+	// Render dropdown menu
+	const renderDropdownMenu = (options: { label: string; route: string; element: ReactNode }[]) => {
+		return (
+			<Menu open={false}>
+				{options.map((option, index) => (
+					<MenuItem key={index} onClick={() => navigate(option.route)}>
+						{option.label}
+					</MenuItem>
+				))}
+			</Menu>
+		)
 	}
 
 	return (
@@ -50,15 +81,19 @@ const TabsComponent: React.FC<TabsComponentProps> = ({ isAuthenticated, tabs, ch
 			<TabContext value={value}>
 				<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 					<TabList onChange={handleChange} aria-label='tab list'>
-						{tabs.map((tab, index) => (
-							<Tab key={index} label={tab.label} value={tab.route} />
-						))}
+						{tabs.map((tab, index) => {
+							if (tab.dropdown) {
+								return <Tab key={index} label={tab.label} value={renderDropdownMenu(tab.options || [])} />
+							} else {
+								return <Tab key={index} label={tab.label} value={tab.route} />
+							}
+						})}
 					</TabList>
 				</Box>
 				<TabPanel value={value}>
 					<Routes>
-						{React.Children.map(children, (child, index) => {
-							if (React.isValidElement(child)) {
+						{Children.map(children, (child, index) => {
+							if (isValidElement(child)) {
 								const { path, element } = child.props
 								return <Route key={index} path={path} element={element} />
 							}

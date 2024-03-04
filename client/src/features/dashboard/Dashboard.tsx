@@ -62,7 +62,7 @@ const Dashboard: React.FC = () => {
 	}
 
 	return (
-		<Container>
+		<Container maxWidth='xl'>
 			<Typography variant='h2' gutterBottom>
 				{dashboardTranslations.title}
 			</Typography>
