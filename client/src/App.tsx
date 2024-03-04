@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
-import { AuthProvider } from './features/auth/AuthProvider'
+import { AuthProvider } from './pages/auth/AuthProvider'
 import {
 	Home,
 	About,
@@ -13,7 +13,7 @@ import {
 	UserDetailsView,
 	EventDetailsView,
 	EventInputForm,
-} from './features'
+} from './pages'
 import { lightTheme, darkTheme } from './styles/theme'
 import { NavBar, Header, Footer, TabsComponent } from './components'
 import { CssBaseline } from '@mui/material'

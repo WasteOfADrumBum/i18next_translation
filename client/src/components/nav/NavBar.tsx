@@ -13,7 +13,7 @@ import {
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Link, useLocation } from 'react-router-dom'
-import { useAuth } from '../../features'
+import { useAuth } from '../../pages'
 import { ThemeSwitcher } from '../../components'
 
 interface NavBarProps {
