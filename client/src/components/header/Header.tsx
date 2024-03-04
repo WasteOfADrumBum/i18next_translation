@@ -44,10 +44,15 @@ const Header: React.FC<HeaderProps> = ({ header, subHeader, user, children }) =>
 	const UserInfo = () => {
 		// TODO: make ternary operators for user error catch
 		return (
-			<>
-				<Typography variant='body1'>{user.name}</Typography>
+			<div style={{ display: 'flex', alignItems: 'center' }}>
+				<Typography variant='body1' mr={1}>
+					{user.name}
+				</Typography>
+				<Typography variant='body1' color={'primary'} mr={1}>
+					|
+				</Typography>
 				<Typography variant='body2'>{user.role}</Typography>
-			</>
+			</div>
 		)
 	}
 
