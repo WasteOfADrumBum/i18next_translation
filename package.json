@@ -16,7 +16,6 @@
 		"concurrently": "^8.2.2"
 	},
 	"devDependencies": {
-		"@types/faker": "^6.6.9",
 		"react-scripts": "^5.0.1"
 	}
 }
