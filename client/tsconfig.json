@@ -13,10 +13,11 @@
     "lib": [
       "es6",
       "dom",
-      "es2017" // Include padStart method
+      "es2017"
     ],
     "types": [
-      "react-hook-form"
+      "react-hook-form",
+      "faker"
     ],
     "paths": {
       "*": [
@@ -28,6 +29,9 @@
       "@types/*": [
         "node_modules/@types/*"
       ]
-    }
+    },
+    "exclude": [
+      "node_modules/@types/faker"
+    ]
   }
 }
