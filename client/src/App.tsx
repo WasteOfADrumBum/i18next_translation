@@ -6,13 +6,13 @@ import {
 	Home,
 	About,
 	Login,
-	Dashboard,
 	NotFound,
 	UserListView,
 	UserInputForm,
 	UserDetailsView,
 	EventDetailsView,
 	EventInputForm,
+	EventListView,
 } from './pages'
 import { lightTheme, darkTheme } from './styles/theme'
 import { NavBar, Header, Footer, TabsComponent } from './components'
@@ -118,7 +118,7 @@ function App() {
 									{/* Private Routes */}
 									<Route
 										path='/dashboard'
-										element={<PrivateRoute element={<Dashboard />} isAuthenticated={isAuthenticated} />}
+										element={<PrivateRoute element={<EventListView />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
 										path='/dashboard/event/${eventId}/*'

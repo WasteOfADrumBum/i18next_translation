@@ -5,7 +5,7 @@ import errors from './errors/errors.json'
 // Pages
 import about from './pages/about.json'
 import contact from './pages/contact.json'
-import dashboard from './pages/dashboard.json'
+import events from './pages/events.json'
 import home from './pages/home.json'
 import user from './pages/user.json'
 
@@ -22,7 +22,7 @@ const translations = {
 	pages: {
 		about,
 		contact,
-		dashboard,
+		events,
 		home,
 		user,
 	},

@@ -6,7 +6,7 @@ import { generateFakeReduxState } from '../../utils/FakeReduxEvent'
 import TimeConversionsHelper from '../../utils/TimeConversionsHelper'
 import { HeaderContext } from '../../App'
 
-const dashboardTranslations = translations.pages.dashboard
+const dashboardTranslations = translations.pages.events
 
 const Dashboard: React.FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)

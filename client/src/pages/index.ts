@@ -1,6 +1,5 @@
 // Export other features
 export { default as About } from './about/About'
-export { default as Dashboard } from './dashboard/Dashboard'
 export { default as Home } from './home/Home'
 
 // Export auth feature
@@ -10,6 +9,7 @@ export { AuthProvider, useAuth } from './auth/AuthProvider'
 // Export event feature
 export { default as EventDetailsView } from './events/EventDetailsView'
 export { default as EventInputForm } from './events/EventInputForm'
+export { default as EventListView } from './events/EventListView'
 
 // Export user feature
 export { default as UserDetailsView } from './user/UserDetailsView'
