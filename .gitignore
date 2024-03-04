@@ -4,7 +4,6 @@ node_modules/
 # Ignore package lock file
 package-lock.json
 
-# Ignore compiled TypeScript files
-*.js
-*.js.map
-*.d.ts
+# Ignore build artifacts
+build/
+dist/
