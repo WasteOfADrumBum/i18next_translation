@@ -1,18 +1,15 @@
 import React, { ReactNode, useState, useEffect } from 'react'
-// import { useSelector } from 'react-redux'
-// import { RootState } from '../../store'
 import { Box, Typography, alpha, useTheme } from '@mui/material'
 
 interface HeaderProps {
 	header: string
 	subHeader: string
+	user: { name: string; role: string }
 	children: ReactNode
 }
 
-const Header: React.FC<HeaderProps> = ({ header, subHeader, children }) => {
+const Header: React.FC<HeaderProps> = ({ header, subHeader, user, children }) => {
 	const theme = useTheme()
-	// TODO: have user state in Redux store
-	// const user = useSelector((state: RootState) => state.user)
 
 	// State to store current date and time
 	const [currentDateTime, setCurrentDateTime] = useState<string>(getCurrentDateTime())
@@ -48,8 +45,8 @@ const Header: React.FC<HeaderProps> = ({ header, subHeader, children }) => {
 		// TODO: make ternary operators for user error catch
 		return (
 			<>
-				<Typography variant='body1'>User Name Here</Typography>
-				<Typography variant='body2'>User Role Here</Typography>
+				<Typography variant='body1'>{user.name}</Typography>
+				<Typography variant='body2'>{user.role}</Typography>
 			</>
 		)
 	}

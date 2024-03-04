@@ -68,22 +68,24 @@ const NavBar: React.FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode
 					}}
 					open={open}
 					onClose={handleClose}>
-					<MenuItem onClick={handleClose} component={Link} to='/'>
-						Home
-					</MenuItem>
 					{loginState && (
 						<MenuItem onClick={handleClose} component={Link} to='/dashboard'>
 							Dashboard
 						</MenuItem>
 					)}
 					{!loginState && (
-						<MenuItem onClick={handleClose} component={Link} to='/login'>
-							Login
-						</MenuItem>
+						<span>
+							<MenuItem onClick={handleClose} component={Link} to='/'>
+								Home
+							</MenuItem>
+							<MenuItem onClick={handleClose} component={Link} to='/login'>
+								Login
+							</MenuItem>
+						</span>
 					)}
 				</Menu>
 				<Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-					Content Management System
+					Event Management System
 				</Typography>
 				<FormGroup sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 					<FormControlLabel

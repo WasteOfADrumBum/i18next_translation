@@ -17,6 +17,8 @@ import {
 import { lightTheme, darkTheme } from './styles/theme'
 import { NavBar, Header, Footer, TabsComponent } from './components'
 import { CssBaseline } from '@mui/material'
+import { useDispatch } from 'react-redux'
+import { setUser, clearUser } from './store/actions/userActions'
 
 // Create a Theme Context
 export const ThemeContext = React.createContext<any>(null)
@@ -31,7 +33,8 @@ function App() {
 	}, [])
 
 	const [darkMode, setDarkMode] = useState<boolean>(true)
-	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false) // State to manage authentication
+	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
+	const dispatch = useDispatch()
 
 	const toggleDarkMode = () => {
 		setDarkMode((prevMode) => !prevMode)
@@ -39,16 +42,33 @@ function App() {
 
 	useEffect(() => {
 		// Log darkMode state and toggleDarkMode function
-		console.log('Dark Mode State (App):', darkMode)
+		const logStyle = darkMode ? 'background: black; color: white' : 'background: white; color: black'
+		const mode = darkMode ? 'Dark' : 'Light'
+		console.log('%cTheme State (App):', logStyle, mode)
 	}, [darkMode])
 
 	useEffect(() => {
-		// Log isAuthenticated state and handleLoginToggle function
-		console.log('Authenticated State (App):', isAuthenticated)
+		// Log isAuthenticated state and  function
+		if (isAuthenticated) {
+			console.log('Authenticated State (App):', isAuthenticated, fakeUser)
+		} else {
+			console.log('Authenticated State (App):', isAuthenticated)
+		}
 	}, [isAuthenticated])
+
+	const fakeUser = {
+		name: 'John M. Doe',
+		role: 'Admin',
+	}
 
 	const handleLoginToggle = (newState: boolean) => {
 		setIsAuthenticated(newState) // Update the authentication state
+
+		if (newState) {
+			dispatch(setUser(fakeUser)) // Dispatch the action with the fake user object
+		} else {
+			dispatch(clearUser()) // Dispatch the action to clear the user state
+		}
 	}
 
 	const tabs = [
@@ -67,7 +87,8 @@ function App() {
 							{isAuthenticated && (
 								<Header
 									header='React MUI Template'
-									subHeader='A template for building React applications with Material-UI'>
+									subHeader='A template for building React applications with Material-UI'
+									user={{ name: 'John Doe', role: 'Admin' }}>
 									<p>Stuff Passed Here</p>
 								</Header>
 							)}
