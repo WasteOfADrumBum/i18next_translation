@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Container, Typography } from '@mui/material'
+import { Container } from '@mui/material'
 import translations from '../../i18n/locales'
 import { DynamicDataTable, ActionsMenu } from '../../components'
 import { generateFakeReduxState } from '../../utils/FakeReduxEvent'
