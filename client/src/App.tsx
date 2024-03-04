@@ -48,7 +48,7 @@ function App() {
 	}, [darkMode])
 
 	useEffect(() => {
-		// Log isAuthenticated state and  function
+		// Log isAuthenticated state and user
 		if (isAuthenticated) {
 			console.log('Authenticated State (App):', isAuthenticated, fakeUser)
 		} else {
