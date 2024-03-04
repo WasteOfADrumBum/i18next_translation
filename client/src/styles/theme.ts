@@ -1,5 +1,11 @@
 import { createTheme, ThemeOptions, PaletteOptions } from '@mui/material/styles'
 
+/* 
+	! This needs to abide by the following rules:
+	* 1. The theme should have a light and dark mode.
+	* 2. The theme should meet Section 508 and WCAG 2.1 AA accessibility standards.
+*/
+
 // Define the extended PaletteOptions type
 interface ExtendedPaletteOptions extends PaletteOptions {
 	html?: {
@@ -84,19 +90,19 @@ const createCustomTheme = (mode: 'light' | 'dark'): ThemeOptions => {
 			main: isDarkMode ? '#90caf9' : '#1976d2',
 		},
 		secondary: {
-			main: isDarkMode ? '#f48fb1' : '#dc004e',
+			main: isDarkMode ? '#757575' : '#bdbdbd',
 		},
 		error: {
-			main: isDarkMode ? '#f44336' : '#f44336',
+			main: isDarkMode ? '#d32f2f' : '#f44336',
 		},
 		warning: {
-			main: isDarkMode ? '#ff9800' : '#ff9800',
+			main: isDarkMode ? '#ff9800' : '#ffcc80',
 		},
 		info: {
-			main: isDarkMode ? '#2196f3' : '#2196f3',
+			main: isDarkMode ? '#64b5f6' : '#81d4fa',
 		},
 		success: {
-			main: isDarkMode ? '#4caf50' : '#4caf50',
+			main: isDarkMode ? '#4caf50' : '#81c784',
 		},
 		text: {
 			primary: isDarkMode ? '#fff' : '#000',
@@ -119,8 +125,8 @@ const createCustomTheme = (mode: 'light' | 'dark'): ThemeOptions => {
 		typography,
 		spacing,
 		breakpoints,
-		components: {}, // Need to include an empty 'components' object
-		transitions: {}, // Need to include an empty 'transitions' object
+		components: {},
+		transitions: {},
 	}
 }
 

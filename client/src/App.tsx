@@ -63,14 +63,14 @@ function App() {
 					<CssBaseline />
 					<Router>
 						<NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />
-						{isAuthenticated && (
-							<Header
-								header='React MUI Template'
-								subHeader='A template for building React applications with Material-UI'>
-								<p>Stuff Passed Here</p>
-							</Header>
-						)}
 						<div style={{ minHeight: '100vh', marginTop: '64px', marginBottom: '64px' }}>
+							{isAuthenticated && (
+								<Header
+									header='React MUI Template'
+									subHeader='A template for building React applications with Material-UI'>
+									<p>Stuff Passed Here</p>
+								</Header>
+							)}
 							<Routes>
 								<Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Home />} />
 								<Route path='/login' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Login />} />
