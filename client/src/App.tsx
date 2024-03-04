@@ -56,9 +56,24 @@ function App() {
 	useEffect(() => {
 		// Log isAuthenticated state and user
 		if (isAuthenticated) {
-			console.log('Authenticated State (App):', isAuthenticated, fakeUser)
+			console.log(
+				'%cAuthenticated State (App): %c' +
+					isAuthenticated +
+					'\n' +
+					'%c User Name: %c' +
+					fakeUser.name +
+					'%c Role: %c' +
+					fakeUser.role,
+				'color: Green;',
+				'',
+				'',
+				'color: yellow;',
+				'',
+				'color: yellow;',
+				'',
+			)
 		} else {
-			console.log('Authenticated State (App):', isAuthenticated)
+			console.log('%cAuthenticated State (App): %c' + isAuthenticated, 'color: red;', '')
 		}
 	}, [isAuthenticated])
 
