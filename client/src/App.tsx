@@ -71,10 +71,7 @@ function App() {
 		}
 	}
 
-	const tabs = [
-		{ label: 'Dashboard', route: '/', element: <Dashboard /> },
-		{ label: 'Users', route: '/users', element: <UserListView /> },
-	]
+	const tabs = [{ label: 'Details', route: '/', element: <EventDetailsView /> }]
 
 	return (
 		<ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
@@ -98,14 +95,17 @@ function App() {
 								<Route path='/about' element={<About />} />
 								{/* Private Routes */}
 								<Route
-									path='/dashboard/*'
+									path='/dashboard'
+									element={<PrivateRoute element={<Dashboard />} isAuthenticated={isAuthenticated} />}
+								/>
+								<Route
+									path='/dashboard/event/${eventId}/*'
 									element={
 										<PrivateRoute
 											isAuthenticated={isAuthenticated}
 											element={
 												<TabsComponent isAuthenticated={isAuthenticated} tabs={tabs}>
-													<Route path='/' element={<Dashboard />} />
-													<Route path='/users' element={<UserListView />} />
+													<Route path='/details' element={<EventDetailsView />} />
 												</TabsComponent>
 											}
 										/>
@@ -122,6 +122,10 @@ function App() {
 								<Route
 									path='/event/:id'
 									element={<PrivateRoute element={<EventDetailsView />} isAuthenticated={isAuthenticated} />}
+								/>
+								<Route
+									path='/users'
+									element={<PrivateRoute element={<UserListView />} isAuthenticated={isAuthenticated} />}
 								/>
 								<Route
 									path='/users/new'

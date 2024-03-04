@@ -17,6 +17,9 @@
     ],
     "types": [
       "react-hook-form",
+      "node",
+      "react",
+      "faker"
     ],
     "paths": {
       "*": [
