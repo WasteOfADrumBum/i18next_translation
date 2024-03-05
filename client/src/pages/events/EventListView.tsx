@@ -6,7 +6,8 @@ import { generateFakeReduxState } from '../../utils/CasualReduxEvent'
 import TimeConversionsHelper from '../../utils/TimeConversionsHelper'
 import { HeaderContext } from '../../App'
 
-const dashboardTranslations = translations.pages.events
+const eventHeaderTranslations = translations.pages.events.header
+const eventTableTranslations = translations.pages.events.table.labels
 
 const EventListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -46,13 +47,13 @@ const EventListView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: dashboardTranslations.title,
-			subheader: 'List of your event records',
+			header: eventHeaderTranslations.title,
+			subheader: eventHeaderTranslations.subtitle,
 			extraContent: (
 				<Grid container spacing={0}>
 					<Grid item xs={6}>
 						<Typography variant='body2' sx={{ fontWeight: 'bold', textAlign: 'left' }}>
-							Total Records:
+							{eventHeaderTranslations.total}:
 						</Typography>
 					</Grid>
 					<Grid item xs={6}>
@@ -62,7 +63,7 @@ const EventListView: FC = () => {
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='body2' sx={{ fontWeight: 'bold', textAlign: 'left' }}>
-							Status:
+							{eventHeaderTranslations.status}:
 						</Typography>
 						{Object.entries(stats.statusStats).map(([status, count]) => (
 							<Grid container key={status} spacing={2}>
@@ -112,18 +113,18 @@ const EventListView: FC = () => {
 	}
 
 	const columns = [
-		{ id: 'id', label: dashboardTranslations.id },
-		{ id: 'eventDate', label: dashboardTranslations.eventDate },
-		{ id: 'eventType', label: dashboardTranslations.eventType },
-		{ id: 'eventSubType', label: dashboardTranslations.eventSubtype },
-		{ id: 'location', label: dashboardTranslations.location },
-		{ id: 'reporter', label: dashboardTranslations.reporter },
-		{ id: 'recordedDate', label: dashboardTranslations.recordedDate },
-		{ id: 'lastUpdatedBy', label: dashboardTranslations.lastUpdatedBy },
-		{ id: 'status', label: dashboardTranslations.status },
+		{ id: 'id', label: eventTableTranslations.id },
+		{ id: 'eventDate', label: eventTableTranslations.eventDate },
+		{ id: 'eventType', label: eventTableTranslations.eventType },
+		{ id: 'eventSubType', label: eventTableTranslations.eventSubtype },
+		{ id: 'location', label: eventTableTranslations.location },
+		{ id: 'reporter', label: eventTableTranslations.reporter },
+		{ id: 'recordedDate', label: eventTableTranslations.recordedDate },
+		{ id: 'lastUpdatedBy', label: eventTableTranslations.lastUpdatedBy },
+		{ id: 'status', label: eventTableTranslations.status },
 		{
 			id: 'actions',
-			label: dashboardTranslations.actions,
+			label: eventTableTranslations.actions,
 			render: (id: string) => (
 				<ActionsMenu onView={() => handleView(id)} onEdit={() => handleEdit(id)} onDelete={() => handleDelete(id)} />
 			),

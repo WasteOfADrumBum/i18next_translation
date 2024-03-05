@@ -1,13 +1,22 @@
 {
-	"title": "Events",
-	"id": "ID",
-	"eventDate": "Date",
-	"eventType": "Type",
-	"eventSubtype": "Subtype",
-	"location": "Location",
-	"reporter": "Reporter",
-	"recordedDate": "Recorded Date",
-	"lastUpdatedBy": "Last Updated By",
-	"status": "Status",
-	"actions": "Actions"
+	"table": {
+		"labels": {
+			"id": "ID",
+			"eventDate": "Date",
+			"eventType": "Type",
+			"eventSubtype": "Subtype",
+			"location": "Location",
+			"reporter": "Reporter",
+			"recordedDate": "Recorded Date",
+			"lastUpdatedBy": "Last Updated By",
+			"status": "Status",
+			"actions": "Actions"
+		}
+	},
+	"header": {
+		"title": "Events",
+		"subtitle": "List of all events",
+		"total": "Total Events",
+		"status": "Status"
+	}
 }

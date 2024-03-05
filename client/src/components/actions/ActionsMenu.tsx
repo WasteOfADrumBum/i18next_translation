@@ -1,6 +1,9 @@
 import React, { FC, MouseEvent, useState } from 'react'
 import { IconButton, Menu, MenuItem } from '@mui/material'
 import { MoreVert as MoreVertIcon } from '@mui/icons-material'
+import translations from '../../i18n/locales'
+
+const buttonTranslations = translations.buttons
 
 const ActionsMenu: FC<{ onView: () => void; onEdit: () => void; onDelete: () => void }> = ({
 	onView,
@@ -23,9 +26,9 @@ const ActionsMenu: FC<{ onView: () => void; onEdit: () => void; onDelete: () => 
 				<MoreVertIcon />
 			</IconButton>
 			<Menu id='actions-menu' anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-				<MenuItem onClick={onView}>View</MenuItem>
-				<MenuItem onClick={onEdit}>Edit</MenuItem>
-				<MenuItem onClick={onDelete}>Delete</MenuItem>
+				<MenuItem onClick={onView}>{buttonTranslations.view}</MenuItem>
+				<MenuItem onClick={onEdit}>{buttonTranslations.edit}</MenuItem>
+				<MenuItem onClick={onDelete}>{buttonTranslations.delete}</MenuItem>
 			</Menu>
 		</>
 	)
