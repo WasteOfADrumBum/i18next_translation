@@ -8,7 +8,6 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ user }) => {
 	const { headerData } = useContext(HeaderContext)
-	console.log('Header Data (Header):', headerData)
 	const theme = useTheme()
 
 	// State to store current date and time
