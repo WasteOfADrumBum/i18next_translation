@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, FC, useMemo, useState } from 'react'
-import { Container, Typography } from '@mui/material'
+import { Container, Grid, Typography } from '@mui/material'
 import translations from '../../i18n/locales'
 import { DynamicDataTable, ActionsMenu } from '../../components'
 import { generateFakeReduxState } from '../../utils/CasualReduxEvent'
@@ -49,14 +49,37 @@ const EventListView: FC = () => {
 			header: dashboardTranslations.title,
 			subheader: 'List of your event records',
 			extraContent: (
-				<div>
-					<Typography variant='body1'>Total Records: {stats.totalRecords}</Typography>
-					{Object.entries(stats.statusStats).map(([status, count]) => (
-						<Typography key={status} variant='body1'>
-							Status: {status}, Count: {count}
+				<Grid container spacing={0}>
+					<Grid item xs={6}>
+						<Typography variant='body2' sx={{ fontWeight: 'bold', textAlign: 'left' }}>
+							Total Records:
 						</Typography>
-					))}
-				</div>
+					</Grid>
+					<Grid item xs={6}>
+						<Typography variant='body2' sx={{ textAlign: 'right' }}>
+							{stats.totalRecords}
+						</Typography>
+					</Grid>
+					<Grid item xs={12}>
+						<Typography variant='body2' sx={{ fontWeight: 'bold', textAlign: 'left' }}>
+							Status:
+						</Typography>
+						{Object.entries(stats.statusStats).map(([status, count]) => (
+							<Grid container key={status} spacing={2}>
+								<Grid item xs={6}>
+									<Typography variant='body2' ml={2} sx={{ textAlign: 'left' }}>
+										{status}:
+									</Typography>
+								</Grid>
+								<Grid item xs={6}>
+									<Typography variant='body2' sx={{ textAlign: 'right' }}>
+										{count}
+									</Typography>
+								</Grid>
+							</Grid>
+						))}
+					</Grid>
+				</Grid>
 			),
 		})
 

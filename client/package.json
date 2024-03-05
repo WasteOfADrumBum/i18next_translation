@@ -10,7 +10,6 @@
 		"@mui/material": "^5.15.11",
 		"@mui/types": "^7.2.13",
 		"@reduxjs/toolkit": "^2.2.1",
-		"casual": "^1.6.2",
 		"i18next": "^23.10.0",
 		"i18next-http-backend": "^2.5.0",
 		"react": "^18.2.0",
