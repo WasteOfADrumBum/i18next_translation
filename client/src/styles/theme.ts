@@ -67,7 +67,7 @@ const typography: ThemeOptions['typography'] = {
 }
 
 // Define spacing options
-const spacing = 4 // Default spacing unit in pixels
+const spacing = [0, 8, 16, 24, 32, 40] // Default spacing unit in pixels
 
 // Define breakpoints
 const breakpoints = {
@@ -77,6 +77,14 @@ const breakpoints = {
 		md: 960,
 		lg: 1280,
 		xl: 1920,
+	},
+}
+
+// Define custom transitions
+const transitions = {
+	duration: {
+		short: 250,
+		standard: 300,
 	},
 }
 
@@ -125,8 +133,8 @@ const createCustomTheme = (mode: 'light' | 'dark'): ThemeOptions => {
 		typography,
 		spacing,
 		breakpoints,
+		transitions,
 		components: {},
-		transitions: {},
 	}
 }
 

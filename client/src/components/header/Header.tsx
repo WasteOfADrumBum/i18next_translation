@@ -66,10 +66,15 @@ const Header: FC<HeaderProps> = ({ header, subHeader, user, children }) => {
 	const ContentBox: FC<ContentBoxProps> = ({ theme, children }) => {
 		return (
 			<Box
-				px={4}
-				py={2}
+				mb={2}
 				boxShadow={2}
-				sx={{ borderRadius: 8, height: '100%', backgroundColor: alpha(theme.palette.secondary.main, 0.2) }}>
+				sx={{
+					py: 4,
+					px: 4,
+					borderRadius: 8,
+					height: '100%',
+					backgroundColor: alpha(theme.palette.secondary.main, 0.2),
+				}}>
 				{children}
 			</Box>
 		)
