@@ -70,7 +70,8 @@ const Header: FC<HeaderProps> = ({ header, subHeader, user, children }) => {
 				boxShadow={2}
 				sx={{
 					px: 3,
-					py: 2,
+					pt: 2,
+					pb: 1,
 					borderRadius: 8,
 					height: '100%',
 					backgroundColor: alpha(theme.palette.secondary.main, 0.2),
