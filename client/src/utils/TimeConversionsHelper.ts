@@ -10,11 +10,6 @@ const TimeConversionsHelper = {
 			throw new Error(errorTranslations.invalidDateInput)
 		}
 
-		const options: Intl.DateTimeFormatOptions = {
-			timeZone,
-			hour12: !format.includes('HH'), // 12-hour format if 'HH' is not present
-		}
-
 		let formattedDate = ''
 
 		if (format.includes('MM')) {

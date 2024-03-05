@@ -1,7 +1,7 @@
 declare module 'faker' {
 	interface FakerStatic {
 		random: {
-			arrayElement: (array: any[]) => any
+			arrayElement: <T>(array: T[]) => T
 		}
 		name: {
 			findName: () => string

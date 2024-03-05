@@ -1,44 +1,23 @@
 import React, { FC, ReactNode, ChangeEvent } from 'react'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination } from '@mui/material'
 
-/*
- * Connect your component to Redux using connect or useSelector and useDispatch.
- * Pass Redux state as props to the DynamicDataTable component.
- * Define action dispatchers to handle page change and rows per page change.
- * Dispatch actions when page or rows per page changes.
+interface RowData {
+	[key: string]: any // Define a structure for row data if possible
+}
 
- * Example:
- * const data = useSelector((state: RootState) => state.data)
- * const columns = useSelector((state: RootState) => state.columns)
- * const rowsPerPageOptions = useSelector((state: RootState) => state.rowsPerPageOptions)
- * const pagination = useSelector((state: RootState) => state.pagination)
- * const page = useSelector((state: RootState) => state.page)
- * const dispatch = useDispatch()
- *
- * <DynamicDataTable
- *  data={data}
- *  columns={columns}
- *  rowsPerPageOptions={rowsPerPageOptions}
- *  pagination={pagination}
- *  page={page}
- *  onPageChange={handlePageChange}
- *  onRowsPerPageChange={handleRowsPerPageChange}
- * />
- */
-
-interface Column {
+interface Column<RowDataType> {
 	id: string
 	label: string
-	render?: (rowData: any) => ReactNode
+	render?: (rowData: RowDataType) => ReactNode
 }
 
 interface Pagination {
 	rowsPerPage: number
 }
 
-interface DynamicDataTableProps {
-	data: any[]
-	columns: Column[]
+interface DynamicDataTableProps<RowDataType extends Record<string, any>> {
+	data: RowDataType[]
+	columns: Column<RowDataType>[]
 	rowsPerPageOptions: number[]
 	pagination?: Pagination
 	page: number
@@ -46,7 +25,7 @@ interface DynamicDataTableProps {
 	onRowsPerPageChange: (newRowsPerPage: number) => void
 }
 
-const DynamicDataTable: FC<DynamicDataTableProps> = ({
+const DynamicDataTable: FC<DynamicDataTableProps<RowData>> = ({
 	data,
 	columns,
 	rowsPerPageOptions,
