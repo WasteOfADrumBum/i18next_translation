@@ -10,9 +10,10 @@ Clone the repository:
 git clone <repository-url>
 ```
 
-Install dependencies for both server and client:
+Install dependencies for root, server and client:
 
 ```bash
+npm install
 cd server && npm install
 cd ../client && npm install
 ```
