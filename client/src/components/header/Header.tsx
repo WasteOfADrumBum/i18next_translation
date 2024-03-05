@@ -74,7 +74,7 @@ const Header: FC<HeaderProps> = ({ header, subHeader, user, children }) => {
 					px: 3,
 					pt: 2,
 					pb: 1,
-					borderRadius: 8,
+					borderRadius: 2,
 					height: '100%',
 					backgroundColor: alpha(theme.palette.secondary.main, 0.2),
 				}}>

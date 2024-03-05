@@ -121,6 +121,23 @@ const createCustomTheme = (mode: 'light' | 'dark'): ThemeOptions => {
 		},
 	}
 
+	// Define custom scrollbar styles based on the theme mode
+	const scrollbar = {
+		'&::-webkit-scrollbar': {
+			width: 8,
+			height: 8,
+		},
+		'&::-webkit-scrollbar-thumb': {
+			backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)',
+		},
+		'&::-webkit-scrollbar-thumb:hover': {
+			backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.3)',
+		},
+		'&::-webkit-scrollbar-track': {
+			backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
+		},
+	}
+
 	return {
 		palette: {
 			mode,
@@ -130,11 +147,20 @@ const createCustomTheme = (mode: 'light' | 'dark'): ThemeOptions => {
 			},
 			...commonPalette,
 		},
+		shape: {
+			borderRadius: 8,
+		},
 		typography,
 		spacing,
 		breakpoints,
 		transitions,
-		components: {},
+		components: {
+			MuiCssBaseline: {
+				styleOverrides: {
+					...scrollbar,
+				},
+			},
+		},
 	}
 }
 
