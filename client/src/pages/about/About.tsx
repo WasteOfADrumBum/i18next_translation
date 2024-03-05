@@ -1,8 +1,8 @@
 // About.tsx
-import React from 'react'
+import React, { FC } from 'react'
 import { Container, Typography } from '@mui/material'
 
-const About: React.FC = () => {
+const About: FC = () => {
 	return (
 		<Container>
 			<Typography variant='h2' gutterBottom>

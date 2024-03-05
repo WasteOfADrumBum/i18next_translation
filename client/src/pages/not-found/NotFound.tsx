@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Container, Typography } from '@mui/material'
 
-const NotFound: React.FC = () => {
+const NotFound: FC = () => {
 	return (
 		<Container>
 			<Typography variant='h2' gutterBottom>

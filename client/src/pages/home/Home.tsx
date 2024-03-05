@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, FC } from 'react'
 import { Container, Typography, Button, ThemeProvider, Box } from '@mui/material'
 import { lightTheme, darkTheme } from '../../styles/theme'
 import { ThemeContext } from '../../App'
 import { useNavigate } from 'react-router-dom'
 
-const Home: React.FC = () => {
-	const { darkMode } = useContext(ThemeContext)
+const Home: FC = () => {
+	const darkMode = useContext(ThemeContext)
 	const theme = darkMode ? darkTheme : lightTheme
 	const navigate = useNavigate()
 

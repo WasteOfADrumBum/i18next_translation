@@ -1,5 +1,5 @@
-import React, { ReactNode, useState, useEffect } from 'react'
-import { Box, Typography, alpha, useTheme } from '@mui/material'
+import React, { ReactNode, useState, useEffect, FC } from 'react'
+import { Box, Typography, alpha, useTheme, Theme } from '@mui/material'
 
 interface HeaderProps {
 	header: string
@@ -8,7 +8,7 @@ interface HeaderProps {
 	children: ReactNode
 }
 
-const Header: React.FC<HeaderProps> = ({ header, subHeader, user, children }) => {
+const Header: FC<HeaderProps> = ({ header, subHeader, user, children }) => {
 	const theme = useTheme()
 
 	// State to store current date and time
@@ -30,7 +30,6 @@ const Header: React.FC<HeaderProps> = ({ header, subHeader, user, children }) =>
 	}
 
 	const Headers = () => {
-		// TODO: make ternary operators for header error catch
 		return (
 			<>
 				<Typography variant='h4'>{header}</Typography>
@@ -42,7 +41,6 @@ const Header: React.FC<HeaderProps> = ({ header, subHeader, user, children }) =>
 	}
 
 	const UserInfo = () => {
-		// TODO: make ternary operators for user error catch
 		return (
 			<div style={{ display: 'flex', alignItems: 'center' }}>
 				<Typography variant='body1' mr={1}>
@@ -60,7 +58,12 @@ const Header: React.FC<HeaderProps> = ({ header, subHeader, user, children }) =>
 		return <Typography variant='subtitle2'>{currentDateTime}</Typography>
 	}
 
-	const ContentBox = ({ theme, children }: { theme: any; children: ReactNode }) => {
+	interface ContentBoxProps {
+		theme: Theme
+		children: ReactNode
+	}
+
+	const ContentBox: FC<ContentBoxProps> = ({ theme, children }) => {
 		return (
 			<Box
 				px={4}

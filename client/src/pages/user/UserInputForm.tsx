@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Typography } from '@mui/material'
 
-const UserInputForm: React.FC = () => {
+const UserInputForm: FC = () => {
 	return (
 		<div>
 			<Typography variant='h2'>User Input Form</Typography>

@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react'
+import React, { FC, useContext, useEffect } from 'react'
 import { HeaderContext } from '../../App'
 
-const EventDetailsView: React.FC = () => {
+const EventDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
 
 	useEffect(() => {
@@ -9,7 +9,7 @@ const EventDetailsView: React.FC = () => {
 		setHeaderData({
 			header: 'Event Details',
 			subheader: 'Details for your primary event record',
-			extraContent: () => <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>,
+			extraContent: <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>,
 		})
 
 		// Clean up header data when component unmounts

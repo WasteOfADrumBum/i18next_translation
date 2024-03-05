@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, FC } from 'react'
 import { Container } from '@mui/material'
 import translations from '../../i18n/locales'
 import { DynamicDataTable, ActionsMenu } from '../../components'
@@ -8,7 +8,7 @@ import { HeaderContext } from '../../App'
 
 const dashboardTranslations = translations.pages.events
 
-const Dashboard: React.FC = () => {
+const EventListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
 
 	useEffect(() => {
@@ -16,15 +16,15 @@ const Dashboard: React.FC = () => {
 		setHeaderData({
 			header: dashboardTranslations.title,
 			subheader: 'List of your event records',
-			extraContent: () => <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>,
+			extraContent: <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>,
 		})
 
 		// Clean up header data when component unmounts
 		return () => {
 			setHeaderData({
-				header: 'React MUI Template', // Default header
-				subheader: 'A template for building React applications with Material-UI', // Default subheader
-				extraContent: null, // No extra content
+				header: '',
+				subheader: '',
+				extraContent: null,
 			})
 		}
 	}, [setHeaderData])
@@ -47,12 +47,8 @@ const Dashboard: React.FC = () => {
 		{
 			id: 'actions',
 			label: dashboardTranslations.actions,
-			render: (rowData: any) => (
-				<ActionsMenu
-					onView={() => handleView(rowData)}
-					onEdit={() => handleEdit(rowData)}
-					onDelete={() => handleDelete(rowData)}
-				/>
+			render: (id: string) => (
+				<ActionsMenu onView={() => handleView(id)} onEdit={() => handleEdit(id)} onDelete={() => handleDelete(id)} />
 			),
 		},
 	]
@@ -65,20 +61,20 @@ const Dashboard: React.FC = () => {
 	}))
 
 	// Define handleView function
-	const handleView = (rowData: any) => {
-		console.log('View action for row:', rowData)
+	const handleView = (id: string) => {
+		console.log('View action for row:', id)
 		// TODO: Implement view action
 	}
 
 	// Define handleEdit function
-	const handleEdit = (rowData: any) => {
-		console.log('Edit action for row:', rowData)
+	const handleEdit = (id: string) => {
+		console.log('Edit action for row:', id)
 		// TODO: Implement edit action
 	}
 
 	// Define handleDelete function
-	const handleDelete = (rowData: any) => {
-		console.log('Delete action for row:', rowData)
+	const handleDelete = (id: string) => {
+		console.log('Delete action for row:', id)
 		// TODO: Implement delete action
 	}
 
@@ -97,4 +93,4 @@ const Dashboard: React.FC = () => {
 	)
 }
 
-export default Dashboard
+export default EventListView

@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { FC, MouseEvent, useState } from 'react'
 import { IconButton, Menu, MenuItem } from '@mui/material'
 import { MoreVert as MoreVertIcon } from '@mui/icons-material'
 
-const ActionsMenu: React.FC<{ onView: () => void; onEdit: () => void; onDelete: () => void }> = ({
+const ActionsMenu: FC<{ onView: () => void; onEdit: () => void; onDelete: () => void }> = ({
 	onView,
 	onEdit,
 	onDelete,
 }) => {
-	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
 		setAnchorEl(event.currentTarget)
 	}
 

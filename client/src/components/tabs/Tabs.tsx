@@ -1,4 +1,4 @@
-import React, { useEffect, ReactNode, Children, SyntheticEvent, isValidElement, useState } from 'react'
+import React, { useEffect, ReactNode, Children, SyntheticEvent, isValidElement, useState, FC } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { Box, Menu, MenuItem, Tab } from '@mui/material'
 import TabList from '@mui/lab/TabList'
@@ -35,7 +35,7 @@ interface TabsComponentProps {
 	children: ReactNode
 }
 
-const TabsComponent: React.FC<TabsComponentProps> = ({ isAuthenticated, tabs, children }) => {
+const TabsComponent: FC<TabsComponentProps> = ({ isAuthenticated, tabs, children }) => {
 	const location = useLocation()
 	const navigate = useNavigate()
 	const [value, setValue] = useState('/')

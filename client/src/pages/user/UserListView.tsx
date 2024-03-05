@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Typography } from '@mui/material'
 
-const UserListView: React.FC = () => {
+const UserListView: FC = () => {
 	return (
 		<div>
 			<Typography variant='h2'>User List View</Typography>

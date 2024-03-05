@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, FC, MouseEvent } from 'react'
 import {
 	AppBar,
 	Toolbar,
@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import MenuIcon from '@mui/icons-material/Menu'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../../pages'
 import { ThemeSwitcher } from '../../components'
 
@@ -22,9 +22,8 @@ interface NavBarProps {
 	toggleDarkMode: () => void
 }
 
-const NavBar: React.FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) => {
-	const location = useLocation()
-	const { isAuthenticated, logout } = useAuth()
+const NavBar: FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) => {
+	const { isAuthenticated } = useAuth()
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
 	const [loginState, setLoginState] = useState<boolean>(isAuthenticated)
@@ -34,7 +33,7 @@ const NavBar: React.FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode
 		setLoginState(isAuthenticated)
 	}, [isAuthenticated])
 
-	const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+	const handleMenu = (event: MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget)
 	}
 

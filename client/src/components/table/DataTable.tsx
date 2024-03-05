@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC, ReactNode, ChangeEvent } from 'react'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination } from '@mui/material'
 
 /*
@@ -29,7 +29,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 interface Column {
 	id: string
 	label: string
-	render?: (rowData: any) => React.ReactNode
+	render?: (rowData: any) => ReactNode
 }
 
 interface Pagination {
@@ -46,7 +46,7 @@ interface DynamicDataTableProps {
 	onRowsPerPageChange: (newRowsPerPage: number) => void
 }
 
-const DynamicDataTable: React.FC<DynamicDataTableProps> = ({
+const DynamicDataTable: FC<DynamicDataTableProps> = ({
 	data,
 	columns,
 	rowsPerPageOptions,
@@ -59,7 +59,7 @@ const DynamicDataTable: React.FC<DynamicDataTableProps> = ({
 		onPageChange(newPage)
 	}
 
-	const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
 		onRowsPerPageChange(parseInt(event.target.value, 10))
 		onPageChange(0)
 	}

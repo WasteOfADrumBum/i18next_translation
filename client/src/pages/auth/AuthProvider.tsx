@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react'
+import React, { createContext, useContext, useState, ReactNode, FC } from 'react'
 import translations from '../../i18n/locales'
 
 const errorTranslations = translations.errors
@@ -23,7 +23,7 @@ export const useAuth = () => {
 }
 
 // AuthProvider component to provide authentication state and methods
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false)
 
 	const login = () => {

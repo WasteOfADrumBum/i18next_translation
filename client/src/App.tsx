@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react'
+import React, { useState, useEffect, createContext, ReactNode, Dispatch, SetStateAction } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import { AuthProvider } from './pages/auth/AuthProvider'
@@ -21,12 +21,28 @@ import { useDispatch } from 'react-redux'
 import { setUser, clearUser } from './store/actions/userActions'
 
 // Create a Theme Context
-export const ThemeContext = createContext<any>(null)
-export const HeaderContext = createContext<any>(null)
+export const ThemeContext = createContext<boolean>(true)
 
-function PrivateRoute({ element, isAuthenticated }: { element: React.ReactNode; isAuthenticated: boolean }) {
+function PrivateRoute({ element, isAuthenticated }: { element: ReactNode; isAuthenticated: boolean }) {
 	return isAuthenticated ? element : <Navigate to='/login' />
 }
+
+// For HeaderContext
+interface HeaderContextValue {
+	headerData: {
+		header: string
+		subheader: string
+		extraContent: ReactNode | null
+	}
+	setHeaderData: Dispatch<
+		SetStateAction<{
+			header: string
+			subheader: string
+			extraContent: ReactNode | null
+		}>
+	>
+}
+export const HeaderContext = createContext<HeaderContextValue>({} as HeaderContextValue)
 
 function App() {
 	useEffect(() => {
@@ -35,7 +51,7 @@ function App() {
 
 	const [darkMode, setDarkMode] = useState<boolean>(true)
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-	const [headerData, setHeaderData] = useState<any>({
+	const [headerData, setHeaderData] = useState<{ header: string; subheader: string; extraContent: ReactNode | null }>({
 		header: 'React MUI Template',
 		subheader: 'A template for building React applications with Material-UI',
 		extraContent: null,
@@ -77,7 +93,7 @@ function App() {
 		}
 	}, [isAuthenticated])
 
-	const fakeUser = {
+	const fakeUser: { name: string; role: string } = {
 		name: 'John M. Doe',
 		role: 'Admin',
 	}
@@ -95,7 +111,7 @@ function App() {
 	const tabs = [{ label: 'Details', route: '/', element: <EventDetailsView /> }]
 
 	return (
-		<ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
+		<ThemeContext.Provider value={darkMode}>
 			<AuthProvider>
 				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 					<CssBaseline />
@@ -108,7 +124,7 @@ function App() {
 										header={headerData.header}
 										subHeader={headerData.subheader}
 										user={{ name: 'John Doe', role: 'Admin' }}>
-										{headerData.extraContent && <headerData.extraContent />}
+										{headerData.extraContent && <>{headerData.extraContent}</>}
 									</Header>
 								)}
 								<Routes>

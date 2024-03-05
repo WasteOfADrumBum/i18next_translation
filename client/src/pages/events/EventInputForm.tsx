@@ -1,14 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, FC } from 'react'
 import { useDispatch } from 'react-redux'
 import { Container, Typography, TextField, Button, CircularProgress, MenuItem } from '@mui/material'
 import { useForm, Controller, FieldValues } from 'react-hook-form'
 
 interface EventFormProps {
-	initialValues?: any
+	initialValues?: {
+		eventDate: string
+		eventType: string
+		eventSubType: string
+		location: {
+			address: string
+			city: string
+		}
+		reporter: string
+		recordedDate: string
+		lastUpdatedBy: string
+		lastUpdatedDate: string
+		status: string
+	}
 }
 
-const EventInputForm: React.FC<EventFormProps> = ({ initialValues }) => {
-	const dispatch = useDispatch()
+const EventInputForm: FC<EventFormProps> = ({ initialValues }) => {
+	//TODO: const dispatch = useDispatch()
 	const {
 		register,
 		handleSubmit,

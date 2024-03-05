@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Typography, AppBar, Toolbar } from '@mui/material'
 
-const Footer: React.FC = () => {
+const Footer: FC = () => {
 	return (
 		<AppBar position='fixed' color='primary' sx={{ top: 'auto', bottom: 0, width: '100%' }}>
 			<Toolbar style={{ justifyContent: 'center' }}>
