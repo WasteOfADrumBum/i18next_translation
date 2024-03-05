@@ -28,9 +28,6 @@ function PrivateRoute({ element, isAuthenticated }: { element: ReactNode; isAuth
 }
 
 function App() {
-	const { headerData } = useContext(HeaderContext)
-	console.log('Header Data:', headerData)
-
 	useEffect(() => {
 		console.log('%cApp Loaded', 'color: green; font-size: 24px;')
 	}, [])
@@ -100,14 +97,7 @@ function App() {
 						<HeaderContextProvider>
 							<NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />
 							<div style={{ minHeight: '100vh', marginTop: '64px', marginBottom: '64px' }}>
-								{isAuthenticated && (
-									<Header
-										header={headerData.header}
-										subHeader={headerData.subheader}
-										user={{ name: 'John Doe', role: 'Admin' }}>
-										{headerData.extraContent && <>{headerData.extraContent}</>}
-									</Header>
-								)}
+								{isAuthenticated && <Header user={{ name: 'John Doe', role: 'Admin' }}></Header>}
 								<Routes>
 									<Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Home />} />
 									<Route path='/login' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Login />} />

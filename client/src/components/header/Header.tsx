@@ -1,14 +1,14 @@
-import React, { ReactNode, useState, useEffect, FC } from 'react'
+import React, { ReactNode, useState, useEffect, FC, useContext } from 'react'
 import { Box, Typography, alpha, useTheme, Theme, Grid, Divider } from '@mui/material'
+import { HeaderContext } from '../../contexts/HeaderContext'
 
 interface HeaderProps {
-	header: string
-	subHeader: string
 	user: { name: string; role: string }
-	children: ReactNode
 }
 
-const Header: FC<HeaderProps> = ({ header, subHeader, user, children }) => {
+const Header: FC<HeaderProps> = ({ user }) => {
+	const { headerData } = useContext(HeaderContext)
+	console.log('Header Data (Header):', headerData)
 	const theme = useTheme()
 
 	// State to store current date and time
@@ -33,10 +33,10 @@ const Header: FC<HeaderProps> = ({ header, subHeader, user, children }) => {
 		return (
 			<>
 				<Typography variant='h4' color={'primary'}>
-					{header}
+					{headerData.header}
 				</Typography>
 				<Typography variant='subtitle1' color={'secondary'}>
-					{subHeader}
+					{headerData.subheader}
 				</Typography>
 			</>
 		)
@@ -98,7 +98,7 @@ const Header: FC<HeaderProps> = ({ header, subHeader, user, children }) => {
 					</Box>
 				</Grid>
 				<Grid item xs={4}>
-					<ContentBox theme={theme}>{children}</ContentBox>
+					<ContentBox theme={theme}>{headerData.extraContent}</ContentBox>
 				</Grid>
 			</Grid>
 			<Divider sx={{ mt: 2, mb: 1 }} />

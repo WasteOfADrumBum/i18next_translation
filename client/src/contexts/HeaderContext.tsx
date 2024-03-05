@@ -1,4 +1,3 @@
-// HeaderContext.tsx
 import React, { createContext, FC, useState, Dispatch, SetStateAction, ReactNode } from 'react'
 
 interface HeaderData {
@@ -31,7 +30,7 @@ interface HeaderContextProviderProps {
 
 export const HeaderContextProvider: FC<HeaderContextProviderProps> = ({ children }) => {
 	const [headerData, setHeaderData] = useState<HeaderData>(initialHeaderData)
-	console.log('Header Data Provider:', headerData) // Log the headerData here
+	console.log('Header Data Provider:', headerData)
 
 	return <HeaderContext.Provider value={{ headerData, setHeaderData }}>{children}</HeaderContext.Provider>
 }
