@@ -97,7 +97,7 @@ function App() {
 						<HeaderContextProvider>
 							<NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />
 							<div style={{ minHeight: '100vh', marginTop: '64px', marginBottom: '64px' }}>
-								{isAuthenticated && <Header user={{ name: 'John Doe', role: 'Admin' }}></Header>}
+								{isAuthenticated && <Header user={{ name: fakeUser.name, role: fakeUser.role }}></Header>}
 								<Routes>
 									<Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Home />} />
 									<Route path='/login' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Login />} />
