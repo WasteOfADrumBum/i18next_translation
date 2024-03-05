@@ -22,8 +22,8 @@ const EventListView: FC = () => {
 		// Format date/time values in events
 		const formattedEvents = events.map((event: any) => ({
 			...event,
-			eventDate: TimeConversionsHelper.convertTime(event.eventDate, 'MM/DD/YYYY HH:mm', true, 'America/New_York'),
-			recordedDate: TimeConversionsHelper.convertTime(event.recordedDate, 'MM/DD/YYYY HH:mm', true, 'America/New_York'),
+			eventDate: TimeConversionsHelper.convertTime(event.eventDate, 'MM/DD/YYYY', true, 'America/New_York'),
+			recordedDate: TimeConversionsHelper.convertTime(event.recordedDate, 'MM/DD/YYYY', true, 'America/New_York'),
 		}))
 
 		setFormattedEvents(formattedEvents)
