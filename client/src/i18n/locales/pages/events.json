@@ -1,9 +1,9 @@
 {
 	"title": "Events",
 	"id": "ID",
-	"eventDate": "Event Date",
-	"eventType": "Event Type",
-	"eventSubtype": "Event Subtype",
+	"eventDate": "Date",
+	"eventType": "Type",
+	"eventSubtype": "Subtype",
 	"location": "Location",
 	"reporter": "Reporter",
 	"recordedDate": "Recorded Date",
