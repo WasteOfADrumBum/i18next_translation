@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, FC } from 'react'
-import { Container } from '@mui/material'
+import React, { useContext, useEffect, FC, useMemo, useState } from 'react'
+import { Container, Typography } from '@mui/material'
 import translations from '../../i18n/locales'
 import { DynamicDataTable, ActionsMenu } from '../../components'
-import { generateFakeReduxState } from '../../utils/FakeReduxEvent'
+import { generateFakeReduxState } from '../../utils/CasualReduxEvent'
 import TimeConversionsHelper from '../../utils/TimeConversionsHelper'
 import { HeaderContext } from '../../App'
 
@@ -10,13 +10,54 @@ const dashboardTranslations = translations.pages.events
 
 const EventListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
+	const [formattedEvents, setFormattedEvents] = useState<any[]>([])
+
+	useEffect(() => {
+		// Generate fake Redux state
+		const fakeReduxState = generateFakeReduxState()
+
+		// Extract events and columns from fake Redux state
+		const { events } = fakeReduxState
+
+		// Format date/time values in events
+		const formattedEvents = events.map((event: any) => ({
+			...event,
+			eventDate: TimeConversionsHelper.convertTime(event.eventDate, 'MM/DD/YYYY HH:mm', true, 'America/New_York'),
+			recordedDate: TimeConversionsHelper.convertTime(event.recordedDate, 'MM/DD/YYYY HH:mm', true, 'America/New_York'),
+		}))
+
+		setFormattedEvents(formattedEvents)
+	}, [])
+
+	const stats = useMemo(() => {
+		// Calculate statistics
+		const totalRecords = formattedEvents.length
+		const statusStats: Record<string, number> = {}
+		formattedEvents.forEach((event) => {
+			if (statusStats[event.status]) {
+				statusStats[event.status]++
+			} else {
+				statusStats[event.status] = 1
+			}
+		})
+		return { totalRecords, statusStats }
+	}, [formattedEvents])
 
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
 			header: dashboardTranslations.title,
 			subheader: 'List of your event records',
-			extraContent: <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>,
+			extraContent: (
+				<div>
+					<Typography variant='body1'>Total Records: {stats.totalRecords}</Typography>
+					{Object.entries(stats.statusStats).map(([status, count]) => (
+						<Typography key={status} variant='body1'>
+							Status: {status}, Count: {count}
+						</Typography>
+					))}
+				</div>
+			),
 		})
 
 		// Clean up header data when component unmounts
@@ -27,38 +68,7 @@ const EventListView: FC = () => {
 				extraContent: null,
 			})
 		}
-	}, [setHeaderData])
-
-	// Generate fake Redux state
-	const fakeReduxState = generateFakeReduxState()
-
-	// Extract events and columns from fake Redux state
-	const { events } = fakeReduxState
-	const columns = [
-		{ id: 'id', label: dashboardTranslations.id },
-		{ id: 'eventDate', label: dashboardTranslations.eventDate },
-		{ id: 'eventType', label: dashboardTranslations.eventType },
-		{ id: 'eventSubType', label: dashboardTranslations.eventSubtype },
-		{ id: 'location', label: dashboardTranslations.location },
-		{ id: 'reporter', label: dashboardTranslations.reporter },
-		{ id: 'recordedDate', label: dashboardTranslations.recordedDate },
-		{ id: 'lastUpdatedBy', label: dashboardTranslations.lastUpdatedBy },
-		{ id: 'status', label: dashboardTranslations.status },
-		{
-			id: 'actions',
-			label: dashboardTranslations.actions,
-			render: (id: string) => (
-				<ActionsMenu onView={() => handleView(id)} onEdit={() => handleEdit(id)} onDelete={() => handleDelete(id)} />
-			),
-		},
-	]
-
-	// Format date/time values in events
-	const formattedEvents = events.map((event) => ({
-		...event,
-		eventDate: TimeConversionsHelper.convertTime(event.eventDate, 'MM/DD/YYYY HH:mm', true, 'America/New_York'),
-		recordedDate: TimeConversionsHelper.convertTime(event.recordedDate, 'MM/DD/YYYY HH:mm', true, 'America/New_York'),
-	}))
+	}, [setHeaderData, stats])
 
 	// Define handleView function
 	const handleView = (id: string) => {
@@ -77,6 +87,25 @@ const EventListView: FC = () => {
 		console.log('Delete action for row:', id)
 		// TODO: Implement delete action
 	}
+
+	const columns = [
+		{ id: 'id', label: dashboardTranslations.id },
+		{ id: 'eventDate', label: dashboardTranslations.eventDate },
+		{ id: 'eventType', label: dashboardTranslations.eventType },
+		{ id: 'eventSubType', label: dashboardTranslations.eventSubtype },
+		{ id: 'location', label: dashboardTranslations.location },
+		{ id: 'reporter', label: dashboardTranslations.reporter },
+		{ id: 'recordedDate', label: dashboardTranslations.recordedDate },
+		{ id: 'lastUpdatedBy', label: dashboardTranslations.lastUpdatedBy },
+		{ id: 'status', label: dashboardTranslations.status },
+		{
+			id: 'actions',
+			label: dashboardTranslations.actions,
+			render: (id: string) => (
+				<ActionsMenu onView={() => handleView(id)} onEdit={() => handleEdit(id)} onDelete={() => handleDelete(id)} />
+			),
+		},
+	]
 
 	return (
 		<Container maxWidth='xl'>

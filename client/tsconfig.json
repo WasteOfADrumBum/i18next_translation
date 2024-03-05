@@ -25,9 +25,6 @@
       "@types/*": [
         "node_modules/@types/*"
       ],
-      "utils/faker": [
-        "shared/types/utils/faker.d.ts"
-      ]
     }
   }
 }

@@ -1,23 +1,44 @@
 import React, { FC, ReactNode, ChangeEvent } from 'react'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination } from '@mui/material'
 
-interface RowData {
-	[key: string]: any // Define a structure for row data if possible
-}
+/*
+ * Connect your component to Redux using connect or useSelector and useDispatch.
+ * Pass Redux state as props to the DynamicDataTable component.
+ * Define action dispatchers to handle page change and rows per page change.
+ * Dispatch actions when page or rows per page changes.
 
-interface Column<RowDataType> {
+ * Example:
+ * const data = useSelector((state: RootState) => state.data)
+ * const columns = useSelector((state: RootState) => state.columns)
+ * const rowsPerPageOptions = useSelector((state: RootState) => state.rowsPerPageOptions)
+ * const pagination = useSelector((state: RootState) => state.pagination)
+ * const page = useSelector((state: RootState) => state.page)
+ * const dispatch = useDispatch()
+ *
+ * <DynamicDataTable
+ *  data={data}
+ *  columns={columns}
+ *  rowsPerPageOptions={rowsPerPageOptions}
+ *  pagination={pagination}
+ *  page={page}
+ *  onPageChange={handlePageChange}
+ *  onRowsPerPageChange={handleRowsPerPageChange}
+ * />
+ */
+
+interface Column {
 	id: string
 	label: string
-	render?: (rowData: RowDataType) => ReactNode
+	render?: (rowData: any) => ReactNode
 }
 
 interface Pagination {
 	rowsPerPage: number
 }
 
-interface DynamicDataTableProps<RowDataType extends Record<string, any>> {
-	data: RowDataType[]
-	columns: Column<RowDataType>[]
+interface DynamicDataTableProps {
+	data: any[]
+	columns: Column[]
 	rowsPerPageOptions: number[]
 	pagination?: Pagination
 	page: number
@@ -25,7 +46,7 @@ interface DynamicDataTableProps<RowDataType extends Record<string, any>> {
 	onRowsPerPageChange: (newRowsPerPage: number) => void
 }
 
-const DynamicDataTable: FC<DynamicDataTableProps<RowData>> = ({
+const DynamicDataTable: FC<DynamicDataTableProps> = ({
 	data,
 	columns,
 	rowsPerPageOptions,
