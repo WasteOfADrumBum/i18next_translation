@@ -1,5 +1,5 @@
 import React, { ReactNode, useState, useEffect, FC } from 'react'
-import { Box, Typography, alpha, useTheme, Theme } from '@mui/material'
+import { Box, Typography, alpha, useTheme, Theme, Grid, Divider } from '@mui/material'
 
 interface HeaderProps {
 	header: string
@@ -32,7 +32,9 @@ const Header: FC<HeaderProps> = ({ header, subHeader, user, children }) => {
 	const Headers = () => {
 		return (
 			<>
-				<Typography variant='h4'>{header}</Typography>
+				<Typography variant='h4' color={'primary'}>
+					{header}
+				</Typography>
 				<Typography variant='subtitle1' color={'secondary'}>
 					{subHeader}
 				</Typography>
@@ -82,21 +84,24 @@ const Header: FC<HeaderProps> = ({ header, subHeader, user, children }) => {
 	}
 
 	return (
-		<Box display='flex' flexDirection='row' px={4} pb={2} pt={4}>
-			<Box flex='8'>
-				<Box mb={1}>
-					<Headers />
-				</Box>
-				<Box mb={1}>
-					<UserInfo />
-				</Box>
-				<Box mb={1}>
-					<DateTime />
-				</Box>
-			</Box>
-			<Box flex='4'>
-				<ContentBox theme={theme}>{children}</ContentBox>
-			</Box>
+		<Box display='flex' flexDirection='column' px={4} pb={2} pt={4}>
+			<Grid container spacing={2}>
+				<Grid item xs={8}>
+					<Box mb={1}>
+						<Headers />
+					</Box>
+					<Box mb={0}>
+						<UserInfo />
+					</Box>
+					<Box mb={1}>
+						<DateTime />
+					</Box>
+				</Grid>
+				<Grid item xs={4}>
+					<ContentBox theme={theme}>{children}</ContentBox>
+				</Grid>
+			</Grid>
+			<Divider sx={{ mt: 2, mb: 1 }} />
 		</Box>
 	)
 }
