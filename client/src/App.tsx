@@ -1,4 +1,5 @@
-import React, { useState, useEffect, createContext, ReactNode, Dispatch, SetStateAction } from 'react'
+// App.tsx
+import React, { useState, useEffect, ReactNode, useContext } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import { AuthProvider } from './pages/auth/AuthProvider'
@@ -19,43 +20,23 @@ import { NavBar, Header, Footer, TabsComponent } from './components'
 import { CssBaseline } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { setUser, clearUser } from './store/actions/userActions'
-
-// Create a Theme Context
-export const ThemeContext = createContext<boolean>(true)
+import { ThemeContextProvider, HeaderContextProvider } from './contexts'
+import { HeaderContext } from './contexts/HeaderContext'
 
 function PrivateRoute({ element, isAuthenticated }: { element: ReactNode; isAuthenticated: boolean }) {
 	return isAuthenticated ? element : <Navigate to='/login' />
 }
 
-// For HeaderContext
-interface HeaderContextValue {
-	headerData: {
-		header: string
-		subheader: string
-		extraContent: ReactNode | null
-	}
-	setHeaderData: Dispatch<
-		SetStateAction<{
-			header: string
-			subheader: string
-			extraContent: ReactNode | null
-		}>
-	>
-}
-export const HeaderContext = createContext<HeaderContextValue>({} as HeaderContextValue)
-
 function App() {
+	const { headerData } = useContext(HeaderContext)
+	console.log('Header Data:', headerData)
+
 	useEffect(() => {
 		console.log('%cApp Loaded', 'color: green; font-size: 24px;')
 	}, [])
 
 	const [darkMode, setDarkMode] = useState<boolean>(true)
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-	const [headerData, setHeaderData] = useState<{ header: string; subheader: string; extraContent: ReactNode | null }>({
-		header: 'React MUI Template',
-		subheader: 'A template for building React applications with Material-UI',
-		extraContent: null,
-	})
 	const dispatch = useDispatch()
 
 	const toggleDarkMode = () => {
@@ -111,12 +92,12 @@ function App() {
 	const tabs = [{ label: 'Details', route: '/', element: <EventDetailsView /> }]
 
 	return (
-		<ThemeContext.Provider value={darkMode}>
+		<ThemeContextProvider>
 			<AuthProvider>
 				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 					<CssBaseline />
 					<Router>
-						<HeaderContext.Provider value={{ headerData, setHeaderData }}>
+						<HeaderContextProvider>
 							<NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />
 							<div style={{ minHeight: '100vh', marginTop: '64px', marginBottom: '64px' }}>
 								{isAuthenticated && (
@@ -182,11 +163,11 @@ function App() {
 								</Routes>
 							</div>
 							<Footer />
-						</HeaderContext.Provider>
+						</HeaderContextProvider>
 					</Router>
 				</ThemeProvider>
 			</AuthProvider>
-		</ThemeContext.Provider>
+		</ThemeContextProvider>
 	)
 }
 

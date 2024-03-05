@@ -4,7 +4,7 @@ import translations from '../../i18n/locales'
 import { DynamicDataTable, ActionsMenu } from '../../components'
 import { generateFakeReduxState } from '../../utils/CasualReduxEvent'
 import TimeConversionsHelper from '../../utils/TimeConversionsHelper'
-import { HeaderContext } from '../../App'
+import { HeaderContext } from '../../contexts/HeaderContext'
 
 const eventHeaderTranslations = translations.pages.events.header
 const eventTableTranslations = translations.pages.events.table.labels

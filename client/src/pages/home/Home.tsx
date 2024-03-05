@@ -1,7 +1,7 @@
 import React, { useContext, FC } from 'react'
 import { Container, Typography, Button, ThemeProvider, Box } from '@mui/material'
 import { lightTheme, darkTheme } from '../../styles/theme'
-import { ThemeContext } from '../../App'
+import { ThemeContext } from '../../contexts/ThemeContext'
 import { useNavigate } from 'react-router-dom'
 
 const Home: FC = () => {

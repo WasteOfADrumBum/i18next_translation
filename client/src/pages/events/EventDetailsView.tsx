@@ -1,5 +1,5 @@
 import React, { FC, useContext, useEffect } from 'react'
-import { HeaderContext } from '../../App'
+import { HeaderContext } from '../../contexts/HeaderContext'
 
 const EventDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
