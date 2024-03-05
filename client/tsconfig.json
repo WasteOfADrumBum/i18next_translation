@@ -15,12 +15,6 @@
       "dom",
       "es2017"
     ],
-    "types": [
-      "react-hook-form",
-      "node",
-      "react",
-      "faker"
-    ],
     "paths": {
       "*": [
         "src/*"
@@ -30,7 +24,10 @@
       ],
       "@types/*": [
         "node_modules/@types/*"
+      ],
+      "utils/faker": [
+        "shared/types/utils/faker.d.ts"
       ]
-    },
+    }
   }
 }
