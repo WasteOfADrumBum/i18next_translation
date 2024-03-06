@@ -5,11 +5,29 @@ import { DynamicDataTable, ActionsMenu } from '../../components'
 import { generateFakeReduxState } from '../../utils/CasualReduxEvent'
 import TimeConversionsHelper from '../../utils/TimeConversionsHelper'
 import { HeaderContext } from '../../contexts/HeaderContext'
+import { useNavigate } from 'react-router-dom'
+
+interface Event {
+	id: string
+	eventDate: string
+	eventType: string
+	eventSubType: string
+	location: {
+		address: string
+		city: string
+	}
+	reporter: string
+	recordedDate: string
+	lastUpdatedBy: string
+	lastUpdatedDate: string
+	status: string
+}
 
 const eventHeaderTranslations = translations.pages.events.header
 const eventTableTranslations = translations.pages.events.table.labels
 
 const EventListView: FC = () => {
+	const navigate = useNavigate()
 	const { setHeaderData } = useContext(HeaderContext)
 	const [formattedEvents, setFormattedEvents] = useState<any[]>([])
 
@@ -96,14 +114,12 @@ const EventListView: FC = () => {
 
 	// Define handleView function
 	const handleView = (id: string) => {
-		console.log('View action for row:', id)
-		// TODO: Implement view action
+		navigate(`/dashboard/event/${id}/details`)
 	}
 
 	// Define handleEdit function
 	const handleEdit = (id: string) => {
-		console.log('Edit action for row:', id)
-		// TODO: Implement edit action
+		navigate(`/event/${id}/edit`)
 	}
 
 	// Define handleDelete function
@@ -125,8 +141,12 @@ const EventListView: FC = () => {
 		{
 			id: 'actions',
 			label: eventTableTranslations.actions,
-			render: (id: string) => (
-				<ActionsMenu onView={() => handleView(id)} onEdit={() => handleEdit(id)} onDelete={() => handleDelete(id)} />
+			render: (data: Event) => (
+				<ActionsMenu
+					onView={() => handleView(data.id)}
+					onEdit={() => handleEdit(data.id)}
+					onDelete={() => handleDelete(data.id)}
+				/>
 			),
 		},
 	]

@@ -21,7 +21,6 @@ import { CssBaseline } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { setUser, clearUser } from './store/actions/userActions'
 import { ThemeContextProvider, HeaderContextProvider } from './contexts'
-import { HeaderContext } from './contexts/HeaderContext'
 
 function PrivateRoute({ element, isAuthenticated }: { element: ReactNode; isAuthenticated: boolean }) {
 	return isAuthenticated ? element : <Navigate to='/login' />
@@ -108,7 +107,7 @@ function App() {
 										element={<PrivateRoute element={<EventListView />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
-										path='/dashboard/event/${eventId}/*'
+										path={`/dashboard/event/:eventId/*`}
 										element={
 											<PrivateRoute
 												isAuthenticated={isAuthenticated}
