@@ -1,5 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import EventsRoutes from './routes/EventsRoutes'
 
 const app = express()
 
@@ -17,7 +18,7 @@ mongoose
 	})
 
 // Define routes and middleware
-// Add your routes and middleware here...
+app.use('/api/events', EventsRoutes) // Mount the EventsRoutes at /api/events
 
 // Start the server
 const PORT = process.env.PORT || 3000

@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose'
 
-export interface Event extends Document {
+export interface EventsModel extends Document {
 	eventType: string
 	eventSubType: string
 	reporter: string
@@ -11,7 +11,7 @@ export interface Event extends Document {
 	location: string
 }
 
-const eventSchema: Schema = new Schema({
+const eventsModelSchema: Schema = new Schema({
 	eventType: { type: String, required: true },
 	eventSubType: { type: String, required: true },
 	reporter: { type: String, required: true },
@@ -22,6 +22,6 @@ const eventSchema: Schema = new Schema({
 	location: { type: String, required: true },
 })
 
-const Event = mongoose.model<Event>('Event', eventSchema)
+const EventsModel = mongoose.model<EventsModel>('EventsModel', eventsModelSchema)
 
-export default Event
+export default EventsModel
