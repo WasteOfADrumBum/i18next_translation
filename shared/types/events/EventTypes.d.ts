@@ -1,11 +1,33 @@
 export type Event = {
-	id: number
-	eventType: string
-	eventSubType: string
-	reporter: string
-	lastUpdatedBy: string
-	status: string
-	eventDate: string
-	recordedDate: string
-	location: string
+	id: string
+	reported: {
+		reporter: string
+		reportedDate: string
+	}
+	updated: {
+		updatedBy: string
+		updatedDate: string
+	}
+	submitted: {
+		submittedBy: string
+		submittedDate: string
+	}
+	type: {
+		eventType: string
+		eventSubType: string
+	}
+	details: {
+		title: string
+		description: string
+		tagging: string[]
+		methodOfReceipt: string
+	}
+	location: {
+		address: string
+		city: string
+		zip: string
+		country: string
+		county: string
+		state: string
+	}
 }

@@ -54,7 +54,7 @@ interface UpdateEventFailure {
 
 interface DeleteEventSuccess {
 	type: typeof DELETE_EVENT_SUCCESS
-	payload: number
+	payload: string
 }
 
 interface DeleteEventFailure {
@@ -91,7 +91,7 @@ export const addEvent =
 	}
 
 export const updateEvent =
-	(id: number, updatedEvent: Event): ThunkAction<void, RootState, unknown, EventAction> =>
+	(id: string, updatedEvent: Event): ThunkAction<void, RootState, unknown, EventAction> =>
 	async (dispatch) => {
 		try {
 			const res = await axios.put(`/api/events/${id}`, updatedEvent)
@@ -105,7 +105,7 @@ export const updateEvent =
 	}
 
 export const deleteEvent =
-	(id: number): ThunkAction<void, RootState, unknown, EventAction> =>
+	(id: string): ThunkAction<void, RootState, unknown, EventAction> =>
 	async (dispatch) => {
 		try {
 			await axios.delete(`/api/events/${id}`)

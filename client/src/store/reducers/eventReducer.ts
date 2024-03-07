@@ -56,7 +56,7 @@ const eventReducers = (state = initialState, action: EventAction): EventState =>
 		case 'DELETE_EVENT_SUCCESS':
 			return {
 				...state,
-				events: state.events.filter((event) => event.id !== action.payload),
+				events: state.events.filter((event) => String(event.id) !== action.payload),
 			}
 		case 'DELETE_EVENTS_FAILURE':
 			return {

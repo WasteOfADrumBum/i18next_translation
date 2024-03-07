@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Event from '../models/EventsModel'
+import Event, { EventsModel } from '../models/EventsModel'
 
 // Get all events
 export const getAllEvents = async (req: Request, res: Response) => {
@@ -26,17 +26,22 @@ export const getEventById = async (req: Request, res: Response) => {
 
 // Create an event
 export const createEvent = async (req: Request, res: Response) => {
-	const { eventType, eventSubType, reporter, lastUpdatedBy, status, eventDate, recordedDate, location } = req.body
+	const {
+		reported: { reporter, reportedDate },
+		updated: { updatedBy, updatedDate },
+		submitted: { submittedBy, submittedDate },
+		type: { eventType, eventSubType },
+		details: { title, description, tagging, methodOfReceipt },
+		location: { address, city, zip, country, county, state },
+	} = req.body
 	try {
 		const newEvent = new Event({
-			eventType,
-			eventSubType,
-			reporter,
-			lastUpdatedBy,
-			status,
-			eventDate,
-			recordedDate,
-			location,
+			reported: { reporter, reportedDate },
+			updated: { updatedBy, updatedDate },
+			submitted: { submittedBy, submittedDate },
+			type: { eventType, eventSubType },
+			details: { title, description, tagging, methodOfReceipt },
+			location: { address, city, zip, country, county, state },
 		})
 		const event = await newEvent.save()
 		res.status(201).json(event)
@@ -48,7 +53,7 @@ export const createEvent = async (req: Request, res: Response) => {
 // Update an event
 export const updateEvent = async (req: Request, res: Response) => {
 	try {
-		const event = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true })
+		const event: EventsModel | null = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true })
 		if (!event) {
 			return res.status(404).json({ message: 'Event not found' })
 		}

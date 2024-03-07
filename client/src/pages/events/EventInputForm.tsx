@@ -1,7 +1,7 @@
 import React, { useState, FC } from 'react'
 import { useDispatch } from 'react-redux'
-import { Container, Typography, TextField, Button, CircularProgress, MenuItem } from '@mui/material'
-import { useForm, FieldValues, Controller, SubmitHandler } from 'react-hook-form'
+import { Container, Typography, TextField, Button, CircularProgress } from '@mui/material'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { addEvent, updateEvent } from '../../store/actions/eventActions'
 import { Event } from '../../../../shared/types/events/EventTypes'
 import { RootState, AppDispatch } from 'store'
@@ -14,7 +14,6 @@ const EventInputForm: FC<EventFormProps> = ({ initialValues }) => {
 	const dispatch = useDispatch<AppDispatch>()
 
 	const {
-		register,
 		handleSubmit,
 		control,
 		formState: { errors },
@@ -47,7 +46,41 @@ const EventInputForm: FC<EventFormProps> = ({ initialValues }) => {
 			{error && <Typography color='error'>{error}</Typography>}
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Typography variant='h4'>{initialValues ? 'Update Event' : 'Add Event'}</Typography>
-				{/* Form Inputs Here */}
+				<Controller
+					name='reported.reporter'
+					control={control}
+					defaultValue={initialValues ? initialValues.reported.reporter : ''}
+					render={({ field }) => (
+						<TextField
+							{...field}
+							label='Reporter'
+							variant='outlined'
+							fullWidth
+							error={!!errors.reported?.reporter}
+							helperText={errors.reported?.reporter ? 'Reporter is required' : ''}
+						/>
+					)}
+				/>
+				<Controller
+					name='reported.reportedDate'
+					control={control}
+					defaultValue={initialValues ? initialValues.reported.reportedDate : ''}
+					render={({ field }) => (
+						<TextField
+							{...field}
+							label='Reported Date'
+							type='datetime-local'
+							variant='outlined'
+							fullWidth
+							error={!!errors.reported?.reportedDate}
+							helperText={errors.reported?.reportedDate ? 'Reported Date is required' : ''}
+							InputLabelProps={{
+								shrink: true,
+							}}
+						/>
+					)}
+				/>
+				{/* Repeat this Controller block for other fields */}
 				<Button type='submit' variant='contained' color='primary'>
 					{initialValues ? 'Save Changes' : 'Add Event'}
 				</Button>
