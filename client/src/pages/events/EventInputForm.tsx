@@ -1,46 +1,37 @@
 import React, { useState, FC } from 'react'
-// TODO: import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Container, Typography, TextField, Button, CircularProgress, MenuItem } from '@mui/material'
-import { useForm, Controller, FieldValues } from 'react-hook-form'
+import { useForm, FieldValues, Controller } from 'react-hook-form'
+import { addEvent, updateEvent } from '../../store/actions/eventActions'
+import { Event } from '../../../../shared/types/events/EventTypes'
 
 interface EventFormProps {
-	initialValues?: {
-		eventDate: string
-		eventType: string
-		eventSubType: string
-		location: {
-			address: string
-			city: string
-		}
-		reporter: string
-		recordedDate: string
-		lastUpdatedBy: string
-		lastUpdatedDate: string
-		status: string
-	}
+	initialValues?: Event
 }
 
 const EventInputForm: FC<EventFormProps> = ({ initialValues }) => {
-	//TODO: const dispatch = useDispatch()
+	const dispatch = useDispatch()
+
 	const {
 		register,
 		handleSubmit,
 		control,
 		formState: { errors },
 	} = useForm<FieldValues>()
+
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 
-	const onSubmit = async (data: any) => {
+	const onSubmit = async (data: Event) => {
 		setLoading(true)
 		setError(null)
 		try {
 			if (initialValues) {
-				console.log('Edit Event:', data)
-				// TODO: await dispatch(editEvent({ id: initialValues.id, data }))
+				console.log('Update Event:', data)
+				await dispatch(updateEvent(initialValues.id, data))
 			} else {
 				console.log('Add Event:', data)
-				// TODO: await dispatch(addEvent(data))
+				await dispatch(addEvent(data) as unknown as UnknownAction)
 			}
 		} catch (error: any) {
 			setError(error.message)
@@ -54,7 +45,7 @@ const EventInputForm: FC<EventFormProps> = ({ initialValues }) => {
 			{loading && <CircularProgress />}
 			{error && <Typography color='error'>{error}</Typography>}
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<Typography variant='h4'>{initialValues ? 'Edit Event' : 'Add Event'}</Typography>
+				<Typography variant='h4'>{initialValues ? 'Update Event' : 'Add Event'}</Typography>
 				<TextField
 					{...register('eventDate', { required: true })}
 					id='eventDate'

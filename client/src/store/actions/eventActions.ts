@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { Dispatch } from 'redux'
 import { Event } from '../../../../shared/types/events/EventTypes'
 import translations from '../../i18n/locales'
+import { RootState } from 'store'
+import { ThunkAction } from 'redux-thunk'
 
 const errorTranslations = translations.errors
 
@@ -9,9 +10,12 @@ const errorTranslations = translations.errors
 export const FETCH_EVENTS_REQUEST = 'FETCH_EVENTS_REQUEST'
 export const FETCH_EVENTS_SUCCESS = 'FETCH_EVENTS_SUCCESS'
 export const FETCH_EVENTS_FAILURE = 'FETCH_EVENTS_FAILURE'
-export const ADD_EVENT = 'ADD_EVENT'
-export const UPDATE_EVENT = 'UPDATE_EVENT'
-export const DELETE_EVENT = 'DELETE_EVENT'
+export const ADD_EVENT_SUCCESS = 'ADD_EVENT_SUCCESS'
+export const ADD_EVENTS_FAILURE = 'ADD_EVENTS_FAILURE'
+export const UPDATE_EVENT_SUCCESS = 'UPDATE_EVENT_SUCCESS'
+export const UPDATE_EVENT_FAILURE = 'UPDATE_EVENT_FAILURE'
+export const DELETE_EVENT_SUCCESS = 'DELETE_EVENT_SUCCESS'
+export const DELETE_EVENTS_FAILURE = 'DELETE_EVENTS_FAILURE'
 
 // Define action types
 interface FetchEventsRequest {
@@ -20,94 +24,108 @@ interface FetchEventsRequest {
 
 interface FetchEventsSuccess {
 	type: typeof FETCH_EVENTS_SUCCESS
-	payload: Event[] // Assuming payload is an array of events
+	payload: Event[]
 }
 
 interface FetchEventsFailure {
 	type: typeof FETCH_EVENTS_FAILURE
-	payload: string // Assuming payload is an error message
+	payload: string
 }
 
-interface AddEvent {
-	type: typeof ADD_EVENT
-	payload: Event // Assuming payload is a single event
+interface AddEventSuccess {
+	type: typeof ADD_EVENT_SUCCESS
+	payload: Event
 }
 
-interface UpdateEvent {
-	type: typeof UPDATE_EVENT
-	payload: Event // Assuming payload is a single event
+interface AddEventFailure {
+	type: typeof ADD_EVENTS_FAILURE
+	payload: string
 }
 
-interface DeleteEvent {
-	type: typeof DELETE_EVENT
-	payload: number // Assuming payload is the ID of the event to delete
+interface UpdateEventSuccess {
+	type: typeof UPDATE_EVENT_SUCCESS
+	payload: Event
 }
 
-// Fetch all events
-export const fetchEvents = () => {
-	return async (dispatch: Dispatch) => {
-		try {
-			dispatch({ type: FETCH_EVENTS_REQUEST })
-			const res = await axios.get('/api/events')
-			dispatch({ type: FETCH_EVENTS_SUCCESS, payload: res.data })
-		} catch (err: any) {
-			dispatch({
-				type: FETCH_EVENTS_FAILURE,
-				payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
-			})
-		}
+interface UpdateEventFailure {
+	type: typeof UPDATE_EVENT_FAILURE
+	payload: string
+}
+
+interface DeleteEventSuccess {
+	type: typeof DELETE_EVENT_SUCCESS
+	payload: number
+}
+
+interface DeleteEventFailure {
+	type: typeof DELETE_EVENTS_FAILURE
+	payload: string
+}
+
+// Define action creator functions
+export const fetchEvents = (): ThunkAction<void, RootState, unknown, EventAction> => async (dispatch) => {
+	try {
+		dispatch({ type: FETCH_EVENTS_REQUEST })
+		const res = await axios.get('/api/events')
+		dispatch({ type: FETCH_EVENTS_SUCCESS, payload: res.data })
+	} catch (err: any) {
+		dispatch({
+			type: FETCH_EVENTS_FAILURE,
+			payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
+		})
 	}
 }
 
-// Add a new event
-export const addEvent = (event: Event) => {
-	return async (dispatch: Dispatch) => {
+export const addEvent =
+	(event: Event): ThunkAction<void, RootState, unknown, EventAction> =>
+	async (dispatch) => {
 		try {
 			const res = await axios.post('/api/events', event)
-			dispatch({ type: ADD_EVENT, payload: res.data })
+			dispatch({ type: ADD_EVENT_SUCCESS, payload: res.data })
 		} catch (err: any) {
 			dispatch({
-				type: FETCH_EVENTS_FAILURE,
+				type: ADD_EVENTS_FAILURE,
 				payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
 			})
 		}
 	}
-}
 
-// Update an event
-export const updateEvent = (id: number, updatedEvent: Event) => {
-	return async (dispatch: Dispatch) => {
+export const updateEvent =
+	(id: number, updatedEvent: Event): ThunkAction<void, RootState, unknown, EventAction> =>
+	async (dispatch) => {
 		try {
 			const res = await axios.put(`/api/events/${id}`, updatedEvent)
-			dispatch({ type: UPDATE_EVENT, payload: res.data })
+			dispatch({ type: UPDATE_EVENT_SUCCESS, payload: res.data })
 		} catch (err: any) {
 			dispatch({
-				type: FETCH_EVENTS_FAILURE,
+				type: UPDATE_EVENT_FAILURE,
 				payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
 			})
 		}
 	}
-}
 
-// Delete an event
-export const deleteEvent = (id: number) => {
-	return async (dispatch: Dispatch) => {
+export const deleteEvent =
+	(id: number): ThunkAction<void, RootState, unknown, EventAction> =>
+	async (dispatch) => {
 		try {
 			await axios.delete(`/api/events/${id}`)
-			dispatch({ type: DELETE_EVENT, payload: id })
+			dispatch({ type: DELETE_EVENT_SUCCESS, payload: id })
 		} catch (err: any) {
 			dispatch({
-				type: FETCH_EVENTS_FAILURE,
+				type: DELETE_EVENTS_FAILURE,
 				payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
 			})
 		}
 	}
-}
 
-export type EventActionTypes =
+// Define the union type for all action types
+export type EventAction =
 	| FetchEventsRequest
 	| FetchEventsSuccess
 	| FetchEventsFailure
-	| AddEvent
-	| UpdateEvent
-	| DeleteEvent
+	| AddEventSuccess
+	| AddEventFailure
+	| UpdateEventSuccess
+	| UpdateEventFailure
+	| DeleteEventSuccess
+	| DeleteEventFailure
