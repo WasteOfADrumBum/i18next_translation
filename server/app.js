@@ -1,8 +1,12 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import cors from 'cors'
 import EventsRoutes from './routes/EventsRoutes'
 
 const app = express()
+
+// Enable CORS
+app.use(cors())
 
 // MongoDB connection URL
 const mongoUrl = 'mongodb://admin:password@localhost:27017/mydatabase?retryWrites=true&w=majority'

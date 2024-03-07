@@ -20,11 +20,14 @@ router.get('/:id', getEvent, (req: Request, res: Response) => {
 
 // CREATE a new event
 router.post('/', async (req: Request, res: Response) => {
+	console.log('Received POST request:', req.body) // Log the request body
 	const eventData = req.body
 	try {
 		const newEvent = await EventsModel.create(eventData)
+		console.log('New event created:', newEvent) // Log the newly created event
 		res.status(201).json(newEvent)
 	} catch (err: any) {
+		console.error('Error creating event:', err)
 		res.status(400).json({ message: err.message })
 	}
 })

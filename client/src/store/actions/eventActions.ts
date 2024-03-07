@@ -79,10 +79,13 @@ export const fetchEvents = (): ThunkAction<void, RootState, unknown, EventAction
 export const addEvent =
 	(event: Event): ThunkAction<void, RootState, unknown, EventAction> =>
 	async (dispatch) => {
+		console.log('Attempting to add event:', event) // Check if the function is called and log the event
 		try {
 			const res = await axios.post('/api/events', event)
+			console.log('Response from POST request:', res) // Log the response from the server
 			dispatch({ type: ADD_EVENT_SUCCESS, payload: res.data })
 		} catch (err: any) {
+			console.error('Error adding event:', err)
 			dispatch({
 				type: ADD_EVENTS_FAILURE,
 				payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,

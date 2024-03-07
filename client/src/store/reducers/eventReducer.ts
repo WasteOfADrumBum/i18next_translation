@@ -14,6 +14,7 @@ const initialState: EventState = {
 }
 
 const eventReducers = (state = initialState, action: EventAction): EventState => {
+	console.log('eventReducer:', action)
 	switch (action.type) {
 		case 'FETCH_EVENTS_REQUEST':
 			return {
