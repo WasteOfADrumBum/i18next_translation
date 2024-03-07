@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, FC, useMemo, useState } from 'react'
-import { Container, Grid, Typography } from '@mui/material'
+import { Button, Container, Grid, Typography } from '@mui/material'
 import translations from '../../i18n/locales'
 import { DynamicDataTable, ActionsMenu } from '../../components'
 import { generateFakeReduxState } from '../../utils/CasualReduxEvent'
 import TimeConversionsHelper from '../../utils/TimeConversionsHelper'
 import { HeaderContext } from '../../contexts/HeaderContext'
 import { useNavigate } from 'react-router-dom'
+import { AddCircleOutline } from '@mui/icons-material'
 
 interface Event {
 	id: string
@@ -153,6 +154,11 @@ const EventListView: FC = () => {
 
 	return (
 		<Container maxWidth='xl'>
+			<Grid container justifyContent='flex-end'>
+				<Button onClick={() => navigate('/event/create')} sx={{ margin: 1 }}>
+					<AddCircleOutline sx={{ marginRight: 1 }} /> Add Event
+				</Button>
+			</Grid>
 			<DynamicDataTable
 				data={formattedEvents}
 				columns={columns}

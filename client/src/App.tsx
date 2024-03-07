@@ -120,7 +120,7 @@ function App() {
 										}
 									/>
 									<Route
-										path='/event/new'
+										path='/event/create'
 										element={<PrivateRoute element={<EventInputForm />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
@@ -136,7 +136,7 @@ function App() {
 										element={<PrivateRoute element={<UserListView />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
-										path='/users/new'
+										path='/users/create'
 										element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
