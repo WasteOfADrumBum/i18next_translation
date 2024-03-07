@@ -1,8 +1,7 @@
-import express from 'express'
-import mongoose from 'mongoose'
-import cors from 'cors'
-import EventsRoutes from './routes/EventsRoutes'
-
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const EventsRoutes = require('./routes/EventsRoutes.js')
 const app = express()
 
 // Enable CORS

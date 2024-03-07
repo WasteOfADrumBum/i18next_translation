@@ -1,39 +1,8 @@
-import mongoose, { Schema, Document } from 'mongoose'
+const mongoose = require('mongoose')
 
-export interface EventsModel extends Document {
-	reported: {
-		reporter: string
-		reportedDate: Date
-	}
-	updated: {
-		updatedBy: string
-		updatedDate: Date
-	}
-	submitted: {
-		submittedBy: string
-		submittedDate: Date
-	}
-	type: {
-		eventType: string
-		eventSubType: string
-	}
-	details: {
-		title: string
-		description: string
-		tagging: string[]
-		methodOfReceipt: string
-	}
-	location: {
-		address: string
-		city: string
-		zip: string
-		country: string
-		county: string
-		state: string
-	}
-}
+const { Schema } = mongoose
 
-const eventsModelSchema: Schema = new Schema({
+const eventsModelSchema = new Schema({
 	reported: {
 		reporter: { type: String, required: true },
 		reportedDate: { type: Date, default: Date.now },
@@ -66,6 +35,6 @@ const eventsModelSchema: Schema = new Schema({
 	},
 })
 
-const EventsModel = mongoose.model<EventsModel>('EventsModel', eventsModelSchema)
+const EventsModel = mongoose.model('EventsModel', eventsModelSchema)
 
-export default EventsModel
+module.exports = EventsModel

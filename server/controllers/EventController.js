@@ -1,8 +1,7 @@
-import { Request, Response } from 'express'
-import Event, { EventsModel } from '../models/EventsModel'
+const Event = require('../models/EventsModel')
 
 // Get all events
-export const getAllEvents = async (req: Request, res: Response) => {
+exports.getAllEvents = async (req, res) => {
 	try {
 		const events = await Event.find()
 		res.json(events)
@@ -12,7 +11,7 @@ export const getAllEvents = async (req: Request, res: Response) => {
 }
 
 // Get event by ID
-export const getEventById = async (req: Request, res: Response) => {
+exports.getEventById = async (req, res) => {
 	try {
 		const event = await Event.findById(req.params.id)
 		if (!event) {
@@ -25,7 +24,7 @@ export const getEventById = async (req: Request, res: Response) => {
 }
 
 // Create an event
-export const createEvent = async (req: Request, res: Response) => {
+exports.createEvent = async (req, res) => {
 	const {
 		reported: { reporter, reportedDate },
 		updated: { updatedBy, updatedDate },
@@ -51,9 +50,9 @@ export const createEvent = async (req: Request, res: Response) => {
 }
 
 // Update an event
-export const updateEvent = async (req: Request, res: Response) => {
+exports.updateEvent = async (req, res) => {
 	try {
-		const event: EventsModel | null = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true })
+		const event = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true })
 		if (!event) {
 			return res.status(404).json({ message: 'Event not found' })
 		}
@@ -64,7 +63,7 @@ export const updateEvent = async (req: Request, res: Response) => {
 }
 
 // Delete an event
-export const deleteEvent = async (req: Request, res: Response) => {
+exports.deleteEvent = async (req, res) => {
 	try {
 		const event = await Event.findByIdAndDelete(req.params.id)
 		if (!event) {

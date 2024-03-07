@@ -1,7 +1,6 @@
 {
 	"name": "server",
 	"version": "1.0.0",
-	"type": "module",
 	"description": "Backend server for my MERN app",
 	"main": "app.js",
 	"scripts": {
