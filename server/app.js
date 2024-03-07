@@ -8,7 +8,7 @@ const app = express()
 app.use(cors())
 
 // MongoDB connection URL
-const mongoUrl = 'mongodb://admin:password@localhost:27017/mydatabase?retryWrites=true&w=majority'
+const mongoUrl = 'mongodb://admin:password@localhost:27017/eventsDB?retryWrites=true&w=majority'
 
 // Connect to MongoDB
 mongoose
@@ -24,7 +24,7 @@ mongoose
 app.use('/api/events', EventsRoutes) // Mount the EventsRoutes at /api/events
 
 // Start the server
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`)
 })
