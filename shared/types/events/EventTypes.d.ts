@@ -1,5 +1,5 @@
 export type Event = {
-	id: string
+	id: string | null
 	reported: {
 		reporter: string
 		reportedDate: string
@@ -25,7 +25,7 @@ export type Event = {
 	location: {
 		address: string
 		city: string
-		zip: string
+		zip: number
 		country: string
 		county: string
 		state: string
