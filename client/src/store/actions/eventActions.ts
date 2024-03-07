@@ -1,6 +1,9 @@
 import axios from 'axios'
 import { Dispatch } from 'redux'
 import { Event } from '../../../../shared/types/events/EventTypes'
+import translations from '../../i18n/locales'
+
+const errorTranslations = translations.errors
 
 // Action Types
 export const FETCH_EVENTS_REQUEST = 'FETCH_EVENTS_REQUEST'
@@ -48,7 +51,10 @@ export const fetchEvents = () => {
 			const res = await axios.get('/api/events')
 			dispatch({ type: FETCH_EVENTS_SUCCESS, payload: res.data })
 		} catch (err: any) {
-			dispatch({ type: FETCH_EVENTS_FAILURE, payload: err.response?.data?.message || 'Unknown error occurred' })
+			dispatch({
+				type: FETCH_EVENTS_FAILURE,
+				payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
+			})
 		}
 	}
 }
@@ -60,7 +66,10 @@ export const addEvent = (event: Event) => {
 			const res = await axios.post('/api/events', event)
 			dispatch({ type: ADD_EVENT, payload: res.data })
 		} catch (err: any) {
-			dispatch({ type: FETCH_EVENTS_FAILURE, payload: err.response?.data?.message || 'Unknown error occurred' })
+			dispatch({
+				type: FETCH_EVENTS_FAILURE,
+				payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
+			})
 		}
 	}
 }
@@ -72,7 +81,10 @@ export const updateEvent = (id: number, updatedEvent: Event) => {
 			const res = await axios.put(`/api/events/${id}`, updatedEvent)
 			dispatch({ type: UPDATE_EVENT, payload: res.data })
 		} catch (err: any) {
-			dispatch({ type: FETCH_EVENTS_FAILURE, payload: err.response?.data?.message || 'Unknown error occurred' })
+			dispatch({
+				type: FETCH_EVENTS_FAILURE,
+				payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
+			})
 		}
 	}
 }
@@ -84,7 +96,10 @@ export const deleteEvent = (id: number) => {
 			await axios.delete(`/api/events/${id}`)
 			dispatch({ type: DELETE_EVENT, payload: id })
 		} catch (err: any) {
-			dispatch({ type: FETCH_EVENTS_FAILURE, payload: err.response?.data?.message || 'Unknown error occurred' })
+			dispatch({
+				type: FETCH_EVENTS_FAILURE,
+				payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
+			})
 		}
 	}
 }
