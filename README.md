@@ -13,6 +13,7 @@ git clone <repository-url>
 Install dependencies for root, server and client:
 
 ```bash
+docker-compose up -d
 npm install
 cd server && npm install
 cd ../client && npm install
