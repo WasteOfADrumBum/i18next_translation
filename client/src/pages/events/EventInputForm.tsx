@@ -1,28 +1,29 @@
 import React, { useState, FC } from 'react'
 import { useDispatch } from 'react-redux'
 import { Container, Typography, TextField, Button, CircularProgress, MenuItem } from '@mui/material'
-import { useForm, FieldValues, Controller } from 'react-hook-form'
+import { useForm, FieldValues, Controller, SubmitHandler } from 'react-hook-form'
 import { addEvent, updateEvent } from '../../store/actions/eventActions'
 import { Event } from '../../../../shared/types/events/EventTypes'
+import { RootState, AppDispatch } from 'store'
 
 interface EventFormProps {
 	initialValues?: Event
 }
 
 const EventInputForm: FC<EventFormProps> = ({ initialValues }) => {
-	const dispatch = useDispatch()
+	const dispatch = useDispatch<AppDispatch>()
 
 	const {
 		register,
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<FieldValues>()
+	} = useForm<Event>()
 
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 
-	const onSubmit = async (data: Event) => {
+	const onSubmit: SubmitHandler<Event> = async (data) => {
 		setLoading(true)
 		setError(null)
 		try {
@@ -31,7 +32,7 @@ const EventInputForm: FC<EventFormProps> = ({ initialValues }) => {
 				await dispatch(updateEvent(initialValues.id, data))
 			} else {
 				console.log('Add Event:', data)
-				await dispatch(addEvent(data) as unknown as UnknownAction)
+				await dispatch(addEvent(data))
 			}
 		} catch (error: any) {
 			setError(error.message)
