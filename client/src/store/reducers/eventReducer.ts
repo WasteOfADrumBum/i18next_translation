@@ -1,5 +1,5 @@
 import { EventAction } from '../actions/eventActions'
-import { Event } from '../../../../shared/types/events/EventTypes'
+import { Event } from '../../../types/events/EventTypes'
 
 interface EventState {
 	events: Event[]

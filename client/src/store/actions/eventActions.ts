@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Event } from '../../../../shared/types/events/EventTypes'
+import { Event } from '../../../types/events/EventTypes'
 import translations from '../../i18n/locales'
 import { RootState } from 'store'
 import { ThunkAction } from 'redux-thunk'
