@@ -1,12 +1,78 @@
-version: '3'
+version: '3.8'
+
 services:
   mongodb:
-    image: mongo
-    ports:
-      - '27017:27017'
-    volumes:
-      - ./data:/data/db
+    image: mongo:5.0.2
+    restart: unless-stopped
+    env_file: ./.env
     environment:
-      - MONGO_INITDB_DATABASE=eventsDB
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
+    ports:
+      - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
+    volumes:
+      - db:/data/db
+    networks:
+      - backend
+
+  server:
+    depends_on:
+      - mongodb
+    build: ./server
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    environment:
+      - DB_HOST=mongodb
+      - DB_USER=$MONGODB_USER
+      - DB_PASSWORD=$MONGODB_PASSWORD
+      - DB_NAME=$MONGODB_DATABASE
+      - DB_PORT=$MONGODB_DOCKER_PORT
+      - CLIENT_ORIGIN=$CLIENT_ORIGIN
+    networks:
+      - backend
+      - frontend
+
+  client:
+    depends_on:
+      - server
+    build:
+      context: ./client
+      args:
+        - REACT_APP_API_BASE_URL=$CLIENT_API_BASE_URL
+    ports:
+      - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
+    networks:
+      - frontend
+
+volumes:
+  db:
+
+networks:
+  backend:
+  frontend:
+# version: Docker Compose file format version will be used.
+# services: individual services in isolated containers. Our application has three services: client (React), server (Nodejs) and mongodb (MongoDB database).
+# volumes: named volumes that keeps our data alive after restart.
+# networks: facilitate communication between containers
+
+# MONGODB:
+## image: official Docker image
+## restart: configure the restart policy
+## env_file: specify our .env path that we will create later
+## environment: provide setting using environment variables
+## ports: specify ports will be used
+## volumes: map volume folders
+## networks: join backend network
+
+# SERVER:
+## depends_on: dependency order, mongodb service is started before server
+## build: configuration options that are applied at build time that we defined in the Dockerfile with relative path
+## environment: environmental variables that Node application uses
+## networks: join both backend and frontent networks
+
+# CLIENT:
+## depends_on: start after server
+## build-args: add build arguments – environment variables accessible only during the build process
+## networks: join only frontent network

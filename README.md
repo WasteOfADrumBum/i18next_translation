@@ -41,7 +41,7 @@ To run both server and client concurrently (development mode):
 npm run dev
 ```
 
-The client application will be accessible at `http://localhost:3000`, and the server will be accessible at `http://localhost:5000`.
+The client application will be accessible at `http://localhost:3000`, and the server will be accessible at `http://localhost:8081`.
 
 ### Dockerization
 

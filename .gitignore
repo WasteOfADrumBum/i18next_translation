@@ -8,3 +8,6 @@ package-lock.json
 build/
 dist/
 data/
+
+#ignore .env file
+.env
