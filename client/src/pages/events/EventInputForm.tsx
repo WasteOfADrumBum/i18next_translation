@@ -1,4 +1,6 @@
 import React, { useState, FC, useContext, useEffect } from 'react'
+// @ts-ignore
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import {
 	Container,
@@ -19,7 +21,6 @@ import { addEvent, updateEvent } from '../../store/actions/eventActions'
 import { Event } from '../../../types/events/EventTypes'
 import { EventFormData } from '../../../types/events/EventFormTypes'
 import { AppDispatch } from 'store'
-import { useNavigate } from 'react-router-dom'
 import { HeaderContext } from '../../contexts/HeaderContext'
 import { states } from '../../utils/valueProviders'
 import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'

@@ -1,4 +1,6 @@
 import React, { useState, useEffect, FC, MouseEvent } from 'react'
+// @ts-ignore
+import { Link } from 'react-router-dom'
 import {
 	AppBar,
 	Toolbar,
@@ -12,7 +14,6 @@ import {
 } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import MenuIcon from '@mui/icons-material/Menu'
-import { Link } from 'react-router-dom'
 import { useAuth } from '../../pages'
 import { ThemeSwitcher } from '../../components'
 

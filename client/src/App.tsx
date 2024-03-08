@@ -1,5 +1,6 @@
 // App.tsx
-import React, { useState, useEffect, ReactNode, useContext } from 'react'
+import React, { useState, useEffect, ReactNode } from 'react'
+// @ts-ignore
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import { AuthProvider } from './pages/auth/AuthProvider'

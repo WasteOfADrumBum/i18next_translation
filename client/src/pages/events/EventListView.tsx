@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, FC, useMemo, useState } from 'react'
+// @ts-ignore
+import { useNavigate } from 'react-router-dom'
 import { Button, Container, Grid, Typography } from '@mui/material'
 import translations from '../../i18n/locales'
 import { DynamicDataTable, ActionsMenu } from '../../components'
 import { generateFakeReduxState } from '../../utils/CasualReduxEvent'
 import TimeConversionsHelper from '../../utils/TimeConversionsHelper'
 import { HeaderContext } from '../../contexts/HeaderContext'
-import { useNavigate } from 'react-router-dom'
 import { AddCircleOutline } from '@mui/icons-material'
 
 interface Event {

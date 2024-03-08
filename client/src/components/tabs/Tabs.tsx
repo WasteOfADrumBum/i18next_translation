@@ -1,4 +1,5 @@
 import React, { useEffect, ReactNode, Children, SyntheticEvent, isValidElement, useState, FC } from 'react'
+// @ts-ignore
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { Box, Menu, MenuItem, Tab } from '@mui/material'
 import TabList from '@mui/lab/TabList'

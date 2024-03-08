@@ -10,11 +10,6 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "baseUrl": "./",
-    "lib": [
-      "es6",
-      "dom",
-      "es2017"
-    ],
     "paths": {
       "*": [
         "src/*"
@@ -24,7 +19,12 @@
       ],
       "@types/*": [
         "node_modules/@types/*"
-      ],
-    }
+      ]
+    },
+    "lib": [
+      "es6",
+      "dom",
+      "es2017"
+    ]
   }
 }
