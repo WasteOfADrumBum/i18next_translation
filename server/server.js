@@ -33,6 +33,12 @@ app.use(
 	createProxyMiddleware({
 		target: process.env.CLIENT_API_BASE_URL,
 		changeOrigin: true,
+		onProxyReq: (proxyReq, req, res) => {
+			console.log('\x1b[32mProxy Request:\x1b[0m', req.method, req.url)
+		},
+		onProxyRes: (proxyRes, req, res) => {
+			console.log('\x1b[32mProxy Response:\x1b[0m', req.method, req.url, 'Status:', proxyRes.statusCode)
+		},
 	}),
 )
 console.log('\x1b[32mProxy middleware configured for target:\x1b[0m', process.env.CLIENT_API_BASE_URL)

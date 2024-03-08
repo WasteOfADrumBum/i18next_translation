@@ -1,5 +1,5 @@
 # Stage 1
-FROM node:14 as build-stage
+FROM node:21.7.0 as build-stage
 
 WORKDIR /client
 COPY package.json .
