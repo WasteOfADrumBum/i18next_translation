@@ -13,7 +13,6 @@ git clone <repository-url>
 Install dependencies for root, server and client:
 
 ```bash
-docker-compose up -d
 npm install
 cd server && npm install
 cd ../client && npm install
@@ -45,16 +44,22 @@ The client application will be accessible at `http://localhost:3000`, and the se
 
 ### Dockerization
 
-Build the Docker image for the backend:
+Build the Docker image:
 
 ```bash
-docker build -t backend-image ./server
+docker-compose up -d
 ```
 
-Run the Docker container based on the image:
+Stop Docker containers:
 
 ```bash
-docker run -p 5000:5000 backend-image
+docker compose down
+```
+
+If you need to stop and remove all containers, networks, and all images used by any service in docker-compose.yml file, use the command:
+
+```bash
+docker-compose down --rmi all
 ```
 
 The backend application will be accessible at `http://localhost:5000`.
