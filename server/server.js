@@ -1,55 +1,66 @@
 const express = require('express')
 const cors = require('cors')
-const { createProxyMiddleware } = require('http-proxy-middleware')
+const mongoose = require('mongoose')
 const EventsRoutes = require('./routes/EventsRoutes.js')
-const app = express()
 const path = require('path')
+const { createProxyMiddleware } = require('http-proxy-middleware')
 
 require('dotenv').config({ path: path.join(__dirname, '../.env') })
 
-// Console log with a divider
-function logWithDivider(message) {
-	console.log('\x1b[36m' + message + '\x1b[0m')
-	console.log('\x1b[34m---------------------------------------\x1b[0m')
-}
+const app = express()
+const PORT = process.env.PORT || 5000
 
-// Log the environment variables used
-logWithDivider('Environment variables:')
-console.log('\x1b[33mCLIENT_ORIGIN:\x1b[0m', process.env.CLIENT_ORIGIN)
-console.log('\x1b[33mCLIENT_API_BASE_URL:\x1b[0m', process.env.CLIENT_API_BASE_URL)
-console.log('\x1b[33mNODE_DOCKER_PORT:\x1b[0m', process.env.NODE_DOCKER_PORT)
-
-var corsOptions = {
-	origin: process.env.CLIENT_ORIGIN || 'http://localhost:8081',
-}
-
-// Enable CORS
-app.use(cors(corsOptions))
+// Middleware
+app.use(cors())
+app.use(express.json())
 
 // Proxy middleware to forward requests to the API
-logWithDivider('Setting up proxy middleware...')
 app.use(
 	'/api',
 	createProxyMiddleware({
-		target: process.env.CLIENT_API_BASE_URL,
+		target: 'http://localhost:5000', // Forward requests to your server
 		changeOrigin: true,
+		logLevel: 'debug', // Log level set to debug
+		onError: (err, req, res) => {
+			console.error('\x1b[31mProxy Error:\x1b[0m', err)
+			res.writeHead(500, {
+				'Content-Type': 'text/plain',
+			})
+			res.end('Something went wrong. And we are reporting a custom error message.')
+		},
 		onProxyReq: (proxyReq, req, res) => {
 			console.log('\x1b[32mProxy Request:\x1b[0m', req.method, req.url)
 		},
 		onProxyRes: (proxyRes, req, res) => {
 			console.log('\x1b[32mProxy Response:\x1b[0m', req.method, req.url, 'Status:', proxyRes.statusCode)
 		},
+		onOpen: (proxySocket) => {
+			console.log('\x1b[32mProxy Socket Opened:\x1b[0m', proxySocket)
+		},
 	}),
 )
-console.log('\x1b[32mProxy middleware configured for target:\x1b[0m', process.env.CLIENT_API_BASE_URL)
 
-// Define routes and middleware
-logWithDivider('Setting up routes and middleware...')
+// Connect to MongoDB
+mongoose
+	.connect('mongodb://localhost:27017/eventsDB')
+	.then(() => console.log('\x1b[32mMongoDB connected\x1b[0m')) // Green
+	.catch((err) => console.error('\x1b[31mMongoDB connection error:\x1b[0m', err)) // Red
+
+// Log API requests
+app.use('/api/events', (req, res, next) => {
+	console.log(
+		`\x1b[35m[${new Date().toLocaleString()}]\x1b[0m \x1b[33m${req.method}\x1b[0m request to \x1b[34m${
+			req.path
+		}\x1b[0m`,
+	)
+	console.log('Inside API request logging middleware')
+	next()
+})
+
+// Routes
 app.use('/api/events', EventsRoutes)
 
-// Start the server
-const PORT = process.env.NODE_DOCKER_PORT || 8080
+// Log server start
 app.listen(PORT, () => {
-	console.log('\x1b[35mServer is running on port\x1b[0m', PORT)
+	console.log('\x1b[36mServer is running on port\x1b[0m', PORT) // Cyan
 })
-console.log('\x1b[35mServer started.\x1b[0m')

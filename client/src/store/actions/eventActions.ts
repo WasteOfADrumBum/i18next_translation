@@ -1,10 +1,14 @@
 import axios from 'axios'
 import { Event } from '../../../types/events/EventTypes'
 import translations from '../../i18n/locales'
-import { RootState } from 'store'
-import { ThunkAction } from 'redux-thunk'
 
 const errorTranslations = translations.errors
+
+// Create custom Axios instance with base URL
+const axiosInstance = axios.create({
+	baseURL: 'http://localhost:5000', // Set the base URL to your server's address
+	// You can also add other default configurations here if needed
+})
 
 // Action Types
 export const FETCH_EVENTS_REQUEST = 'FETCH_EVENTS_REQUEST'
@@ -63,10 +67,10 @@ interface DeleteEventFailure {
 }
 
 // Define action creator functions
-export const fetchEvents = (): ThunkAction<void, RootState, unknown, EventAction> => async (dispatch) => {
+export const fetchEvents = () => async (dispatch: any) => {
 	try {
 		dispatch({ type: FETCH_EVENTS_REQUEST })
-		const res = await axios.get('/api/events')
+		const res = await axiosInstance.get('/api/events')
 		dispatch({ type: FETCH_EVENTS_SUCCESS, payload: res.data })
 	} catch (err: any) {
 		dispatch({
@@ -76,50 +80,52 @@ export const fetchEvents = (): ThunkAction<void, RootState, unknown, EventAction
 	}
 }
 
-export const addEvent =
-	(event: Event): ThunkAction<void, RootState, unknown, EventAction> =>
-	async (dispatch) => {
-		console.log('Attempting to add event:', event) // Check if the function is called and log the event
-		try {
-			const res = await axios.post('/api/events', event)
-			console.log('Response from POST request:', res) // Log the response from the server
-			dispatch({ type: ADD_EVENT_SUCCESS, payload: res.data })
-		} catch (err: any) {
-			console.error('Error adding event:', err)
-			dispatch({
-				type: ADD_EVENTS_FAILURE,
-				payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
-			})
-		}
+export const addEvent = (event: Event) => async (dispatch: any) => {
+	console.log('Attempting to add event (Action): ', event)
+	console.log('Axios instance (Action): ', axiosInstance)
+	console.log('Axios instance defaults (Action): ', axiosInstance.defaults)
+	console.log('Axios instance base URL (Action): ', axiosInstance.defaults.baseURL)
+	console.log('Axios instance headers (Action): ', axiosInstance.defaults.headers)
+	console.log('Axios instance interceptors (Action): ', axiosInstance.interceptors)
+	console.log('Dispatch (Action): ', dispatch)
+	try {
+		console.log('Try to add event (Action): ', event)
+		const res = await axiosInstance.post('/api/events', event)
+		console.log('Response from POST request (Action): ', res)
+		dispatch({ type: ADD_EVENT_SUCCESS, payload: res.data })
+	} catch (err: any) {
+		console.error('Error details (Action): ', err.message)
+		console.error('Error response (Action): ', err.response)
+		dispatch({
+			type: ADD_EVENTS_FAILURE,
+			payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
+		})
 	}
+}
 
-export const updateEvent =
-	(id: string, updatedEvent: Event): ThunkAction<void, RootState, unknown, EventAction> =>
-	async (dispatch) => {
-		try {
-			const res = await axios.put(`/api/events/${id}`, updatedEvent)
-			dispatch({ type: UPDATE_EVENT_SUCCESS, payload: res.data })
-		} catch (err: any) {
-			dispatch({
-				type: UPDATE_EVENT_FAILURE,
-				payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
-			})
-		}
+export const updateEvent = (id: string, updatedEvent: Event) => async (dispatch: any) => {
+	try {
+		const res = await axiosInstance.put(`/api/events/${id}`, updatedEvent)
+		dispatch({ type: UPDATE_EVENT_SUCCESS, payload: res.data })
+	} catch (err: any) {
+		dispatch({
+			type: UPDATE_EVENT_FAILURE,
+			payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
+		})
 	}
+}
 
-export const deleteEvent =
-	(id: string): ThunkAction<void, RootState, unknown, EventAction> =>
-	async (dispatch) => {
-		try {
-			await axios.delete(`/api/events/${id}`)
-			dispatch({ type: DELETE_EVENT_SUCCESS, payload: id })
-		} catch (err: any) {
-			dispatch({
-				type: DELETE_EVENTS_FAILURE,
-				payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
-			})
-		}
+export const deleteEvent = (id: string) => async (dispatch: any) => {
+	try {
+		await axiosInstance.delete(`/api/events/${id}`)
+		dispatch({ type: DELETE_EVENT_SUCCESS, payload: id })
+	} catch (err: any) {
+		dispatch({
+			type: DELETE_EVENTS_FAILURE,
+			payload: err.response?.data?.message || errorTranslations.unknownErrorOccurred,
+		})
 	}
+}
 
 // Define the union type for all action types
 export type EventAction =
