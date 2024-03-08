@@ -13,9 +13,6 @@ function logWithDivider(message) {
 	console.log('\x1b[34m---------------------------------------\x1b[0m')
 }
 
-// console the dirname
-logWithDivider('dirname: ' + __dirname)
-
 // Log the environment variables used
 logWithDivider('Environment variables:')
 console.log('\x1b[33mCLIENT_ORIGIN:\x1b[0m', process.env.CLIENT_ORIGIN)
