@@ -1,18 +1,36 @@
-import React, { useState, FC, useContext, useEffect, FormEvent } from 'react'
+import React, { useState, FC, useContext, useEffect, FormEvent, ChangeEvent } from 'react'
 // @ts-ignore
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Container, Typography, TextField, Button, CircularProgress, Grid, Divider } from '@mui/material'
+import {
+	Container,
+	Typography,
+	TextField,
+	Button,
+	CircularProgress,
+	Grid,
+	Divider,
+	MenuItem,
+	FormControl,
+	InputLabel,
+	Select,
+	SelectChangeEvent,
+	Chip,
+	OutlinedInput,
+	Checkbox,
+	ListItemText,
+} from '@mui/material'
 import { createEvent, updateEvent } from '../../store/actions/eventActions'
 import { Event } from '../../../types/events/EventTypes'
 import { EventFormData } from '../../../types/events/EventFormTypes'
 import { AppDispatch } from 'store'
 import { HeaderContext } from '../../contexts/HeaderContext'
-import { AddCircleOutline, CancelOutlined, Today } from '@mui/icons-material'
+import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs'
+import { eventTypes, eventSubTypes, tags, methodsOfReceipt } from '../../utils/valueProviders'
 
 interface EventInputFormProps {
 	eventValues?: EventFormData
@@ -66,11 +84,27 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	})
 	const [formSubmitted, setFormSubmitted] = useState(false)
 
-	const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target
+	const handleFormChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
+		const { name, value } = event.target
 		setFormData((prevState) => ({
 			...prevState,
-			[name]: value,
+			[name as string]: value,
+		}))
+	}
+
+	const handleFormSelectChange = (event: SelectChangeEvent<string>) => {
+		const { name, value } = event.target
+		setFormData((prevState) => ({
+			...prevState,
+			[name as string]: value,
+		}))
+	}
+
+	const handleFormMultiSelectChange = (event: SelectChangeEvent<string[]>) => {
+		const { name, value } = event.target
+		setFormData((prevState) => ({
+			...prevState,
+			[name as string]: value,
 		}))
 	}
 
@@ -257,6 +291,148 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									},
 								}}
 							/>
+						</Grid>
+						<Grid item xs={12}>
+							<Typography variant='h4' color={'primary'} mb={1}>
+								What
+							</Typography>
+							<Divider />
+						</Grid>
+						<Grid item xs={6}>
+							<FormControl fullWidth variant='outlined'>
+								<InputLabel id='eventType-label'>Event Type</InputLabel>
+								<Select
+									labelId='eventType-label'
+									id='eventType'
+									name='eventType'
+									value={formData.eventType}
+									onChange={handleFormSelectChange}
+									error={formSubmitted && formData.eventType === ''}>
+									<MenuItem value=''>Select Event Type</MenuItem>
+									{eventTypes.map((option, index) => (
+										<MenuItem key={index} value={option}>
+											{option}
+										</MenuItem>
+									))}
+								</Select>
+								{formSubmitted && formData.eventType === '' && (
+									<Typography variant='caption' color='error'>
+										Event type is required
+									</Typography>
+								)}
+							</FormControl>
+						</Grid>
+						<Grid item xs={6}>
+							<FormControl fullWidth variant='outlined'>
+								<InputLabel id='eventSubType-label'>Event Sub-Type</InputLabel>
+								<Select
+									labelId='eventSubType-label'
+									id='eventSubType'
+									name='eventSubType'
+									value={formData.eventSubType}
+									onChange={handleFormSelectChange}
+									error={formSubmitted && formData.eventSubType === ''}>
+									<MenuItem value=''>Select Event Sub-Type</MenuItem>
+									{eventSubTypes.map((option, index) => (
+										<MenuItem key={index} value={option}>
+											{option}
+										</MenuItem>
+									))}
+								</Select>
+								{formSubmitted && formData.eventSubType === '' && (
+									<Typography variant='caption' color='error'>
+										Event Sub-Type is required
+									</Typography>
+								)}
+							</FormControl>
+						</Grid>
+						<Grid item xs={6}>
+							<FormControl fullWidth variant='outlined'>
+								<InputLabel id='tagging-label'>Tags</InputLabel>
+								<Select
+									labelId='tagging-label'
+									id='tagging'
+									multiple
+									name='tagging'
+									value={formData.tagging}
+									onChange={handleFormMultiSelectChange}
+									input={<OutlinedInput label='Tag' />}
+									renderValue={(selected) => selected.join(', ')}>
+									{tags.map((tag) => (
+										<MenuItem key={tag} value={tag}>
+											<Checkbox checked={formData.tagging.indexOf(tag) > -1} />
+											<ListItemText primary={tag} />
+										</MenuItem>
+									))}
+								</Select>
+								{formSubmitted && formData.tagging.length === 0 && (
+									<Typography variant='caption' color='error'>
+										Tags are required
+									</Typography>
+								)}
+							</FormControl>
+						</Grid>
+						<Grid item xs={6}>
+							<FormControl fullWidth variant='outlined'>
+								<InputLabel id='methodOfReceipt-label'>Method of Receipt</InputLabel>
+								<Select
+									labelId='methodOfReceipt-label'
+									id='methodOfReceipt'
+									name='methodOfReceipt'
+									value={formData.methodOfReceipt}
+									onChange={handleFormSelectChange}
+									error={formSubmitted && formData.methodOfReceipt === ''}>
+									<MenuItem value=''>Select Method of Receipt</MenuItem>
+									{methodsOfReceipt.map((option, index) => (
+										<MenuItem key={index} value={option}>
+											{option}
+										</MenuItem>
+									))}
+								</Select>
+								{formSubmitted && formData.methodOfReceipt === '' && (
+									<Typography variant='caption' color='error'>
+										Method of receipt is required
+									</Typography>
+								)}
+							</FormControl>
+						</Grid>
+						<Grid item xs={12}>
+							<Typography variant='h4' color={'primary'} mb={1}>
+								Why
+							</Typography>
+							<Divider />
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								name='title'
+								label='Title'
+								variant='outlined'
+								fullWidth
+								value={formData.title}
+								onChange={handleFormChange}
+								error={formSubmitted && formData.title === ''}
+								helperText={formSubmitted && formData.title === '' ? 'Title is required' : ''}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								name='description'
+								label='Description'
+								variant='outlined'
+								fullWidth
+								multiline
+								rows={8}
+								value={formData.description}
+								onChange={handleFormChange}
+								error={formSubmitted && formData.description === ''}
+								helperText={formSubmitted && formData.description === '' ? 'Description is required' : ''}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<Typography variant='h4' color={'primary'} mb={1}>
+								Where
+							</Typography>
+							<Divider />
 						</Grid>
 						<Grid item container xs={12} justifyContent='space-between'>
 							<Button variant='contained' color='secondary' onClick={() => navigate('/dashboard')}>
