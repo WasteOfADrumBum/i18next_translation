@@ -7,8 +7,7 @@ const errorTranslations = translations.errors
 
 // Create custom Axios instance with base URL
 const axiosInstance = axios.create({
-	baseURL: 'http://localhost:5000', // Set the base URL to your server's address
-	// You can also add other default configurations here if needed
+	baseURL: 'http://localhost:5000/api', // Set the base URL to your server's address
 })
 
 // Action Types

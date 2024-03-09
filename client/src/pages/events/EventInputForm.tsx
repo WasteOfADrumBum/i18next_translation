@@ -17,7 +17,7 @@ import {
 	Divider,
 } from '@mui/material'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { addEvent, updateEvent } from '../../store/actions/eventActions'
+import { createEvent, updateEvent } from '../../store/actions/eventActions'
 import { Event } from '../../../types/events/EventTypes'
 import { EventFormData } from '../../../types/events/EventFormTypes'
 import { AppDispatch } from 'store'
@@ -101,10 +101,10 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 
 			if (eventValues) {
 				console.log('Update Event:', eventData)
-				await dispatch(updateEvent(String(eventData.id), eventData))
+				await dispatch(updateEvent(eventData))
 			} else {
 				console.log('Add Event:', eventData)
-				await dispatch(addEvent(eventData))
+				await dispatch(createEvent(eventData))
 			}
 		} catch (error: any) {
 			setError(error.message)
