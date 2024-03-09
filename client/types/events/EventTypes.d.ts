@@ -25,7 +25,7 @@ export type Event = {
 	location: {
 		address: string
 		city: string
-		zip: number
+		zip: number | null
 		country: string
 		county: string
 		state: string

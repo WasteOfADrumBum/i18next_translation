@@ -30,7 +30,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs'
-import { eventTypes, eventSubTypes, tags, methodsOfReceipt } from '../../utils/valueProviders'
+import { eventTypes, eventSubTypes, tags, methodsOfReceipt, states, countries } from '../../utils/valueProviders'
 
 interface EventInputFormProps {
 	eventValues?: EventFormData
@@ -77,7 +77,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		methodOfReceipt: eventValues?.methodOfReceipt || '',
 		address: eventValues?.address || '',
 		city: eventValues?.city || '',
-		zip: eventValues?.zip || 0,
+		zip: eventValues?.zip || null,
 		country: eventValues?.country || '',
 		county: eventValues?.county || '',
 		state: eventValues?.state || '',
@@ -433,6 +433,98 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								Where
 							</Typography>
 							<Divider />
+						</Grid>
+						<Grid item xs={12}>
+							<Grid container spacing={2}>
+								<Grid item xs={12}>
+									<TextField
+										name='address'
+										label='Address'
+										variant='outlined'
+										fullWidth
+										value={formData.address}
+										onChange={handleFormChange}
+									/>
+								</Grid>
+								<Grid item xs={5}>
+									<TextField
+										name='city'
+										label='City'
+										variant='outlined'
+										fullWidth
+										value={formData.city}
+										onChange={handleFormChange}
+									/>
+								</Grid>
+								<Grid item xs={4}>
+									<TextField
+										name='state'
+										label='State'
+										variant='outlined'
+										fullWidth
+										select
+										value={formData.state}
+										onChange={handleFormChange}
+										error={formSubmitted && formData.state === ''}
+										helperText={formSubmitted && formData.state === '' ? 'State is required' : ''}>
+										{states.map((state) => (
+											<MenuItem key={state} value={state}>
+												{state}
+											</MenuItem>
+										))}
+									</TextField>
+								</Grid>
+								<Grid item xs={3}>
+									<TextField
+										name='zip'
+										label='Zip Code'
+										variant='outlined'
+										fullWidth
+										placeholder='Enter ZIP'
+										value={formData.zip || ''}
+										onChange={handleFormChange}
+										error={formSubmitted && (!formData.zip || isNaN(formData.zip as number))}
+										helperText={
+											formSubmitted && (!formData.zip || isNaN(formData.zip as number))
+												? !formData.zip
+													? 'Zip code is required'
+													: 'Zip code must be a number'
+												: ''
+										}
+										inputProps={{
+											maxLength: 5, // Set maximum character limit for 5-digit Zip codes
+										}}
+									/>
+								</Grid>
+								<Grid item xs={6}>
+									<TextField
+										name='county'
+										label='County'
+										variant='outlined'
+										fullWidth
+										value={formData.county}
+										onChange={handleFormChange}
+									/>
+								</Grid>
+								<Grid item xs={6}>
+									<TextField
+										name='country'
+										label='Country'
+										variant='outlined'
+										fullWidth
+										select
+										value={formData.country}
+										onChange={handleFormChange}
+										error={formSubmitted && formData.country === ''}
+										helperText={formSubmitted && formData.country === '' ? 'Country is required' : ''}>
+										{countries.map((country) => (
+											<MenuItem key={country} value={country}>
+												{country}
+											</MenuItem>
+										))}
+									</TextField>
+								</Grid>
+							</Grid>
 						</Grid>
 						<Grid item container xs={12} justifyContent='space-between'>
 							<Button variant='contained' color='secondary' onClick={() => navigate('/dashboard')}>
