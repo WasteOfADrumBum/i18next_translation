@@ -9,6 +9,18 @@ services:
     networks:
       - app-network
 
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD:
+      POSTGRES_DB: eventDB
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
