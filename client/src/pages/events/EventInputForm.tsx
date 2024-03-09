@@ -1,28 +1,13 @@
-import React, { useState, FC, useContext, useEffect } from 'react'
+import React, { useState, FC, useContext, useEffect, FormEvent } from 'react'
 // @ts-ignore
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import {
-	Container,
-	Typography,
-	TextField,
-	Button,
-	CircularProgress,
-	Grid,
-	MenuItem,
-	Select,
-	FormHelperText,
-	FormControl,
-	InputLabel,
-	Divider,
-} from '@mui/material'
-import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { Container, Typography, TextField, Button, CircularProgress, Grid } from '@mui/material'
 import { createEvent, updateEvent } from '../../store/actions/eventActions'
 import { Event } from '../../../types/events/EventTypes'
 import { EventFormData } from '../../../types/events/EventFormTypes'
 import { AppDispatch } from 'store'
 import { HeaderContext } from '../../contexts/HeaderContext'
-import { states } from '../../utils/valueProviders'
 import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
 
 interface EventInputFormProps {
@@ -52,50 +37,76 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		}
 	}, [setHeaderData])
 
-	const {
-		handleSubmit,
-		control,
-		formState: { errors },
-	} = useForm<EventFormData>()
-
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
+	const [formData, setFormData] = useState<EventFormData>({
+		id: eventValues?.id,
+		reporter: eventValues?.reporter || '',
+		reportedDate: eventValues?.reportedDate || new Date(),
+		updatedBy: eventValues?.updatedBy || '',
+		updatedDate: eventValues?.updatedDate || new Date(),
+		submittedBy: eventValues?.submittedBy || '',
+		submittedDate: eventValues?.submittedDate || new Date(),
+		eventType: eventValues?.eventType || '',
+		eventSubType: eventValues?.eventSubType || '',
+		title: eventValues?.title || '',
+		description: eventValues?.description || '',
+		tagging: eventValues?.tagging || [],
+		methodOfReceipt: eventValues?.methodOfReceipt || '',
+		address: eventValues?.address || '',
+		city: eventValues?.city || '',
+		zip: eventValues?.zip || 0,
+		country: eventValues?.country || '',
+		county: eventValues?.county || '',
+		state: eventValues?.state || '',
+	})
 
-	const onSubmit: SubmitHandler<EventFormData> = async (data: EventFormData) => {
+	const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target
+		setFormData((prevState) => ({
+			...prevState,
+			[name]: value,
+		}))
+	}
+
+	const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault() // Prevent default form submission behavior
+
 		setLoading(true)
 		setError(null)
+
 		try {
 			const eventData: Event = {
-				id: data.id || '', // Provide a default value for id
+				id: formData.id || null,
 				reported: {
-					reporter: data.reporter,
-					reportedDate: data.reportedDate,
+					reporter: formData.reporter,
+					reportedDate: formData.reportedDate,
 				},
 				updated: {
-					updatedBy: data.updatedBy,
-					updatedDate: data.updatedDate,
+					updatedBy: formData.updatedBy,
+					updatedDate: formData.updatedDate,
 				},
 				submitted: {
-					submittedBy: data.submittedBy,
-					submittedDate: data.submittedDate,
+					submittedBy: formData.submittedBy,
+					submittedDate: formData.submittedDate,
 				},
 				type: {
-					eventType: data.eventType,
-					eventSubType: data.eventSubType,
+					eventType: formData.eventType,
+					eventSubType: formData.eventSubType,
 				},
 				details: {
-					title: data.title,
-					description: data.description,
-					tagging: data.tagging,
-					methodOfReceipt: data.methodOfReceipt,
+					title: formData.title,
+					description: formData.description,
+					tagging: formData.tagging,
+					methodOfReceipt: formData.methodOfReceipt,
 				},
 				location: {
-					address: data.address,
-					city: data.city,
-					zip: data.zip,
-					country: data.country,
-					county: data.county,
-					state: data.state,
+					address: formData.address,
+					city: formData.city,
+					zip: formData.zip,
+					country: formData.country,
+					county: formData.county,
+					state: formData.state,
 				},
 			}
 
@@ -117,342 +128,20 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		<Container>
 			{loading && <CircularProgress />}
 			{error && <Typography color='error'>{error}</Typography>}
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={onSubmit}>
 				<Grid container spacing={2}>
 					<Grid item xs={6}>
-						<Typography variant='h4' mb={1}>
-							Who
-						</Typography>
-						<Divider />
-					</Grid>
-					<Grid item xs={6}>
-						<Typography variant='h4' mb={1}>
-							When
-						</Typography>
-						<Divider />
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
+						<TextField
 							name='reporter'
-							control={control}
-							defaultValue={eventValues ? eventValues.reporter : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Reporter'
-									variant='outlined'
-									fullWidth
-									error={!!errors.reporter}
-									helperText={errors.reporter ? 'Reporter is required' : ''}
-								/>
-							)}
+							label='Reporter'
+							variant='outlined'
+							fullWidth
+							value={formData.reporter}
+							onChange={handleFormChange}
 						/>
 					</Grid>
 					<Grid item xs={6}>
-						<Controller
-							name='reportedDate'
-							control={control}
-							defaultValue={eventValues ? eventValues.reportedDate : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Reported Date'
-									variant='outlined'
-									fullWidth
-									error={!!errors.reportedDate}
-									helperText={errors.reportedDate ? 'Reported Date is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='updatedBy'
-							control={control}
-							defaultValue={eventValues ? eventValues.updatedBy : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Updated By'
-									variant='outlined'
-									fullWidth
-									error={!!errors.updatedBy}
-									helperText={errors.updatedBy ? 'Updated By is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='updatedDate'
-							control={control}
-							defaultValue={eventValues ? eventValues.updatedDate : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Updated Date'
-									variant='outlined'
-									fullWidth
-									error={!!errors.updatedDate}
-									helperText={errors.updatedDate ? 'Updated Date is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='submittedBy'
-							control={control}
-							defaultValue={eventValues ? eventValues.submittedBy : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Submitted By'
-									variant='outlined'
-									fullWidth
-									error={!!errors.submittedBy}
-									helperText={errors.submittedBy ? 'Submitted By is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='submittedDate'
-							control={control}
-							defaultValue={eventValues ? eventValues.submittedDate : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Submitted Date'
-									variant='outlined'
-									fullWidth
-									error={!!errors.submittedDate}
-									helperText={errors.submittedDate ? 'Submitted Date is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<Typography variant='h4' mb={1}>
-							What
-						</Typography>
-						<Divider />
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='eventType'
-							control={control}
-							defaultValue={eventValues ? eventValues.eventType : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Event Type'
-									variant='outlined'
-									fullWidth
-									error={!!errors.eventType}
-									helperText={errors.eventType ? 'Event Type is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='eventSubType'
-							control={control}
-							defaultValue={eventValues ? eventValues.eventSubType : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Event Sub Type'
-									variant='outlined'
-									fullWidth
-									error={!!errors.eventSubType}
-									helperText={errors.eventSubType ? 'Event Sub Type is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='tagging'
-							control={control}
-							defaultValue={eventValues ? eventValues.tagging : []}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Tagging'
-									variant='outlined'
-									fullWidth
-									error={!!errors.tagging}
-									helperText={errors.tagging ? 'Tagging is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='methodOfReceipt'
-							control={control}
-							defaultValue={eventValues ? eventValues.methodOfReceipt : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Method Of Receipt'
-									variant='outlined'
-									fullWidth
-									error={!!errors.methodOfReceipt}
-									helperText={errors.methodOfReceipt ? 'Method Of Receipt is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<Controller
-							name='title'
-							control={control}
-							defaultValue={eventValues ? eventValues.title : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Title'
-									variant='outlined'
-									fullWidth
-									error={!!errors.title}
-									helperText={errors.title ? 'Title is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<Controller
-							name='description'
-							control={control}
-							defaultValue={eventValues ? eventValues.description : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Description'
-									variant='outlined'
-									multiline
-									rows={4}
-									fullWidth
-									error={!!errors.description}
-									helperText={errors.description ? 'Description is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<Typography variant='h4' mb={1}>
-							Where
-						</Typography>
-						<Divider />
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='address'
-							control={control}
-							defaultValue={eventValues ? eventValues.address : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Address'
-									variant='outlined'
-									fullWidth
-									error={!!errors.address}
-									helperText={errors.address ? 'Address is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='city'
-							control={control}
-							defaultValue={eventValues ? eventValues.city : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='City'
-									variant='outlined'
-									fullWidth
-									error={!!errors.city}
-									helperText={errors.city ? 'City is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='zip'
-							control={control}
-							defaultValue={eventValues ? eventValues.zip : 0}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Zip'
-									variant='outlined'
-									fullWidth
-									error={!!errors.zip}
-									helperText={errors.zip ? 'Zip is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='country'
-							control={control}
-							defaultValue={eventValues ? eventValues.country : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='Country'
-									variant='outlined'
-									fullWidth
-									error={!!errors.country}
-									helperText={errors.country ? 'Country is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<Controller
-							name='county'
-							control={control}
-							defaultValue={eventValues ? eventValues.county : ''}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label='County'
-									variant='outlined'
-									fullWidth
-									error={!!errors.county}
-									helperText={errors.county ? 'County is required' : ''}
-								/>
-							)}
-						/>
-					</Grid>
-					<Grid item xs={6}>
-						<FormControl variant='outlined' fullWidth error={!!errors.state}>
-							<InputLabel id='state-label'>State</InputLabel>
-							<Controller
-								name='state'
-								control={control}
-								defaultValue={eventValues ? eventValues.state : ''}
-								render={({ field }) => (
-									<Select {...field} label='State'>
-										{states.map((state) => (
-											<MenuItem key={state} value={state}>
-												{state}
-											</MenuItem>
-										))}
-									</Select>
-								)}
-							/>
-							<FormHelperText>{errors.state ? 'State is required' : ''}</FormHelperText>
-						</FormControl>
+						{/* reportedDate */}
 					</Grid>
 					<Grid item container xs={12} justifyContent='space-between'>
 						<Button variant='contained' color='secondary' onClick={() => navigate('/dashboard')}>

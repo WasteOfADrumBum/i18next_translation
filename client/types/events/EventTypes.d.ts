@@ -2,15 +2,15 @@ export type Event = {
 	id: string | null
 	reported: {
 		reporter: string
-		reportedDate: string
+		reportedDate: Date
 	}
 	updated: {
 		updatedBy: string
-		updatedDate: string
+		updatedDate: Date
 	}
 	submitted: {
 		submittedBy: string
-		submittedDate: string
+		submittedDate: Date
 	}
 	type: {
 		eventType: string

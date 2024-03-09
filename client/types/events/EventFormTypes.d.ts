@@ -1,11 +1,11 @@
 export interface EventFormData {
 	id?: string
 	reporter: string
-	reportedDate: string
+	reportedDate: Date
 	updatedBy: string
-	updatedDate: string
+	updatedDate: Date
 	submittedBy: string
-	submittedDate: string
+	submittedDate: Date
 	eventType: string
 	eventSubType: string
 	title: string
