@@ -35,6 +35,6 @@ const eventsModelSchema = new mongoose.Schema({
 
 const EventsModel = mongoose.model('EventsModel', eventsModelSchema)
 
-console.log('Model: EventsModel')
+console.log('%cModel:%c EventsModel', 'color: blue', 'color: white')
 
 module.exports = EventsModel
