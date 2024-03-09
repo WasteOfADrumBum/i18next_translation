@@ -1,7 +1,7 @@
 const Event = require('../models/EventsModel')
 
 // Get all events
-exports.getAllEvents = async (req, res) => {
+const getAllEvents = async (req, res) => {
 	try {
 		console.log('\x1b[32mFetching all events (Controller)\x1b[0m')
 		const events = await Event.find()
@@ -14,13 +14,10 @@ exports.getAllEvents = async (req, res) => {
 }
 
 // Get event by ID
-exports.getEventById = async (req, res) => {
+const getEventById = async (req, res) => {
 	try {
-		console.log('\x1b[32mFetching event by ID: (Controller)\x1b[0m', req.params.id)
+		console.log('\x1b[32mFetching event by ID (Controller)\x1b[0m')
 		const event = await Event.findById(req.params.id)
-		if (!event) {
-			return res.status(404).json({ message: 'Event not found' })
-		}
 		console.log('\x1b[32mEvent fetched: (Controller)\x1b[0m', event)
 		res.json(event)
 	} catch (err) {
@@ -29,63 +26,50 @@ exports.getEventById = async (req, res) => {
 	}
 }
 
-// Create an event
-exports.createEvent = async (req, res) => {
-	const {
-		reported: { reporter, reportedDate },
-		updated: { updatedBy, updatedDate },
-		submitted: { submittedBy, submittedDate },
-		type: { eventType, eventSubType },
-		details: { title, description, tagging, methodOfReceipt },
-		location: { address, city, zip, country, county, state },
-	} = req.body
+// Create new event
+const createEvent = async (req, res) => {
 	try {
-		console.log('\x1b[32mCreating a new event (Controller)\x1b[0m')
-		const newEvent = new Event({
-			reported: { reporter, reportedDate },
-			updated: { updatedBy, updatedDate },
-			submitted: { submittedBy, submittedDate },
-			type: { eventType, eventSubType },
-			details: { title, description, tagging, methodOfReceipt },
-			location: { address, city, zip, country, county, state },
-		})
-		const event = await newEvent.save()
-		console.log('\x1b[32mNew event created: (Controller)\x1b[0m', event)
-		res.status(201).json(event)
+		console.log('\x1b[32mCreating new event (Controller)\x1b[0m')
+		const event = new Event(req.body)
+		const savedEvent = await event.save()
+		console.log('\x1b[32mEvent created: (Controller)\x1b[0m', savedEvent)
+		res.json(savedEvent)
 	} catch (err) {
-		console.error('\x1b[31mError creating event: (Controller)\x1b[0m', err)
+		console.error('\x1b[31mError creating new event: (Controller)\x1b[0m', err)
 		res.status(500).json({ message: 'Server Error' })
 	}
 }
 
-// Update an event
-exports.updateEvent = async (req, res) => {
+// Update event by ID
+const updateEvent = async (req, res) => {
 	try {
-		console.log('\x1b[32mUpdating event with ID: (Controller)\x1b[0m', req.params.id)
-		const event = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true })
-		if (!event) {
-			return res.status(404).json({ message: 'Event not found' })
-		}
-		console.log('\x1b[32mEvent updated: (Controller)\x1b[0m', event)
-		res.json(event)
+		console.log('\x1b[32mUpdating event by ID (Controller)\x1b[0m')
+		const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true })
+		console.log('\x1b[32mEvent updated: (Controller)\x1b[0m', updatedEvent)
+		res.json(updatedEvent)
 	} catch (err) {
-		console.error('\x1b[31mError updating event: (Controller)\x1b[0m', err)
+		console.error('\x1b[31mError updating event by ID: (Controller)\x1b[0m', err)
 		res.status(500).json({ message: 'Server Error' })
 	}
 }
 
-// Delete an event
-exports.deleteEvent = async (req, res) => {
+// Delete event by ID
+const deleteEvent = async (req, res) => {
 	try {
-		console.log('\x1b[32mDeleting event with ID: (Controller)\x1b[0m', req.params.id)
-		const event = await Event.findByIdAndDelete(req.params.id)
-		if (!event) {
-			return res.status(404).json({ message: 'Event not found' })
-		}
-		console.log('\x1b[32mEvent deleted (Controller)\x1b[0m')
-		res.json({ message: 'Event deleted' })
+		console.log('\x1b[32mDeleting event by ID (Controller)\x1b[0m')
+		const deletedEvent = await Event.findByIdAndDelete(req.params.id)
+		console.log('\x1b[32mEvent deleted: (Controller)\x1b[0m', deletedEvent)
+		res.json(deletedEvent)
 	} catch (err) {
-		console.error('\x1b[31mError deleting event: (Controller)\x1b[0m', err)
+		console.error('\x1b[31mError deleting event by ID: (Controller)\x1b[0m', err)
 		res.status(500).json({ message: 'Server Error' })
 	}
+}
+
+module.exports = {
+	getAllEvents,
+	getEventById,
+	createEvent,
+	updateEvent,
+	deleteEvent,
 }

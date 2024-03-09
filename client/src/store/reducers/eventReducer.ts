@@ -1,5 +1,9 @@
-import { EventAction } from '../actions/eventActions'
 import { Event } from '../../../types/events/EventTypes'
+
+interface Action<T> {
+	type: string
+	payload: T
+}
 
 interface EventState {
 	events: Event[]
@@ -13,62 +17,56 @@ const initialState: EventState = {
 	error: null,
 }
 
-const eventReducers = (state = initialState, action: EventAction): EventState => {
-	console.log('Previous State (Reducer):', state)
-	console.log('Action (Reducer):', action)
-
+const eventReducer = (state: EventState = initialState, action: Action<Event[] | Event | string>) => {
 	switch (action.type) {
-		case 'FETCH_EVENTS_REQUEST':
+		case 'CREATE_EVENT':
+			return {
+				...state,
+				events: [...state.events, action.payload as Event],
+			}
+		case 'DELETE_EVENT':
+			return {
+				...state,
+				events: state.events.filter((event) => event.id !== (action.payload as string)),
+			}
+		case 'UPDATE_EVENT':
+			return {
+				...state,
+				events: state.events.map((event) => {
+					if (event.id === (action.payload as Event).id) {
+						return action.payload
+					}
+					return event
+				}),
+			}
+		case 'GET_EVENTS':
+			return {
+				...state,
+				events: action.payload as Event[],
+				loading: false,
+				error: null,
+			}
+		case 'GET_EVENT':
+			return {
+				...state,
+				events: [action.payload as Event],
+				loading: false,
+				error: null,
+			}
+		case 'SET_LOADING':
 			return {
 				...state,
 				loading: true,
 			}
-		case 'FETCH_EVENTS_SUCCESS':
+		case 'SET_ERROR':
 			return {
 				...state,
+				error: action.payload as string,
 				loading: false,
-				events: action.payload,
-				error: null,
-			}
-		case 'FETCH_EVENTS_FAILURE':
-			return {
-				...state,
-				loading: false,
-				error: action.payload,
-			}
-		case 'ADD_EVENT_SUCCESS':
-			return {
-				...state,
-				events: [...state.events, action.payload],
-			}
-		case 'ADD_EVENTS_FAILURE':
-			return {
-				...state,
-				error: action.payload,
-			}
-		case 'UPDATE_EVENT_SUCCESS':
-			return {
-				...state,
-				events: state.events.map((event) => (event.id === action.payload.id ? action.payload : event)),
-			}
-		case 'UPDATE_EVENT_FAILURE':
-			return {
-				...state,
-				error: action.payload,
-			}
-		case 'DELETE_EVENT_SUCCESS':
-			return {
-				...state,
-				events: state.events.filter((event) => String(event.id) !== action.payload),
-			}
-		case 'DELETE_EVENTS_FAILURE':
-			return {
-				...state,
-				error: action.payload,
 			}
 		default:
 			return state
 	}
 }
 
-export default eventReducers
+export default eventReducer

@@ -1,8 +1,6 @@
 const mongoose = require('mongoose')
 
-const { Schema } = mongoose
-
-const eventsModelSchema = new Schema({
+const eventsModelSchema = new mongoose.Schema({
 	reported: {
 		reporter: { type: String, required: true },
 		reportedDate: { type: Date, default: Date.now },
