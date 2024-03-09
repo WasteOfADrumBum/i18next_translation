@@ -2,12 +2,16 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const path = require('path')
+const { Pool } = require('pg')
 
 // Load environment variables
 require('dotenv').config({ path: path.join(__dirname, '../.env') })
 
 // Import routes
 const EventsRoutes = require('./routes/EventsRoutes')
+
+// Import PostgreSQL configuration
+const pool = require('./postgresConfig')
 
 // Create Express Server
 const app = express()
@@ -34,6 +38,13 @@ app.use(cors())
 		process.exit(1)
 	}
 })()
+
+// Middleware to add pool to each request
+app.use((req, res, next) => {
+	// @ts-ignore
+	req.dbPool = pool
+	next()
+})
 
 // Routes
 app.use('/api/events', EventsRoutes)
