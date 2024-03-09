@@ -2,13 +2,17 @@ import React, { useState, FC, useContext, useEffect, FormEvent } from 'react'
 // @ts-ignore
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Container, Typography, TextField, Button, CircularProgress, Grid } from '@mui/material'
+import { Container, Typography, TextField, Button, CircularProgress, Grid, Divider } from '@mui/material'
 import { createEvent, updateEvent } from '../../store/actions/eventActions'
 import { Event } from '../../../types/events/EventTypes'
 import { EventFormData } from '../../../types/events/EventFormTypes'
 import { AppDispatch } from 'store'
 import { HeaderContext } from '../../contexts/HeaderContext'
-import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
+import { AddCircleOutline, CancelOutlined, Today } from '@mui/icons-material'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import dayjs from 'dayjs'
 
 interface EventInputFormProps {
 	eventValues?: EventFormData
@@ -60,6 +64,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		county: eventValues?.county || '',
 		state: eventValues?.state || '',
 	})
+	const [formSubmitted, setFormSubmitted] = useState(false)
 
 	const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
@@ -69,8 +74,34 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		}))
 	}
 
+	const handleFormDateChange = (date: dayjs.Dayjs | null) => {
+		if (date) {
+			setFormData((prevState) => ({
+				...prevState,
+				reportedDate: date.toDate(),
+			}))
+		}
+	}
+
 	const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault() // Prevent default form submission behavior
+
+		setFormSubmitted(true)
+
+		let formValid = true // Flag to track overall form validity
+
+		// Iterate over form fields to perform validation
+		Object.keys(formData).forEach((fieldName) => {
+			// Check if field is empty
+			if (formData[fieldName as keyof EventFormData] === '') {
+				formValid = false // Set formValid flag to false if any field is empty
+			}
+		})
+
+		if (!formValid) {
+			// If any field is empty, return without submitting
+			return
+		}
 
 		setLoading(true)
 		setError(null)
@@ -125,37 +156,122 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	}
 
 	return (
-		<Container>
-			{loading && <CircularProgress />}
-			{error && <Typography color='error'>{error}</Typography>}
-			<form onSubmit={onSubmit}>
-				<Grid container spacing={2}>
-					<Grid item xs={6}>
-						<TextField
-							name='reporter'
-							label='Reporter'
-							variant='outlined'
-							fullWidth
-							value={formData.reporter}
-							onChange={handleFormChange}
-						/>
+		<LocalizationProvider dateAdapter={AdapterDayjs}>
+			<Container>
+				{loading && <CircularProgress />}
+				{error && <Typography color='error'>{error}</Typography>}
+				<form onSubmit={onSubmit}>
+					<Grid container spacing={2}>
+						<Grid item xs={6}>
+							<Typography variant='h4' color={'primary'} mb={1}>
+								Who
+							</Typography>
+							<Divider />
+						</Grid>
+						<Grid item xs={6}>
+							<Typography variant='h4' color={'primary'} mb={1}>
+								When
+							</Typography>
+							<Divider />
+						</Grid>
+						<Grid item xs={6}>
+							<TextField
+								name='reporter'
+								label='Reporter'
+								variant='outlined'
+								fullWidth
+								value={formData.reporter}
+								onChange={handleFormChange}
+								error={formSubmitted && formData.reporter === ''}
+								helperText={formSubmitted && formData.reporter === '' ? 'Reporter is required' : ''}
+							/>
+						</Grid>
+						<Grid item xs={6}>
+							<DatePicker
+								name='reportedDate'
+								label='Reported Date'
+								defaultValue={dayjs()}
+								value={dayjs(formData.reportedDate)}
+								onChange={(date) => handleFormDateChange(date)}
+								disableFuture
+								slotProps={{
+									textField: {
+										required: true,
+										fullWidth: true,
+									},
+								}}
+							/>
+						</Grid>
+						<Grid item xs={6}>
+							<TextField
+								name='submittedBy'
+								label='Submitted By'
+								variant='outlined'
+								fullWidth
+								value={formData.submittedBy}
+								onChange={handleFormChange}
+								error={formSubmitted && formData.submittedBy === ''}
+								helperText={formSubmitted && formData.submittedBy === '' ? 'Submitted by is required' : ''}
+							/>
+						</Grid>
+						<Grid item xs={6}>
+							<DatePicker
+								name='submittedDate'
+								label='Submitted Date'
+								defaultValue={dayjs()}
+								value={dayjs(formData.submittedDate)}
+								onChange={(date) => handleFormDateChange(date)}
+								disableFuture
+								slotProps={{
+									textField: {
+										required: true,
+										fullWidth: true,
+									},
+								}}
+							/>
+						</Grid>
+						<Grid item xs={6}>
+							<TextField
+								name='updatedBy'
+								label='Updated By'
+								variant='outlined'
+								fullWidth
+								value={formData.updatedBy}
+								onChange={handleFormChange}
+								error={formSubmitted && formData.updatedBy === ''}
+								helperText={formSubmitted && formData.updatedBy === '' ? 'Updated by is required' : ''}
+							/>
+						</Grid>
+						<Grid item xs={6}>
+							<DatePicker
+								name='updatedDate'
+								label='Updated Date'
+								defaultValue={dayjs()}
+								value={dayjs(formData.updatedDate)}
+								onChange={(date) => handleFormDateChange(date)}
+								disableFuture
+								slotProps={{
+									textField: {
+										required: true,
+										fullWidth: true,
+									},
+								}}
+							/>
+						</Grid>
+						<Grid item container xs={12} justifyContent='space-between'>
+							<Button variant='contained' color='secondary' onClick={() => navigate('/dashboard')}>
+								<CancelOutlined sx={{ marginRight: 1 }} />
+								Cancel
+							</Button>
+							<Button type='submit' variant='contained' color='primary' sx={{ textAlign: 'right' }}>
+								<AddCircleOutline sx={{ marginRight: 1 }} />
+								{eventValues ? 'Save Changes' : 'Add Event'}
+							</Button>
+						</Grid>
 					</Grid>
-					<Grid item xs={6}>
-						{/* reportedDate */}
-					</Grid>
-					<Grid item container xs={12} justifyContent='space-between'>
-						<Button variant='contained' color='secondary' onClick={() => navigate('/dashboard')}>
-							<CancelOutlined sx={{ marginRight: 1 }} />
-							Cancel
-						</Button>
-						<Button type='submit' variant='contained' color='primary' sx={{ textAlign: 'right' }}>
-							<AddCircleOutline sx={{ marginRight: 1 }} />
-							{eventValues ? 'Save Changes' : 'Add Event'}
-						</Button>
-					</Grid>
-				</Grid>
-			</form>
-		</Container>
+				</form>
+			</Container>
+		</LocalizationProvider>
 	)
 }
 
