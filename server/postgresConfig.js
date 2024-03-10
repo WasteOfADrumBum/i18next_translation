@@ -1,8 +1,6 @@
 const { Pool } = require('pg')
 const fs = require('fs')
 
-console.log('password: ', process.env.POSTGRES_SUPERUSER_PASSWORD)
-
 // Create a writable stream to a log file
 const logStream = fs.createWriteStream('pool.log', { flags: 'a' })
 
