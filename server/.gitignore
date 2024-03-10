@@ -7,3 +7,6 @@ package-lock.json
 # Ignore build artifacts
 build/
 dist/
+
+# Ignore PG Pool Log
+pool.log

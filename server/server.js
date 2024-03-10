@@ -41,8 +41,11 @@ app.use(cors())
 
 // Middleware to add pool to each request
 app.use((req, res, next) => {
+	// Log the details of the incoming request
+	console.log(`Incoming ${req.method} request to ${req.url}`)
 	// @ts-ignore
 	req.dbPool = pool
+	// Move to the next middleware in the stack
 	next()
 })
 
@@ -53,3 +56,9 @@ app.use('/api/events', EventsRoutes)
 app.listen(PORT, () => {
 	console.log('\x1b[36mServer is running on port\x1b[0m', PORT)
 })
+
+// Import the debug library
+const debug = require('debug')
+
+// Enable debug logging for your application
+debug.enable('*')
