@@ -1,6 +1,0 @@
-# Use the official PostgreSQL image as the base image
-FROM postgres
-
-# Log out database information during image build
-RUN echo "Logging database information:" \
-    && psql -U postgres -c "\l"
