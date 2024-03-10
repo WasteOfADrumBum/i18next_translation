@@ -3,16 +3,40 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const path = require('path')
 const { Pool } = require('pg')
-const { exec } = require('child_process')
+const fs = require('fs')
+const dotenv = require('dotenv')
+const debug = require('debug')
 
 // Load environment variables
-require('dotenv').config({ path: path.join(__dirname, '../.env') })
+dotenv.config({ path: path.join(__dirname, '../.env') })
 
 // Import routes
 const EventsRoutes = require('./routes/EventsRoutes')
 
-// Import PostgreSQL configuration
-const pool = require('./postgresConfig')
+// Create a writable stream to a log file
+const logStream = fs.createWriteStream('pool.log', { flags: 'a' })
+
+// Create a PostgreSQL connection pool
+const pool = new Pool({
+	user: 'postgres',
+	// host: 'postgres_jms', // Docker service name
+	host: '172.23.0.3', // Use the IP address of the PostgreSQL container
+	database: 'eventDB',
+	password: process.env.POSTGRES_SUPERUSER_PASSWORD,
+	port: 5432,
+})
+
+// Log connection status to the console and the log file
+pool.connect((err, client, release) => {
+	if (err) {
+		console.error('\x1b[31mError connecting to PostgreSQL database:', err)
+		logStream.write(`Error connecting to PostgreSQL database: ${err}\n`)
+	} else {
+		console.log('\x1b[32mConnected to PostgreSQL database')
+		logStream.write('Connected to PostgreSQL database\n')
+		release()
+	}
+})
 
 // Create Express Server
 const app = express()
@@ -24,21 +48,21 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 // Connect to MongoDB
-;(async () => {
-	try {
-		await mongoose.connect('mongodb://localhost:27017/eventDB', {
-			writeConcern: {
-				w: 'majority',
-				j: true,
-				wtimeout: 1000,
-			},
-		})
+mongoose
+	.connect('mongodb://localhost:27017/eventDB', {
+		writeConcern: {
+			w: 'majority',
+			j: true,
+			wtimeout: 1000,
+		},
+	})
+	.then(() => {
 		console.log('\x1b[32mMongoDB connected\x1b[0m')
-	} catch (error) {
+	})
+	.catch((error) => {
 		console.error('\x1b[31mError:', error.message, '\x1b[0m')
 		process.exit(1)
-	}
-})()
+	})
 
 // Middleware to add pool to each request
 app.use((req, res, next) => {
@@ -46,34 +70,8 @@ app.use((req, res, next) => {
 	console.log(`Incoming ${req.method} request to ${req.url}`)
 	// @ts-ignore
 	req.dbPool = pool
-	// Move to the next middleware in the stack
 	next()
 })
-
-// Test PostgreSQL connection
-function testPostgreSQLConnection() {
-	const username = 'postgres' // Change as per your PostgreSQL configuration
-	const database = 'eventDB' // Change as per your PostgreSQL configuration
-
-	// Construct the psql command
-	const command = `psql -h postgres -U ${username} -d ${database} -c 'SELECT version()'`
-
-	// Execute the psql command
-	exec(command, (error, stdout, stderr) => {
-		if (error) {
-			console.error(`Error connecting to PostgreSQL: ${error.message}`)
-			return
-		}
-		if (stderr) {
-			console.error(`Error connecting to PostgreSQL: ${stderr}`)
-			return
-		}
-		console.log(`Successfully connected to PostgreSQL: ${stdout}`)
-	})
-}
-
-// Call the function to test PostgreSQL connection
-testPostgreSQLConnection()
 
 // Routes
 app.use('/api/events', EventsRoutes)
@@ -82,9 +80,6 @@ app.use('/api/events', EventsRoutes)
 app.listen(PORT, () => {
 	console.log('\x1b[36mServer is running on port\x1b[0m', PORT)
 })
-
-// Import the debug library
-const debug = require('debug')
 
 // Enable debug logging for your application
 debug.enable('*')

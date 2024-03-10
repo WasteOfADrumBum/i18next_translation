@@ -21,7 +21,7 @@ services:
     networks:
       app-network:
         aliases:
-          - postgres
+          - postgres_jms # Updated alias to match the desired host name
     depends_on:
       - mongo
     healthcheck:
