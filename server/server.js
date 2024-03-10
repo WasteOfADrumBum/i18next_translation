@@ -1,11 +1,11 @@
 const express = require('express')
-const mongoose = require('mongoose')
 const cors = require('cors')
-const path = require('path')
-const { Pool } = require('pg')
+const mongoose = require('mongoose')
 const fs = require('fs')
+const path = require('path')
 const dotenv = require('dotenv')
 const debug = require('debug')
+const { Pool } = require('pg')
 
 // Load environment variables
 dotenv.config({ path: path.join(__dirname, '../.env') })
@@ -18,12 +18,11 @@ const logStream = fs.createWriteStream('pool.log', { flags: 'a' })
 
 // Create a PostgreSQL connection pool
 const pool = new Pool({
-	user: 'postgres',
-	// host: 'postgres_jms', // Docker service name
-	host: '172.23.0.3', // Use the IP address of the PostgreSQL container
-	database: 'eventDB',
-	password: process.env.POSTGRES_SUPERUSER_PASSWORD,
-	port: 5432,
+	user: 'postgres', // (POSTGRES_USER)
+	password: process.env.POSTGRES_SUPERUSER_PASSWORD, // (POSTGRES_PASSWORD)
+	database: 'eventDB', // (POSTGRES_DB)
+	port: 5432, // (HostPort)
+	host: '0.0.0.0', // Use the IP address of the PostgreSQL container (HostIp)
 })
 
 // Log connection status to the console and the log file
@@ -75,6 +74,26 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/events', EventsRoutes)
+
+app.get('/test', async (req, res) => {
+	try {
+		// Get a client from the pool
+		// @ts-ignore
+		const client = await req.dbPool.connect()
+
+		// Execute a query
+		const result = await client.query('SELECT $1::text as message', ['Hello PostgreSQL'])
+
+		// Release the client back to the pool
+		client.release()
+
+		// Send the query result to the client
+		res.json(result.rows)
+	} catch (err) {
+		console.error('Error executing query:', err)
+		res.status(500).json({ error: 'Internal server error' })
+	}
+})
 
 // Log server start
 app.listen(PORT, () => {

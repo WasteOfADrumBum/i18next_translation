@@ -10,7 +10,9 @@ services:
       - app-network
 
   postgres:
-    image: postgres
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres # Use the custom Dockerfile
     container_name: postgres
     ports:
       - '5432:5432'
