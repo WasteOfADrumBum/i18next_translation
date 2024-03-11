@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  docker-mongo:
-    image: mongo
-    container_name: docker-mongodb
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
     volumes:
       - mongo_data:/data/db
     ports:
@@ -17,15 +17,15 @@ services:
         max-file: '5'
     restart: always
 
-  docker-postgresql:
-    image: postgres
-    container_name: docker-postgresql
+  db:
+    image: postgres:13
+    container_name: postgresql
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: docker
-      POSTGRES_PASSWORD: docker
-      POSTGRES_DB: docker
+      POSTGRES_USER: ${POSTGRES_SUPERUSER}
+      POSTGRES_PASSWORD: ${POSTGRES_SUPERUSER_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - '5432:5432'
     networks:
@@ -33,19 +33,19 @@ services:
     restart: always
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres']
-      interval: 5s # Check every 5 seconds
-      timeout: 5s # Timeout after 5 seconds
-      retries: 5 # Retry 5 times
-      start_period: 30s # Wait for 30 seconds before starting health checks
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     logging:
       driver: json-file
       options:
-        max-size: '10m' # Maximum log file size
-        max-file: '5' # Maximum number of log files to retain
+        max-size: '10m'
+        max-file: '5'
 
-  docker-pgadmin:
+  pgadmin:
     image: dpage/pgadmin4
-    container_name: docker-pgadmin
+    container_name: pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
@@ -53,10 +53,13 @@ services:
     ports:
       - '5050:80'
     depends_on:
-      - docker-postgresql
+      - db
 
 networks:
   default:
     driver: bridge
     name: app-network
-    external: true
+
+volumes:
+  mongo_data:
+  postgres_data:
