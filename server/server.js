@@ -33,6 +33,43 @@ pool.connect((err, client, release) => {
 	} else {
 		console.log('\x1b[32mConnected to PostgreSQL database')
 		logStream.write('Connected to PostgreSQL database\n')
+
+		// Define the SQL query to create the events table
+		const createEventsTableQuery = `
+            CREATE TABLE IF NOT EXISTS events (
+                id SERIAL PRIMARY KEY,
+                reporter VARCHAR(255) NOT NULL,
+                reported_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_by VARCHAR(255) NOT NULL,
+                updated_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                submitted_by VARCHAR(255) NOT NULL,
+                submitted_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                event_type VARCHAR(255) NOT NULL,
+                event_subtype VARCHAR(255) NOT NULL,
+                title TEXT NOT NULL,
+                description TEXT NOT NULL,
+                tagging TEXT[],
+                method_of_receipt VARCHAR(255) NOT NULL,
+                address TEXT NOT NULL,
+                city VARCHAR(255) NOT NULL,
+                zip VARCHAR(255) NOT NULL,
+                country VARCHAR(255) NOT NULL,
+                county VARCHAR(255) NOT NULL,
+                state VARCHAR(255) NOT NULL
+            )
+        `
+
+		// Execute the SQL query to create the events table
+		pool.query(createEventsTableQuery, (err, result) => {
+			if (err) {
+				console.error('Error creating events table:', err)
+				logStream.write(`Error creating events table: ${err}\n`)
+			} else {
+				console.log('Events table created successfully')
+				logStream.write('Events table created successfully\n')
+			}
+		})
+
 		release()
 	}
 })

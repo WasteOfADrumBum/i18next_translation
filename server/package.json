@@ -18,7 +18,8 @@
 		"http-proxy": "^1.18.1",
 		"http-proxy-middleware": "^2.0.6",
 		"mongoose": "^8.2.1",
-		"pg": "^8.11.3"
+		"pg": "^8.11.3",
+		"wait-for-postgres": "^1.5.3"
 	},
 	"devDependencies": {
 		"@types/cors": "^2.8.17",
