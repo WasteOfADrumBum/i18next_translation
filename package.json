@@ -5,7 +5,8 @@
 	"main": "server/server.js",
 	"scripts": {
 		"start": "cd client && npm start",
-		"server": "cd server && node server.js",
+		"server": "wait-for-it mongo:27017 -- npm run start-server",
+		"start-server": "cd server && node server.js",
 		"client": "cd client && npm start",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
 		"all": "npm-run-all --parallel server client",
@@ -15,7 +16,8 @@
 	"author": "Joshua M. Small",
 	"license": "MIT",
 	"dependencies": {
-		"concurrently": "^8.2.2"
+		"concurrently": "^8.2.2",
+		"wait-for-it": "^1.0.0"
 	},
 	"devDependencies": {
 		"eslint": "^8.57.0",
