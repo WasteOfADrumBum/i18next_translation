@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const eventController = require('../controllers/eventController')
+const eventController = require('../../controllers/mongodb/EventController')
 
 // GET all events
 router.get('/', (req, res) => {
