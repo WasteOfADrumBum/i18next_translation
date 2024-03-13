@@ -9,7 +9,7 @@ import { getEvents } from '../../store/actions/mongodb/eventActions'
 import TimeConversionsHelper from '../../utils/TimeConversionsHelper'
 import { HeaderContext } from '../../contexts/HeaderContext'
 import { useNavigate } from 'react-router-dom'
-import { Event } from '../../../types/events/EventTypes'
+import { Event } from '../../store/types/EventTypes'
 
 const eventHeaderTranslations = translations.pages.events.header
 const eventTableTranslations = translations.pages.events.table.labels

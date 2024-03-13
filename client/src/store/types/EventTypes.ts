@@ -1,4 +1,5 @@
-export type Event = {
+// Define the interface for an event
+export interface Event {
 	id: string | null
 	status: string
 	reported: {
@@ -32,3 +33,19 @@ export type Event = {
 		state: string
 	}
 }
+
+// Define the state for events
+export interface EventState {
+	events: Event[]
+	loading: boolean
+	error: string | null
+}
+
+// Define the actions that can be performed on events
+export type EventAction = {
+	type: string
+	event: Event
+}
+
+// Define the type for the dispatcher function
+export type DispatchType = (args: EventAction) => EventAction

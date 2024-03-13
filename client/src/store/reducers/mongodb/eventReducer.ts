@@ -1,4 +1,4 @@
-import { Event } from '../../../../types/events/EventTypes'
+import { EventState, Event, EventAction } from '../../types/EventTypes'
 
 // Action types
 import {
@@ -19,24 +19,13 @@ import {
 	GET_EVENT_FAILURE,
 } from '../../../constants/events'
 
-interface Action<T> {
-	type: string
-	payload: T
-}
-
-interface EventState {
-	events: Event[]
-	loading: boolean
-	error: string | null
-}
-
 const initialState: EventState = {
 	events: [],
 	loading: false,
 	error: null,
 }
 
-const eventReducer = (state: EventState = initialState, action: Action<Event[] | Event | string>) => {
+const eventReducer = (state: EventState = initialState, action: EventAction) => {
 	switch (action.type) {
 		case CREATE_EVENT_REQUEST:
 		case DELETE_EVENT_REQUEST:
@@ -51,14 +40,14 @@ const eventReducer = (state: EventState = initialState, action: Action<Event[] |
 		case CREATE_EVENT_SUCCESS:
 			return {
 				...state,
-				events: [...state.events, action.payload as Event],
+				events: [...state.events, action.event],
 				loading: false,
 				error: null,
 			}
 		case DELETE_EVENT_SUCCESS:
 			return {
 				...state,
-				events: state.events.filter((event) => event.id !== (action.payload as string)),
+				events: state.events.filter((event) => event.id !== action.event.id),
 				loading: false,
 				error: null,
 			}
@@ -66,8 +55,8 @@ const eventReducer = (state: EventState = initialState, action: Action<Event[] |
 			return {
 				...state,
 				events: state.events.map((event) => {
-					if (event.id === (action.payload as Event).id) {
-						return action.payload
+					if (event.id === action.event.id) {
+						return action.event
 					}
 					return event
 				}),
@@ -77,14 +66,14 @@ const eventReducer = (state: EventState = initialState, action: Action<Event[] |
 		case GET_EVENTS_SUCCESS:
 			return {
 				...state,
-				events: action.payload as Event[],
+				events: action.event,
 				loading: false,
 				error: null,
 			}
 		case GET_EVENT_SUCCESS:
 			return {
 				...state,
-				events: [action.payload as Event],
+				events: [action.event],
 				loading: false,
 				error: null,
 			}
@@ -96,7 +85,7 @@ const eventReducer = (state: EventState = initialState, action: Action<Event[] |
 			return {
 				...state,
 				loading: false,
-				error: action.payload as string,
+				error: action.event ? 'An error occurred' : null,
 			}
 		default:
 			return state
