@@ -20,7 +20,7 @@ import { lightTheme, darkTheme } from './styles/theme'
 import { NavBar, Header, Footer, TabsComponent } from './components'
 import { CssBaseline } from '@mui/material'
 import { useDispatch } from 'react-redux'
-import { setUser, clearUser } from './store/actions/userActions'
+import { setUser, clearUser } from './store/actions/mongodb/userActions'
 import { ThemeContextProvider, HeaderContextProvider } from './contexts'
 
 function PrivateRoute({ element, isAuthenticated }: { element: ReactNode; isAuthenticated: boolean }) {

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Dispatch } from 'redux'
-import { Event } from '../../../types/events/EventTypes'
-import translations from '../../i18n/locales'
+import { Event } from '../../../../types/events/EventTypes'
+import translations from '../../../i18n/locales'
 
 const errorTranslations = translations.errors
 
@@ -21,6 +21,7 @@ export const SET_ERROR = 'SET_ERROR'
 
 // Action Creators
 export const createEvent = (event: Event) => async (dispatch: Dispatch) => {
+	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mCreate Event\x1b[0m')
 	try {
 		dispatch({ type: SET_LOADING })
 		const response = await axiosInstance.post('/events', event)
@@ -31,6 +32,8 @@ export const createEvent = (event: Event) => async (dispatch: Dispatch) => {
 }
 
 export const deleteEvent = (eventId: string) => async (dispatch: Dispatch) => {
+	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mDelete Event\x1b[0m')
+
 	try {
 		dispatch({ type: SET_LOADING })
 		await axiosInstance.delete(`/events/${eventId}`)
@@ -41,6 +44,8 @@ export const deleteEvent = (eventId: string) => async (dispatch: Dispatch) => {
 }
 
 export const updateEvent = (event: Event) => async (dispatch: Dispatch) => {
+	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mUpdate Event\x1b[0m')
+
 	try {
 		dispatch({ type: SET_LOADING })
 		await axiosInstance.put(`/events/${event.id}`, event)
@@ -51,6 +56,7 @@ export const updateEvent = (event: Event) => async (dispatch: Dispatch) => {
 }
 
 export const getEvents = () => async (dispatch: Dispatch) => {
+	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mGet Events\x1b[0m')
 	try {
 		dispatch({ type: SET_LOADING })
 		const response = await axiosInstance.get('/events')
@@ -61,6 +67,7 @@ export const getEvents = () => async (dispatch: Dispatch) => {
 }
 
 export const getEvent = (eventId: string) => async (dispatch: Dispatch) => {
+	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mGet Event\x1b[0m')
 	try {
 		dispatch({ type: SET_LOADING })
 		const response = await axiosInstance.get(`/events/${eventId}`)

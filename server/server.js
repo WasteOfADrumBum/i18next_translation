@@ -98,3 +98,9 @@ app.listen(PORT, () => {
 
 // Enable debug logging for your application
 require('debug').enable('*')
+
+// Export the pool object
+module.exports = {
+	app,
+	pool,
+}

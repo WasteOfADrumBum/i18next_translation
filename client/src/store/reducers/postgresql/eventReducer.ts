@@ -5,31 +5,31 @@ interface Action<T> {
 	payload: T
 }
 
-interface EventState {
+interface PostgresEventState {
 	events: Event[]
 	loading: boolean
 	error: string | null
 }
 
-const initialState: EventState = {
+const initialState: PostgresEventState = {
 	events: [],
 	loading: false,
 	error: null,
 }
 
-const eventReducer = (state: EventState = initialState, action: Action<Event[] | Event | string>) => {
+const postgresEventReducer = (state: PostgresEventState = initialState, action: Action<Event[] | Event | string>) => {
 	switch (action.type) {
-		case 'CREATE_EVENT':
+		case 'CREATE_POSTGRES_EVENT':
 			return {
 				...state,
 				events: [...state.events, action.payload as Event],
 			}
-		case 'DELETE_EVENT':
+		case 'DELETE_POSTGRES_EVENT':
 			return {
 				...state,
 				events: state.events.filter((event) => event.id !== (action.payload as string)),
 			}
-		case 'UPDATE_EVENT':
+		case 'UPDATE_POSTGRES_EVENT':
 			return {
 				...state,
 				events: state.events.map((event) => {
@@ -39,26 +39,26 @@ const eventReducer = (state: EventState = initialState, action: Action<Event[] |
 					return event
 				}),
 			}
-		case 'GET_EVENTS':
+		case 'GET_POSTGRES_EVENTS':
 			return {
 				...state,
 				events: action.payload as Event[],
 				loading: false,
 				error: null,
 			}
-		case 'GET_EVENT':
+		case 'GET_POSTGRES_EVENT':
 			return {
 				...state,
 				events: [action.payload as Event],
 				loading: false,
 				error: null,
 			}
-		case 'SET_LOADING':
+		case 'SET_POSTGRES_LOADING':
 			return {
 				...state,
 				loading: true,
 			}
-		case 'SET_ERROR':
+		case 'SET_POSTGRES_ERROR':
 			return {
 				...state,
 				error: action.payload as string,
@@ -69,4 +69,4 @@ const eventReducer = (state: EventState = initialState, action: Action<Event[] |
 	}
 }
 
-export default eventReducer
+export default postgresEventReducer

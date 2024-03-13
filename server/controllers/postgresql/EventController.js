@@ -1,22 +1,16 @@
-// Function to fetch all events from PostgreSQL
-const getAllEventsFromPostgres = async (dbPool) => {
-	try {
-		const client = await dbPool.connect()
-		const result = await client.query('SELECT * FROM events')
-		client.release()
-		console.log('\x1b[32mEvents fetched from PostgreSQL (Utils)\x1b[0m')
-		return result.rows
-	} catch (err) {
-		console.error('\x1b[31mError fetching events from PostgreSQL: (Utils)\x1b[0m', err)
-		throw err
-	}
-}
+// Import required dependencies
+const {
+	getAllEventsFromPostgres,
+	createEventInPostgres,
+	updateEventInPostgres,
+	deleteEventFromPostgres,
+} = require('../../models/postgresql/EventsModel')
 
-// Get all events from PostgreSQL
+// Function to fetch all events from PostgreSQL
 const getAllEventsFromPostgresController = async (req, res) => {
 	try {
 		console.log('\x1b[32mFetching all events from PostgreSQL (Controller)\x1b[0m')
-		const eventsFromPostgres = await getAllEventsFromPostgres(req.dbPool)
+		const eventsFromPostgres = await getAllEventsFromPostgres()
 		console.log('\x1b[32mEvents fetched from PostgreSQL: (Controller)\x1b[0m', eventsFromPostgres)
 		res.json(eventsFromPostgres)
 	} catch (err) {
@@ -26,18 +20,13 @@ const getAllEventsFromPostgresController = async (req, res) => {
 }
 
 // Function to create a new event in PostgreSQL
-const createEventInPostgres = async (req, res) => {
+const createEventInPostgresController = async (req, res) => {
 	try {
 		console.log('\x1b[32mCreating new event in PostgreSQL (Controller)\x1b[0m')
 		const { title, description, tagging, methodOfReceipt } = req.body
-		const client = await req.dbPool.connect()
-		const result = await client.query(
-			'INSERT INTO events(title, description, tagging, methodOfReceipt) VALUES($1, $2, $3, $4) RETURNING *',
-			[title, description, tagging, methodOfReceipt],
-		)
-		client.release()
-		console.log('\x1b[32mEvent created in PostgreSQL: (Controller)\x1b[0m', result.rows[0])
-		res.json(result.rows[0])
+		const newEvent = await createEventInPostgres(title, description, tagging, methodOfReceipt)
+		console.log('\x1b[32mEvent created in PostgreSQL: (Controller)\x1b[0m', newEvent)
+		res.json(newEvent)
 	} catch (err) {
 		console.error('\x1b[31mError creating new event in PostgreSQL: (Controller)\x1b[0m', err)
 		res.status(500).json({ message: 'Server Error' })
@@ -45,18 +34,13 @@ const createEventInPostgres = async (req, res) => {
 }
 
 // Function to update an event in PostgreSQL
-const updateEventInPostgres = async (req, res) => {
+const updateEventInPostgresController = async (req, res) => {
 	try {
 		console.log('\x1b[32mUpdating event in PostgreSQL (Controller)\x1b[0m')
 		const { title, description, tagging, methodOfReceipt } = req.body
-		const client = await req.dbPool.connect()
-		const result = await client.query(
-			'UPDATE events SET title=$1, description=$2, tagging=$3, methodOfReceipt=$4 WHERE id=$5 RETURNING *',
-			[title, description, tagging, methodOfReceipt, req.params.id],
-		)
-		client.release()
-		console.log('\x1b[32mEvent updated in PostgreSQL: (Controller)\x1b[0m', result.rows[0])
-		res.json(result.rows[0])
+		const updatedEvent = await updateEventInPostgres(req.params.id, title, description, tagging, methodOfReceipt)
+		console.log('\x1b[32mEvent updated in PostgreSQL: (Controller)\x1b[0m', updatedEvent)
+		res.json(updatedEvent)
 	} catch (err) {
 		console.error('\x1b[31mError updating event in PostgreSQL: (Controller)\x1b[0m', err)
 		res.status(500).json({ message: 'Server Error' })
@@ -64,14 +48,12 @@ const updateEventInPostgres = async (req, res) => {
 }
 
 // Function to delete an event from PostgreSQL
-const deleteEventFromPostgres = async (req, res) => {
+const deleteEventFromPostgresController = async (req, res) => {
 	try {
 		console.log('\x1b[32mDeleting event from PostgreSQL (Controller)\x1b[0m')
-		const client = await req.dbPool.connect()
-		const result = await client.query('DELETE FROM events WHERE id = $1 RETURNING *', [req.params.id])
-		client.release()
-		console.log('\x1b[32mEvent deleted from PostgreSQL: (Controller)\x1b[0m', result.rows[0])
-		res.json(result.rows[0])
+		const deletedEvent = await deleteEventFromPostgres(req.params.id)
+		console.log('\x1b[32mEvent deleted from PostgreSQL: (Controller)\x1b[0m', deletedEvent)
+		res.json(deletedEvent)
 	} catch (err) {
 		console.error('\x1b[31mError deleting event from PostgreSQL: (Controller)\x1b[0m', err)
 		res.status(500).json({ message: 'Server Error' })
@@ -80,7 +62,7 @@ const deleteEventFromPostgres = async (req, res) => {
 
 module.exports = {
 	getAllEventsFromPostgresController,
-	createEventInPostgres,
-	updateEventInPostgres,
-	deleteEventFromPostgres,
+	createEventInPostgresController,
+	updateEventInPostgresController,
+	deleteEventFromPostgresController,
 }

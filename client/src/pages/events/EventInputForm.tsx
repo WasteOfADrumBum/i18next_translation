@@ -20,7 +20,7 @@ import {
 	Checkbox,
 	ListItemText,
 } from '@mui/material'
-import { createEvent, updateEvent } from '../../store/actions/eventActions'
+import { createEvent, updateEvent } from '../../store/actions/mongodb/eventActions'
 import { Event } from '../../../types/events/EventTypes'
 import { EventFormData } from '../../../types/events/EventFormTypes'
 import { AppDispatch } from 'store'

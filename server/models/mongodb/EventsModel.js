@@ -36,6 +36,6 @@ const eventsModelSchema = new mongoose.Schema({
 
 // Export both Mongoose model and Sequelize model
 const EventsModel = mongoose.model('EventsModel', eventsModelSchema)
-console.log('\x1b[33mModel:\x1b[0m \x1b[37mEventsModel\x1b[0m')
+console.log('\x1b[36mMongoDB:\x1b[0m Model \x1b[32mEvents\x1b[0m')
 
 module.exports = EventsModel

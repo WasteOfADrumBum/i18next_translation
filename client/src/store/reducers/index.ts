@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import userReducer from './userReducer'
-import eventReducer from './eventReducer'
+import userReducer from './mongodb/userReducer'
+import eventReducer from './mongodb/eventReducer'
 
 const rootReducer = combineReducers({
 	user: userReducer,
