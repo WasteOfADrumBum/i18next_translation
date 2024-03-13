@@ -21,7 +21,7 @@ import {
 	ListItemText,
 } from '@mui/material'
 import { createEvent, updateEvent } from '../../store/actions/mongodb/eventActions'
-import { Event } from '../../../types/events/EventTypes'
+import { Event } from '../../store/types/EventTypes'
 import { EventFormData } from '../../../types/events/EventFormTypes'
 import { AppDispatch } from 'store'
 import { HeaderContext } from '../../contexts/HeaderContext'
