@@ -49,3 +49,10 @@ export type EventAction = {
 
 // Define the type for the dispatcher function
 export type DispatchType = (args: EventAction) => EventAction
+
+// Define initial action state
+export const initialState: EventState = {
+	events: [],
+	loading: false,
+	error: null,
+}

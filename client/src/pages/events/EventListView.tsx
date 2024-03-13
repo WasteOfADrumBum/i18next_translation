@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, FC, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch, Action } from 'redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Button, Container, Grid, Typography } from '@mui/material'
 import { AddCircleOutline } from '@mui/icons-material'
 import translations from '../../i18n/locales'
@@ -15,13 +14,15 @@ const eventHeaderTranslations = translations.pages.events.header
 const eventTableTranslations = translations.pages.events.table.labels
 
 const EventListView: FC = () => {
-	const dispatch: Dispatch<Action> = useDispatch()
 	const { setHeaderData } = useContext(HeaderContext)
 	const [formattedEvents, setFormattedEvents] = useState<Event[]>([])
-	const events = useSelector((state: any) => state.events)
+	//const events = useSelector((state: any) => state.events.events)
+	const [events, setEvents] = useState<Event[]>([])
+	const dispatch = useDispatch()
 
 	useEffect(() => {
-		dispatch(getEvents())
+		setEvents(dispatch<any>(getEvents()))
+		console.log(events)
 	}, [dispatch])
 
 	useEffect(() => {
