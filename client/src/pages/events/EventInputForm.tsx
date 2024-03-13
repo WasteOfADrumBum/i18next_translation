@@ -176,10 +176,10 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 			}
 
 			if (eventValues) {
-				console.log('Update Event:', eventData)
+				console.log('Update Event (Form):', eventData)
 				await dispatch(updateEvent(eventData))
 			} else {
-				console.log('Add Event:', eventData)
+				console.log('Add Event (Form):', eventData)
 				await dispatch(createEvent(eventData))
 			}
 		} catch (error: any) {
