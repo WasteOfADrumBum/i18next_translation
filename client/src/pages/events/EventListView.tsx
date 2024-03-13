@@ -1,57 +1,39 @@
 import React, { useContext, useEffect, FC, useMemo, useState } from 'react'
-// @ts-ignore
-import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Dispatch, Action } from 'redux'
 import { Button, Container, Grid, Typography } from '@mui/material'
+import { AddCircleOutline } from '@mui/icons-material'
 import translations from '../../i18n/locales'
 import { DynamicDataTable, ActionsMenu } from '../../components'
-import { generateFakeReduxState } from '../../utils/CasualReduxEvent'
+import { getEvents } from '../../store/actions/mongodb/eventActions'
 import TimeConversionsHelper from '../../utils/TimeConversionsHelper'
 import { HeaderContext } from '../../contexts/HeaderContext'
-import { AddCircleOutline } from '@mui/icons-material'
-
-interface Event {
-	id: string
-	eventDate: string
-	eventType: string
-	eventSubType: string
-	location: {
-		address: string
-		city: string
-	}
-	reporter: string
-	recordedDate: string
-	lastUpdatedBy: string
-	lastUpdatedDate: string
-	status: string
-}
+import { useNavigate } from 'react-router-dom'
+import { Event } from '../../../types/events/EventTypes'
 
 const eventHeaderTranslations = translations.pages.events.header
 const eventTableTranslations = translations.pages.events.table.labels
 
 const EventListView: FC = () => {
-	const navigate = useNavigate()
+	const dispatch: Dispatch<Action> = useDispatch()
 	const { setHeaderData } = useContext(HeaderContext)
-	const [formattedEvents, setFormattedEvents] = useState<any[]>([])
+	const [formattedEvents, setFormattedEvents] = useState<Event[]>([])
+	const events = useSelector((state: any) => state.events)
 
 	useEffect(() => {
-		// Generate fake Redux state
-		const fakeReduxState = generateFakeReduxState()
+		dispatch(getEvents())
+	}, [dispatch])
 
-		// Extract events and columns from fake Redux state
-		const { events } = fakeReduxState
-
-		// Format date/time values in events
+	useEffect(() => {
 		const formattedEvents = events.map((event: any) => ({
 			...event,
 			eventDate: TimeConversionsHelper.convertTime(event.eventDate, 'MM/DD/YYYY', true, 'America/New_York'),
 			recordedDate: TimeConversionsHelper.convertTime(event.recordedDate, 'MM/DD/YYYY', true, 'America/New_York'),
 		}))
-
 		setFormattedEvents(formattedEvents)
-	}, [])
+	}, [events])
 
 	const stats = useMemo(() => {
-		// Calculate statistics
 		const totalRecords = formattedEvents.length
 		const statusStats: Record<string, number> = {}
 		formattedEvents.forEach((event) => {
@@ -65,7 +47,6 @@ const EventListView: FC = () => {
 	}, [formattedEvents])
 
 	useEffect(() => {
-		// Update header data when component mounts
 		setHeaderData({
 			header: eventHeaderTranslations.title,
 			subheader: eventHeaderTranslations.subtitle,
@@ -104,7 +85,6 @@ const EventListView: FC = () => {
 			),
 		})
 
-		// Clean up header data when component unmounts
 		return () => {
 			setHeaderData({
 				header: '',
@@ -114,24 +94,28 @@ const EventListView: FC = () => {
 		}
 	}, [setHeaderData, stats])
 
-	// Define handleView function
-	const handleView = (id: string) => {
-		navigate(`/dashboard/event/${id}/details`)
+	const navigate = useNavigate()
+
+	const handleView = (id: string | undefined) => {
+		if (id) {
+			navigate(`/dashboard/event/${id}/details`)
+		}
 	}
 
-	// Define handleEdit function
-	const handleEdit = (id: string) => {
-		navigate(`/event/${id}/edit`)
+	const handleEdit = (id: string | undefined) => {
+		if (id) {
+			navigate(`/event/${id}/edit`)
+		}
 	}
 
-	// Define handleDelete function
-	const handleDelete = (id: string) => {
-		console.log('Delete action for row:', id)
-		// TODO: Implement delete action
+	const handleDelete = (id: string | undefined) => {
+		if (id) {
+			console.log('Delete action for row:', id)
+		}
 	}
 
 	const columns = [
-		{ id: 'id', label: eventTableTranslations.id },
+		{ id: '_id', label: eventTableTranslations.id },
 		{ id: 'eventDate', label: eventTableTranslations.eventDate },
 		{ id: 'eventType', label: eventTableTranslations.eventType },
 		{ id: 'eventSubType', label: eventTableTranslations.eventSubtype },
@@ -145,9 +129,9 @@ const EventListView: FC = () => {
 			label: eventTableTranslations.actions,
 			render: (data: Event) => (
 				<ActionsMenu
-					onView={() => handleView(data.id)}
-					onEdit={() => handleEdit(data.id)}
-					onDelete={() => handleDelete(data.id)}
+					onView={() => handleView(data.id ?? '')}
+					onEdit={() => handleEdit(data.id ?? '')}
+					onDelete={() => handleDelete(data.id ?? '')}
 				/>
 			),
 		},

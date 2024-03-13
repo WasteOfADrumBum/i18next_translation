@@ -63,6 +63,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	const [error, setError] = useState<string | null>(null)
 	const [formData, setFormData] = useState<EventFormData>({
 		id: eventValues?.id,
+		status: eventValues?.status || 'pending',
 		reporter: eventValues?.reporter || '',
 		reportedDate: eventValues?.reportedDate || new Date(),
 		updatedBy: eventValues?.updatedBy || '',
@@ -143,6 +144,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		try {
 			const eventData: Event = {
 				id: formData.id || null,
+				status: formData.status,
 				reported: {
 					reporter: formData.reporter,
 					reportedDate: formData.reportedDate,

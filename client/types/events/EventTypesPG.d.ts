@@ -7,6 +7,7 @@ export const DELETE_EVENT = 'DELETE_EVENT'
 // Define event interface
 export interface Event {
 	id: number
+	status: string
 	// Add other properties of the event here
 }
 

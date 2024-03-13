@@ -1,5 +1,6 @@
 export type Event = {
 	id: string | null
+	status: string
 	reported: {
 		reporter: string
 		reportedDate: Date
