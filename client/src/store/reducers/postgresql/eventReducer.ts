@@ -1,72 +1,41 @@
-import { Event } from '../../../../types/events/EventTypes'
+import {
+	EventActionTypes,
+	EventState,
+	GET_EVENTS,
+	ADD_EVENT,
+	UPDATE_EVENT,
+	DELETE_EVENT,
+} from '../../../../types/events/EventTypesPG'
 
-interface Action<T> {
-	type: string
-	payload: T
-}
-
-interface PostgresEventState {
-	events: Event[]
-	loading: boolean
-	error: string | null
-}
-
-const initialState: PostgresEventState = {
+const initialState: EventState = {
 	events: [],
-	loading: false,
-	error: null,
 }
 
-const postgresEventReducer = (state: PostgresEventState = initialState, action: Action<Event[] | Event | string>) => {
+const eventReducer = (state = initialState, action: EventActionTypes): EventState => {
 	switch (action.type) {
-		case 'CREATE_POSTGRES_EVENT':
+		case GET_EVENTS:
 			return {
 				...state,
-				events: [...state.events, action.payload as Event],
+				events: action.payload,
 			}
-		case 'DELETE_POSTGRES_EVENT':
+		case ADD_EVENT:
 			return {
 				...state,
-				events: state.events.filter((event) => event.id !== (action.payload as string)),
+				events: [...state.events, action.payload],
 			}
-		case 'UPDATE_POSTGRES_EVENT':
+		case UPDATE_EVENT:
 			return {
 				...state,
-				events: state.events.map((event) => {
-					if (event.id === (action.payload as Event).id) {
-						return action.payload
-					}
-					return event
-				}),
+				events: state.events.map((event) => (event.id === action.payload.id ? action.payload : event)),
 			}
-		case 'GET_POSTGRES_EVENTS':
+		case DELETE_EVENT:
 			return {
 				...state,
-				events: action.payload as Event[],
-				loading: false,
-				error: null,
-			}
-		case 'GET_POSTGRES_EVENT':
-			return {
-				...state,
-				events: [action.payload as Event],
-				loading: false,
-				error: null,
-			}
-		case 'SET_POSTGRES_LOADING':
-			return {
-				...state,
-				loading: true,
-			}
-		case 'SET_POSTGRES_ERROR':
-			return {
-				...state,
-				error: action.payload as string,
-				loading: false,
+				events: state.events.filter((event) => event.id !== action.payload),
 			}
 		default:
 			return state
 	}
 }
 
-export default postgresEventReducer
+export default eventReducer

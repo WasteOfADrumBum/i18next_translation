@@ -1,58 +1,32 @@
 const express = require('express')
 const router = express.Router()
 const {
-	getAllEventsFromPostgresController,
-	createEventInPostgresController,
-	updateEventInPostgresController,
-	deleteEventFromPostgresController,
+	getUsers,
+	getUserById,
+	createUser,
+	updateUser,
+	deleteUser,
 } = require('../../controllers/postgresql/EventController')
 
-// GET all events from PostgreSQL
-router.get('/events', async (req, res) => {
-	console.log('\x1b[36mPostgreSQL:\x1b[0m Route \x1b[32mGet Events\x1b[0m')
-	try {
-		const events = await getAllEventsFromPostgresController(req, res)
-		res.json(events)
-	} catch (error) {
-		console.error('\x1b[31mError fetching events from PostgreSQL:\x1b[0m', error)
-		res.status(500).json({ error: 'Internal server error' })
-	}
-})
+// Middleware function for logging
+const logRoute = (req, res, next) => {
+	console.log('\x1b[36mPostgreSQL:\x1b[0m Route \x1b[32m' + req.method + ' ' + req.originalUrl + '\x1b[0m')
+	next()
+}
 
-// POST new event to PostgreSQL
-router.post('/events', async (req, res) => {
-	console.log('\x1b[36mPostgreSQL:\x1b[0m Route \x1b[32mPost Event\x1b[0m')
-	try {
-		const event = await createEventInPostgresController(req, res)
-		res.json(event)
-	} catch (error) {
-		console.error('\x1b[31mError creating event in PostgreSQL:\x1b[0m', error)
-		res.status(500).json({ error: 'Internal server error' })
-	}
-})
+// GET all users
+router.route('/').get(logRoute, getUsers)
 
-// PUT update event in PostgreSQL by ID
-router.put('/events/:id', async (req, res) => {
-	console.log('\x1b[36mPostgreSQL:\x1b[0m Route \x1b[32mUpdate Event\x1b[0m')
-	try {
-		const event = await updateEventInPostgresController(req, res)
-		res.json(event)
-	} catch (error) {
-		console.error('\x1b[31mError updating event in PostgreSQL:\x1b[0m', error)
-		res.status(500).json({ error: 'Internal server error' })
-	}
-})
+// GET a single user by ID
+router.route('/:id').get(logRoute, getUserById)
 
-// DELETE event from PostgreSQL by ID
-router.delete('/events/:id', async (req, res) => {
-	console.log('\x1b[36mPostgreSQL:\x1b[0m Route \x1b[32mDelete Event\x1b[0m')
-	try {
-		const event = await deleteEventFromPostgresController(req, res)
-		res.json(event)
-	} catch (error) {
-		console.error('\x1b[31mError deleting event from PostgreSQL:\x1b[0m', error)
-		res.status(500).json({ error: 'Internal server error' })
-	}
-})
+// POST create a new user
+router.route('/').post(logRoute, createUser)
+
+// PUT update an existing user
+router.route('/:id').put(logRoute, updateUser)
+
+// DELETE a user by ID
+router.route('/:id').delete(logRoute, deleteUser)
 
 module.exports = router

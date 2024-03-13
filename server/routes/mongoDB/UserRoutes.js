@@ -1,5 +1,5 @@
 import express from 'express'
-import { createUser } from '../controllers/UserController'
+import { createUser } from '../../controllers/mongodb/UserController'
 
 const router = express.Router()
 
