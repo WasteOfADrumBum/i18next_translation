@@ -54,8 +54,10 @@ export const getEvents = () => async (dispatch: AppDispatch) => {
 		dispatch({ type: actionTypes.GET_EVENTS_REQUEST })
 		const response = await axiosInstance.get('/events')
 		dispatch({ type: actionTypes.GET_EVENTS_SUCCESS, payload: response.data })
+		return response.data as Event[]
 	} catch (error) {
 		dispatch({ type: actionTypes.GET_EVENTS_FAILURE, payload: errorTranslations.genericError })
+		throw error
 	}
 }
 
