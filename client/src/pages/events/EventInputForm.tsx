@@ -46,7 +46,13 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		setHeaderData({
 			header: eventValues ? 'Update Event' : 'Add Event',
 			subheader: eventValues ? 'Update an existing event' : 'Add a new event',
-			extraContent: <Grid container spacing={0}></Grid>,
+			extraContent: (
+				<Grid container spacing={0}>
+					<Grid item xs={12}>
+						<Typography variant='caption'>All fields marker with an asterisk (*) are required</Typography>
+					</Grid>
+				</Grid>
+			),
 		})
 
 		// Clean up header data when component unmounts
@@ -237,6 +243,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						</Grid>
 						<Grid item xs={6}>
 							<TextField
+								required
 								name='reporter'
 								label='Reporter'
 								variant='outlined'
@@ -265,6 +272,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						</Grid>
 						<Grid item xs={6}>
 							<TextField
+								required
 								name='submittedBy'
 								label='Submitted By'
 								variant='outlined'
@@ -293,6 +301,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						</Grid>
 						<Grid item xs={6}>
 							<TextField
+								required
 								name='updatedBy'
 								label='Updated By'
 								variant='outlined'
@@ -329,6 +338,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='eventType-label'>Event Type</InputLabel>
 								<Select
+									required
 									labelId='eventType-label'
 									id='eventType'
 									name='eventType'
@@ -353,6 +363,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='eventSubType-label'>Event Sub-Type</InputLabel>
 								<Select
+									required
 									labelId='eventSubType-label'
 									id='eventSubType'
 									name='eventSubType'
@@ -378,6 +389,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='tagging-label'>Tags</InputLabel>
 								<Select
+									required
 									labelId='tagging-label'
 									id='tagging'
 									multiple
@@ -412,6 +424,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='methodOfReceipt-label'>Method of Receipt</InputLabel>
 								<Select
+									required
 									labelId='methodOfReceipt-label'
 									id='methodOfReceipt'
 									name='methodOfReceipt'
@@ -440,6 +453,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
+								required
 								name='title'
 								label='Title'
 								variant='outlined'
@@ -452,6 +466,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
+								required
 								name='description'
 								label='Description'
 								variant='outlined'
@@ -474,6 +489,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 							<Grid container spacing={2}>
 								<Grid item xs={12}>
 									<TextField
+										required
 										name='address'
 										label='Address'
 										variant='outlined'
@@ -484,6 +500,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								</Grid>
 								<Grid item xs={5}>
 									<TextField
+										required
 										name='city'
 										label='City'
 										variant='outlined'
@@ -494,6 +511,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								</Grid>
 								<Grid item xs={4}>
 									<TextField
+										required
 										name='state'
 										label='State'
 										variant='outlined'
@@ -512,6 +530,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								</Grid>
 								<Grid item xs={3}>
 									<TextField
+										required
 										name='zip'
 										label='Zip Code'
 										variant='outlined'
@@ -544,6 +563,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								</Grid>
 								<Grid item xs={6}>
 									<TextField
+										required
 										name='country'
 										label='Country'
 										variant='outlined'
