@@ -6,7 +6,7 @@
 function ExtractLastFiveDigits(uuid: string): string {
 	// Extract the last 5 characters from the UUID string
 	const lastFiveDigits = uuid.slice(-5)
-	return lastFiveDigits
+	return lastFiveDigits.toUpperCase()
 }
 
 export default ExtractLastFiveDigits
