@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Button, Container, Grid, Typography } from '@mui/material'
+import { Button, Container, Grid, Typography, capitalize } from '@mui/material'
 import { AddCircleOutline } from '@mui/icons-material'
 import translations from '../../i18n/locales'
 import { DynamicDataTable, ActionsMenu } from '../../components'
@@ -10,7 +10,7 @@ import { HeaderContext } from '../../contexts/HeaderContext'
 import { useNavigate } from 'react-router-dom'
 import { Event } from '../../store/types/EventTypes'
 import { RootState } from 'store'
-import TimeConversionsHelper from '../../utils/TimeConversionsHelper'
+import { TimeConversionsHelper, GetCountryAbbreviation, GetStateAbbreviation, ExtractLastFiveDigits } from '../../utils'
 
 const eventHeaderTranslations = translations.pages.events.header
 const eventTableTranslations = translations.pages.events.table.labels
@@ -28,10 +28,23 @@ const EventListView: FC = () => {
 	// Access events from Redux store
 	const { events, loading, error } = useSelector((state: RootState) => state.events)
 
-	// Log events when they are updated in the Redux store
 	useEffect(() => {
-		console.log('Events in Redux store:', events)
-	}, [events])
+		// Update header data when component mounts
+		setHeaderData({
+			header: 'Events',
+			subheader: 'All Events',
+			extraContent: <Grid container spacing={0}></Grid>,
+		})
+
+		// Clean up header data when component unmounts
+		return () => {
+			setHeaderData({
+				header: '',
+				subheader: '',
+				extraContent: null,
+			})
+		}
+	}, [setHeaderData])
 
 	const handleView = (id: string | undefined) => {
 		if (id) {
@@ -53,14 +66,14 @@ const EventListView: FC = () => {
 
 	const columns = [
 		{
+			id: '_id',
+			label: 'ID',
+			render: (data: Event) => <Typography>{ExtractLastFiveDigits(data._id ?? '')}</Typography>,
+		},
+		{
 			id: 'title',
 			label: 'Title',
 			render: (data: Event) => <Typography>{data.details.title}</Typography>,
-		},
-		{
-			id: 'description',
-			label: 'Description',
-			render: (data: Event) => <Typography>{data.details.description}</Typography>,
 		},
 		{
 			id: 'methodOfReceipt',
@@ -77,35 +90,8 @@ const EventListView: FC = () => {
 			label: 'Location',
 			render: (data: Event) => (
 				<Typography>
-					{data.location.address}, {data.location.city}, {data.location.state}, {data.location.country}
-				</Typography>
-			),
-		},
-		{
-			id: 'reported',
-			label: 'Reported',
-			render: (data: Event) => (
-				<Typography>
-					{TimeConversionsHelper.convertTime(
-						data.reported.reportedDate,
-						'YYYY-MM-DD hh:mm:ss',
-						true, // Include time
-						'UTC', // Timezone
-					)}
-				</Typography>
-			),
-		},
-		{
-			id: 'submitted',
-			label: 'Submitted',
-			render: (data: Event) => (
-				<Typography>
-					{TimeConversionsHelper.convertTime(
-						data.submitted.submittedDate,
-						'YYYY-MM-DD hh:mm:ss',
-						true, // Include time
-						'UTC', // Timezone
-					)}
+					{data.location.city}, {GetStateAbbreviation(data.location.state)},{' '}
+					{GetCountryAbbreviation(data.location.country)}
 				</Typography>
 			),
 		},
@@ -119,27 +105,51 @@ const EventListView: FC = () => {
 			),
 		},
 		{
-			id: 'updated',
-			label: 'Updated',
+			id: 'Dates',
+			label: 'Dates',
 			render: (data: Event) => (
 				<Typography>
+					Reported:{' '}
+					{TimeConversionsHelper.convertTime(
+						data.reported.reportedDate,
+						'MM/DD/YYYY',
+						false, // Include time
+						'UTC', // Timezone
+					)}{' '}
+					by {data.reported.reporter}
+					<br />
+					Submitted:{' '}
+					{`${TimeConversionsHelper.convertTime(
+						data.submitted.submittedDate,
+						'MM/DD/YYYY',
+						false, // Include time
+						'UTC', // Timezone
+					)} by ${data.submitted.submittedBy}`}
+					<br />
+					Updated:{' '}
 					{TimeConversionsHelper.convertTime(
 						data.updated.updatedDate,
-						'YYYY-MM-DD hh:mm:ss',
-						true, // Include time
+						'MM/DD/YYYY',
+						false, // Include time
 						'UTC', // Timezone
-					)}
+					)}{' '}
+					by {data.updated.updatedBy}
 				</Typography>
 			),
+		},
+		{
+			id: 'status',
+			label: 'Status',
+			render: (data: Event) => <Typography>{capitalize(data.status)}</Typography>,
 		},
 		{
 			id: 'actions',
 			label: eventTableTranslations.actions,
 			render: (data: Event) => (
 				<ActionsMenu
-					onView={() => handleView(data.id ?? '')}
-					onEdit={() => handleEdit(data.id ?? '')}
-					onDelete={() => handleDelete(data.id ?? '')}
+					onView={() => handleView(data._id ?? '')}
+					onEdit={() => handleEdit(data._id ?? '')}
+					onDelete={() => handleDelete(data._id ?? '')}
 				/>
 			),
 		},

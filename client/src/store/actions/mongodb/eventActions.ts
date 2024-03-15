@@ -99,7 +99,7 @@ export const createEvent = (event: Event) => async (dispatch: AppDispatch) => {
 export const updateEvent = (event: Event) => async (dispatch: AppDispatch) => {
 	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mUpdate Event\x1b[0m')
 	try {
-		const res = await axiosInstance.put(`/events/${event.id}`, event)
+		const res = await axiosInstance.put(`/events/${event._id}`, event)
 		dispatch({
 			type: actionTypes.UPDATE_EVENT_SUCCESS,
 			payload: res.data,

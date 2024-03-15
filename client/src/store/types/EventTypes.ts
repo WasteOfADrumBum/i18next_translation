@@ -1,6 +1,6 @@
 // Define the interface for an event
 export interface Event {
-	id: string | null
+	_id: string | null
 	status: string
 	reported: {
 		reporter: string

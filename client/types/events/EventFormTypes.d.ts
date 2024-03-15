@@ -1,5 +1,5 @@
 export interface EventFormData {
-	id?: string
+	_id?: string
 	status: string
 	reporter: string
 	reportedDate: Date

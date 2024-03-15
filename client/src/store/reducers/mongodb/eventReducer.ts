@@ -23,7 +23,7 @@ const eventReducer = (state: EventState = initialState, action: EventAction): Ev
 		case actionTypes.DELETE_EVENT_SUCCESS:
 			return {
 				...state,
-				events: state.events.filter((event) => event.id !== action.payload),
+				events: state.events.filter((event) => event._id !== action.payload),
 				loading: false,
 				success: action.payload,
 				error: {},

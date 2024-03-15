@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 // MongoDB Schema
 const eventsModelSchema = new mongoose.Schema({
+	status: { type: String, required: true },
 	reported: {
 		reporter: { type: String, required: true },
 		reportedDate: { type: Date, default: Date.now },
