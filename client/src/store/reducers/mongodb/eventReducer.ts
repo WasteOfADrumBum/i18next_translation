@@ -1,9 +1,8 @@
 import { EventState, EventAction, initialState } from '../../types/EventTypes'
-
-// Action types
+import { Event } from '../../types/EventTypes'
 import * as actionTypes from '../../types/constants/eventConstants'
 
-const eventReducer = (state: EventState = initialState, action: EventAction) => {
+const eventReducer = (state: EventState = initialState, action: EventAction): EventState => {
 	switch (action.type) {
 		case actionTypes.CREATE_EVENT_REQUEST:
 		case actionTypes.DELETE_EVENT_REQUEST:
@@ -13,47 +12,38 @@ const eventReducer = (state: EventState = initialState, action: EventAction) => 
 			return {
 				...state,
 				loading: true,
-				error: null,
 			}
 		case actionTypes.CREATE_EVENT_SUCCESS:
 			return {
 				...state,
-				events: [...state.events, action.event],
 				loading: false,
-				error: null,
+				success: action.payload,
+				error: {},
 			}
 		case actionTypes.DELETE_EVENT_SUCCESS:
 			return {
 				...state,
-				events: state.events.filter((event) => event.id !== action.event.id),
+				events: state.events.filter((event) => event.id !== action.payload),
 				loading: false,
-				error: null,
+				success: action.payload,
+				error: {},
 			}
 		case actionTypes.UPDATE_EVENT_SUCCESS:
+		case actionTypes.GET_EVENT_SUCCESS:
 			return {
 				...state,
-				events: state.events.map((event) => {
-					if (event.id === action.event.id) {
-						return action.event
-					}
-					return event
-				}),
+				event: action.payload as Event,
 				loading: false,
-				error: null,
+				success: action.payload,
+				error: {},
 			}
 		case actionTypes.GET_EVENTS_SUCCESS:
 			return {
 				...state,
-				events: action.event,
+				events: action.payload as unknown as Event[],
 				loading: false,
-				error: null,
-			}
-		case actionTypes.GET_EVENT_SUCCESS:
-			return {
-				...state,
-				events: [action.event],
-				loading: false,
-				error: null,
+				success: action.payload,
+				error: {},
 			}
 		case actionTypes.CREATE_EVENT_FAILURE:
 		case actionTypes.DELETE_EVENT_FAILURE:
@@ -63,7 +53,7 @@ const eventReducer = (state: EventState = initialState, action: EventAction) => 
 			return {
 				...state,
 				loading: false,
-				error: action.event ? 'An error occurred' : null,
+				error: action.payload,
 			}
 		default:
 			return state

@@ -37,14 +37,16 @@ export interface Event {
 // Define the state for events
 export interface EventState {
 	events: Event[]
+	event: Event | Event[] | null
 	loading: boolean
-	error: string | null
+	success?: {}
+	error?: {}
 }
 
 // Define the actions that can be performed on events
 export type EventAction = {
 	type: string
-	event: Event
+	payload: Event | string
 }
 
 // Define the type for the dispatcher function
@@ -53,6 +55,8 @@ export type DispatchType = (args: EventAction) => EventAction
 // Define initial action state
 export const initialState: EventState = {
 	events: [],
+	event: null,
 	loading: false,
-	error: null,
+	success: {},
+	error: {},
 }

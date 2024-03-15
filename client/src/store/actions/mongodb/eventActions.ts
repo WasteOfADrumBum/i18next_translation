@@ -1,73 +1,145 @@
 import axios from 'axios'
 import { Event } from '../../types/EventTypes'
-import translations from '../../../i18n/locales'
 import { AppDispatch } from '../../../store'
+import translations from '../../../i18n/locales'
 
 // Action types
 import * as actionTypes from '../../types/constants/eventConstants'
 
+// Set the base URL to your server's address
+export const axiosInstance = axios.create({
+	baseURL: 'http://localhost:5000/api',
+})
+
 // Error translations
 const errorTranslations = translations.errors
 
-// Axios instance with base URL
-const axiosInstance = axios.create({
-	baseURL: 'http://localhost:5000/api', // Set the base URL to your server's address
-})
-
-// Action creators
-export const createEvent = (event: Event) => async (dispatch: AppDispatch) => {
-	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mCreate Event\x1b[0m')
-	try {
-		dispatch({ type: actionTypes.CREATE_EVENT_REQUEST })
-		const response = await axiosInstance.post('/events', event)
-		dispatch({ type: actionTypes.CREATE_EVENT_SUCCESS, payload: response.data })
-	} catch (error) {
-		dispatch({ type: actionTypes.CREATE_EVENT_FAILURE, payload: errorTranslations.genericError })
-	}
-}
-
-export const deleteEvent = (eventId: string) => async (dispatch: AppDispatch) => {
-	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mDelete Event\x1b[0m')
-	try {
-		dispatch({ type: actionTypes.DELETE_EVENT_REQUEST })
-		await axiosInstance.delete(`/events/${eventId}`)
-		dispatch({ type: actionTypes.DELETE_EVENT_SUCCESS, payload: eventId })
-	} catch (error) {
-		dispatch({ type: actionTypes.DELETE_EVENT_FAILURE, payload: errorTranslations.genericError })
-	}
-}
-
-export const updateEvent = (event: Event) => async (dispatch: AppDispatch) => {
-	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mUpdate Event\x1b[0m')
-	try {
-		dispatch({ type: actionTypes.UPDATE_EVENT_REQUEST })
-		await axiosInstance.put(`/events/${event.id}`, event)
-		dispatch({ type: actionTypes.UPDATE_EVENT_SUCCESS, payload: event })
-	} catch (error) {
-		dispatch({ type: actionTypes.UPDATE_EVENT_FAILURE, payload: errorTranslations.genericError })
-	}
-}
-
+// @Route   GET api/events
+// @Desc    Read All Events
+// @Action  getEvents()
+// @Access  Private
 export const getEvents = () => async (dispatch: AppDispatch) => {
 	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mGet Events\x1b[0m')
 	try {
-		dispatch({ type: actionTypes.GET_EVENTS_REQUEST })
-		const response = await axiosInstance.get('/events')
-		dispatch({ type: actionTypes.GET_EVENTS_SUCCESS, payload: response.data })
-		return response.data as Event[]
-	} catch (error) {
-		dispatch({ type: actionTypes.GET_EVENTS_FAILURE, payload: errorTranslations.genericError })
-		throw error
+		const res = await axiosInstance.get('/events')
+		dispatch({
+			type: actionTypes.GET_EVENTS_SUCCESS,
+			payload: res.data,
+		})
+	} catch (err: any) {
+		if (err.response.data.errors) {
+			dispatch({
+				payload: { msg: err.response.statusText, status: err.response.status },
+			})
+		}
+
+		dispatch({
+			type: actionTypes.GET_EVENTS_FAILURE,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		})
 	}
 }
 
-export const getEvent = (eventId: string) => async (dispatch: AppDispatch) => {
-	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mGet Event\x1b[0m')
+// @Route   GET api/events/:id
+// @Desc    Read Event by ID
+// @Action  readEvent()
+// @Access  Private
+export const readEvent = (id: string) => async (dispatch: AppDispatch) => {
+	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mRead Event\x1b[0m')
 	try {
-		dispatch({ type: actionTypes.GET_EVENT_REQUEST })
-		const response = await axiosInstance.get(`/events/${eventId}`)
-		dispatch({ type: actionTypes.GET_EVENT_SUCCESS, payload: response.data })
-	} catch (error) {
-		dispatch({ type: actionTypes.GET_EVENT_FAILURE, payload: errorTranslations.genericError })
+		const res = await axiosInstance.get(`/events/${id}`)
+		dispatch({
+			type: actionTypes.GET_EVENT_SUCCESS,
+			payload: res.data,
+		})
+	} catch (err: any) {
+		if (err.response.data.errors) {
+			dispatch({
+				payload: { msg: err.response.statusText, status: err.response.status },
+			})
+		}
+
+		dispatch({
+			type: actionTypes.GET_EVENT_FAILURE,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		})
+	}
+}
+
+// @Route   POST api/events
+// @Desc    Create Event
+// @Action  createEvent()
+// @Access  Private
+export const createEvent = (event: Event) => async (dispatch: AppDispatch) => {
+	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mCreate Event\x1b[0m')
+	try {
+		const res = await axiosInstance.post('/events', event)
+		dispatch({
+			type: actionTypes.CREATE_EVENT_SUCCESS,
+			payload: res.data,
+		})
+	} catch (err: any) {
+		if (err.response.data.errors) {
+			dispatch({
+				payload: { msg: err.response.statusText, status: err.response.status },
+			})
+		}
+
+		dispatch({
+			type: actionTypes.CREATE_EVENT_FAILURE,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		})
+	}
+}
+
+// @Route   PUT api/events/:id
+// @Desc    Update Event
+// @Action  updateEvent()
+// @Access  Private
+export const updateEvent = (event: Event) => async (dispatch: AppDispatch) => {
+	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mUpdate Event\x1b[0m')
+	try {
+		const res = await axiosInstance.put(`/events/${event.id}`, event)
+		dispatch({
+			type: actionTypes.UPDATE_EVENT_SUCCESS,
+			payload: res.data,
+		})
+	} catch (err: any) {
+		if (err.response.data.errors) {
+			dispatch({
+				payload: { msg: err.response.statusText, status: err.response.status },
+			})
+		}
+
+		dispatch({
+			type: actionTypes.UPDATE_EVENT_FAILURE,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		})
+	}
+}
+
+// @Route   DELETE api/events/:id
+// @Desc    Delete Event
+// @Action  deleteEvent()
+// @Access  Private
+export const deleteEvent = (id: string) => async (dispatch: AppDispatch) => {
+	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mDelete Event\x1b[0m')
+	try {
+		await axiosInstance.delete(`/events/${id}`)
+		dispatch({
+			type: actionTypes.DELETE_EVENT_SUCCESS,
+			payload: id,
+		})
+	} catch (err: any) {
+		if (err.response.data.errors) {
+			dispatch({
+				payload: { msg: err.response.statusText, status: err.response.status },
+			})
+		}
+
+		dispatch({
+			type: actionTypes.DELETE_EVENT_FAILURE,
+			payload: { msg: err.response.statusText, status: err.response.status },
+		})
 	}
 }

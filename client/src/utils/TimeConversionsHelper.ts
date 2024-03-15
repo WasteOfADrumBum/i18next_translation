@@ -2,9 +2,20 @@ import translations from '../i18n/locales'
 
 const errorTranslations = translations.errors
 
-const TimeConversionsHelper = {
-	convertTime: (input: string | number, format: string, includeTime: boolean, timeZone: string): string => {
-		const date = new Date(input)
+interface TimeConversionsHelper {
+	convertTime: (input: Date | string | number, format: string, includeTime: boolean, timeZone: string) => string
+}
+
+const TimeConversionsHelper: TimeConversionsHelper = {
+	convertTime: (input: Date | string | number, format: string, includeTime: boolean, timeZone: string): string => {
+		let date: Date
+
+		// If input is a string or a number, convert it to a Date object
+		if (typeof input === 'string' || typeof input === 'number') {
+			date = new Date(input)
+		} else {
+			date = input
+		}
 
 		if (isNaN(date.getTime())) {
 			throw new Error(errorTranslations.invalidDateInput)
