@@ -37,7 +37,7 @@ const EventListView: FC = () => {
 				<Grid container spacing={1} direction='column' alignItems='flex-start'>
 					<Grid item>
 						<Typography>Total Events: {events.length}</Typography>
-						<Divider color='primary' />
+						<Divider />
 					</Grid>
 					{getEventStatusCounts(events).map(({ status, count }) => (
 						<Grid item key={status}>
@@ -85,14 +85,20 @@ const EventListView: FC = () => {
 			render: (data: Event) => <Typography>{ExtractLastFiveDigits(data._id ?? '')}</Typography>,
 		},
 		{
+			id: 'type',
+			label: 'Type',
+			render: (data: Event) => (
+				<>
+					<Typography>{data.type.eventType}</Typography>
+					<Divider />
+					<Typography>{data.type.eventSubType}</Typography>
+				</>
+			),
+		},
+		{
 			id: 'title',
 			label: 'Title',
 			render: (data: Event) => <Typography>{data.details.title}</Typography>,
-		},
-		{
-			id: 'methodOfReceipt',
-			label: 'Method of Receipt',
-			render: (data: Event) => <Typography>{data.details.methodOfReceipt}</Typography>,
 		},
 		{
 			id: 'tagging',
@@ -110,13 +116,9 @@ const EventListView: FC = () => {
 			),
 		},
 		{
-			id: 'type',
-			label: 'Type',
-			render: (data: Event) => (
-				<Typography>
-					{data.type.eventType} - {data.type.eventSubType}
-				</Typography>
-			),
+			id: 'methodOfReceipt',
+			label: 'Method of Receipt',
+			render: (data: Event) => <Typography>{data.details.methodOfReceipt}</Typography>,
 		},
 		{
 			id: 'Dates',

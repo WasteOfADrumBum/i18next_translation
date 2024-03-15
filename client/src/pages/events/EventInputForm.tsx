@@ -201,9 +201,13 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 			if (eventValues) {
 				console.log('Update Event (Form):', eventData)
 				await dispatch(updateEvent(eventData))
+				// nagivate back to the dashboard after updating the event
+				navigate('/dashboard')
 			} else {
 				console.log('Add Event (Form):', eventData)
 				await dispatch(createEvent(eventData))
+				// nagivate back to the dashboard after creating the event
+				navigate('/dashboard')
 			}
 		} catch (error: any) {
 			setError(error.message)
