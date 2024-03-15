@@ -46,19 +46,24 @@ export const getEvents = () => async (dispatch: AppDispatch) => {
 // @Access  Private
 export const readEvent = (id: string) => async (dispatch: AppDispatch) => {
 	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mRead Event\x1b[0m')
+	console.log('\x1b[36mMongoDB:\x1b[0m Action Event ID \x1b[32m' + id + '\x1b[0m')
 	try {
+		console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mTry\x1b[0m')
 		const res = await axiosInstance.get(`/events/${id}`)
+		console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mSuccess\x1b[0m \x1b[32m' + res.data + '\x1b[0m')
 		dispatch({
 			type: actionTypes.GET_EVENT_SUCCESS,
 			payload: res.data,
 		})
 	} catch (err: any) {
 		if (err.response.data.errors) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mError\x1b[0m')
 			dispatch({
 				payload: { msg: err.response.statusText, status: err.response.status },
 			})
 		}
 
+		console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
 		dispatch({
 			type: actionTypes.GET_EVENT_FAILURE,
 			payload: { msg: err.response.statusText, status: err.response.status },

@@ -37,7 +37,7 @@ const getAllEvents = async (req, res) => {
 const getEventById = async (req, res) => {
 	try {
 		console.log('\x1b[32mFetching event by ID (Controller)\x1b[0m')
-		const eventFromMongo = await Event.findById(req.params._id) // Use req.params._id
+		const eventFromMongo = await Event.findById(req.params.id)
 		console.log('\x1b[32mEvent fetched from MongoDB: (Controller)\x1b[0m', eventFromMongo)
 		if (eventFromMongo) {
 			res.json(eventFromMongo)
