@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Button, Container, Grid, Typography, capitalize } from '@mui/material'
+import { Button, Container, Divider, Grid, Typography, capitalize } from '@mui/material'
 import { AddCircleOutline } from '@mui/icons-material'
 import translations from '../../i18n/locales'
 import { DynamicDataTable, ActionsMenu } from '../../components'
@@ -33,7 +33,21 @@ const EventListView: FC = () => {
 		setHeaderData({
 			header: 'Events',
 			subheader: 'All Events',
-			extraContent: <Grid container spacing={0}></Grid>,
+			extraContent: (
+				<Grid container spacing={1} direction='column' alignItems='flex-start'>
+					<Grid item>
+						<Typography>Total Events: {events.length}</Typography>
+						<Divider color='primary' />
+					</Grid>
+					{getEventStatusCounts(events).map(({ status, count }) => (
+						<Grid item key={status}>
+							<Typography>
+								{capitalize(status)}: {count}
+							</Typography>
+						</Grid>
+					))}
+				</Grid>
+			),
 		})
 
 		// Clean up header data when component unmounts
@@ -154,6 +168,15 @@ const EventListView: FC = () => {
 			),
 		},
 	]
+
+	const getEventStatusCounts = (events: Event[]) => {
+		const statusCounts: { [key: string]: number } = {}
+		events.forEach((event) => {
+			const status = event.status.toLowerCase()
+			statusCounts[status] = (statusCounts[status] || 0) + 1
+		})
+		return Object.entries(statusCounts).map(([status, count]) => ({ status, count }))
+	}
 
 	return (
 		<Container maxWidth='xl'>

@@ -1,1 +1,1 @@
-export const eventTypes = ['Type 1', 'Type 2', 'Type 3']
+export const eventTypes = ['Accident', 'Crime', 'Death', 'Natural Disaster', 'Health Emergency', 'Other']

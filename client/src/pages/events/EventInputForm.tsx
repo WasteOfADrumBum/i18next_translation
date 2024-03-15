@@ -95,10 +95,31 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 
 	const handleFormSelectChange = (event: SelectChangeEvent<string>) => {
 		const { name, value } = event.target
-		setFormData((prevState) => ({
-			...prevState,
-			[name as string]: value,
-		}))
+
+		// Reset eventSubType and tagging when a new eventType is selected
+		if (name === 'eventType') {
+			setFormData((prevState) => ({
+				...prevState,
+				eventSubType: '', // Reset eventSubType
+				tagging: [], // Reset tagging
+				[name as string]: value,
+			}))
+		}
+		// Reset tagging when a new eventSubType is selected
+		else if (name === 'eventSubType') {
+			setFormData((prevState) => ({
+				...prevState,
+				tagging: [], // Reset tagging
+				[name as string]: value,
+			}))
+		}
+		// For other fields, just update the form data as usual
+		else {
+			setFormData((prevState) => ({
+				...prevState,
+				[name as string]: value,
+			}))
+		}
 	}
 
 	const handleFormMultiSelectChange = (event: SelectChangeEvent<string[]>) => {
@@ -335,11 +356,12 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									onChange={handleFormSelectChange}
 									error={formSubmitted && formData.eventSubType === ''}>
 									<MenuItem value=''>Select Event Sub-Type</MenuItem>
-									{eventSubTypes.map((option, index) => (
-										<MenuItem key={index} value={option}>
-											{option}
-										</MenuItem>
-									))}
+									{formData.eventType &&
+										eventSubTypes[formData.eventType].map((option, index) => (
+											<MenuItem key={index} value={option}>
+												{option}
+											</MenuItem>
+										))}
 								</Select>
 								{formSubmitted && formData.eventSubType === '' && (
 									<Typography variant='caption' color='error'>
@@ -359,13 +381,21 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									value={formData.tagging}
 									onChange={handleFormMultiSelectChange}
 									input={<OutlinedInput label='Tag' />}
-									renderValue={(selected) => selected.join(', ')}>
-									{tags.map((tag) => (
-										<MenuItem key={tag} value={tag}>
-											<Checkbox checked={formData.tagging.indexOf(tag) > -1} />
-											<ListItemText primary={tag} />
-										</MenuItem>
-									))}
+									renderValue={(selected) => (
+										<div>
+											{selected.map((value) => (
+												<Chip key={value} label={value} style={{ marginRight: 5 }} />
+											))}
+										</div>
+									)}>
+									{formData.eventType &&
+										eventSubTypes[formData.eventType] &&
+										eventSubTypes[formData.eventType].map((tag, index) => (
+											<MenuItem key={index} value={tag}>
+												<Checkbox checked={formData.tagging.indexOf(tag) > -1} />
+												<ListItemText primary={tag} />
+											</MenuItem>
+										))}
 								</Select>
 								{formSubmitted && formData.tagging.length === 0 && (
 									<Typography variant='caption' color='error'>
