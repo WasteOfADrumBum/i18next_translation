@@ -48,9 +48,7 @@ export const readEvent = (id: string) => async (dispatch: AppDispatch) => {
 	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mRead Event\x1b[0m')
 	console.log('\x1b[36mMongoDB:\x1b[0m Action Event ID \x1b[32m' + id + '\x1b[0m')
 	try {
-		console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mTry\x1b[0m')
 		const res = await axiosInstance.get(`/events/${id}`)
-		console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mSuccess\x1b[0m \x1b[32m' + res.data + '\x1b[0m')
 		dispatch({
 			type: actionTypes.GET_EVENT_SUCCESS,
 			payload: res.data,
