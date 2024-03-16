@@ -30,14 +30,14 @@ const EventDetailsView: FC = () => {
 			header: 'Event Details',
 			subheader: 'Details for your primary event record',
 			extraContent: (
-				<Grid container spacing={2}>
+				<Grid container spacing={1}>
 					<Grid item xs={12} direction='row'>
-						<Grid container spacing={2}>
+						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1'>ID:</Typography>
+								<Typography variant='caption'>ID:</Typography>
 							</Grid>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1' color='primary'>
+								<Typography variant='caption' color='primary'>
 									{event?._id}
 								</Typography>
 							</Grid>
@@ -47,22 +47,22 @@ const EventDetailsView: FC = () => {
 						</Grid>
 					</Grid>
 					<Grid item xs={12}>
-						<Grid container spacing={2}>
+						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1'>Submitted By:</Typography>
+								<Typography variant='caption'>Submitted By:</Typography>
 							</Grid>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1' color='primary'>
+								<Typography variant='caption' color='primary'>
 									{event?.submitted?.submittedBy}
 								</Typography>
 							</Grid>
 						</Grid>
-						<Grid container spacing={2}>
+						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1'>Submitted Date:</Typography>
+								<Typography variant='caption'>Submitted Date:</Typography>
 							</Grid>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1' color='primary'>
+								<Typography variant='caption' color='primary'>
 									{event?.submitted?.submittedDate
 										? TimeConversionsHelper.convertTime(event?.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')
 										: 'N/A'}
@@ -71,22 +71,22 @@ const EventDetailsView: FC = () => {
 						</Grid>
 					</Grid>
 					<Grid item xs={12}>
-						<Grid container spacing={2}>
+						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1'>Reported By:</Typography>
+								<Typography variant='caption'>Reported By:</Typography>
 							</Grid>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1' color='primary'>
+								<Typography variant='caption' color='primary'>
 									{event?.reported?.reporter}
 								</Typography>
 							</Grid>
 						</Grid>
-						<Grid container spacing={2}>
+						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1'>Reported Date:</Typography>
+								<Typography variant='caption'>Reported Date:</Typography>
 							</Grid>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1' color='primary'>
+								<Typography variant='caption' color='primary'>
 									{event?.reported?.reportedDate
 										? TimeConversionsHelper.convertTime(event?.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC')
 										: 'N/A'}
@@ -95,22 +95,22 @@ const EventDetailsView: FC = () => {
 						</Grid>
 					</Grid>
 					<Grid item xs={12}>
-						<Grid container spacing={2}>
+						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1'>Updated By:</Typography>
+								<Typography variant='caption'>Updated By:</Typography>
 							</Grid>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1' color='primary'>
+								<Typography variant='caption' color='primary'>
 									{event?.updated?.updatedBy}
 								</Typography>
 							</Grid>
 						</Grid>
-						<Grid container spacing={2}>
+						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1'>Updated Date:</Typography>
+								<Typography variant='caption'>Updated Date:</Typography>
 							</Grid>
 							<Grid item xs={6}>
-								<Typography variant='subtitle1' color='primary'>
+								<Typography variant='caption' color='primary'>
 									{event?.updated?.updatedDate
 										? TimeConversionsHelper.convertTime(event?.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC')
 										: 'N/A'}
