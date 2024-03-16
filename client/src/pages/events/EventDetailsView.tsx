@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { readEvent } from '../../store/actions/mongodb/eventActions'
 import { RootState } from 'store'
-import { Container, Typography } from '@mui/material'
+import { Container, Typography, Grid, Divider } from '@mui/material'
+import { TimeConversionsHelper } from '../../utils'
 
 const EventDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -13,7 +14,6 @@ const EventDetailsView: FC = () => {
 	const { eventId } = useParams()
 
 	useEffect(() => {
-		console.log(eventId)
 		// Fetch event details from Redux store
 		if (eventId) {
 			// Check if eventId is not undefined
@@ -29,7 +29,97 @@ const EventDetailsView: FC = () => {
 		setHeaderData({
 			header: 'Event Details',
 			subheader: 'Details for your primary event record',
-			extraContent: <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>,
+			extraContent: (
+				<Grid container spacing={2}>
+					<Grid item xs={12} direction='row'>
+						<Grid container spacing={2}>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1'>ID:</Typography>
+							</Grid>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1' color='primary'>
+									{event?._id}
+								</Typography>
+							</Grid>
+							<Grid item xs={12}>
+								<Divider />
+							</Grid>
+						</Grid>
+					</Grid>
+					<Grid item xs={12}>
+						<Grid container spacing={2}>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1'>Submitted By:</Typography>
+							</Grid>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1' color='primary'>
+									{event?.submitted?.submittedBy}
+								</Typography>
+							</Grid>
+						</Grid>
+						<Grid container spacing={2}>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1'>Submitted Date:</Typography>
+							</Grid>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1' color='primary'>
+									{event?.submitted?.submittedDate
+										? TimeConversionsHelper.convertTime(event?.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')
+										: 'N/A'}
+								</Typography>
+							</Grid>
+						</Grid>
+					</Grid>
+					<Grid item xs={12}>
+						<Grid container spacing={2}>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1'>Reported By:</Typography>
+							</Grid>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1' color='primary'>
+									{event?.reported?.reporter}
+								</Typography>
+							</Grid>
+						</Grid>
+						<Grid container spacing={2}>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1'>Reported Date:</Typography>
+							</Grid>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1' color='primary'>
+									{event?.reported?.reportedDate
+										? TimeConversionsHelper.convertTime(event?.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC')
+										: 'N/A'}
+								</Typography>
+							</Grid>
+						</Grid>
+					</Grid>
+					<Grid item xs={12}>
+						<Grid container spacing={2}>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1'>Updated By:</Typography>
+							</Grid>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1' color='primary'>
+									{event?.updated?.updatedBy}
+								</Typography>
+							</Grid>
+						</Grid>
+						<Grid container spacing={2}>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1'>Updated Date:</Typography>
+							</Grid>
+							<Grid item xs={6}>
+								<Typography variant='subtitle1' color='primary'>
+									{event?.updated?.updatedDate
+										? TimeConversionsHelper.convertTime(event?.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC')
+										: 'N/A'}
+								</Typography>
+							</Grid>
+						</Grid>
+					</Grid>
+				</Grid>
+			),
 		})
 
 		// Clean up header data when component unmounts
@@ -40,11 +130,7 @@ const EventDetailsView: FC = () => {
 				extraContent: null, // No extra content
 			})
 		}
-	}, [setHeaderData])
-
-	useEffect(() => {
-		console.log(event)
-	}, [event])
+	}, [setHeaderData, event])
 
 	return (
 		<Container maxWidth='xl'>
@@ -54,7 +140,26 @@ const EventDetailsView: FC = () => {
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
 				<Typography variant='h6'>Error: {error.toString()}</Typography>
 			) : (
-				<>Event</>
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						<Typography variant='h5'>{event?.details?.title || 'Title not available'}</Typography>
+						<Typography variant='body1'>{event?.details?.description || 'Description not available'}</Typography>
+					</Grid>
+					<Grid item xs={12}>
+						<Typography variant='subtitle1'>
+							Method of Receipt: {event?.details?.methodOfReceipt || 'Method of receipt not available'}
+						</Typography>
+						<Typography variant='subtitle1'>
+							Location: {event?.location?.address}, {event?.location?.city}, {event?.location?.state},{' '}
+							{event?.location?.zip}
+						</Typography>
+					</Grid>
+					<Grid item xs={12}>
+						<Typography variant='subtitle1'>
+							Tags: {event?.details?.tagging?.join(', ') || 'Tags not available'}
+						</Typography>
+					</Grid>
+				</Grid>
 			)}
 		</Container>
 	)

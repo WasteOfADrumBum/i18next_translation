@@ -82,43 +82,50 @@ const EventListView: FC = () => {
 		{
 			id: '_id',
 			label: 'ID',
-			render: (data: Event) => <Typography>{ExtractLastFiveDigits(data._id ?? '')}</Typography>,
+			render: (data: Event) => <Typography>{data._id ? ExtractLastFiveDigits(data._id) : 'N/A'}</Typography>,
 		},
 		{
 			id: 'type',
 			label: 'Type',
 			render: (data: Event) => (
 				<>
-					<Typography>{data.type.eventType}</Typography>
+					<Typography>{data.type ? data.type.eventType : 'N/A'}</Typography>
 					<Divider />
-					<Typography>{data.type.eventSubType}</Typography>
+					<Typography>{data.type ? data.type.eventSubType : 'N/A'}</Typography>
 				</>
 			),
 		},
 		{
 			id: 'title',
 			label: 'Title',
-			render: (data: Event) => <Typography>{data.details.title}</Typography>,
+			render: (data: Event) => <Typography>{data.details ? data.details.title : 'N/A'}</Typography>,
 		},
 		{
 			id: 'tagging',
 			label: 'Tagging',
-			render: (data: Event) => <Typography>{data.details.tagging.join(', ')}</Typography>,
+			render: (data: Event) => (
+				<Typography>
+					{data.details ? (data.details.tagging ? data.details.tagging.join(', ') : 'N/A') : 'N/A'}
+				</Typography>
+			),
 		},
 		{
 			id: 'location',
 			label: 'Location',
 			render: (data: Event) => (
 				<Typography>
-					{data.location.city}, {GetStateAbbreviation(data.location.state)},{' '}
-					{GetCountryAbbreviation(data.location.country)}
+					{data.location
+						? `${data.location.city}, ${GetStateAbbreviation(data.location.state)}, ${GetCountryAbbreviation(
+								data.location.country,
+						  )}`
+						: 'N/A'}
 				</Typography>
 			),
 		},
 		{
 			id: 'methodOfReceipt',
 			label: 'Method of Receipt',
-			render: (data: Event) => <Typography>{data.details.methodOfReceipt}</Typography>,
+			render: (data: Event) => <Typography>{data.details ? data.details.methodOfReceipt : 'N/A'}</Typography>,
 		},
 		{
 			id: 'Dates',
@@ -126,37 +133,32 @@ const EventListView: FC = () => {
 			render: (data: Event) => (
 				<Typography>
 					Reported:{' '}
-					{TimeConversionsHelper.convertTime(
-						data.reported.reportedDate,
-						'MM/DD/YYYY',
-						false, // Include time
-						'UTC', // Timezone
-					)}{' '}
-					by {data.reported.reporter}
+					{data.reported
+						? TimeConversionsHelper.convertTime(data.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC') +
+						  ' by ' +
+						  (data.reported.reporter ? data.reported.reporter : 'N/A')
+						: 'N/A'}
 					<br />
 					Submitted:{' '}
-					{`${TimeConversionsHelper.convertTime(
-						data.submitted.submittedDate,
-						'MM/DD/YYYY',
-						false, // Include time
-						'UTC', // Timezone
-					)} by ${data.submitted.submittedBy}`}
+					{data.submitted
+						? `${TimeConversionsHelper.convertTime(data.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')} by ${
+								data.submitted.submittedBy ? data.submitted.submittedBy : 'N/A'
+						  }`
+						: 'N/A'}
 					<br />
 					Updated:{' '}
-					{TimeConversionsHelper.convertTime(
-						data.updated.updatedDate,
-						'MM/DD/YYYY',
-						false, // Include time
-						'UTC', // Timezone
-					)}{' '}
-					by {data.updated.updatedBy}
+					{data.updated
+						? TimeConversionsHelper.convertTime(data.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC') +
+						  ' by ' +
+						  (data.updated.updatedBy ? data.updated.updatedBy : 'N/A')
+						: 'N/A'}
 				</Typography>
 			),
 		},
 		{
 			id: 'status',
 			label: 'Status',
-			render: (data: Event) => <Typography>{capitalize(data.status)}</Typography>,
+			render: (data: Event) => <Typography>{data.status ? capitalize(data.status) : 'N/A'}</Typography>,
 		},
 		{
 			id: 'actions',

@@ -37,7 +37,7 @@ export interface Event {
 // Define the state for events
 export interface EventState {
 	events: Event[]
-	event: Event | Event[] | null
+	event: Event | null
 	loading: boolean
 	success?: {}
 	error?: {}
