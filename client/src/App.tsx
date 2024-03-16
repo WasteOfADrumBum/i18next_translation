@@ -125,7 +125,7 @@ function App() {
 										element={<PrivateRoute element={<EventInputForm />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
-										path='/event/edit/:id'
+										path='/event/:id/edit'
 										element={<PrivateRoute element={<EventInputForm />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
