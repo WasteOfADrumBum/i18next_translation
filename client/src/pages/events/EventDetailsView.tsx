@@ -142,8 +142,13 @@ const EventDetailsView: FC = () => {
 			) : (
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						<Typography variant='h5'>{event?.details?.title || 'Title not available'}</Typography>
-						<Typography variant='body1'>{event?.details?.description || 'Description not available'}</Typography>
+						<Typography variant='h5' mb={1} color='primary'>
+							{event?.details?.title || 'Title not available'}
+						</Typography>
+						<Divider />
+						<Typography variant='body1' mt={1}>
+							{event?.details?.description || 'Description not available'}
+						</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='subtitle1'>
