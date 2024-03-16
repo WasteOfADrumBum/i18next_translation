@@ -40,6 +40,12 @@ To run both server and client concurrently (development mode):
 npm run dev
 ```
 
+If PostgresSQL gives an error while connecting run a Powershell instance as an Admin then use:
+
+```bash
+taskkill /F /IM postgres.exe
+```
+
 The client application will be accessible at `http://localhost:3000`, and the server will be accessible at `http://localhost:8081`.
 
 ### Dockerization
