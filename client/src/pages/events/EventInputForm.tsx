@@ -1,7 +1,7 @@
 import React, { useState, FC, useContext, useEffect, FormEvent, ChangeEvent } from 'react'
 // @ts-ignore
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import {
 	Container,
 	Typography,
@@ -20,10 +20,10 @@ import {
 	Checkbox,
 	ListItemText,
 } from '@mui/material'
-import { createEvent, updateEvent } from '../../store/actions/mongodb/eventActions'
+import { createEvent, updateEvent, readEvent } from '../../store/actions/mongodb/eventActions'
 import { Event } from '../../store/types/EventTypes'
 import { EventFormData } from '../../../types/events/EventFormTypes'
-import { AppDispatch } from 'store'
+import { AppDispatch, RootState } from 'store'
 import { HeaderContext } from '../../contexts/HeaderContext'
 import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -40,6 +40,18 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	const navigate = useNavigate()
 	const { setHeaderData } = useContext(HeaderContext)
 	const dispatch = useDispatch<AppDispatch>()
+	const { eventId } = useParams()
+
+	useEffect(() => {
+		// Fetch event details from Redux store
+		if (eventId) {
+			// Check if eventId is not undefined
+			dispatch(readEvent(eventId))
+		}
+	}, [dispatch, eventId])
+
+	// Access event details from Redux store
+	const { event, loading, error } = useSelector((state: RootState) => state.events)
 
 	useEffect(() => {
 		// Update header data when component mounts
@@ -65,8 +77,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		}
 	}, [setHeaderData])
 
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
 	const [formData, setFormData] = useState<EventFormData>({
 		_id: eventValues?._id,
 		status: eventValues?.status || 'pending',
@@ -90,6 +100,34 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		state: eventValues?.state || '',
 	})
 	const [formSubmitted, setFormSubmitted] = useState(false)
+
+	useEffect(() => {
+		if (event) {
+			// If event is available, populate the form with its data
+			setFormData({
+				_id: event._id!,
+				status: event.status,
+				reporter: event.reported.reporter,
+				reportedDate: event.reported.reportedDate,
+				updatedBy: event.updated.updatedBy,
+				updatedDate: event.updated.updatedDate,
+				submittedBy: event.submitted.submittedBy,
+				submittedDate: event.submitted.submittedDate,
+				eventType: event.type.eventType,
+				eventSubType: event.type.eventSubType,
+				title: event.details.title,
+				description: event.details.description,
+				tagging: event.details.tagging,
+				methodOfReceipt: event.details.methodOfReceipt,
+				address: event.location.address,
+				city: event.location.city,
+				zip: event.location.zip,
+				country: event.location.country,
+				county: event.location.county,
+				state: event.location.state,
+			})
+		}
+	}, [event])
 
 	const handleFormChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
 		const { name, value } = event.target
@@ -165,9 +203,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 			return
 		}
 
-		setLoading(true)
-		setError(null)
-
 		try {
 			const eventData: Event = {
 				_id: formData._id || null,
@@ -216,9 +251,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 				navigate('/dashboard')
 			}
 		} catch (error: any) {
-			setError(error.message)
-		} finally {
-			setLoading(false)
+			console.error('Error:', error.message)
 		}
 	}
 
@@ -226,7 +259,11 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<Container>
 				{loading && <CircularProgress />}
-				{error && <Typography color='error'>{error}</Typography>}
+				{typeof error === 'object' && Object.keys(error).length !== 0 && (
+					<Typography color='error' variant='h6'>
+						Error: {error.toString()}
+					</Typography>
+				)}
 				<form onSubmit={onSubmit}>
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
