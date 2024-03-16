@@ -125,11 +125,11 @@ function App() {
 										element={<PrivateRoute element={<EventInputForm />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
-										path='/event/:id/edit'
+										path='/event/:eventId/edit'
 										element={<PrivateRoute element={<EventInputForm />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
-										path='/event/:id'
+										path='/event/:eventId'
 										element={<PrivateRoute element={<EventDetailsView />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
@@ -141,11 +141,11 @@ function App() {
 										element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
-										path='/users/edit/:id'
+										path='/users/edit/:userId'
 										element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
-										path='/users/:id'
+										path='/users/:userId'
 										element={<PrivateRoute element={<UserDetailsView />} isAuthenticated={isAuthenticated} />}
 									/>
 									{/* Catch-all route for 404 */}

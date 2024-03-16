@@ -40,9 +40,10 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	const navigate = useNavigate()
 	const { setHeaderData } = useContext(HeaderContext)
 	const dispatch = useDispatch<AppDispatch>()
-	const { eventId } = useParams()
+	const { eventId } = useParams<string>()
 
 	useEffect(() => {
+		console.log('eventID: ', eventId)
 		// Fetch event details from Redux store
 		if (eventId) {
 			// Check if eventId is not undefined
@@ -203,6 +204,8 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 			return
 		}
 
+		console.log('Form Data: ', formData)
+
 		try {
 			const eventData: Event = {
 				_id: formData._id || null,
@@ -239,7 +242,9 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 				},
 			}
 
-			if (eventValues) {
+			console.log('Event Data: ', eventData)
+
+			if (eventData._id !== null) {
 				console.log('Update Event (Form):', eventData)
 				await dispatch(updateEvent(eventData))
 				// nagivate back to the dashboard after updating the event
@@ -626,7 +631,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 							</Button>
 							<Button type='submit' variant='contained' color='primary' sx={{ textAlign: 'right' }}>
 								<AddCircleOutline sx={{ marginRight: 1 }} />
-								{eventValues ? 'Save Changes' : 'Add Event'}
+								{event?._id ? 'Save Changes' : 'Add Event'}
 							</Button>
 						</Grid>
 					</Grid>

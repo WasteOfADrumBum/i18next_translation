@@ -56,7 +56,7 @@ const getEventById = async (req, res) => {
 const createEvent = async (req, res) => {
 	try {
 		console.log('\x1b[32mCreating new event (Controller)\x1b[0m')
-		const event = new Event({ _id: new ObjectId(), ...req.body }) // Use new ObjectId()
+		const event = new Event({ _id: new ObjectId(), ...req.body })
 		const savedEvent = await event.save()
 		console.log('\x1b[32mEvent created in MongoDB: (Controller)\x1b[0m', savedEvent)
 		res.json(savedEvent)
@@ -72,7 +72,7 @@ const createEvent = async (req, res) => {
 const updateEvent = async (req, res) => {
 	try {
 		console.log('\x1b[32mUpdating event by ID (Controller)\x1b[0m')
-		const updatedEvent = await Event.findByIdAndUpdate(req.params._id, req.body, { new: true }) // Use req.params._id
+		const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true })
 		console.log('\x1b[32mEvent updated in MongoDB: (Controller)\x1b[0m', updatedEvent)
 		res.json(updatedEvent)
 	} catch (err) {
@@ -87,7 +87,7 @@ const updateEvent = async (req, res) => {
 const deleteEvent = async (req, res) => {
 	try {
 		console.log('\x1b[32mDeleting event by ID (Controller)\x1b[0m')
-		const deletedEvent = await Event.findByIdAndDelete(req.params._id) // Use req.params._id
+		const deletedEvent = await Event.findByIdAndDelete(req.params._id)
 		console.log('\x1b[32mEvent deleted from MongoDB: (Controller)\x1b[0m', deletedEvent)
 		res.json(deletedEvent)
 	} catch (err) {
