@@ -1,5 +1,10 @@
 # MERN Stack Application
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub issues](https://img.shields.io/github/issues/yourusername/yourrepository.svg)](https://github.com/yourusername/yourrepository/issues)
+[![GitHub forks](https://img.shields.io/github/forks/yourusername/yourrepository.svg)](https://github.com/yourusername/yourrepository/network)
+[![GitHub stars](https://img.shields.io/github/stars/yourusername/yourrepository.svg)](https://github.com/yourusername/yourrepository/stargazers)
+
 This is a MERN (MongoDB, Express.js, React.js, Node.js) stack application with Redux for state management and Docker support.
 
 ## Installation
@@ -10,7 +15,7 @@ Clone the repository:
 git clone <repository-url>
 ```
 
-Install dependencies for root, server and client:
+Install dependencies for root, server, and client:
 
 ```bash
 npm install
@@ -40,7 +45,7 @@ To run both server and client concurrently (development mode):
 npm run dev
 ```
 
-If PostgresSQL gives an error while connecting run a Powershell instance as an Admin then use:
+If PostgreSQL gives an error while connecting, run a PowerShell instance as an Admin, then use:
 
 ```bash
 taskkill /F /IM postgres.exe
