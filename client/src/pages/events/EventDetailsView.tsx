@@ -31,7 +31,7 @@ const EventDetailsView: FC = () => {
 			subheader: 'Details for your primary event record',
 			extraContent: (
 				<Grid container spacing={1}>
-					<Grid item xs={12} direction='row'>
+					<Grid item xs={12}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
 								<Typography variant='caption'>ID:</Typography>

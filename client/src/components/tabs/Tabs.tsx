@@ -23,7 +23,7 @@ interface TabsComponentProps {
 const TabsComponent: FC<TabsComponentProps> = ({ isAuthenticated, tabs, children, basePath }) => {
 	const location = useLocation()
 	const navigate = useNavigate()
-	const [value, setValue] = useState<string>('')
+	const [value, setValue] = useState<string>(`${tabs[0].route}`)
 	const { eventId } = useParams()
 
 	if (!isAuthenticated) return null
