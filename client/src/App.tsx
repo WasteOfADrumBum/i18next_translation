@@ -15,6 +15,12 @@ import {
 	EventDetailsView,
 	EventInputForm,
 	EventListView,
+	EntityListView,
+	VehicleListView,
+	EntityInputForm,
+	EntityDetailsView,
+	VehicleInputForm,
+	VehicleDetailsView,
 } from './pages'
 import { lightTheme, darkTheme } from './styles/theme'
 import { NavBar, Header, Footer, TabsComponent } from './components'
@@ -86,7 +92,11 @@ function App() {
 		}
 	}
 
-	const tabs = [{ label: 'Details', route: '/', element: <EventDetailsView /> }]
+	const tabs = [
+		{ label: 'Details', route: '/details', element: <EventDetailsView /> },
+		{ label: 'Entity', route: '/entity', element: <EntityListView /> },
+		{ label: 'Vehicle', route: '/vehicle', element: <VehicleListView /> },
+	]
 
 	return (
 		<ThemeContextProvider>
@@ -115,11 +125,14 @@ function App() {
 												element={
 													<TabsComponent isAuthenticated={isAuthenticated} tabs={tabs}>
 														<Route path='/details' element={<EventDetailsView />} />
+														<Route path='/entity' element={<EntityListView />} />
+														<Route path='/vehicle' element={<VehicleListView />} />
 													</TabsComponent>
 												}
 											/>
 										}
 									/>
+									{/* Events */}
 									<Route
 										path='/event/create'
 										element={<PrivateRoute element={<EventInputForm />} isAuthenticated={isAuthenticated} />}
@@ -132,6 +145,33 @@ function App() {
 										path='/event/:eventId'
 										element={<PrivateRoute element={<EventDetailsView />} isAuthenticated={isAuthenticated} />}
 									/>
+									{/* Entities */}
+									<Route
+										path='/entity/create'
+										element={<PrivateRoute element={<EntityInputForm />} isAuthenticated={isAuthenticated} />}
+									/>
+									<Route
+										path='/entity/:entityId/edit'
+										element={<PrivateRoute element={<EntityInputForm />} isAuthenticated={isAuthenticated} />}
+									/>
+									<Route
+										path='/entity/:entityId'
+										element={<PrivateRoute element={<EntityDetailsView />} isAuthenticated={isAuthenticated} />}
+									/>
+									{/* Vehicles */}
+									<Route
+										path='/vehicle/create'
+										element={<PrivateRoute element={<VehicleInputForm />} isAuthenticated={isAuthenticated} />}
+									/>
+									<Route
+										path='/vehicle/:vehicleId/edit'
+										element={<PrivateRoute element={<VehicleInputForm />} isAuthenticated={isAuthenticated} />}
+									/>
+									<Route
+										path='/vehicle/:vehicleId'
+										element={<PrivateRoute element={<VehicleDetailsView />} isAuthenticated={isAuthenticated} />}
+									/>
+									{/* Users */}
 									<Route
 										path='/users'
 										element={<PrivateRoute element={<UserListView />} isAuthenticated={isAuthenticated} />}
