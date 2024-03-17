@@ -120,6 +120,7 @@ const EventDetailsView: FC = () => {
 					</Grid>
 				</Grid>
 			),
+			returnButton: true,
 		})
 
 		// Clean up header data when component unmounts

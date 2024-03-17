@@ -4,6 +4,7 @@ interface HeaderData {
 	header: string
 	subheader: string
 	extraContent: React.ReactNode | null
+	returnButton?: boolean
 }
 
 interface HeaderContextValue {
@@ -15,6 +16,7 @@ const initialHeaderData: HeaderData = {
 	header: 'React MUI Template',
 	subheader: 'A template for building React applications with Material-UI',
 	extraContent: null,
+	returnButton: false,
 }
 
 export const HeaderContext = createContext<HeaderContextValue>({

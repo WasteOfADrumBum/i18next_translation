@@ -1,12 +1,15 @@
 import React, { ReactNode, useState, useEffect, FC, useContext } from 'react'
-import { Box, Typography, alpha, useTheme, Theme, Grid, Divider } from '@mui/material'
+import { Box, Typography, alpha, useTheme, Theme, Grid, Divider, Button } from '@mui/material'
 import { HeaderContext } from '../../contexts/HeaderContext'
+import { ArrowBack } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
 
 interface HeaderProps {
 	user: { name: string; role: string }
 }
 
 const Header: FC<HeaderProps> = ({ user }) => {
+	const navigate = useNavigate()
 	const { headerData } = useContext(HeaderContext)
 	const theme = useTheme()
 
@@ -59,6 +62,19 @@ const Header: FC<HeaderProps> = ({ user }) => {
 		return <Typography variant='subtitle2'>{currentDateTime}</Typography>
 	}
 
+	const ReturnButton = () => {
+		return (
+			<Button
+				variant='text'
+				onClick={() => {
+					navigate('/dashboard')
+				}}>
+				<ArrowBack />
+				Return
+			</Button>
+		)
+	}
+
 	interface ContentBoxProps {
 		theme: Theme
 		children: ReactNode
@@ -95,6 +111,11 @@ const Header: FC<HeaderProps> = ({ user }) => {
 					<Box mb={1}>
 						<DateTime />
 					</Box>
+					{headerData.returnButton && (
+						<Box mb={1}>
+							<ReturnButton />
+						</Box>
+					)}
 				</Grid>
 				<Grid item xs={4}>
 					<ContentBox theme={theme}>{headerData.extraContent}</ContentBox>
