@@ -1,26 +1,9 @@
 import React, { useEffect, ReactNode, Children, SyntheticEvent, isValidElement, useState, FC } from 'react'
-// @ts-ignore
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Box, Menu, MenuItem, Tab } from '@mui/material'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
-
-/* 
-	? How to use this component: 
-	const tabs = [
-			{ label: 'Tab Label', route: '/', element: <Cpomonent /> },
-			{
-					label: 'Dropdown Label',
-					route: '/route', // You can set this to any route you want
-					dropdown: true,
-					options: [
-							{ label: 'Option 1', route: '/option1', element: <Component1 /> }, 
-							{ label: 'Option 2', route: '/option2', element: <Component2 /> }, 
-					],
-			},
-	] 
-*/
 
 interface Tab {
 	label: string
@@ -34,42 +17,38 @@ interface TabsComponentProps {
 	isAuthenticated: boolean
 	tabs: Tab[]
 	children: ReactNode
+	basePath: string
 }
 
-const TabsComponent: FC<TabsComponentProps> = ({ isAuthenticated, tabs, children }) => {
+const TabsComponent: FC<TabsComponentProps> = ({ isAuthenticated, tabs, children, basePath }) => {
 	const location = useLocation()
 	const navigate = useNavigate()
-	const [value, setValue] = useState('/')
+	const [value, setValue] = useState<string>('')
+	const { eventId } = useParams()
+
+	if (!isAuthenticated) return null
 
 	useEffect(() => {
-		// Find the first tab whose route exactly matches the current location
-		const matchedTab = tabs.find((tab) => `/dashboard${tab.route}` === location.pathname)
-		// If a tab is matched and it's different from the current value, update the value
-		if (matchedTab && matchedTab.route !== value) {
-			setValue(matchedTab.route)
-		} else if (!matchedTab && value !== '/') {
-			// Reset the value if there's no matched tab
-			setValue('/')
+		if (eventId) {
+			// if location.pathname as nothing after the eventId, navigate to the first tab
+			if (location.pathname === `${basePath}${eventId}`) {
+				navigate(`${basePath}${eventId}${tabs[0].route}`)
+			} else {
+				navigate(location.pathname)
+			}
 		}
-	}, [location.pathname, tabs, value])
-
-	// If the user is not authenticated, redirect to the login page
-	if (!isAuthenticated) {
-		return <Navigate to='/login' />
-	}
+	}, [eventId, basePath, navigate])
 
 	const handleChange = (_event: SyntheticEvent, newValue: string) => {
 		setValue(newValue)
-		// Navigate programmatically to the selected tab route
-		navigate(`/dashboard${newValue}`)
+		navigate(`${basePath}${eventId}${newValue}`)
 	}
 
-	// Render dropdown menu
 	const renderDropdownMenu = (options: { label: string; route: string; element: ReactNode }[]) => {
 		return (
 			<Menu open={false}>
 				{options.map((option, index) => (
-					<MenuItem key={index} onClick={() => navigate(option.route)}>
+					<MenuItem key={index} onClick={() => navigate(`${basePath}${eventId}${option.route}`)}>
 						{option.label}
 					</MenuItem>
 				))}

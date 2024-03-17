@@ -123,7 +123,7 @@ function App() {
 											<PrivateRoute
 												isAuthenticated={isAuthenticated}
 												element={
-													<TabsComponent isAuthenticated={isAuthenticated} tabs={tabs}>
+													<TabsComponent isAuthenticated={isAuthenticated} tabs={tabs} basePath={`/dashboard/event/`}>
 														<Route path='/details' element={<EventDetailsView />} />
 														<Route path='/entity' element={<EntityListView />} />
 														<Route path='/vehicle' element={<VehicleListView />} />
