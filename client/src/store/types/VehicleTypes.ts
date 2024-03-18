@@ -1,36 +1,30 @@
-// Define the interface for an vehicle
+// Define the interface for a vehicle
 export interface Vehicle {
 	_id: string | null
-	status: string
-	reported: {
-		reporter: string
-		reportedDate: Date
+	parent: {
+		_id: string | null
+		name: string
 	}
-	updated: {
-		updatedBy: string
-		updatedDate: Date
-	}
-	submitted: {
-		submittedBy: string
-		submittedDate: Date
-	}
-	type: {
-		vehicleType: string
-		vehicleSubType: string
-	}
-	details: {
-		title: string
-		description: string
-		tagging: string[]
-		methodOfReceipt: string
-	}
-	location: {
-		address: string
-		city: string
-		zip: number | null
-		country: string
-		county: string
+	make: string
+	model: string
+	year: number
+	color: string
+	owner: string // Assuming owner is represented by a string ID
+	registration: {
+		plateNumber: string
+		expirationDate: Date
 		state: string
+	}
+	insurance?: {
+		policyNumber?: string
+		provider?: string
+		expirationDate?: Date
+		insured: boolean
+	}
+	stolen: boolean
+	illegalModifications: {
+		wasModified: boolean
+		description?: string
 	}
 }
 
