@@ -179,11 +179,11 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	}
 
 	// Handle form date changes
-	const handleFormDateChange = (date: dayjs.Dayjs | null) => {
+	const handleFormDateChange = (date: dayjs.Dayjs | null, fieldName: string) => {
 		if (date) {
 			setFormData((prevState) => ({
 				...prevState,
-				reportedDate: date.toDate(),
+				[fieldName]: date.toDate(),
 			}))
 		}
 	}
@@ -280,7 +280,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								label='Reported Date'
 								defaultValue={dayjs()}
 								value={dayjs(formData.reportedDate)}
-								onChange={(date) => handleFormDateChange(date)}
+								onChange={(date) => handleFormDateChange(date, 'reportedDate')}
 								disableFuture
 								slotProps={{
 									textField: {
@@ -307,7 +307,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								label='Submitted Date'
 								defaultValue={dayjs()}
 								value={dayjs(formData.submittedDate)}
-								onChange={(date) => handleFormDateChange(date)}
+								onChange={(date) => handleFormDateChange(date, 'submittedDate')}
 								disableFuture
 								slotProps={{
 									textField: {
@@ -334,7 +334,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								label='Updated Date'
 								defaultValue={dayjs()}
 								value={dayjs(formData.updatedDate)}
-								onChange={(date) => handleFormDateChange(date)}
+								onChange={(date) => handleFormDateChange(date, 'updatedDate')}
 								disableFuture
 								slotProps={{
 									textField: {
@@ -353,7 +353,13 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						<Grid item xs={6}>
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='eventType-label'>Event Type</InputLabel>
-								<Select required labelId='eventType-label' id='eventType' name='eventType' value={formData.eventType}>
+								<Select
+									required
+									labelId='eventType-label'
+									id='eventType'
+									name='eventType'
+									value={formData.eventType}
+									onChange={handleFormSelectChange}>
 									<MenuItem value=''>Select Event Type</MenuItem>
 									{eventTypes.map((option, index) => (
 										<MenuItem key={index} value={option}>
@@ -361,11 +367,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 										</MenuItem>
 									))}
 								</Select>
-								{formSubmitted && formData.eventType === '' && (
-									<Typography variant='caption' color='error'>
-										Event type is required
-									</Typography>
-								)}
 							</FormControl>
 						</Grid>
 						<Grid item xs={6}>
@@ -376,7 +377,8 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									labelId='eventSubType-label'
 									id='eventSubType'
 									name='eventSubType'
-									value={formData.eventSubType}>
+									value={formData.eventSubType}
+									onChange={handleFormSelectChange}>
 									<MenuItem value=''>Select Event Sub-Type</MenuItem>
 									{formData.eventType &&
 										eventSubTypes[formData.eventType].map((option, index) => (

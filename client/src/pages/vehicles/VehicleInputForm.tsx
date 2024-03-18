@@ -2,13 +2,56 @@ import React, { useState, useEffect, ChangeEvent, FormEvent, FC, useContext } fr
 import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch, RootState } from 'store'
-import { Vehicle, initialState } from '../../store/types/VehicleTypes'
+import { Vehicle } from '../../store/types/VehicleTypes'
 import { updateVehicle, createVehicle, readVehicle } from '../../store/actions/mongodb/vehicleActions'
-import { Container, Typography, TextField, Button, CircularProgress, Grid, Divider } from '@mui/material'
+import {
+	Container,
+	Typography,
+	TextField,
+	Button,
+	CircularProgress,
+	Grid,
+	Divider,
+	Switch,
+	FormControlLabel,
+	MenuItem,
+	FormControl,
+	InputLabel,
+	Select,
+	SelectChangeEvent,
+} from '@mui/material'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import dayjs from 'dayjs'
 import { HeaderContext } from '../../contexts/HeaderContext'
+import { states, vehicleMakes, vehicleModels } from '../../utils/valueProviders'
 
 interface VehicleInputFormProps {
-	vehicleValues?: Vehicle
+	vehicleValues?: VehicleFormData
+}
+
+interface VehicleFormData {
+	_id: string | null
+	parentId: string | null
+	parentName: string
+	make: string
+	model: string
+	year: number
+	color: string
+	occupantsDriver: string | null // UUID from entities
+	occupantsPassengers: string[] // Array of UUIDs from entities
+	registrationOwner: string | null // UUID from entities
+	registrationPlateNumber: string
+	registrationExpirationDate: Date
+	registrationState: string
+	insurancePolicyNumber?: string
+	insuranceProvider?: string
+	insuranceExpirationDate?: Date
+	insuranceInsured: boolean
+	stolen: boolean
+	illegalModificationsWasModified: boolean
+	illegalModificationsDescription?: string
 }
 
 const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
@@ -17,37 +60,27 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	const dispatch = useDispatch<AppDispatch>()
 	const { eventId, vehicleId } = useParams<{ eventId: string; vehicleId?: string }>()
 	// ----------------------------- States ----------------------------- //
-	const [formData, setFormData] = useState<Vehicle>({
+	const [formData, setFormData] = useState<VehicleFormData>({
 		_id: vehicleValues?._id || '',
-		parent: {
-			_id: eventId || '',
-			name: '',
-		},
+		parentId: eventId || '',
+		parentName: '',
 		make: vehicleValues?.make || '',
 		model: vehicleValues?.model || '',
 		year: vehicleValues?.year || 0,
 		color: vehicleValues?.color || '',
-		occupants: {
-			driver: vehicleValues?.occupants.driver || '',
-			passengers: vehicleValues?.occupants.passengers || [],
-		},
-		registration: {
-			owner: vehicleValues?.registration.owner || '',
-			plateNumber: vehicleValues?.registration.plateNumber || '',
-			expirationDate: vehicleValues?.registration.expirationDate || new Date(),
-			state: vehicleValues?.registration.state || '',
-		},
-		insurance: {
-			policyNumber: vehicleValues?.insurance?.policyNumber || '',
-			provider: vehicleValues?.insurance?.provider || '',
-			expirationDate: vehicleValues?.insurance?.expirationDate || new Date(),
-			insured: vehicleValues?.insurance?.insured || false,
-		},
+		occupantsDriver: vehicleValues?.occupantsDriver || '',
+		occupantsPassengers: vehicleValues?.occupantsPassengers || [],
+		registrationOwner: vehicleValues?.registrationOwner || '',
+		registrationPlateNumber: vehicleValues?.registrationPlateNumber || '',
+		registrationExpirationDate: vehicleValues?.registrationExpirationDate || new Date(),
+		registrationState: vehicleValues?.registrationState || '',
+		insurancePolicyNumber: vehicleValues?.insurancePolicyNumber || '',
+		insuranceProvider: vehicleValues?.insuranceProvider || '',
+		insuranceExpirationDate: vehicleValues?.insuranceExpirationDate || new Date(),
+		insuranceInsured: vehicleValues?.insuranceInsured || false,
 		stolen: vehicleValues?.stolen || false,
-		illegalModifications: {
-			wasModified: vehicleValues?.illegalModifications?.wasModified || false,
-			description: vehicleValues?.illegalModifications?.description || '',
-		},
+		illegalModificationsWasModified: vehicleValues?.illegalModificationsWasModified || false,
+		illegalModificationsDescription: vehicleValues?.illegalModificationsDescription || '',
 	})
 
 	// Fetch vehicle details from Redux store
@@ -92,7 +125,28 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	// Update form data when vehicle details are fetched from Redux store
 	useEffect(() => {
 		if (vehicleId && vehicle) {
-			setFormData(vehicle)
+			setFormData({
+				_id: vehicle._id,
+				parentId: vehicle.parent._id,
+				parentName: vehicle.parent.name,
+				make: vehicle.make,
+				model: vehicle.model,
+				year: vehicle.year,
+				color: vehicle.color,
+				occupantsDriver: vehicle.occupants.driver,
+				occupantsPassengers: vehicle.occupants.passengers,
+				registrationOwner: vehicle.registration.owner,
+				registrationPlateNumber: vehicle.registration.plateNumber,
+				registrationExpirationDate: vehicle.registration.expirationDate,
+				registrationState: vehicle.registration.state,
+				insurancePolicyNumber: vehicle.insurance?.policyNumber,
+				insuranceProvider: vehicle.insurance?.provider,
+				insuranceExpirationDate: vehicle.insurance?.expirationDate,
+				insuranceInsured: vehicle.insurance?.insured ?? false,
+				stolen: vehicle.stolen ?? false,
+				illegalModificationsWasModified: vehicle.illegalModifications.wasModified ?? false,
+				illegalModificationsDescription: vehicle.illegalModifications.description,
+			})
 		}
 	}, [vehicle])
 
@@ -102,10 +156,35 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 
 		try {
 			const vehicleData = {
-				...formData,
+				_id: formData._id,
 				parent: {
-					_id: eventId!,
-					name: 'eventDB',
+					_id: formData.parentId,
+					name: formData.parentName,
+				},
+				make: formData.make,
+				model: formData.model,
+				year: formData.year,
+				color: formData.color,
+				occupants: {
+					driver: formData.occupantsDriver,
+					passengers: formData.occupantsPassengers,
+				},
+				registration: {
+					owner: formData.registrationOwner,
+					plateNumber: formData.registrationPlateNumber,
+					expirationDate: formData.registrationExpirationDate,
+					state: formData.registrationState,
+				},
+				insurance: {
+					policyNumber: formData.insurancePolicyNumber,
+					provider: formData.insuranceProvider,
+					expirationDate: formData.insuranceExpirationDate,
+					insured: formData.insuranceInsured,
+				},
+				stolen: formData.stolen,
+				illegalModifications: {
+					wasModified: formData.illegalModificationsWasModified,
+					description: formData.illegalModificationsDescription,
 				},
 			}
 
@@ -133,93 +212,333 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 		}))
 	}
 
+	// Handel toggle switch changes
+	const handleFormSwitchChange = (name: string) => (event: ChangeEvent<HTMLInputElement>) => {
+		const { checked } = event.target
+		setFormData((prevState) => ({
+			...prevState,
+			[name]: checked,
+		}))
+	}
+
+	// Handle form select changes
+	const handleFormSelectChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
+		const { name, value } = event.target
+		if (name === 'state') {
+			// Handle state field separately
+			setFormData((prevState) => ({
+				...prevState,
+				registrationState: value as string,
+			}))
+		} else {
+			// For other fields, update the form data as usual
+			setFormData((prevState) => ({
+				...prevState,
+				[name as string]: value,
+			}))
+		}
+	}
+
+	const handleFormConditionalSelectChange = (event: SelectChangeEvent<string>) => {
+		const { name, value } = event.target
+
+		// Reset model
+		if (name === 'make') {
+			setFormData((prevState) => ({
+				...prevState,
+				model: '', // Reset model
+				[name as string]: value,
+			}))
+		}
+		// For other fields, just update the form data as usual
+		else {
+			setFormData((prevState) => ({
+				...prevState,
+				[name as string]: value,
+			}))
+		}
+	}
+
+	// Handle form date changes
+	const handleFormDateChange = (date: dayjs.Dayjs | null, fieldName: string) => {
+		if (date) {
+			setFormData((prevState) => ({
+				...prevState,
+				[fieldName]: date.toDate(),
+			}))
+		}
+	}
+
 	return (
-		<Container>
-			{loading && <CircularProgress />}
-			{typeof error === 'object' && Object.keys(error).length !== 0 && (
-				<Typography color='error' variant='h6'>
-					Error: {error.toString()}
-				</Typography>
-			)}
-			<form onSubmit={onSubmit}>
-				<Grid container spacing={2}>
-					<Grid item xs={12}>
-						<Typography variant='h4' color={'primary'} mb={1}>
-							Description
-						</Typography>
-						<Divider />
+		<LocalizationProvider dateAdapter={AdapterDayjs}>
+			<Container>
+				{loading && <CircularProgress />}
+				{typeof error === 'object' && Object.keys(error).length !== 0 && (
+					<Typography color='error' variant='h6'>
+						Error: {error.toString()}
+					</Typography>
+				)}
+				<form onSubmit={onSubmit}>
+					<Grid container spacing={2}>
+						<Grid item xs={12}>
+							<Typography variant='h4' color={'primary'} mb={1}>
+								Description
+							</Typography>
+							<Divider />
+						</Grid>
+						<Grid item xs={3}>
+							<TextField
+								required
+								name='year'
+								label='Year'
+								variant='outlined'
+								fullWidth
+								select
+								value={formData.year}
+								onChange={handleFormSelectChange}>
+								{/* Generate the range of years */}
+								{Array.from({ length: new Date().getFullYear() - 1885 + 1 }, (_, index) => (
+									<MenuItem key={index} value={new Date().getFullYear() - index}>
+										{new Date().getFullYear() - index}
+									</MenuItem>
+								))}
+							</TextField>
+						</Grid>
+						<Grid item xs={3}>
+							<FormControl fullWidth variant='outlined'>
+								<InputLabel id='make-label'>Make</InputLabel>
+								<Select
+									required
+									labelId='make-label'
+									id='make'
+									name='make'
+									value={formData.make}
+									onChange={handleFormConditionalSelectChange}>
+									<MenuItem value=''>Select a Vehcile Make</MenuItem>
+									{vehicleMakes.map((option, index) => (
+										<MenuItem key={index} value={option}>
+											{option}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
+						</Grid>
+						<Grid item xs={3}>
+							<FormControl fullWidth variant='outlined'>
+								<InputLabel id='model-label'>Model</InputLabel>
+								<Select
+									required
+									labelId='model-label'
+									id='model'
+									name='model'
+									value={formData.model}
+									onChange={handleFormConditionalSelectChange}>
+									<MenuItem value=''>Select Vehicle Model</MenuItem>
+									{formData.make &&
+										vehicleModels[formData.make].map((option, index) => (
+											<MenuItem key={index} value={option}>
+												{option}
+											</MenuItem>
+										))}
+								</Select>
+							</FormControl>
+						</Grid>
+						<Grid item xs={3}>
+							{/* Convert to select element */}
+							<TextField
+								required
+								name='color'
+								label='Color'
+								variant='outlined'
+								fullWidth
+								value={formData.color}
+								onChange={handleFormChange}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<Typography variant='h4' color={'primary'} mb={1}>
+								Occupants
+							</Typography>
+							<Divider />
+						</Grid>
+						<Grid item xs={6}>
+							{/* Convert to select element populated with the entities from this event*/}
+							<TextField
+								required
+								name='driver'
+								label='Driver'
+								variant='outlined'
+								fullWidth
+								value={formData.occupantsDriver}
+								onChange={handleFormChange}
+							/>
+						</Grid>
+						<Grid item xs={6}>
+							{/* Convert to multi select element populated with the entities from this event*/}
+							<TextField
+								required
+								name='passengers'
+								label='Passengers'
+								variant='outlined'
+								fullWidth
+								value={formData.occupantsPassengers}
+								onChange={handleFormChange}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<Typography variant='h4' color={'primary'} mb={1}>
+								Registration
+							</Typography>
+							<Divider />
+						</Grid>
+						<Grid item xs={12}>
+							{/* Convert to select element populated with the entities from this event*/}
+							<TextField
+								required
+								name='owner'
+								label='Owner'
+								variant='outlined'
+								fullWidth
+								value={formData.registrationOwner}
+								onChange={handleFormChange}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<TextField
+								required
+								name='plateNumber'
+								label='Plate Number'
+								variant='outlined'
+								fullWidth
+								value={formData.registrationPlateNumber}
+								onChange={handleFormChange}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<DatePicker
+								name='expirationDate'
+								label='Expiration Date'
+								defaultValue={dayjs()}
+								value={dayjs(formData.registrationExpirationDate)}
+								onChange={(date) => handleFormDateChange(date, 'registrationExpirationDate')}
+								disableFuture
+								slotProps={{
+									textField: {
+										required: true,
+										fullWidth: true,
+									},
+								}}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<TextField
+								required
+								name='state'
+								label='State'
+								variant='outlined'
+								fullWidth
+								select
+								value={formData.registrationState}
+								onChange={handleFormSelectChange}>
+								{states.map((state) => (
+									<MenuItem key={state} value={state}>
+										{state}
+									</MenuItem>
+								))}
+							</TextField>
+						</Grid>
+						<Grid item xs={12}>
+							<Typography variant='h4' color={'primary'} mb={1}>
+								Insurance
+							</Typography>
+							<Divider />
+						</Grid>
+						<Grid item xs={12}>
+							<FormControlLabel
+								control={
+									<Switch
+										name='insured'
+										checked={formData.insuranceInsured}
+										onChange={handleFormSwitchChange('insuranceInsured')}
+									/>
+								}
+								label='Insured'
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<TextField
+								name='policyNumber'
+								label='Policy Number'
+								variant='outlined'
+								fullWidth
+								value={formData.insurancePolicyNumber}
+								onChange={handleFormChange}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<TextField
+								name='provider'
+								label='Provider'
+								variant='outlined'
+								fullWidth
+								value={formData.insuranceProvider}
+								onChange={handleFormChange}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<DatePicker
+								name='expirationDate'
+								label='Expiration Date'
+								defaultValue={dayjs()}
+								value={dayjs(formData.insuranceExpirationDate)}
+								onChange={(date) => handleFormDateChange(date, 'insuranceExpirationDate')}
+								disableFuture
+								slotProps={{
+									textField: {
+										required: true,
+										fullWidth: true,
+									},
+								}}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<Typography variant='h4' color={'primary'} mb={1}>
+								Legality
+							</Typography>
+							<Divider />
+						</Grid>
+						<Grid item xs={6}>
+							<FormControlLabel
+								control={<Switch name='stolen' checked={formData.stolen} onChange={handleFormSwitchChange('stolen')} />}
+								label='Stolen'
+							/>
+						</Grid>
+						<Grid item xs={6}>
+							<FormControlLabel
+								control={
+									<Switch
+										name='wasModified'
+										checked={formData.illegalModificationsWasModified}
+										onChange={handleFormSwitchChange('illegalModificationsWasModified')}
+									/>
+								}
+								label='Modified'
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								name='description'
+								label='Modifications'
+								variant='outlined'
+								fullWidth
+								value={formData.illegalModificationsDescription}
+								onChange={handleFormChange}
+							/>
+						</Grid>
 					</Grid>
-					<Grid item xs={3}>
-						<TextField
-							required
-							name='year'
-							label='Year'
-							variant='outlined'
-							fullWidth
-							value={formData.year}
-							onChange={handleFormChange}
-						/>
-					</Grid>
-					<Grid item xs={3}>
-						<TextField
-							required
-							name='make'
-							label='Make'
-							variant='outlined'
-							fullWidth
-							value={formData.make}
-							onChange={handleFormChange}
-						/>
-					</Grid>
-					<Grid item xs={3}>
-						<TextField
-							required
-							name='model'
-							label='Model'
-							variant='outlined'
-							fullWidth
-							value={formData.model}
-							onChange={handleFormChange}
-						/>
-					</Grid>
-					<Grid item xs={3}>
-						<TextField
-							required
-							name='color'
-							label='Color'
-							variant='outlined'
-							fullWidth
-							value={formData.color}
-							onChange={handleFormChange}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<Typography variant='h4' color={'primary'} mb={1}>
-							Occupants
-						</Typography>
-						<Divider />
-					</Grid>
-					<Grid item xs={12}>
-						<Typography variant='h4' color={'primary'} mb={1}>
-							Registration
-						</Typography>
-						<Divider />
-					</Grid>
-					<Grid item xs={12}>
-						<Typography variant='h4' color={'primary'} mb={1}>
-							Insurance
-						</Typography>
-						<Divider />
-					</Grid>
-					<Grid item xs={12}>
-						<Typography variant='h4' color={'primary'} mb={1}>
-							Legality
-						</Typography>
-						<Divider />
-					</Grid>
-				</Grid>
-			</form>
-		</Container>
+				</form>
+			</Container>
+		</LocalizationProvider>
 	)
 }
 
