@@ -42,7 +42,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	const dispatch = useDispatch<AppDispatch>()
 	const { eventId } = useParams<string>()
 	// ----------------------------- States ----------------------------- //
-	const [formSubmitted, setFormSubmitted] = useState(false)
 	const [formData, setFormData] = useState<EventFormData>({
 		_id: eventValues?._id,
 		status: eventValues?.status || 'pending',

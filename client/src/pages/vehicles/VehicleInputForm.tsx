@@ -32,7 +32,7 @@ interface VehicleInputFormProps {
 }
 
 interface VehicleFormData {
-	_id: string | null
+	_id?: string
 	parentId: string | null
 	parentName: string
 	make: string
@@ -61,12 +61,12 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	const { eventId, vehicleId } = useParams<{ eventId: string; vehicleId?: string }>()
 	// ----------------------------- States ----------------------------- //
 	const [formData, setFormData] = useState<VehicleFormData>({
-		_id: vehicleValues?._id || '',
+		_id: vehicleValues?._id,
 		parentId: eventId || '',
 		parentName: '',
 		make: vehicleValues?.make || '',
 		model: vehicleValues?.model || '',
-		year: vehicleValues?.year || 0,
+		year: vehicleValues?.year || new Date().getFullYear(),
 		color: vehicleValues?.color || '',
 		occupantsDriver: vehicleValues?.occupantsDriver || '',
 		occupantsPassengers: vehicleValues?.occupantsPassengers || [],
@@ -126,7 +126,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	useEffect(() => {
 		if (vehicleId && vehicle) {
 			setFormData({
-				_id: vehicle._id,
+				_id: vehicle._id!,
 				parentId: vehicle.parent._id,
 				parentName: vehicle.parent.name,
 				make: vehicle.make,
@@ -156,7 +156,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 
 		try {
 			const vehicleData = {
-				_id: formData._id,
+				_id: formData._id || null,
 				parent: {
 					_id: formData.parentId,
 					name: formData.parentName,
@@ -206,6 +206,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	// Handle form field changes
 	const handleFormChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
 		const { name, value } = event.target
+		console.log('name:', name, 'value:', value)
 		setFormData((prevState) => ({
 			...prevState,
 			[name as string]: value,
