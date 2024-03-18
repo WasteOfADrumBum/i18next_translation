@@ -215,10 +215,32 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	// Handel toggle switch changes
 	const handleFormSwitchChange = (name: string) => (event: ChangeEvent<HTMLInputElement>) => {
 		const { checked } = event.target
-		setFormData((prevState) => ({
-			...prevState,
-			[name]: checked,
-		}))
+
+		// Reset illegal modifications description if the switch is turned off
+		if (name === 'illegalModificationsWasModified' && !checked) {
+			setFormData((prevState) => ({
+				...prevState,
+				illegalModificationsDescription: '',
+				[name]: checked,
+			}))
+		}
+		// Reset insurance details if the switch is turned off
+		else if (name === 'insuranceInsured' && !checked) {
+			setFormData((prevState) => ({
+				...prevState,
+				insurancePolicyNumber: '',
+				insuranceProvider: '',
+				insuranceExpirationDate: new Date(),
+				[name]: checked,
+			}))
+		}
+		// For other fields, update the form data as usual
+		else {
+			setFormData((prevState) => ({
+				...prevState,
+				[name]: checked,
+			}))
+		}
 	}
 
 	// Handle form select changes
@@ -472,42 +494,46 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								label='Insured'
 							/>
 						</Grid>
-						<Grid item xs={4}>
-							<TextField
-								name='policyNumber'
-								label='Policy Number'
-								variant='outlined'
-								fullWidth
-								value={formData.insurancePolicyNumber}
-								onChange={handleFormChange}
-							/>
-						</Grid>
-						<Grid item xs={4}>
-							<TextField
-								name='provider'
-								label='Provider'
-								variant='outlined'
-								fullWidth
-								value={formData.insuranceProvider}
-								onChange={handleFormChange}
-							/>
-						</Grid>
-						<Grid item xs={4}>
-							<DatePicker
-								name='expirationDate'
-								label='Expiration Date'
-								defaultValue={dayjs()}
-								value={dayjs(formData.insuranceExpirationDate)}
-								onChange={(date) => handleFormDateChange(date, 'insuranceExpirationDate')}
-								disableFuture
-								slotProps={{
-									textField: {
-										required: true,
-										fullWidth: true,
-									},
-								}}
-							/>
-						</Grid>
+						{formData.insuranceInsured && (
+							<>
+								<Grid item xs={4}>
+									<TextField
+										name='policyNumber'
+										label='Policy Number'
+										variant='outlined'
+										fullWidth
+										value={formData.insurancePolicyNumber}
+										onChange={handleFormChange}
+									/>
+								</Grid>
+								<Grid item xs={4}>
+									<TextField
+										name='provider'
+										label='Provider'
+										variant='outlined'
+										fullWidth
+										value={formData.insuranceProvider}
+										onChange={handleFormChange}
+									/>
+								</Grid>
+								<Grid item xs={4}>
+									<DatePicker
+										name='expirationDate'
+										label='Expiration Date'
+										defaultValue={dayjs()}
+										value={dayjs(formData.insuranceExpirationDate)}
+										onChange={(date) => handleFormDateChange(date, 'insuranceExpirationDate')}
+										disableFuture
+										slotProps={{
+											textField: {
+												required: true,
+												fullWidth: true,
+											},
+										}}
+									/>
+								</Grid>
+							</>
+						)}
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
 								Legality
@@ -532,16 +558,18 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								label='Modified'
 							/>
 						</Grid>
-						<Grid item xs={12}>
-							<TextField
-								name='description'
-								label='Modifications'
-								variant='outlined'
-								fullWidth
-								value={formData.illegalModificationsDescription}
-								onChange={handleFormChange}
-							/>
-						</Grid>
+						{formData.illegalModificationsWasModified && (
+							<Grid item xs={12}>
+								<TextField
+									name='description'
+									label='Modifications'
+									variant='outlined'
+									fullWidth
+									value={formData.illegalModificationsDescription}
+									onChange={handleFormChange}
+								/>
+							</Grid>
+						)}
 					</Grid>
 				</form>
 			</Container>
