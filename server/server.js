@@ -11,9 +11,9 @@ const dotenv = require('dotenv')
 dotenv.config({ path: path.join(__dirname, '../.env') })
 
 // Import routes
-const EventsRoutes = require('./routes/mongoDB/EventsRoutes')
-const EntitiesRoutes = require('./routes/mongoDB/EntitiesRoutes')
-const VehiclesRoutes = require('./routes/mongoDB/VehiclesRoutes')
+const EventsRoutes = require('./routes/mongodb/EventsRoutes')
+const EntitiesRoutes = require('./routes/mongoDBs/EntitiesRoutes')
+const VehiclesRoutes = require('./routes/mongoDBs/VehiclesRoutes')
 
 // Create Express app
 const app = express()

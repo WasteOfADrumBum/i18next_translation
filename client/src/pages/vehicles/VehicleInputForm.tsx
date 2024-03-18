@@ -87,11 +87,11 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	})
 	const [formSubmitted, setFormSubmitted] = useState(false)
 
-	useEffect(() => {
-		if (vehicleId && vehicle) {
-			setFormData(vehicle)
-		}
-	}, [vehicle])
+	// useEffect(() => {
+	// 	if (vehicleId && vehicle) {
+	// 		setFormData(vehicle)
+	// 	}
+	// }, [vehicle])
 
 	return <Container>{loading && <CircularProgress />}</Container>
 }
