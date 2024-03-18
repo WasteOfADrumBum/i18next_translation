@@ -53,6 +53,7 @@ export const vehicleMakes = [
 	'Toyota',
 	'Volkswagen',
 	'Volvo',
+	'Other',
 ]
 
 export const vehicleModels: VehicleModels = {
@@ -294,3 +295,21 @@ export const vehicleModels: VehicleModels = {
 	'Volkswagen': ['Golf', 'Jetta', 'Passat', 'Tiguan', 'Atlas', 'Arteon', 'Touareg', 'ID.4', 'ID.3', 'Up'],
 	'Volvo': ['S60', 'S90', 'V60', 'V90', 'XC40', 'XC60', 'XC90', 'XC70', 'C30', 'C70'],
 }
+
+export const vehicleColors = [
+	'Black',
+	'White',
+	'Silver',
+	'Gray',
+	'Red',
+	'Blue',
+	'Green',
+	'Yellow',
+	'Orange',
+	'Purple',
+	'Pink',
+	'Gold',
+	'Beige',
+	'Brown',
+	'Other',
+]

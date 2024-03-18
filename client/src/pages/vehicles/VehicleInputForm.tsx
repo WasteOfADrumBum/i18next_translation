@@ -25,7 +25,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs'
 import { HeaderContext } from '../../contexts/HeaderContext'
-import { states, vehicleMakes, vehicleModels } from '../../utils/valueProviders'
+import { states, vehicleMakes, vehicleModels, vehicleColors } from '../../utils/valueProviders'
 
 interface VehicleInputFormProps {
 	vehicleValues?: VehicleFormData
@@ -344,16 +344,23 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							</FormControl>
 						</Grid>
 						<Grid item xs={3}>
-							{/* Convert to select element */}
-							<TextField
-								required
-								name='color'
-								label='Color'
-								variant='outlined'
-								fullWidth
-								value={formData.color}
-								onChange={handleFormChange}
-							/>
+							<FormControl fullWidth variant='outlined'>
+								<InputLabel id='color-label'>Color</InputLabel>
+								<Select
+									required
+									labelId='color-label'
+									id='color'
+									name='color'
+									value={formData.color}
+									onChange={handleFormConditionalSelectChange}>
+									<MenuItem value=''>Select a Vehcile Color</MenuItem>
+									{vehicleColors.map((option, index) => (
+										<MenuItem key={index} value={option}>
+											{option}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
