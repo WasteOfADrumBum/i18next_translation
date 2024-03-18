@@ -14,6 +14,16 @@ const vehiclesModelSchema = new mongoose.Schema({
 		ref: 'EntitiesModel',
 		required: true,
 	},
+	driver: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'EntitiesModel',
+		required: true,
+	},
+	passengers: {
+		type: [mongoose.Schema.Types.ObjectId],
+		ref: 'EntitiesModel',
+		required: true,
+	},
 	registration: {
 		plateNumber: { type: String, required: true },
 		expirationDate: { type: Date, required: true },
