@@ -9,15 +9,17 @@ const vehiclesModelSchema = new mongoose.Schema({
 	model: { type: String, required: true },
 	year: { type: Number, required: true },
 	color: { type: String, required: true },
-	driver: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'EntitiesModel',
-		required: true,
-	},
-	passengers: {
-		type: [mongoose.Schema.Types.ObjectId],
-		ref: 'EntitiesModel',
-		required: true,
+	occupants: {
+		driver: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'EntitiesModel',
+			required: true,
+		},
+		passengers: {
+			type: [mongoose.Schema.Types.ObjectId],
+			ref: 'EntitiesModel',
+			required: true,
+		},
 	},
 	registration: {
 		owner: {

@@ -27,8 +27,10 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 		model: vehicleValues?.model || '',
 		year: vehicleValues?.year || 0,
 		color: vehicleValues?.color || '',
-		driver: vehicleValues?.driver || '',
-		passengers: vehicleValues?.passengers || [],
+		occupants: {
+			driver: vehicleValues?.occupants.driver || '',
+			passengers: vehicleValues?.occupants.passengers || [],
+		},
 		registration: {
 			owner: vehicleValues?.registration.owner || '',
 			plateNumber: vehicleValues?.registration.plateNumber || '',
