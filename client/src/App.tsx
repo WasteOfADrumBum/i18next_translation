@@ -147,28 +147,28 @@ function App() {
 									/>
 									{/* Entities */}
 									<Route
-										path='/entity/create'
+										path='dashboard/event/:eventId/entity/create'
 										element={<PrivateRoute element={<EntityInputForm />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
-										path='/entity/:entityId/edit'
+										path='dashboard/event/:eventId/entity/:entityId/edit'
 										element={<PrivateRoute element={<EntityInputForm />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
-										path='/entity/:entityId'
+										path='dashboard/event/:eventId/entity/:entityId'
 										element={<PrivateRoute element={<EntityDetailsView />} isAuthenticated={isAuthenticated} />}
 									/>
 									{/* Vehicles */}
 									<Route
-										path='/vehicle/create'
+										path='dashboard/event/:eventId/vehicle/create'
 										element={<PrivateRoute element={<VehicleInputForm />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
-										path='/vehicle/:vehicleId/edit'
+										path='dashboard/event/:eventId/vehicle/:vehicleId/edit'
 										element={<PrivateRoute element={<VehicleInputForm />} isAuthenticated={isAuthenticated} />}
 									/>
 									<Route
-										path='/vehicle/:vehicleId'
+										path='dashboard/event/:eventId/vehicle/:vehicleId'
 										element={<PrivateRoute element={<VehicleDetailsView />} isAuthenticated={isAuthenticated} />}
 									/>
 									{/* Users */}

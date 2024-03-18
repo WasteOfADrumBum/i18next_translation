@@ -46,7 +46,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		console.log('eventID: ', eventId)
 		// Fetch event details from Redux store
 		if (eventId) {
-			// Check if eventId is not undefined
 			dispatch(readEvent(eventId))
 		}
 	}, [dispatch, eventId])

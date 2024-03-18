@@ -3,7 +3,7 @@ import { Grid, Button, Container, Typography, capitalize } from '@mui/material'
 import { AddCircleOutline } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { HeaderContext } from '../../contexts/HeaderContext'
 import { getVehicles } from '../../store/actions/mongodb/vehicleActions'
 import { RootState } from '../../store'
@@ -51,13 +51,13 @@ const VehicleListView: FC = () => {
 
 	const handleView = (id: string | undefined) => {
 		if (id) {
-			navigate(`/dashboard/vehicle/${id}/details`)
+			navigate(`${id}/details`)
 		}
 	}
 
 	const handleEdit = (id: string | undefined) => {
 		if (id) {
-			navigate(`/dashboard/vehicle/${id}/edit`)
+			navigate(`${id}/edit`)
 		}
 	}
 
@@ -87,7 +87,7 @@ const VehicleListView: FC = () => {
 	return (
 		<Container maxWidth='xl'>
 			<Grid container justifyContent='flex-end'>
-				<Button onClick={() => navigate('/vehicle/create')} sx={{ margin: 1 }}>
+				<Button onClick={() => navigate(`create`)} sx={{ margin: 1 }}>
 					<AddCircleOutline sx={{ marginRight: 1 }} /> Add Vehicle
 				</Button>
 			</Grid>
