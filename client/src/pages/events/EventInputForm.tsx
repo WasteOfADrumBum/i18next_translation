@@ -104,10 +104,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	const [formSubmitted, setFormSubmitted] = useState(false)
 
 	useEffect(() => {
-		console.log('Event:', event)
-		console.log('Event Values:', eventValues)
-		console.log('Event ID:', eventId)
-		if (event) {
+		if (eventId && event) {
 			// If event is available, populate the form with its data
 			setFormData({
 				_id: event._id!,
@@ -208,8 +205,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 			return
 		}
 
-		console.log('Form Data: ', formData)
-
 		try {
 			const eventData: Event = {
 				_id: formData._id || null,
@@ -245,8 +240,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 					state: formData.state,
 				},
 			}
-
-			console.log('Event Data: ', eventData)
 
 			if (eventData._id !== null) {
 				console.log('Update Event (Form):', eventData)

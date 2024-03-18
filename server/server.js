@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Required Dependencies
 const express = require('express')
 const cors = require('cors')
@@ -12,8 +11,8 @@ dotenv.config({ path: path.join(__dirname, '../.env') })
 
 // Import routes
 const EventsRoutes = require('./routes/mongodb/EventsRoutes')
-const EntitiesRoutes = require('./routes/mongoDBs/EntitiesRoutes')
-const VehiclesRoutes = require('./routes/mongoDBs/VehiclesRoutes')
+const EntitiesRoutes = require('./routes/mongodb/EntityRoutes')
+const VehiclesRoutes = require('./routes/mongodb/VehicleRoutes')
 
 // Create Express app
 const app = express()
@@ -55,6 +54,7 @@ postgresClient
 
 // Middleware to add pool to each request
 app.use((req, res, next) => {
+	// @ts-ignore
 	req.dbPool = pool
 	next()
 })
@@ -84,6 +84,7 @@ app.use('/api/vehicles', VehiclesRoutes)
 // To test creat a GET http://localhost:5000/test on Postman
 app.get('/test', async (req, res) => {
 	try {
+		// @ts-ignore
 		const client = await req.dbPool.connect()
 		const result = await client.query('SELECT $1::text as message', ['Hello PostgreSQL'])
 		client.release()
