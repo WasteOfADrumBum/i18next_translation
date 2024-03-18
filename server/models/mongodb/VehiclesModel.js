@@ -9,11 +9,6 @@ const vehiclesModelSchema = new mongoose.Schema({
 	model: { type: String, required: true },
 	year: { type: Number, required: true },
 	color: { type: String, required: true },
-	owner: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'EntitiesModel',
-		required: true,
-	},
 	driver: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'EntitiesModel',
@@ -25,6 +20,11 @@ const vehiclesModelSchema = new mongoose.Schema({
 		required: true,
 	},
 	registration: {
+		owner: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'EntitiesModel',
+			required: true,
+		},
 		plateNumber: { type: String, required: true },
 		expirationDate: { type: Date, required: true },
 		state: { type: String, required: true },

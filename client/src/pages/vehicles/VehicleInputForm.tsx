@@ -27,10 +27,10 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 		model: vehicleValues?.model || '',
 		year: vehicleValues?.year || 0,
 		color: vehicleValues?.color || '',
-		owner: vehicleValues?.owner || '',
 		driver: vehicleValues?.driver || '',
 		passengers: vehicleValues?.passengers || [],
 		registration: {
+			owner: vehicleValues?.registration.owner || '',
 			plateNumber: vehicleValues?.registration.plateNumber || '',
 			expirationDate: vehicleValues?.registration.expirationDate || new Date(),
 			state: vehicleValues?.registration.state || '',
@@ -122,6 +122,15 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 		}
 	}
 
+	// Handle form field changes
+	const handleFormChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
+		const { name, value } = event.target
+		setFormData((prevState) => ({
+			...prevState,
+			[name as string]: value,
+		}))
+	}
+
 	return (
 		<Container>
 			{loading && <CircularProgress />}
@@ -131,7 +140,82 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 				</Typography>
 			)}
 			<form onSubmit={onSubmit}>
-				<Grid container spacing={2}></Grid>
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						<Typography variant='h4' color={'primary'} mb={1}>
+							Description
+						</Typography>
+						<Divider />
+					</Grid>
+					<Grid item xs={3}>
+						<TextField
+							required
+							name='year'
+							label='Year'
+							variant='outlined'
+							fullWidth
+							value={formData.year}
+							onChange={handleFormChange}
+						/>
+					</Grid>
+					<Grid item xs={3}>
+						<TextField
+							required
+							name='make'
+							label='Make'
+							variant='outlined'
+							fullWidth
+							value={formData.make}
+							onChange={handleFormChange}
+						/>
+					</Grid>
+					<Grid item xs={3}>
+						<TextField
+							required
+							name='model'
+							label='Model'
+							variant='outlined'
+							fullWidth
+							value={formData.model}
+							onChange={handleFormChange}
+						/>
+					</Grid>
+					<Grid item xs={3}>
+						<TextField
+							required
+							name='color'
+							label='Color'
+							variant='outlined'
+							fullWidth
+							value={formData.color}
+							onChange={handleFormChange}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<Typography variant='h4' color={'primary'} mb={1}>
+							Occupants
+						</Typography>
+						<Divider />
+					</Grid>
+					<Grid item xs={12}>
+						<Typography variant='h4' color={'primary'} mb={1}>
+							Registration
+						</Typography>
+						<Divider />
+					</Grid>
+					<Grid item xs={12}>
+						<Typography variant='h4' color={'primary'} mb={1}>
+							Insurance
+						</Typography>
+						<Divider />
+					</Grid>
+					<Grid item xs={12}>
+						<Typography variant='h4' color={'primary'} mb={1}>
+							Legality
+						</Typography>
+						<Divider />
+					</Grid>
+				</Grid>
 			</form>
 		</Container>
 	)
