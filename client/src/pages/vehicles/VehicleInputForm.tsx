@@ -12,53 +12,15 @@ interface VehicleInputFormProps {
 }
 
 const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
-	console.log('Vehicle Input Form:', vehicleValues)
 	const navigate = useNavigate()
 	const { setHeaderData } = useContext(HeaderContext)
 	const dispatch = useDispatch<AppDispatch>()
 	const { eventId, vehicleId } = useParams<{ eventId: string; vehicleId?: string }>()
-
-	useEffect(() => {
-		console.log('vehcileID:', vehicleId)
-		// Fetch vehilce details from Redux store
-		if (vehicleId) {
-			dispatch(readVehicle(vehicleId))
-		}
-	}, [dispatch, vehicleId])
-
-	const { loading, error, vehicle } = useSelector((state: RootState) => state.vehicles)
-
-	useEffect(() => {
-		// Update header data when component mounts
-		setHeaderData({
-			header: vehicleValues ? 'Update Vehicle' : 'Add Vehicle',
-			subheader: vehicleValues ? 'Update an existing vehicle' : 'Add a new vehicle',
-			extraContent: (
-				<Grid container spacing={0}>
-					<Grid item xs={12}>
-						<Typography variant='caption'>All fields marker with an asterisk (*) are required</Typography>
-					</Grid>
-				</Grid>
-			),
-			returnButton: true,
-			returnPath: `/dashboard/event/${eventId}/entity`,
-		})
-
-		// Clean up header data when component unmounts
-		return () => {
-			setHeaderData({
-				header: '',
-				subheader: '',
-				extraContent: null,
-				returnButton: true,
-			})
-		}
-	}, [setHeaderData])
-
+	// ----------------------------- States ----------------------------- //
 	const [formData, setFormData] = useState<Vehicle>({
 		_id: vehicleValues?._id || '',
 		parent: {
-			_id: eventId!,
+			_id: eventId || '',
 			name: '',
 		},
 		make: vehicleValues?.make || '',
@@ -85,15 +47,94 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 			description: vehicleValues?.illegalModifications?.description || '',
 		},
 	})
-	const [formSubmitted, setFormSubmitted] = useState(false)
 
-	// useEffect(() => {
-	// 	if (vehicleId && vehicle) {
-	// 		setFormData(vehicle)
-	// 	}
-	// }, [vehicle])
+	// Fetch vehicle details from Redux store
+	useEffect(() => {
+		console.log('vehcileID:', vehicleId)
+		// Fetch vehilce details from Redux store
+		if (vehicleId) {
+			dispatch(readVehicle(vehicleId))
+		}
+	}, [dispatch, vehicleId])
 
-	return <Container>{loading && <CircularProgress />}</Container>
+	// Update form data when vehicle details are fetched from Redux store
+	const { loading, error, vehicle } = useSelector((state: RootState) => state.vehicles)
+
+	// Update header data when component mounts
+	useEffect(() => {
+		setHeaderData({
+			header: vehicleValues ? 'Update Vehicle' : 'Add Vehicle',
+			subheader: vehicleValues ? 'Update an existing vehicle' : 'Add a new vehicle',
+			extraContent: (
+				<Grid container spacing={0}>
+					<Grid item xs={12}>
+						<Typography variant='caption'>All fields marker with an asterisk (*) are required</Typography>
+					</Grid>
+				</Grid>
+			),
+			returnButton: true,
+			returnPath: `/dashboard/event/${eventId}/entity`,
+		})
+
+		// Clean up header data when component unmounts
+		return () => {
+			setHeaderData({
+				header: '',
+				subheader: '',
+				extraContent: null,
+				returnButton: true,
+			})
+		}
+	}, [setHeaderData])
+
+	// Update form data when vehicle details are fetched from Redux store
+	useEffect(() => {
+		if (vehicleId && vehicle) {
+			setFormData(vehicle)
+		}
+	}, [vehicle])
+
+	// Handle form submission
+	const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
+
+		try {
+			const vehicleData = {
+				...formData,
+				parent: {
+					_id: eventId!,
+					name: 'eventDB',
+				},
+			}
+
+			// Check if parent ID is provided
+			if (vehicleData.parent._id === null || vehicleData.parent._id === '') {
+				console.error('Parent ID is required or vehicle data will be an orphaned reccord')
+			} else if (vehicleData._id !== null) {
+				dispatch(updateVehicle(vehicleData)) // Update vehicle
+				navigate(`/dashboard/event/${eventId}/vehicle`)
+			} else {
+				dispatch(createVehicle(vehicleData)) // Create vehicle
+				navigate(`/dashboard/event/${eventId}/vehicle`)
+			}
+		} catch (error: any) {
+			console.log('Error:', error)
+		}
+	}
+
+	return (
+		<Container>
+			{loading && <CircularProgress />}
+			{typeof error === 'object' && Object.keys(error).length !== 0 && (
+				<Typography color='error' variant='h6'>
+					Error: {error.toString()}
+				</Typography>
+			)}
+			<form onSubmit={onSubmit}>
+				<Grid container spacing={2}></Grid>
+			</form>
+		</Container>
+	)
 }
 
 export default VehicleInputForm

@@ -30,7 +30,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs'
-import { eventTypes, eventSubTypes, tags, methodsOfReceipt, states, countries } from '../../utils/valueProviders'
+import { eventTypes, eventSubTypes, methodsOfReceipt, states, countries } from '../../utils/valueProviders'
 
 interface EventInputFormProps {
 	eventValues?: EventFormData
@@ -41,10 +41,33 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	const { setHeaderData } = useContext(HeaderContext)
 	const dispatch = useDispatch<AppDispatch>()
 	const { eventId } = useParams<string>()
+	// ----------------------------- States ----------------------------- //
+	const [formSubmitted, setFormSubmitted] = useState(false)
+	const [formData, setFormData] = useState<EventFormData>({
+		_id: eventValues?._id,
+		status: eventValues?.status || 'pending',
+		reporter: eventValues?.reporter || '',
+		reportedDate: eventValues?.reportedDate || new Date(),
+		updatedBy: eventValues?.updatedBy || '',
+		updatedDate: eventValues?.updatedDate || new Date(),
+		submittedBy: eventValues?.submittedBy || '',
+		submittedDate: eventValues?.submittedDate || new Date(),
+		eventType: eventValues?.eventType || '',
+		eventSubType: eventValues?.eventSubType || '',
+		title: eventValues?.title || '',
+		description: eventValues?.description || '',
+		tagging: eventValues?.tagging || [],
+		methodOfReceipt: eventValues?.methodOfReceipt || '',
+		address: eventValues?.address || '',
+		city: eventValues?.city || '',
+		zip: eventValues?.zip || null,
+		country: eventValues?.country || '',
+		county: eventValues?.county || '',
+		state: eventValues?.state || '',
+	})
 
+	// Fetch event details from Redux store
 	useEffect(() => {
-		console.log('eventID: ', eventId)
-		// Fetch event details from Redux store
 		if (eventId) {
 			dispatch(readEvent(eventId))
 		}
@@ -53,8 +76,8 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	// Access event details from Redux store
 	const { event, loading, error } = useSelector((state: RootState) => state.events)
 
+	// Update header data when component mounts
 	useEffect(() => {
-		// Update header data when component mounts
 		setHeaderData({
 			header: eventValues ? 'Update Event' : 'Add Event',
 			subheader: eventValues ? 'Update an existing event' : 'Add a new event',
@@ -79,33 +102,9 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		}
 	}, [setHeaderData])
 
-	const [formData, setFormData] = useState<EventFormData>({
-		_id: eventValues?._id,
-		status: eventValues?.status || 'pending',
-		reporter: eventValues?.reporter || '',
-		reportedDate: eventValues?.reportedDate || new Date(),
-		updatedBy: eventValues?.updatedBy || '',
-		updatedDate: eventValues?.updatedDate || new Date(),
-		submittedBy: eventValues?.submittedBy || '',
-		submittedDate: eventValues?.submittedDate || new Date(),
-		eventType: eventValues?.eventType || '',
-		eventSubType: eventValues?.eventSubType || '',
-		title: eventValues?.title || '',
-		description: eventValues?.description || '',
-		tagging: eventValues?.tagging || [],
-		methodOfReceipt: eventValues?.methodOfReceipt || '',
-		address: eventValues?.address || '',
-		city: eventValues?.city || '',
-		zip: eventValues?.zip || null,
-		country: eventValues?.country || '',
-		county: eventValues?.county || '',
-		state: eventValues?.state || '',
-	})
-	const [formSubmitted, setFormSubmitted] = useState(false)
-
+	// Update form data when event details are fetched from Redux store
 	useEffect(() => {
 		if (eventId && event) {
-			// If event is available, populate the form with its data
 			setFormData({
 				_id: event._id!,
 				status: event.status,
@@ -131,6 +130,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		}
 	}, [event])
 
+	// Handle form field changes
 	const handleFormChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
 		const { name, value } = event.target
 		setFormData((prevState) => ({
@@ -139,6 +139,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		}))
 	}
 
+	// Handle form select changes
 	const handleFormSelectChange = (event: SelectChangeEvent<string>) => {
 		const { name, value } = event.target
 
@@ -168,6 +169,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		}
 	}
 
+	// Handle form multi-select changes
 	const handleFormMultiSelectChange = (event: SelectChangeEvent<string[]>) => {
 		const { name, value } = event.target
 		setFormData((prevState) => ({
@@ -176,6 +178,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		}))
 	}
 
+	// Handle form date changes
 	const handleFormDateChange = (date: dayjs.Dayjs | null) => {
 		if (date) {
 			setFormData((prevState) => ({
@@ -185,25 +188,9 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		}
 	}
 
+	// Handle form submission
 	const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault() // Prevent default form submission behavior
-
-		setFormSubmitted(true)
-
-		let formValid = true // Flag to track overall form validity
-
-		// Iterate over form fields to perform validation
-		Object.keys(formData).forEach((fieldName) => {
-			// Check if field is empty
-			if (formData[fieldName as keyof EventFormData] === '') {
-				formValid = false // Set formValid flag to false if any field is empty
-			}
-		})
-
-		if (!formValid) {
-			// If any field is empty, return without submitting
-			return
-		}
 
 		try {
 			const eventData: Event = {
@@ -242,15 +229,11 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 			}
 
 			if (eventData._id !== null) {
-				console.log('Update Event (Form):', eventData)
-				await dispatch(updateEvent(eventData))
-				// nagivate back to the dashboard after updating the event
-				navigate('/dashboard')
+				await dispatch(updateEvent(eventData)) // Dispatch updateEvent action to update existing event
+				navigate('/dashboard') // Redirect to dashboard after updating event
 			} else {
-				console.log('Add Event (Form):', eventData)
-				await dispatch(createEvent(eventData))
-				// nagivate back to the dashboard after creating the event
-				navigate('/dashboard')
+				await dispatch(createEvent(eventData)) // Dispatch createEvent action to add new event
+				navigate('/dashboard') // Redirect to dashboard after adding event
 			}
 		} catch (error: any) {
 			console.error('Error:', error.message)
@@ -289,8 +272,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								fullWidth
 								value={formData.reporter}
 								onChange={handleFormChange}
-								error={formSubmitted && formData.reporter === ''}
-								helperText={formSubmitted && formData.reporter === '' ? 'Reporter is required' : ''}
 							/>
 						</Grid>
 						<Grid item xs={6}>
@@ -318,8 +299,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								fullWidth
 								value={formData.submittedBy}
 								onChange={handleFormChange}
-								error={formSubmitted && formData.submittedBy === ''}
-								helperText={formSubmitted && formData.submittedBy === '' ? 'Submitted by is required' : ''}
 							/>
 						</Grid>
 						<Grid item xs={6}>
@@ -347,8 +326,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								fullWidth
 								value={formData.updatedBy}
 								onChange={handleFormChange}
-								error={formSubmitted && formData.updatedBy === ''}
-								helperText={formSubmitted && formData.updatedBy === '' ? 'Updated by is required' : ''}
 							/>
 						</Grid>
 						<Grid item xs={6}>
@@ -376,14 +353,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						<Grid item xs={6}>
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='eventType-label'>Event Type</InputLabel>
-								<Select
-									required
-									labelId='eventType-label'
-									id='eventType'
-									name='eventType'
-									value={formData.eventType}
-									onChange={handleFormSelectChange}
-									error={formSubmitted && formData.eventType === ''}>
+								<Select required labelId='eventType-label' id='eventType' name='eventType' value={formData.eventType}>
 									<MenuItem value=''>Select Event Type</MenuItem>
 									{eventTypes.map((option, index) => (
 										<MenuItem key={index} value={option}>
@@ -406,9 +376,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									labelId='eventSubType-label'
 									id='eventSubType'
 									name='eventSubType'
-									value={formData.eventSubType}
-									onChange={handleFormSelectChange}
-									error={formSubmitted && formData.eventSubType === ''}>
+									value={formData.eventSubType}>
 									<MenuItem value=''>Select Event Sub-Type</MenuItem>
 									{formData.eventType &&
 										eventSubTypes[formData.eventType].map((option, index) => (
@@ -417,11 +385,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 											</MenuItem>
 										))}
 								</Select>
-								{formSubmitted && formData.eventSubType === '' && (
-									<Typography variant='caption' color='error'>
-										Event Sub-Type is required
-									</Typography>
-								)}
 							</FormControl>
 						</Grid>
 						<Grid item xs={6}>
@@ -452,11 +415,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 											</MenuItem>
 										))}
 								</Select>
-								{formSubmitted && formData.tagging.length === 0 && (
-									<Typography variant='caption' color='error'>
-										Tags are required
-									</Typography>
-								)}
 							</FormControl>
 						</Grid>
 						<Grid item xs={6}>
@@ -468,8 +426,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									id='methodOfReceipt'
 									name='methodOfReceipt'
 									value={formData.methodOfReceipt}
-									onChange={handleFormSelectChange}
-									error={formSubmitted && formData.methodOfReceipt === ''}>
+									onChange={handleFormSelectChange}>
 									<MenuItem value=''>Select Method of Receipt</MenuItem>
 									{methodsOfReceipt.map((option, index) => (
 										<MenuItem key={index} value={option}>
@@ -477,11 +434,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 										</MenuItem>
 									))}
 								</Select>
-								{formSubmitted && formData.methodOfReceipt === '' && (
-									<Typography variant='caption' color='error'>
-										Method of receipt is required
-									</Typography>
-								)}
 							</FormControl>
 						</Grid>
 						<Grid item xs={12}>
@@ -499,8 +451,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								fullWidth
 								value={formData.title}
 								onChange={handleFormChange}
-								error={formSubmitted && formData.title === ''}
-								helperText={formSubmitted && formData.title === '' ? 'Title is required' : ''}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -514,8 +464,6 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								rows={8}
 								value={formData.description}
 								onChange={handleFormChange}
-								error={formSubmitted && formData.description === ''}
-								helperText={formSubmitted && formData.description === '' ? 'Description is required' : ''}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -557,9 +505,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 										fullWidth
 										select
 										value={formData.state}
-										onChange={handleFormChange}
-										error={formSubmitted && formData.state === ''}
-										helperText={formSubmitted && formData.state === '' ? 'State is required' : ''}>
+										onChange={handleFormChange}>
 										{states.map((state) => (
 											<MenuItem key={state} value={state}>
 												{state}
@@ -577,9 +523,8 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 										placeholder='Enter ZIP'
 										value={formData.zip || ''}
 										onChange={handleFormChange}
-										error={formSubmitted && (!formData.zip || isNaN(formData.zip as number))}
 										helperText={
-											formSubmitted && (!formData.zip || isNaN(formData.zip as number))
+											!formData.zip || isNaN(formData.zip as number)
 												? !formData.zip
 													? 'Zip code is required'
 													: 'Zip code must be a number'
@@ -609,9 +554,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 										fullWidth
 										select
 										value={formData.country}
-										onChange={handleFormChange}
-										error={formSubmitted && formData.country === ''}
-										helperText={formSubmitted && formData.country === '' ? 'Country is required' : ''}>
+										onChange={handleFormChange}>
 										{countries.map((country) => (
 											<MenuItem key={country} value={country}>
 												{country}
