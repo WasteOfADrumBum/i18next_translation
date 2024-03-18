@@ -88,7 +88,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	const [formSubmitted, setFormSubmitted] = useState(false)
 
 	useEffect(() => {
-		if (vehicle) {
+		if (vehicleId && vehicle) {
 			setFormData(vehicle)
 		}
 	}, [vehicle])
