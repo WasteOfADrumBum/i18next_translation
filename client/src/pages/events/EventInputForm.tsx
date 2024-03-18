@@ -65,6 +65,8 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 					</Grid>
 				</Grid>
 			),
+			returnButton: true,
+			returnPath: '/dashboard',
 		})
 
 		// Clean up header data when component unmounts

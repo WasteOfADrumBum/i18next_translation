@@ -34,7 +34,7 @@ const EventDetailsView: FC = () => {
 					<Grid item xs={12}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>ID:</Typography>
+								<Typography variant='caption'>Event ID:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -121,6 +121,7 @@ const EventDetailsView: FC = () => {
 				</Grid>
 			),
 			returnButton: true,
+			returnPath: 'dashboard',
 		})
 
 		// Clean up header data when component unmounts

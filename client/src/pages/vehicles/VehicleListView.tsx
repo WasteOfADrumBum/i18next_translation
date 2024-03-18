@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, FC } from 'react'
-import { Grid, Button, Container, Typography, capitalize } from '@mui/material'
+import { Grid, Button, Container, Typography, capitalize, Divider } from '@mui/material'
 import { AddCircleOutline } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch } from 'redux'
@@ -15,6 +15,7 @@ const VehicleListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
 	const dispatch: Dispatch<any> = useDispatch()
 	const navigate = useNavigate()
+	const { eventId } = useParams<{ eventId: string }>()
 
 	// Fetch vehicles from Redux store
 	useEffect(() => {
@@ -31,12 +32,28 @@ const VehicleListView: FC = () => {
 			subheader: 'Vehicles associated with your primary event record',
 			extraContent: (
 				<Grid container spacing={1}>
+					<Grid item xs={12}>
+						<Grid container spacing={1}>
+							<Grid item xs={6}>
+								<Typography variant='caption'>Event ID:</Typography>
+							</Grid>
+							<Grid item xs={6}>
+								<Typography variant='caption' color='primary'>
+									{eventId}
+								</Typography>
+							</Grid>
+							<Grid item xs={12}>
+								<Divider />
+							</Grid>
+						</Grid>
+					</Grid>
 					<Grid item>
-						<Typography>Total Vehicles: {vehicles.length}</Typography>
+						<Typography variant='caption'>Total Vehicles: {vehicles.length}</Typography>
 					</Grid>
 				</Grid>
 			),
 			returnButton: true,
+			returnPath: 'dashboard',
 		})
 
 		// Clean up header data when component unmounts

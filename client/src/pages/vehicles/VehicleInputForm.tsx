@@ -40,6 +40,8 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 					</Grid>
 				</Grid>
 			),
+			returnButton: true,
+			returnPath: `/dashboard/event/${eventId}/entity`,
 		})
 
 		// Clean up header data when component unmounts
@@ -48,6 +50,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 				header: '',
 				subheader: '',
 				extraContent: null,
+				returnButton: true,
 			})
 		}
 	}, [setHeaderData])
