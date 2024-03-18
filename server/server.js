@@ -4,7 +4,6 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const { Pool, Client } = require('pg')
-const fs = require('fs')
 const path = require('path')
 
 // Load environment variables
@@ -13,6 +12,8 @@ dotenv.config({ path: path.join(__dirname, '../.env') })
 
 // Import routes
 const EventsRoutes = require('./routes/mongoDB/EventsRoutes')
+const EntitiesRoutes = require('./routes/mongoDB/EntitiesRoutes')
+const VehiclesRoutes = require('./routes/mongoDB/VehiclesRoutes')
 
 // Create Express app
 const app = express()
@@ -77,6 +78,8 @@ const createTables = async () => {
 
 // Routes
 app.use('/api/events', EventsRoutes)
+app.use('/api/entities', EntitiesRoutes)
+app.use('/api/vehicles', VehiclesRoutes)
 
 // To test creat a GET http://localhost:5000/test on Postman
 app.get('/test', async (req, res) => {
