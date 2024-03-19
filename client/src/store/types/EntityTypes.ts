@@ -3,17 +3,17 @@ export interface Entity {
 	_id: string | null
 	parent: {
 		_id: string | null
-		name: string
+		name: string | null
 	}
-	type: string
+	type: string | null
 	person: {
 		name: {
-			first: string
+			first: string | null
 			middle: string | null
-			last: string
+			last: string | null
 			suffix: string | null
 		}
-		dob: string
+		dob: Date | null
 		age: string | null
 		nativeLanguage: string | null
 		identification: {
@@ -31,33 +31,33 @@ export interface Entity {
 			jobTitle: string | null
 			department: string | null
 			employeeId: string | null
-			hireDate: string | null
+			hireDate: Date | null
 			employmentStatus: string | null
 		}
 	}
 	organization: {
-		contactName: string
+		contactName: string | null
 		legal: {
-			legalName: string
+			legalName: string | null
 			legalEntityType: string | null
 			legalStatus: string | null
-			incorporationDate: string | null
+			incorporationDate: Date | null
 			businessRegistrationNumber: string | null
 		}
 	}
 	contact: {
-		name: string
-		phone: string
-		email: string
+		name: string | null
+		phone: string | null
+		email: string | null
 		socialMedia: string | null
 	}
 	address: {
-		address: string
-		city: string
-		state: string
-		zip: number
+		address: string | null
+		city: string | null
+		state: string | null
+		zip: number | null
 		county: string | null
-		country: string
+		country: string | null
 	}
 }
 

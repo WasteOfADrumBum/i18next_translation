@@ -41,7 +41,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	// ----------------------------- States ----------------------------- //
 	const [formData, setFormData] = useState<VehicleFormData>({
 		_id: vehicleValues?._id,
-		parentId: eventId || '',
+		parentId: eventId || vehicleValues?.parentId || '',
 		parentName: '',
 		make: vehicleValues?.make || '',
 		model: vehicleValues?.model || '',
@@ -86,7 +86,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 				</Grid>
 			),
 			returnButton: true,
-			returnPath: `/dashboard/event/${eventId}/entity`,
+			returnPath: `/dashboard/event/${eventId}/vehicle`,
 		})
 
 		// Clean up header data when component unmounts
@@ -168,7 +168,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 
 			// Check if parent ID is provided
 			if (vehicleData.parent._id === null || vehicleData.parent._id === '') {
-				console.error('Parent ID is required or vehicle data will be an orphaned reccord')
+				console.error('Parent ID is required or vehicle data will be an orphaned record')
 			} else if (vehicleData._id !== null) {
 				dispatch(updateVehicle(vehicleData)) // Update vehicle
 				console.log('Updating vehicle:', vehicleData)
