@@ -19,6 +19,10 @@ import {
 	InputLabel,
 	Select,
 	SelectChangeEvent,
+	OutlinedInput,
+	Checkbox,
+	ListItemText,
+	Chip,
 } from '@mui/material'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
@@ -26,8 +30,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs'
 import { HeaderContext } from '../../contexts/HeaderContext'
 import { states, vehicleMakes, vehicleModels, vehicleColors } from '../../utils/valueProviders'
-import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
+import { AddCircleOutline, CancelOutlined, Check } from '@mui/icons-material'
 import { VehicleFormData } from '../../../types/vehicles/VehicleFormTypes'
+import { getEntities } from '../../store/actions/mongodb/entityActions'
 
 interface VehicleInputFormProps {
 	vehicleValues?: VehicleFormData
@@ -61,6 +66,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 		illegalModificationsWasModified: vehicleValues?.illegalModificationsWasModified || false,
 		illegalModificationsDescription: vehicleValues?.illegalModificationsDescription || '',
 	})
+	const [entities, setEntities] = useState<any[]>([])
 
 	// Fetch vehicle details from Redux store
 	useEffect(() => {
@@ -72,6 +78,33 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 
 	// Update form data when vehicle details are fetched from Redux store
 	const { loading, error, vehicle } = useSelector((state: RootState) => state.vehicles)
+
+	// Fetch entity data from Redux store based on the event ID
+	useEffect(() => {
+		if (eventId) {
+			dispatch(getEntities())
+		}
+	}, [dispatch, eventId])
+
+	// Update form data when vehicle details are fetched from Redux store
+	const { entities: entitiesData } = useSelector((state: RootState) => state.entities)
+
+	// Update entities list when component mounts
+	useEffect(() => {
+		if (entitiesData) {
+			const eventEntities = entitiesData.filter((entity) => entity.parent._id === eventId)
+			const entitiesList = eventEntities.map((entity) => {
+				if (entity.type === 'Person') {
+					return { key: entity._id, value: `${entity.person.name.first} ${entity.person.name.last}` }
+				} else if (entity.type === 'Organization') {
+					return { key: entity._id, value: entity.organization.legal.legalName }
+				} else {
+					return { key: entity._id, value: 'Other' }
+				}
+			})
+			setEntities(entitiesList)
+		}
+	}, [entitiesData, eventId])
 
 	// Update header data when component mounts
 	useEffect(() => {
@@ -226,14 +259,15 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	// Handle form select changes
 	const handleFormSelectChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
 		const { name, value } = event.target
+		// Handle state field separately
 		if (name === 'state') {
-			// Handle state field separately
 			setFormData((prevState) => ({
 				...prevState,
 				registrationState: value as string,
 			}))
-		} else {
-			// For other fields, update the form data as usual
+		}
+		// For other fields, update the form data as usual
+		else {
 			setFormData((prevState) => ({
 				...prevState,
 				[name as string]: value,
@@ -259,6 +293,41 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 				[name as string]: value,
 			}))
 		}
+	}
+
+	// Handle form select changes
+	const handleFormEntitySelectChange = (event: SelectChangeEvent<string | null>) => {
+		const { name, value } = event.target
+		// Handel driver field separately
+		if (name === 'occupantsDriver') {
+			setFormData((prevState) => ({
+				...prevState,
+				occupantsDriver: value as string,
+			}))
+		}
+		// Handel owner field separately
+		else if (name === 'registrationOwner') {
+			setFormData((prevState) => ({
+				...prevState,
+				registrationOwner: value as string,
+			}))
+		}
+		// For other fields, update the form data as usual
+		else {
+			setFormData((prevState) => ({
+				...prevState,
+				[name as string]: value || '',
+			}))
+		}
+	}
+
+	// Handle form multi-select changes
+	const handleFormMultiSelectChange = (event: SelectChangeEvent<string[]>) => {
+		const { name, value } = event.target
+		setFormData((prevState) => ({
+			...prevState,
+			[name as string]: value,
+		}))
 	}
 
 	// Handle form date changes
@@ -371,28 +440,55 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<Divider />
 						</Grid>
 						<Grid item xs={6}>
-							{/* Convert to select element populated with the entities from this event*/}
-							<TextField
-								required
-								name='occupantsDriver'
-								label='Driver'
-								variant='outlined'
-								fullWidth
-								value={formData.occupantsDriver}
-								onChange={handleFormChange}
-							/>
+							<FormControl fullWidth variant='outlined'>
+								<InputLabel id='driver-label'>Driver</InputLabel>
+								<Select
+									required
+									labelId='driver-label'
+									id='driver'
+									name='occupantsDriver'
+									value={formData.occupantsDriver}
+									onChange={handleFormEntitySelectChange}>
+									<MenuItem value=''>Select a Driver</MenuItem>
+									{entities.map((entity) => (
+										<MenuItem key={entity.key} value={entity.key}>
+											{entity.value}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
 						</Grid>
 						<Grid item xs={6}>
-							{/* Convert to multi select element populated with the entities from this event*/}
-							<TextField
-								required
-								name='occupantsPassengers'
-								label='Passengers'
-								variant='outlined'
-								fullWidth
-								value={formData.occupantsPassengers}
-								onChange={handleFormChange}
-							/>
+							<FormControl fullWidth variant='outlined'>
+								<InputLabel id='passengers-label'>Passengers</InputLabel>
+								<Select
+									required
+									labelId='passengers-label'
+									id='passengers'
+									name='occupantsPassengers'
+									value={formData.occupantsPassengers}
+									onChange={handleFormMultiSelectChange}
+									input={<OutlinedInput label='Tag' />}
+									multiple
+									renderValue={(selected) => (
+										<div>
+											{selected.map((value) => (
+												<Chip
+													key={value}
+													label={entities.find((entity) => entity.key === value)?.value}
+													sx={{ marginRight: 5 }}
+												/>
+											))}
+										</div>
+									)}>
+									{entities.map((entity, index) => (
+										<MenuItem key={index} value={entity.key}>
+											<Checkbox checked={formData.occupantsPassengers.indexOf(entity.key) > -1} />
+											<ListItemText primary={entity.value} />
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
@@ -401,16 +497,23 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<Divider />
 						</Grid>
 						<Grid item xs={12}>
-							{/* Convert to select element populated with the entities from this event*/}
-							<TextField
-								required
-								name='registrationOwner'
-								label='Owner'
-								variant='outlined'
-								fullWidth
-								value={formData.registrationOwner}
-								onChange={handleFormChange}
-							/>
+							<FormControl fullWidth variant='outlined'>
+								<InputLabel id='owner-label'>Owner</InputLabel>
+								<Select
+									required
+									labelId='owner-label'
+									id='owner'
+									name='registrationOwner'
+									value={formData.registrationOwner}
+									onChange={handleFormEntitySelectChange}>
+									<MenuItem value=''>Select a Vehicle Owner</MenuItem>
+									{entities.map((entity) => (
+										<MenuItem key={entity.key} value={entity.key}>
+											{entity.value}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
 						</Grid>
 						<Grid item xs={4}>
 							<TextField

@@ -403,7 +403,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									renderValue={(selected) => (
 										<div>
 											{selected.map((value) => (
-												<Chip key={value} label={value} style={{ marginRight: 5 }} />
+												<Chip key={value} label={value} sx={{ marginRight: 5 }} />
 											))}
 										</div>
 									)}>
