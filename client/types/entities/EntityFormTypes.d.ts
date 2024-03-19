@@ -18,7 +18,7 @@ export interface EntityFormData {
 	personIdentificationNationalIdNumber?: string | null
 	personIdentificationVisaType?: string | null
 	personIdentificationVisaExpiryDate?: Date
-	personIdentificationIsLegalResident?: boolean | null
+	personIdentificationIsIllegalResident?: boolean | null
 	personIdentificationIllegalStatusDescription?: string | null
 	personEmploymentJobTitle?: string | null
 	personEmploymentDepartment?: string | null

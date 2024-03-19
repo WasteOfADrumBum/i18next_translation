@@ -25,7 +25,7 @@ export interface Entity {
 			nationalIdNumber: string | null
 			visaType: string | null
 			visaExpiryDate: Date | null
-			isLegalResident: boolean | null
+			isIllegalResident: boolean | null
 			illegalStatusDescription: string | null
 		}
 		employment: {

@@ -65,7 +65,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 		personIdentificationNationalIdNumber: entityValues?.personIdentificationNationalIdNumber || '',
 		personIdentificationVisaType: entityValues?.personIdentificationVisaType || '',
 		personIdentificationVisaExpiryDate: entityValues?.personIdentificationVisaExpiryDate || new Date(),
-		personIdentificationIsLegalResident: entityValues?.personIdentificationIsLegalResident || false,
+		personIdentificationIsIllegalResident: entityValues?.personIdentificationIsIllegalResident || false,
 		personIdentificationIllegalStatusDescription: entityValues?.personIdentificationIllegalStatusDescription || '',
 		personEmploymentJobTitle: entityValues?.personEmploymentJobTitle || '',
 		personEmploymentDepartment: entityValues?.personEmploymentDepartment || '',
@@ -151,7 +151,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 				personIdentificationVisaExpiryDate: entity.person.identification.visaExpiryDate
 					? new Date(entity.person.identification.visaExpiryDate)
 					: new Date(),
-				personIdentificationIsLegalResident: entity.person.identification.isLegalResident ?? false,
+				personIdentificationIsIllegalResident: entity.person.identification.isIllegalResident ?? false,
 				personIdentificationIllegalStatusDescription: entity.person.identification.illegalStatusDescription ?? '',
 				personEmploymentJobTitle: entity.person.employment.jobTitle ?? '',
 				personEmploymentDepartment: entity.person.employment.department ?? '',
@@ -212,7 +212,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 						nationalIdNumber: formData.personIdentificationNationalIdNumber || null,
 						visaType: formData.personIdentificationVisaType || null,
 						visaExpiryDate: formData.personIdentificationVisaExpiryDate || null,
-						isLegalResident: formData.personIdentificationIsLegalResident || false,
+						isIllegalResident: formData.personIdentificationIsIllegalResident || false,
 						illegalStatusDescription: formData.personIdentificationIllegalStatusDescription || null,
 					},
 					employment: {
@@ -297,7 +297,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 	const handleFormSwitchChange = (name: string) => (event: ChangeEvent<HTMLInputElement>) => {
 		const { checked } = event.target
 
-		if (name === 'personIdentificationIsLegalResident' && !checked) {
+		if (name === 'personIdentificationIsIllegalResident' && !checked) {
 			setFormData((prevState) => ({
 				...prevState,
 				personIdentificationIllegalStatusDescription: '',
@@ -633,7 +633,6 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 												defaultValue={dayjs()}
 												value={dayjs(formData.personIdentificationVisaExpiryDate)}
 												onChange={(date) => handleFormDateChange(date, 'personIdentificationVisaExpiryDate')}
-												disableFuture
 												slotProps={{
 													textField: {
 														required: true,
@@ -646,15 +645,15 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 											<FormControlLabel
 												control={
 													<Switch
-														name='personIdentificationIsLegalResident'
-														checked={formData.personIdentificationIsLegalResident || false}
-														onChange={handleFormSwitchChange('personIdentificationIsLegalResident')}
+														name='personIdentificationIsIllegalResident'
+														checked={formData.personIdentificationIsIllegalResident || false}
+														onChange={handleFormSwitchChange('personIdentificationIsIllegalResident')}
 													/>
 												}
-												label='Legal Resident'
+												label='Illegal Resident'
 											/>
 										</Grid>
-										{formData.personIdentificationIsLegalResident && (
+										{formData.personIdentificationIsIllegalResident && (
 											<Grid item xs={12}>
 												<TextField
 													name='personIdentificationIllegalStatusDescription'

@@ -19,12 +19,14 @@ const entitiesModelSchema = new mongoose.Schema({
 		nativeLanguage: { type: String, required: false },
 		identification: {
 			ssn: { type: String, required: false },
+			passportCountry: { type: String, required: false },
 			passportNumber: { type: String, required: false },
+			driverLicenseState: { type: String, required: false },
 			driverLicenseNumber: { type: String, required: false },
 			nationalIdNumber: { type: String, required: false },
 			visaType: { type: String, required: false },
 			visaExpiryDate: { type: Date, required: false },
-			isLegalResident: { type: Boolean, required: false },
+			isIllegalResident: { type: Boolean, required: false },
 			illegalStatusDescription: { type: String, required: false },
 		},
 		employment: {
