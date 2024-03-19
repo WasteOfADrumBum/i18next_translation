@@ -26,6 +26,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs'
 import { HeaderContext } from '../../contexts/HeaderContext'
 import { states, vehicleMakes, vehicleModels, vehicleColors } from '../../utils/valueProviders'
+import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
 
 interface VehicleInputFormProps {
 	vehicleValues?: VehicleFormData
@@ -85,7 +86,6 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 
 	// Fetch vehicle details from Redux store
 	useEffect(() => {
-		console.log('vehcileID:', vehicleId)
 		// Fetch vehilce details from Redux store
 		if (vehicleId) {
 			dispatch(readVehicle(vehicleId))
@@ -148,18 +148,18 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 				illegalModificationsDescription: vehicle.illegalModifications.description,
 			})
 		}
-	}, [vehicle])
+	}, [vehicle, vehicleId])
 
 	// Handle form submission
 	const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 
 		try {
-			const vehicleData = {
+			const vehicleData: Vehicle = {
 				_id: formData._id || null,
 				parent: {
 					_id: formData.parentId,
-					name: formData.parentName,
+					name: 'eventDB',
 				},
 				make: formData.make,
 				model: formData.model,
@@ -193,20 +193,21 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 				console.error('Parent ID is required or vehicle data will be an orphaned reccord')
 			} else if (vehicleData._id !== null) {
 				dispatch(updateVehicle(vehicleData)) // Update vehicle
+				console.log('Updating vehicle:', vehicleData)
 				navigate(`/dashboard/event/${eventId}/vehicle`)
 			} else {
 				dispatch(createVehicle(vehicleData)) // Create vehicle
+				console.log('Creating vehicle:', vehicleData)
 				navigate(`/dashboard/event/${eventId}/vehicle`)
 			}
 		} catch (error: any) {
-			console.log('Error:', error)
+			console.error('Error:', error)
 		}
 	}
 
 	// Handle form field changes
 	const handleFormChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
 		const { name, value } = event.target
-		console.log('name:', name, 'value:', value)
 		setFormData((prevState) => ({
 			...prevState,
 			[name as string]: value,
@@ -395,7 +396,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							{/* Convert to select element populated with the entities from this event*/}
 							<TextField
 								required
-								name='driver'
+								name='occupantsDriver'
 								label='Driver'
 								variant='outlined'
 								fullWidth
@@ -407,7 +408,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							{/* Convert to multi select element populated with the entities from this event*/}
 							<TextField
 								required
-								name='passengers'
+								name='occupantsPassengers'
 								label='Passengers'
 								variant='outlined'
 								fullWidth
@@ -425,7 +426,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							{/* Convert to select element populated with the entities from this event*/}
 							<TextField
 								required
-								name='owner'
+								name='registrationOwner'
 								label='Owner'
 								variant='outlined'
 								fullWidth
@@ -436,7 +437,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						<Grid item xs={4}>
 							<TextField
 								required
-								name='plateNumber'
+								name='registrationPlateNumber'
 								label='Plate Number'
 								variant='outlined'
 								fullWidth
@@ -446,7 +447,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={4}>
 							<DatePicker
-								name='expirationDate'
+								name='registrationExpirationDate'
 								label='Expiration Date'
 								defaultValue={dayjs()}
 								value={dayjs(formData.registrationExpirationDate)}
@@ -463,7 +464,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						<Grid item xs={4}>
 							<TextField
 								required
-								name='state'
+								name='registrationState'
 								label='State'
 								variant='outlined'
 								fullWidth
@@ -487,7 +488,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<FormControlLabel
 								control={
 									<Switch
-										name='insured'
+										name='insuranceInsured'
 										checked={formData.insuranceInsured}
 										onChange={handleFormSwitchChange('insuranceInsured')}
 									/>
@@ -499,7 +500,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<>
 								<Grid item xs={4}>
 									<TextField
-										name='policyNumber'
+										name='insurancePolicyNumber'
 										label='Policy Number'
 										variant='outlined'
 										fullWidth
@@ -509,7 +510,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								</Grid>
 								<Grid item xs={4}>
 									<TextField
-										name='provider'
+										name='insuranceProvider'
 										label='Provider'
 										variant='outlined'
 										fullWidth
@@ -519,7 +520,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								</Grid>
 								<Grid item xs={4}>
 									<DatePicker
-										name='expirationDate'
+										name='insuranceExpirationDate'
 										label='Expiration Date'
 										defaultValue={dayjs()}
 										value={dayjs(formData.insuranceExpirationDate)}
@@ -551,7 +552,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<FormControlLabel
 								control={
 									<Switch
-										name='wasModified'
+										name='illegalModificationsWasModified'
 										checked={formData.illegalModificationsWasModified}
 										onChange={handleFormSwitchChange('illegalModificationsWasModified')}
 									/>
@@ -562,7 +563,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						{formData.illegalModificationsWasModified && (
 							<Grid item xs={12}>
 								<TextField
-									name='description'
+									name='illegalModificationsDescription'
 									label='Modifications'
 									variant='outlined'
 									fullWidth
@@ -571,6 +572,16 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								/>
 							</Grid>
 						)}
+						<Grid item container xs={12} justifyContent='space-between'>
+							<Button variant='contained' color='secondary' onClick={() => navigate('/dashboard')}>
+								<CancelOutlined sx={{ marginRight: 1 }} />
+								Cancel
+							</Button>
+							<Button type='submit' variant='contained' color='primary' sx={{ textAlign: 'right' }}>
+								<AddCircleOutline sx={{ marginRight: 1 }} />
+								{vehicle?._id ? 'Save Changes' : 'Add Event'}
+							</Button>
+						</Grid>
 					</Grid>
 				</form>
 			</Container>
