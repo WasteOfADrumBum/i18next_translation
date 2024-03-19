@@ -551,7 +551,10 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							</Grid>
 						)}
 						<Grid item container xs={12} justifyContent='space-between'>
-							<Button variant='contained' color='secondary' onClick={() => navigate('/dashboard')}>
+							<Button
+								variant='contained'
+								color='secondary'
+								onClick={() => navigate('/dashboard/event/${eventId}/vehicle')}>
 								<CancelOutlined sx={{ marginRight: 1 }} />
 								Cancel
 							</Button>
