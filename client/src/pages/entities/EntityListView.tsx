@@ -9,7 +9,7 @@ import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { RootState } from '../../store'
 import { Entity } from '../../store/types/EntityTypes'
 import { DynamicDataTable, ActionsMenu } from '../../components'
-import { ExtractLastFiveDigits } from '../../utils'
+import { ExtractLastFiveDigits, GetCountryAbbreviation, GetStateAbbreviation } from '../../utils'
 
 const EntityListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -87,6 +87,42 @@ const EntityListView: FC = () => {
 			id: '_id',
 			label: 'ID',
 			render: (data: Entity) => <Typography>{data._id ? ExtractLastFiveDigits(data._id) : 'N/A'}</Typography>,
+		},
+		{
+			id: 'type',
+			label: 'Type',
+			render: (data: Entity) => <Typography>{capitalize(data.type || 'N/A')}</Typography>,
+		},
+		{
+			id: 'name',
+			label: 'Name',
+			render: (data: Entity) => {
+				let name = ''
+				if (data.type === 'Person') {
+					const { first, middle, last, suffix } = data.person.name
+					name = `${first || ''} ${middle || ''} ${last || ''} ${suffix || ''}`.trim()
+				} else if (data.type === 'Organization') {
+					const { contactName } = data.organization
+					const { legalName } = data.organization.legal
+					name = `${legalName || ''} ${contactName || ''}`.trim() || 'N/A'
+				} else {
+					name = 'N/A'
+				}
+				return <Typography>{name}</Typography>
+			},
+		},
+		{
+			id: 'location',
+			label: 'Location',
+			render: (data: Entity) => (
+				<Typography>
+					{data.address
+						? `${data.address.city}, ${GetStateAbbreviation(data.address.state || 'N/A')}, ${GetCountryAbbreviation(
+								data.address.country || 'N/A',
+						  )}`
+						: 'N/A'}
+				</Typography>
+			),
 		},
 		{
 			id: 'actions',
