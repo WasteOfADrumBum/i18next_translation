@@ -12,9 +12,10 @@ export interface EntityFormData {
 	personNativeLanguage?: string | null
 	personIdentificationSsn?: string | null
 	personIdentificationPassportNumber?: string | null
+	personIdentificationPassportCountry?: string | null
 	personIdentificationDriverLicenseNumber?: string | null
+	personIdentificationDriverLicenseState?: string | null
 	personIdentificationNationalIdNumber?: string | null
-	personIdentificationTaxIdNumber?: string | null
 	personIdentificationVisaType?: string | null
 	personIdentificationVisaExpiryDate?: Date
 	personIdentificationIsLegalResident?: boolean | null
@@ -30,7 +31,6 @@ export interface EntityFormData {
 	organizationLegalLegalStatus?: string | null
 	organizationLegalIncorporationDate?: Date
 	organizationLegalBusinessRegistrationNumber?: string | null
-	contactName: string
 	contactPhone: string
 	contactEmail: string
 	contactSocialMedia?: string | null

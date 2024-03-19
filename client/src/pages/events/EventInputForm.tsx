@@ -524,13 +524,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 										placeholder='Enter ZIP'
 										value={formData.zip || ''}
 										onChange={handleFormChange}
-										helperText={
-											!formData.zip || isNaN(formData.zip as number)
-												? !formData.zip
-													? 'Zip code is required'
-													: 'Zip code must be a number'
-												: ''
-										}
+										helperText={!formData.zip || isNaN(formData.zip as number) ? 'Zip code must be a number' : ''}
 										inputProps={{
 											maxLength: 5, // Set maximum character limit for 5-digit Zip codes
 										}}

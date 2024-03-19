@@ -19,9 +19,10 @@ export interface Entity {
 		identification: {
 			ssn: string | null
 			passportNumber: string | null
+			passportCountry: string | null
 			driverLicenseNumber: string | null
+			driverLicenseState: string | null
 			nationalIdNumber: string | null
-			taxIdNumber: string | null
 			visaType: string | null
 			visaExpiryDate: Date | null
 			isLegalResident: boolean | null
@@ -46,7 +47,6 @@ export interface Entity {
 		}
 	}
 	contact: {
-		name: string | null
 		phone: string | null
 		email: string | null
 		socialMedia: string | null

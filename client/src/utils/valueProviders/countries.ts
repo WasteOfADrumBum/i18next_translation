@@ -1,4 +1,5 @@
 export const countries = [
+	'United States of America',
 	'Afghanistan',
 	'Albania',
 	'Algeria',
@@ -184,7 +185,6 @@ export const countries = [
 	'Ukraine',
 	'United Arab Emirates',
 	'United Kingdom',
-	'United States of America',
 	'Uruguay',
 	'Uzbekistan',
 	'Vanuatu',
