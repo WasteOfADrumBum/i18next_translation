@@ -462,7 +462,6 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='passengers-label'>Passengers</InputLabel>
 								<Select
-									required
 									labelId='passengers-label'
 									id='passengers'
 									name='occupantsPassengers'
