@@ -9,7 +9,7 @@ import { getVehicles } from '../../store/actions/mongodb/vehicleActions'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
 import { HeaderContext } from '../../contexts/HeaderContext'
-import { ExtractLastFiveDigits } from '../../utils'
+import { ExtractLastFiveDigits, getVehiclesByEventId } from '../../utils'
 import { DynamicDataTable, ActionsMenu } from '../../components'
 
 const VehicleListView: FC = () => {
@@ -53,13 +53,8 @@ const VehicleListView: FC = () => {
 		return 'N/A'
 	}
 
-	// Based on the current event ID, filter vehicles associated with the event
-	const getEventVehicles = (vehicles: Vehicle[], eventId: string) => {
-		return vehicles.filter((vehicle) => vehicle.parent._id === eventId)
-	}
-
 	// Make a new array of vehicles that are associated with the current event
-	const eventVehicles = getEventVehicles(vehicles, eventId ?? '')
+	const eventVehicles = getVehiclesByEventId(vehicles, eventId ?? '')
 
 	useEffect(() => {
 		// Update header data when component mounts

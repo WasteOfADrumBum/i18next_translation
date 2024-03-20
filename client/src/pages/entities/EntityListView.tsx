@@ -9,7 +9,7 @@ import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { RootState } from '../../store'
 import { Entity } from '../../store/types/EntityTypes'
 import { DynamicDataTable, ActionsMenu } from '../../components'
-import { ExtractLastFiveDigits, GetCountryAbbreviation, GetStateAbbreviation } from '../../utils'
+import { ExtractLastFiveDigits, GetCountryAbbreviation, GetStateAbbreviation, getEntitiesByEventId } from '../../utils'
 
 const EntityListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -25,13 +25,8 @@ const EntityListView: FC = () => {
 	// Access entities from Redux store
 	const { entities, loading, error } = useSelector((state: RootState) => state.entities)
 
-	// Based on the current event ID, filter entities associated with the event
-	const getEventEntities = (entities: Entity[], eventId: string) => {
-		return entities.filter((entity) => entity.parent._id === eventId)
-	}
-
 	// Make a new array of entities associated with the current event
-	const eventEntities = getEventEntities(entities, eventId ?? '')
+	const eventEntities = getEntitiesByEventId(entities, eventId ?? '')
 
 	useEffect(() => {
 		// Update header data when component mounts

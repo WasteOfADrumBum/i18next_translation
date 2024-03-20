@@ -34,7 +34,7 @@ import {
 	states,
 	countries,
 	employmentStatus,
-} from '../../utils/valueProviders'
+} from '../../utils'
 import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
 
 interface EntityInputFormProps {
