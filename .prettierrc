@@ -13,5 +13,7 @@
 	"bracketSpacing": true,
 	"arrowParens": "always",
 	"endOfLine": "crlf",
-	"vueIndentScriptAndStyle": false
+	"vueIndentScriptAndStyle": false,
+	"importOrder": ["builtin", "external", "internal", "parent", "sibling", "index"],
+	"importOrderSeparation": true
 }
