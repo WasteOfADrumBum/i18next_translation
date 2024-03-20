@@ -1,33 +1,33 @@
 // App.tsx
-import React, { useState, useEffect, ReactNode } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 // @ts-ignore
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
-import { AuthProvider } from './pages/auth/AuthProvider'
+import { useDispatch } from 'react-redux'
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
+import { Footer, Header, NavBar, TabsComponent } from './components'
+import { HeaderContextProvider, ThemeContextProvider } from './contexts'
 import {
-	Home,
 	About,
-	Login,
-	NotFound,
-	UserListView,
-	UserInputForm,
-	UserDetailsView,
+	EntityDetailsView,
+	EntityInputForm,
+	EntityListView,
 	EventDetailsView,
 	EventInputForm,
 	EventListView,
-	EntityListView,
-	VehicleListView,
-	EntityInputForm,
-	EntityDetailsView,
-	VehicleInputForm,
+	Home,
+	Login,
+	NotFound,
+	UserDetailsView,
+	UserInputForm,
+	UserListView,
 	VehicleDetailsView,
+	VehicleInputForm,
+	VehicleListView,
 } from './pages'
-import { lightTheme, darkTheme } from './styles/theme'
-import { NavBar, Header, Footer, TabsComponent } from './components'
-import { CssBaseline } from '@mui/material'
-import { useDispatch } from 'react-redux'
-import { setUser, clearUser } from './store/actions/mongodb/userActions'
-import { ThemeContextProvider, HeaderContextProvider } from './contexts'
+import { AuthProvider } from './pages/auth/AuthProvider'
+import { clearUser, setUser } from './store/actions/mongodb/userActions'
+import { darkTheme, lightTheme } from './styles/theme'
 
 function PrivateRoute({ element, isAuthenticated }: { element: ReactNode; isAuthenticated: boolean }) {
 	return isAuthenticated ? element : <Navigate to='/login' />

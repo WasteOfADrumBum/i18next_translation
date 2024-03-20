@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { Entity } from '../../types/EntityTypes'
-import { AppDispatch } from '../../../store'
 import translations from '../../../i18n/locales'
+import { AppDispatch } from '../../../store'
+import { Entity } from '../../types/EntityTypes'
 
 // Entity types
 import * as entityTypes from '../../types/constants/entityConstants'

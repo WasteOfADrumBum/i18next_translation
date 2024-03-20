@@ -1,36 +1,36 @@
-import React, { useState, FC, useContext, useEffect, FormEvent, ChangeEvent } from 'react'
+import React, { ChangeEvent, FC, FormEvent, useContext, useEffect, useState } from 'react'
 // @ts-ignore
-import { useNavigate, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
 import {
-	Container,
-	Typography,
-	TextField,
 	Button,
+	Checkbox,
+	Chip,
 	CircularProgress,
-	Grid,
+	Container,
 	Divider,
-	MenuItem,
 	FormControl,
+	Grid,
 	InputLabel,
+	ListItemText,
+	MenuItem,
+	OutlinedInput,
 	Select,
 	SelectChangeEvent,
-	Chip,
-	OutlinedInput,
-	Checkbox,
-	ListItemText,
+	TextField,
+	Typography,
 } from '@mui/material'
-import { createEvent, updateEvent, readEvent } from '../../store/actions/mongodb/eventActions'
-import { Event } from '../../store/types/EventTypes'
-import { EventFormData } from '../../../types/events/EventFormTypes'
-import { AppDispatch, RootState } from 'store'
-import { HeaderContext } from '../../contexts/HeaderContext'
-import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
-import { eventTypes, eventSubTypes, methodsOfReceipt, states, countries } from '../../utils'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+import { AppDispatch, RootState } from 'store'
+import { EventFormData } from '../../../types/events/EventFormTypes'
+import { HeaderContext } from '../../contexts/HeaderContext'
+import { createEvent, readEvent, updateEvent } from '../../store/actions/mongodb/eventActions'
+import { Event } from '../../store/types/EventTypes'
+import { countries, eventSubTypes, eventTypes, methodsOfReceipt, states } from '../../utils'
 
 interface EventInputFormProps {
 	eventValues?: EventFormData

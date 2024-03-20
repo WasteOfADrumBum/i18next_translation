@@ -1,5 +1,5 @@
 // ThemeContextProvider.tsx
-import React, { FC, createContext, useState } from 'react'
+import React, { createContext, FC, useState } from 'react'
 
 export const ThemeContext = createContext<boolean>(true)
 

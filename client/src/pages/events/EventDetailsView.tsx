@@ -1,11 +1,11 @@
+import { Container, Divider, Grid, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
-import { HeaderContext } from '../../contexts/HeaderContext'
-import { Dispatch } from 'redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { readEvent } from '../../store/actions/mongodb/eventActions'
+import { Dispatch } from 'redux'
 import { RootState } from 'store'
-import { Container, Typography, Grid, Divider } from '@mui/material'
+import { HeaderContext } from '../../contexts/HeaderContext'
+import { readEvent } from '../../store/actions/mongodb/eventActions'
 import { TimeConversionsHelper } from '../../utils'
 
 const EventDetailsView: FC = () => {

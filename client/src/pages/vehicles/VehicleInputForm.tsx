@@ -1,38 +1,38 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent, FC, useContext } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import { AppDispatch, RootState } from 'store'
-import { Vehicle } from '../../store/types/VehicleTypes'
-import { updateVehicle, createVehicle, readVehicle } from '../../store/actions/mongodb/vehicleActions'
+import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
 import {
-	Container,
-	Typography,
-	TextField,
 	Button,
+	Checkbox,
+	Chip,
 	CircularProgress,
-	Grid,
+	Container,
 	Divider,
-	Switch,
-	FormControlLabel,
-	MenuItem,
 	FormControl,
+	FormControlLabel,
+	Grid,
 	InputLabel,
+	ListItemText,
+	MenuItem,
+	OutlinedInput,
 	Select,
 	SelectChangeEvent,
-	OutlinedInput,
-	Checkbox,
-	ListItemText,
-	Chip,
+	Switch,
+	TextField,
+	Typography,
 } from '@mui/material'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
-import { HeaderContext } from '../../contexts/HeaderContext'
-import { states, vehicleMakes, vehicleModels, vehicleColors } from '../../utils'
-import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
+import React, { ChangeEvent, FC, FormEvent, useContext, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+import { AppDispatch, RootState } from 'store'
 import { VehicleFormData } from '../../../types/vehicles/VehicleFormTypes'
+import { HeaderContext } from '../../contexts/HeaderContext'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
+import { createVehicle, readVehicle, updateVehicle } from '../../store/actions/mongodb/vehicleActions'
+import { Vehicle } from '../../store/types/VehicleTypes'
+import { states, vehicleColors, vehicleMakes, vehicleModels } from '../../utils'
 
 interface VehicleInputFormProps {
 	vehicleValues?: VehicleFormData

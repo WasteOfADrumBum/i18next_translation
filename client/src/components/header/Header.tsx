@@ -1,8 +1,8 @@
-import React, { ReactNode, useState, useEffect, FC, useContext } from 'react'
-import { Box, Typography, alpha, useTheme, Theme, Grid, Divider, Button } from '@mui/material'
-import { HeaderContext } from '../../contexts/HeaderContext'
 import { ArrowBack } from '@mui/icons-material'
+import { alpha, Box, Button, Divider, Grid, Theme, Typography, useTheme } from '@mui/material'
+import React, { FC, ReactNode, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { HeaderContext } from '../../contexts/HeaderContext'
 
 interface HeaderProps {
 	user: { name: string; role: string }

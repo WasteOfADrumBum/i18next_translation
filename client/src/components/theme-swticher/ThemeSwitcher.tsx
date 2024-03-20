@@ -1,5 +1,5 @@
+import { FormControlLabel, Switch } from '@mui/material'
 import React, { FC } from 'react'
-import { Switch, FormControlLabel } from '@mui/material'
 
 interface ThemeSwitcherProps {
 	darkMode: boolean

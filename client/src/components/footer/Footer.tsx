@@ -1,5 +1,5 @@
+import { AppBar, Toolbar, Typography } from '@mui/material'
 import React, { FC } from 'react'
-import { Typography, AppBar, Toolbar } from '@mui/material'
 
 const Footer: FC = () => {
 	return (

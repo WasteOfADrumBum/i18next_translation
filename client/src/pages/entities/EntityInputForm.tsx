@@ -1,10 +1,4 @@
-import React, { FC, useContext, useState, useEffect, FormEvent, ChangeEvent } from 'react'
-import { EntityFormData } from '../../../types/entities/EntityFormTypes'
-import { useNavigate, useParams } from 'react-router-dom'
-import { HeaderContext } from '../../contexts/HeaderContext'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from 'store'
-import { readEntity, updateEntity, createEntity } from '../../store/actions/mongodb/entityActions'
+import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
 import {
 	Button,
 	CircularProgress,
@@ -21,21 +15,27 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material'
-import { Entity } from '../../store/types/EntityTypes'
 import { LocalizationProvider } from '@mui/x-date-pickers'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
+import React, { ChangeEvent, FC, FormEvent, useContext, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+import { AppDispatch, RootState } from 'store'
+import { EntityFormData } from '../../../types/entities/EntityFormTypes'
+import { HeaderContext } from '../../contexts/HeaderContext'
+import { createEntity, readEntity, updateEntity } from '../../store/actions/mongodb/entityActions'
+import { Entity } from '../../store/types/EntityTypes'
 import {
-	entityTypes,
-	businessLegalStatus,
 	businessLegalEntityTypes,
-	nativeLanguages,
-	states,
+	businessLegalStatus,
 	countries,
 	employmentStatus,
+	entityTypes,
+	nativeLanguages,
+	states,
 } from '../../utils'
-import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
 
 interface EntityInputFormProps {
 	entityValues?: EntityFormData

@@ -1,9 +1,9 @@
-import React, { useEffect, ReactNode, Children, SyntheticEvent, isValidElement, useState, FC } from 'react'
-import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { Box, Menu, MenuItem, Tab } from '@mui/material'
+import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
-import TabContext from '@mui/lab/TabContext'
+import { Box, Menu, MenuItem, Tab } from '@mui/material'
+import React, { Children, FC, isValidElement, ReactNode, SyntheticEvent, useEffect, useState } from 'react'
+import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom'
 
 interface Tab {
 	label: string

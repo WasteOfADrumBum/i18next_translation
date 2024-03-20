@@ -1,6 +1,5 @@
-import { EventState, EventAction, initialState } from '../../types/EventTypes'
-import { Event } from '../../types/EventTypes'
 import * as actionTypes from '../../types/constants/eventConstants'
+import { Event, EventAction, EventState, initialState } from '../../types/EventTypes'
 
 const eventReducer = (state: EventState = initialState, action: EventAction): EventState => {
 	switch (action.type) {

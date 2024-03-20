@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { Event } from '../../types/EventTypes'
-import { AppDispatch } from '../../../store'
 import translations from '../../../i18n/locales'
+import { AppDispatch } from '../../../store'
+import { Event } from '../../types/EventTypes'
 
 // Action types
 import * as actionTypes from '../../types/constants/eventConstants'

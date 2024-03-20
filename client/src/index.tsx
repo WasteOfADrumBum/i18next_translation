@@ -1,10 +1,10 @@
 import React, { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import store from './store'
 import App from './App'
-import './styles/global.css'
 import translations from './i18n/locales'
+import store from './store'
+import './styles/global.css'
 
 const errorTranslations = translations.errors
 

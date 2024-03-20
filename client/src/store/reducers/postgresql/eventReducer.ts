@@ -1,10 +1,10 @@
 import {
+	ADD_EVENT,
+	DELETE_EVENT,
 	EventActionTypes,
 	EventState,
 	GET_EVENTS,
-	ADD_EVENT,
 	UPDATE_EVENT,
-	DELETE_EVENT,
 } from '../../../../types/events/EventTypesPG'
 
 const initialState: EventState = {

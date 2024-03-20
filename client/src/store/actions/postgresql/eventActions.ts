@@ -3,12 +3,12 @@
 import axios from 'axios'
 import { Dispatch } from 'redux'
 import {
-	EventActionTypes,
-	Event,
-	GET_EVENTS,
 	ADD_EVENT,
-	UPDATE_EVENT,
 	DELETE_EVENT,
+	Event,
+	EventActionTypes,
+	GET_EVENTS,
+	UPDATE_EVENT,
 } from '../../../../types/events/EventTypesPG'
 
 // Action creators

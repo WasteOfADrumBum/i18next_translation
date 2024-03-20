@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useContext } from 'react'
-import { HeaderContext } from '../../contexts/HeaderContext'
+import { Container, Divider, Grid, Typography } from '@mui/material'
+import React, { FC, useContext, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Dispatch } from 'redux'
-import { useDispatch, useSelector } from 'react-redux'
-import { readEntity } from '../../store/actions/mongodb/entityActions'
 import { RootState } from 'store'
-import { Container, Divider, Grid, Typography } from '@mui/material'
+import { HeaderContext } from '../../contexts/HeaderContext'
+import { readEntity } from '../../store/actions/mongodb/entityActions'
 import { GetCountryAbbreviation, GetStateAbbreviation } from '../../utils'
 
 const EntityDetailsView: FC = () => {

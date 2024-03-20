@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions, PaletteOptions } from '@mui/material/styles'
+import { createTheme, PaletteOptions, ThemeOptions } from '@mui/material/styles'
 
 /* 
 	! This needs to abide by the following rules:

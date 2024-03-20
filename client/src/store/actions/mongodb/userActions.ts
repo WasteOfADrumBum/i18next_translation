@@ -1,4 +1,4 @@
-import { SET_USER, CLEAR_USER } from './userActionTypes'
+import { CLEAR_USER, SET_USER } from './userActionTypes'
 
 export const setUser = (user: any) => ({
 	type: SET_USER,

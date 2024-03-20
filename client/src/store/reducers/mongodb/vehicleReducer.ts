@@ -1,6 +1,5 @@
-import { VehicleState, VehicleAction, initialState } from '../../types/VehicleTypes'
-import { Vehicle } from '../../types/VehicleTypes'
 import * as actionTypes from '../../types/constants/vehicleConstants'
+import { initialState, Vehicle, VehicleAction, VehicleState } from '../../types/VehicleTypes'
 
 const vehicleReducer = (state: VehicleState = initialState, action: VehicleAction): VehicleState => {
 	switch (action.type) {

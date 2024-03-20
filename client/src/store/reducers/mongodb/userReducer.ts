@@ -1,4 +1,4 @@
-import { SET_USER, CLEAR_USER } from '../../actions/mongodb/userActionTypes'
+import { CLEAR_USER, SET_USER } from '../../actions/mongodb/userActionTypes'
 
 const initialState = {
 	user: null, // Initial user state

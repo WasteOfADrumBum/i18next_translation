@@ -1,21 +1,21 @@
-import React, { useState, useEffect, FC, MouseEvent } from 'react'
+import React, { FC, MouseEvent, useEffect, useState } from 'react'
 // @ts-ignore
-import { Link } from 'react-router-dom'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import MenuIcon from '@mui/icons-material/Menu'
 import {
 	AppBar,
-	Toolbar,
-	Typography,
+	FormControlLabel,
+	FormGroup,
 	IconButton,
 	Menu,
 	MenuItem,
 	Switch,
-	FormGroup,
-	FormControlLabel,
+	Toolbar,
+	Typography,
 } from '@mui/material'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import MenuIcon from '@mui/icons-material/Menu'
-import { useAuth } from '../../pages'
+import { Link } from 'react-router-dom'
 import { ThemeSwitcher } from '../../components'
+import { useAuth } from '../../pages'
 
 interface NavBarProps {
 	onLoginToggle: (newState: boolean) => void

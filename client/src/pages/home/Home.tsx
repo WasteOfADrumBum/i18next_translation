@@ -1,9 +1,9 @@
-import React, { useContext, FC } from 'react'
+import React, { FC, useContext } from 'react'
 // @ts-ignore
+import { Box, Button, Container, ThemeProvider, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { Container, Typography, Button, ThemeProvider, Box } from '@mui/material'
-import { lightTheme, darkTheme } from '../../styles/theme'
 import { ThemeContext } from '../../contexts/ThemeContext'
+import { darkTheme, lightTheme } from '../../styles/theme'
 
 const Home: FC = () => {
 	const darkMode = useContext(ThemeContext)

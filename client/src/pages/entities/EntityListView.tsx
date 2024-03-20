@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, FC } from 'react'
-import { Grid, Button, Container, Typography, capitalize, Divider } from '@mui/material'
 import { AddCircleOutline } from '@mui/icons-material'
+import { Button, capitalize, Container, Divider, Grid, Typography } from '@mui/material'
+import React, { FC, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch } from 'redux'
 import { useNavigate, useParams } from 'react-router-dom'
+import { Dispatch } from 'redux'
+import { ActionsMenu, DynamicDataTable } from '../../components'
 import { HeaderContext } from '../../contexts/HeaderContext'
-import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { RootState } from '../../store'
+import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { Entity } from '../../store/types/EntityTypes'
-import { DynamicDataTable, ActionsMenu } from '../../components'
-import { ExtractLastFiveDigits, GetCountryAbbreviation, GetStateAbbreviation, getEntitiesByEventId } from '../../utils'
+import { ExtractLastFiveDigits, GetCountryAbbreviation, getEntitiesByEventId, GetStateAbbreviation } from '../../utils'
 
 const EntityListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)

@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
 import { Container, Typography } from '@mui/material'
+import React, { FC } from 'react'
 
 const NotFound: FC = () => {
 	return (

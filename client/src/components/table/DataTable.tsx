@@ -1,5 +1,5 @@
-import React, { FC, ReactNode, ChangeEvent } from 'react'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
+import React, { ChangeEvent, FC, ReactNode } from 'react'
 
 /*
  * Connect your component to Redux using connect or useSelector and useDispatch.

@@ -1,6 +1,5 @@
-import { EntityState, EntityAction, initialState } from '../../types/EntityTypes'
-import { Entity } from '../../types/EntityTypes'
 import * as actionTypes from '../../types/constants/entityConstants'
+import { Entity, EntityAction, EntityState, initialState } from '../../types/EntityTypes'
 
 const entityReducer = (state: EntityState = initialState, action: EntityAction): EntityState => {
 	switch (action.type) {

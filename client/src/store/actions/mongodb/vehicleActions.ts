@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { Vehicle } from '../../types/VehicleTypes'
-import { AppDispatch } from '../../../store'
 import translations from '../../../i18n/locales'
+import { AppDispatch } from '../../../store'
+import { Vehicle } from '../../types/VehicleTypes'
 
 // Action types
 import * as actionTypes from '../../types/constants/vehicleConstants'

@@ -1,5 +1,5 @@
-import React, { useState, FC } from 'react'
-import { Container, Typography, Button, TextField, Box, Paper } from '@mui/material'
+import { Box, Button, Container, Paper, TextField, Typography } from '@mui/material'
+import React, { FC, useState } from 'react'
 
 const Login: FC = () => {
 	const [username, setUsername] = useState('')

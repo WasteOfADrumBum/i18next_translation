@@ -1,6 +1,6 @@
-import React, { FC, MouseEvent, useState } from 'react'
-import { IconButton, Menu, MenuItem } from '@mui/material'
 import { MoreVert as MoreVertIcon } from '@mui/icons-material'
+import { IconButton, Menu, MenuItem } from '@mui/material'
+import React, { FC, MouseEvent, useState } from 'react'
 import translations from '../../i18n/locales'
 
 const buttonTranslations = translations.buttons
