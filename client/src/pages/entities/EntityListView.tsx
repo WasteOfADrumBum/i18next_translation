@@ -122,7 +122,7 @@ const EntityListView: FC = () => {
 					{data.address
 						? `${data.address.city}, ${GetStateAbbreviation(data.address.state || 'N/A')}, ${GetCountryAbbreviation(
 								data.address.country || 'N/A',
-						  )}`
+							)}`
 						: 'N/A'}
 				</Typography>
 			),

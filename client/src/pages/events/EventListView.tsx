@@ -117,7 +117,7 @@ const EventListView: FC = () => {
 					{data.location
 						? `${data.location.city}, ${GetStateAbbreviation(data.location.state)}, ${GetCountryAbbreviation(
 								data.location.country,
-						  )}`
+							)}`
 						: 'N/A'}
 				</Typography>
 			),
@@ -135,22 +135,22 @@ const EventListView: FC = () => {
 					Reported:{' '}
 					{data.reported
 						? TimeConversionsHelper.convertTime(data.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC') +
-						  ' by ' +
-						  (data.reported.reporter ? data.reported.reporter : 'N/A')
+							' by ' +
+							(data.reported.reporter ? data.reported.reporter : 'N/A')
 						: 'N/A'}
 					<br />
 					Submitted:{' '}
 					{data.submitted
 						? `${TimeConversionsHelper.convertTime(data.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')} by ${
 								data.submitted.submittedBy ? data.submitted.submittedBy : 'N/A'
-						  }`
+							}`
 						: 'N/A'}
 					<br />
 					Updated:{' '}
 					{data.updated
 						? TimeConversionsHelper.convertTime(data.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC') +
-						  ' by ' +
-						  (data.updated.updatedBy ? data.updated.updatedBy : 'N/A')
+							' by ' +
+							(data.updated.updatedBy ? data.updated.updatedBy : 'N/A')
 						: 'N/A'}
 				</Typography>
 			),

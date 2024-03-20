@@ -1,28 +1,19 @@
 {
-  "compilerOptions": {
-    "target": "es6",
-    "module": "CommonJS",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": false,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "jsx": "react",
-    "baseUrl": "./",
-    "paths": {
-      "*": [
-        "src/*"
-      ]
-    },
-    "lib": [
-      "es6",
-      "dom",
-      "es2017"
-    ]
-  },
-  "exclude": [
-    "node_modules",
-    "build"
-  ]
+	"compilerOptions": {
+		"target": "es6",
+		"module": "CommonJS",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": false,
+		"forceConsistentCasingInFileNames": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"jsx": "react",
+		"baseUrl": "./",
+		"paths": {
+			"*": ["src/*"]
+		},
+		"lib": ["es6", "dom", "es2017"]
+	},
+	"exclude": ["node_modules", "build"]
 }

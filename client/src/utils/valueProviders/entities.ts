@@ -9,4 +9,3 @@ export const businessLegalEntityTypes = [
 ]
 
 export const businessLegalStatus = ['Active', 'Inactive', 'Dissolved', 'Pending', 'Under Investigation']
-
