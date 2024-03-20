@@ -1,10 +1,8 @@
-export { default as ExtractLastFiveDigits } from './ExtractLastFiveDigits'
-// Filters
+export { ExtractLastFiveDigits } from './ExtractLastFiveDigits'
 export { getEntitiesByEventId, getVehiclesByEventId } from './filters/filters'
-export { default as GetCountryAbbreviation } from './GetCountryAbbreviation'
-export { default as GetStateAbbreviation } from './GetStateAbbreviations'
-export { default as TimeConversionsHelper } from './TimeConversionsHelper'
-// Value Providers
+export { GetCountryAbbreviation } from './GetCountryAbbreviation'
+export { GetStateAbbreviation } from './GetStateAbbreviations'
+export { TimeConversionsHelper } from './TimeConversionsHelper'
 export { countries } from './valueProviders/countries'
 export { employmentStatus } from './valueProviders/employmentStatus'
 export { businessLegalEntityTypes, businessLegalStatus, entityTypes } from './valueProviders/entities'

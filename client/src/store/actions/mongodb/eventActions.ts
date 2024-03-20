@@ -1,5 +1,4 @@
 import axios from 'axios'
-import translations from '../../../i18n/locales'
 import { AppDispatch } from '../../../store'
 import { Event } from '../../types/EventTypes'
 
@@ -10,9 +9,6 @@ import * as actionTypes from '../../types/constants/eventConstants'
 export const axiosInstance = axios.create({
 	baseURL: 'http://localhost:5000/api',
 })
-
-// Error translations
-const errorTranslations = translations.errors
 
 // @Route   GET api/events
 // @Desc    Read All Events
@@ -26,17 +22,20 @@ export const getEvents = () => async (dispatch: AppDispatch) => {
 			type: actionTypes.GET_EVENTS_SUCCESS,
 			payload: res.data,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: actionTypes.GET_EVENTS_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: actionTypes.GET_EVENTS_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		dispatch({
-			type: actionTypes.GET_EVENTS_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }
 
@@ -53,19 +52,20 @@ export const readEvent = (id: string) => async (dispatch: AppDispatch) => {
 			type: actionTypes.GET_EVENT_SUCCESS,
 			payload: res.data,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
 			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: actionTypes.GET_EVENT_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: actionTypes.GET_EVENT_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
-		dispatch({
-			type: actionTypes.GET_EVENT_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }
 
@@ -81,17 +81,20 @@ export const createEvent = (event: Event) => async (dispatch: AppDispatch) => {
 			type: actionTypes.CREATE_EVENT_SUCCESS,
 			payload: res.data,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: actionTypes.CREATE_EVENT_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: actionTypes.CREATE_EVENT_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		dispatch({
-			type: actionTypes.CREATE_EVENT_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }
 
@@ -107,17 +110,20 @@ export const updateEvent = (event: Event) => async (dispatch: AppDispatch) => {
 			type: actionTypes.UPDATE_EVENT_SUCCESS,
 			payload: res.data,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: actionTypes.UPDATE_EVENT_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: actionTypes.UPDATE_EVENT_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		dispatch({
-			type: actionTypes.UPDATE_EVENT_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }
 
@@ -127,22 +133,26 @@ export const updateEvent = (event: Event) => async (dispatch: AppDispatch) => {
 // @Access  Private
 export const deleteEvent = (id: string) => async (dispatch: AppDispatch) => {
 	console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[32mDelete Event\x1b[0m')
+	console.log('\x1b[36mMongoDB:\x1b[0m Action Event ID \x1b[32m' + id + '\x1b[0m')
 	try {
 		await axiosInstance.delete(`/events/${id}`)
 		dispatch({
 			type: actionTypes.DELETE_EVENT_SUCCESS,
 			payload: id,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: actionTypes.DELETE_EVENT_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: actionTypes.DELETE_EVENT_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		dispatch({
-			type: actionTypes.DELETE_EVENT_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }

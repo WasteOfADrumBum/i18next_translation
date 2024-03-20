@@ -26,19 +26,19 @@ import React, { ChangeEvent, FC, ReactNode } from 'react'
  * />
  */
 
-interface Column {
+interface Column<T> {
 	id: string
 	label: string
-	render?: (rowData: any) => ReactNode
+	render?: (rowData: T) => ReactNode
 }
 
 interface Pagination {
 	rowsPerPage: number
 }
 
-interface DynamicDataTableProps {
-	data: any[]
-	columns: Column[]
+interface DynamicDataTableProps<T> {
+	data: T[]
+	columns: Column<T>[]
 	rowsPerPageOptions: number[]
 	pagination?: Pagination
 	page: number
@@ -46,15 +46,10 @@ interface DynamicDataTableProps {
 	onRowsPerPageChange: (newRowsPerPage: number) => void
 }
 
-const DynamicDataTable: FC<DynamicDataTableProps> = ({
-	data,
-	columns,
-	rowsPerPageOptions,
-	pagination,
-	page,
-	onPageChange,
-	onRowsPerPageChange,
-}) => {
+// TypeScript Error: cannot use any
+const DynamicDataTable: FC<DynamicDataTableProps<any>> = (props) => {
+	const { data, columns, rowsPerPageOptions, pagination, page, onPageChange, onRowsPerPageChange } = props
+
 	const handleChangePage = (event: unknown, newPage: number) => {
 		onPageChange(newPage)
 	}

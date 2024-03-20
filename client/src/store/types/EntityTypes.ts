@@ -1,3 +1,5 @@
+import { ErrorResponse, SuccessResponse } from './ResponseTypes'
+
 // Define the interface for an entity
 export interface Entity {
 	_id: string | null
@@ -66,8 +68,8 @@ export interface EntityState {
 	entities: Entity[]
 	entity: Entity | null
 	loading: boolean
-	success?: {}
-	error?: {}
+	success?: SuccessResponse
+	error?: ErrorResponse
 }
 
 // Define the actions that can be performed on entities
@@ -84,6 +86,4 @@ export const initialState: EntityState = {
 	entities: [],
 	entity: null,
 	loading: false,
-	success: {},
-	error: {},
 }

@@ -16,16 +16,16 @@ const vehicleReducer = (state: VehicleState = initialState, action: VehicleActio
 			return {
 				...state,
 				loading: false,
-				success: action.payload,
-				error: {},
+				success: { message: 'Vehicle created successfully', data: action.payload },
+				error: undefined,
 			}
 		case actionTypes.DELETE_VEHICLE_SUCCESS:
 			return {
 				...state,
 				vehicles: state.vehicles.filter((vehicle) => vehicle._id !== action.payload),
 				loading: false,
-				success: action.payload,
-				error: {},
+				success: { message: 'Vehicle deleted successfully', data: action.payload },
+				error: undefined,
 			}
 		case actionTypes.UPDATE_VEHICLE_SUCCESS:
 		case actionTypes.GET_VEHICLE_SUCCESS:
@@ -33,16 +33,16 @@ const vehicleReducer = (state: VehicleState = initialState, action: VehicleActio
 				...state,
 				vehicle: action.payload as Vehicle,
 				loading: false,
-				success: action.payload,
-				error: {},
+				success: { message: 'Operation successful', data: action.payload },
+				error: undefined,
 			}
 		case actionTypes.GET_VEHICLES_SUCCESS:
 			return {
 				...state,
 				vehicles: action.payload as unknown as Vehicle[],
 				loading: false,
-				success: action.payload,
-				error: {},
+				success: { message: 'Operation successful', data: action.payload },
+				error: undefined,
 			}
 		case actionTypes.CREATE_VEHICLE_FAILURE:
 		case actionTypes.DELETE_VEHICLE_FAILURE:
@@ -52,7 +52,7 @@ const vehicleReducer = (state: VehicleState = initialState, action: VehicleActio
 			return {
 				...state,
 				loading: false,
-				error: action.payload,
+				error: { message: 'Operation failed', errorCode: 500 },
 			}
 		default:
 			return state

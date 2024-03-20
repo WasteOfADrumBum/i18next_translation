@@ -1,5 +1,4 @@
 import axios from 'axios'
-import translations from '../../../i18n/locales'
 import { AppDispatch } from '../../../store'
 import { Vehicle } from '../../types/VehicleTypes'
 
@@ -10,9 +9,6 @@ import * as actionTypes from '../../types/constants/vehicleConstants'
 export const axiosInstance = axios.create({
 	baseURL: 'http://localhost:5000/api',
 })
-
-// Error translations
-const errorTranslations = translations.errors
 
 // @Route   GET api/vehicles
 // @Desc    Read All Vehicles
@@ -26,17 +22,20 @@ export const getVehicles = () => async (dispatch: AppDispatch) => {
 			type: actionTypes.GET_VEHICLES_SUCCESS,
 			payload: res.data,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: actionTypes.GET_VEHICLES_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: actionTypes.GET_VEHICLES_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		dispatch({
-			type: actionTypes.GET_VEHICLES_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }
 
@@ -53,19 +52,20 @@ export const readVehicle = (id: string) => async (dispatch: AppDispatch) => {
 			type: actionTypes.GET_VEHICLE_SUCCESS,
 			payload: res.data,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
 			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: actionTypes.GET_VEHICLE_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: actionTypes.GET_VEHICLE_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
-		dispatch({
-			type: actionTypes.GET_VEHICLE_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }
 
@@ -81,17 +81,20 @@ export const createVehicle = (vehicle: Vehicle) => async (dispatch: AppDispatch)
 			type: actionTypes.CREATE_VEHICLE_SUCCESS,
 			payload: res.data,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: actionTypes.CREATE_VEHICLE_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: actionTypes.CREATE_VEHICLE_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		dispatch({
-			type: actionTypes.CREATE_VEHICLE_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }
 
@@ -107,17 +110,20 @@ export const updateVehicle = (vehicle: Vehicle) => async (dispatch: AppDispatch)
 			type: actionTypes.UPDATE_VEHICLE_SUCCESS,
 			payload: res.data,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: actionTypes.UPDATE_VEHICLE_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: actionTypes.UPDATE_VEHICLE_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		dispatch({
-			type: actionTypes.UPDATE_VEHICLE_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }
 
@@ -133,16 +139,19 @@ export const deleteVehicle = (id: string) => async (dispatch: AppDispatch) => {
 			type: actionTypes.DELETE_VEHICLE_SUCCESS,
 			payload: id,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: actionTypes.DELETE_VEHICLE_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Action \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: actionTypes.DELETE_VEHICLE_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		dispatch({
-			type: actionTypes.DELETE_VEHICLE_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }

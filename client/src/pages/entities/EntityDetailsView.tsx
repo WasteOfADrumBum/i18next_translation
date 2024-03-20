@@ -2,15 +2,14 @@ import { Container, Divider, Grid, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { Dispatch } from 'redux'
-import { RootState } from 'store'
 import { HeaderContext } from '../../contexts/HeaderContext'
+import { AppDispatch, RootState } from '../../store'
 import { readEntity } from '../../store/actions/mongodb/entityActions'
 import { GetCountryAbbreviation, GetStateAbbreviation } from '../../utils'
 
 const EntityDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
-	const dispatch: Dispatch<any> = useDispatch()
+	const dispatch: AppDispatch = useDispatch()
 	const { eventId, entityId } = useParams<{ eventId: string; entityId: string }>()
 
 	// Fetch entity details from Redux store

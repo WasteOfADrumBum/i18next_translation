@@ -1,5 +1,4 @@
 import axios from 'axios'
-import translations from '../../../i18n/locales'
 import { AppDispatch } from '../../../store'
 import { Entity } from '../../types/EntityTypes'
 
@@ -10,9 +9,6 @@ import * as entityTypes from '../../types/constants/entityConstants'
 export const axiosInstance = axios.create({
 	baseURL: 'http://localhost:5000/api',
 })
-
-// Error translations
-const errorTranslations = translations.errors
 
 // @Route   GET api/entities
 // @Desc    Read All Entities
@@ -26,17 +22,20 @@ export const getEntities = () => async (dispatch: AppDispatch) => {
 			type: entityTypes.GET_ENTITIES_SUCCESS,
 			payload: res.data,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Entity \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: entityTypes.GET_ENTITIES_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Entity \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: entityTypes.GET_ENTITIES_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		dispatch({
-			type: entityTypes.GET_ENTITIES_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }
 
@@ -53,19 +52,20 @@ export const readEntity = (id: string) => async (dispatch: AppDispatch) => {
 			type: entityTypes.GET_ENTITY_SUCCESS,
 			payload: res.data,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
 			console.log('\x1b[36mMongoDB:\x1b[0m Entity \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: entityTypes.GET_ENTITY_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Entity \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: entityTypes.GET_ENTITY_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		console.log('\x1b[36mMongoDB:\x1b[0m Entity \x1b[31mFailure\x1b[0m')
-		dispatch({
-			type: entityTypes.GET_ENTITY_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }
 
@@ -81,17 +81,20 @@ export const createEntity = (event: Entity) => async (dispatch: AppDispatch) => 
 			type: entityTypes.CREATE_ENTITY_SUCCESS,
 			payload: res.data,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Entity \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: entityTypes.CREATE_ENTITY_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Entity \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: entityTypes.CREATE_ENTITY_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		dispatch({
-			type: entityTypes.CREATE_ENTITY_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }
 
@@ -107,17 +110,20 @@ export const updateEntity = (event: Entity) => async (dispatch: AppDispatch) => 
 			type: entityTypes.UPDATE_ENTITY_SUCCESS,
 			payload: res.data,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Entity \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: entityTypes.UPDATE_ENTITY_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Entity \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: entityTypes.UPDATE_ENTITY_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		dispatch({
-			type: entityTypes.UPDATE_ENTITY_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }
 
@@ -133,16 +139,19 @@ export const deleteEntity = (id: string) => async (dispatch: AppDispatch) => {
 			type: entityTypes.DELETE_ENTITY_SUCCESS,
 			payload: id,
 		})
-	} catch (err: any) {
-		if (err.response.data.errors) {
+	} catch (err: unknown) {
+		if (err instanceof Error) {
+			console.log('\x1b[36mMongoDB:\x1b[0m Entity \x1b[31mError\x1b[0m')
 			dispatch({
-				payload: { msg: err.response.statusText, status: err.response.status },
+				type: entityTypes.DELETE_ENTITY_FAILURE,
+				payload: { msg: err.message, status: -1 },
+			})
+		} else {
+			console.log('\x1b[36mMongoDB:\x1b[0m Entity \x1b[31mFailure\x1b[0m')
+			dispatch({
+				type: entityTypes.DELETE_ENTITY_FAILURE,
+				payload: { msg: 'An unknown error occurred', status: -1 },
 			})
 		}
-
-		dispatch({
-			type: entityTypes.DELETE_ENTITY_FAILURE,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		})
 	}
 }

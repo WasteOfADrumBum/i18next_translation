@@ -6,7 +6,7 @@ interface TimeConversionsHelper {
 	convertTime: (input: Date | string | number, format: string, includeTime: boolean, timeZone: string) => string
 }
 
-const TimeConversionsHelper: TimeConversionsHelper = {
+export const TimeConversionsHelper: TimeConversionsHelper = {
 	convertTime: (input: Date | string | number, format: string, includeTime: boolean, timeZone: string): string => {
 		let date: Date
 
@@ -38,5 +38,3 @@ const TimeConversionsHelper: TimeConversionsHelper = {
 		return formattedDate.trim()
 	},
 }
-
-export default TimeConversionsHelper

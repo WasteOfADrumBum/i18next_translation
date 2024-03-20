@@ -38,6 +38,29 @@ interface VehicleInputFormProps {
 	vehicleValues?: VehicleFormData
 }
 
+interface EntityListItem {
+	_id: string | null
+	parent: {
+		_id: string | null
+		name: string | null
+	}
+	type: string | null
+	person: {
+		name: {
+			first: string | null
+			middle: string | null
+			last: string | null
+			suffix: string | null
+		}
+	}
+	organization: {
+		contactName: string | null
+		legal: {
+			legalName: string | null
+		}
+	}
+}
+
 const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	const navigate = useNavigate()
 	const { setHeaderData } = useContext(HeaderContext)
@@ -66,7 +89,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 		illegalModificationsWasModified: vehicleValues?.illegalModificationsWasModified || false,
 		illegalModificationsDescription: vehicleValues?.illegalModificationsDescription || '',
 	})
-	const [entities, setEntities] = useState<any[]>([])
+	const [entities, setEntities] = useState<EntityListItem[]>([])
 
 	// Fetch vehicle details from Redux store
 	useEffect(() => {
@@ -93,13 +116,31 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	useEffect(() => {
 		if (entitiesData) {
 			const eventEntities = entitiesData.filter((entity) => entity.parent._id === eventId)
-			const entitiesList = eventEntities.map((entity) => {
+			const entitiesList: EntityListItem[] = eventEntities.map((entity) => {
 				if (entity.type === 'Person') {
-					return { key: entity._id, value: `${entity.person.name.first} ${entity.person.name.last}` }
+					return {
+						_id: entity._id,
+						parent: entity.parent,
+						type: entity.type,
+						person: entity.person,
+						organization: { contactName: null, legal: { legalName: null } }, // Include other properties here based on your Entity type
+					}
 				} else if (entity.type === 'Organization') {
-					return { key: entity._id, value: entity.organization.legal.legalName }
+					return {
+						_id: entity._id,
+						parent: entity.parent,
+						type: entity.type,
+						person: { name: { first: null, middle: null, last: null, suffix: null } }, // Include other properties here based on your Entity type
+						organization: entity.organization,
+					}
 				} else {
-					return { key: entity._id, value: 'Other' }
+					return {
+						_id: entity._id,
+						parent: entity.parent,
+						type: entity.type,
+						person: { name: { first: null, middle: null, last: null, suffix: null } }, // Include other properties here based on your Entity type
+						organization: { contactName: null, legal: { legalName: null } }, // Include other properties here based on your Entity type
+					}
 				}
 			})
 			setEntities(entitiesList)
@@ -211,8 +252,8 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 				console.log('Creating vehicle:', vehicleData)
 				navigate(`/dashboard/event/${eventId}/vehicle`)
 			}
-		} catch (error: any) {
-			console.error('Error:', error)
+		} catch (error: unknown) {
+			console.error('Error:', (error as Error).message)
 		}
 	}
 
@@ -450,11 +491,15 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									value={formData.occupantsDriver}
 									onChange={handleFormEntitySelectChange}>
 									<MenuItem value=''>Select a Driver</MenuItem>
-									{entities.map((entity) => (
-										<MenuItem key={entity.key} value={entity.key}>
-											{entity.value}
-										</MenuItem>
-									))}
+									{entities
+										.filter(
+											(entity) => entity.parent?._id === eventId && entity.type === 'Person' && entity._id !== null,
+										)
+										.map((entity) => (
+											<MenuItem key={entity._id!} value={entity._id!}>
+												{entity.person.name.first} {entity.person.name.last}
+											</MenuItem>
+										))}
 								</Select>
 							</FormControl>
 						</Grid>
@@ -472,20 +517,20 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									renderValue={(selected) => (
 										<div>
 											{selected.map((value) => (
-												<Chip
-													key={value}
-													label={entities.find((entity) => entity.key === value)?.value}
-													sx={{ marginRight: 5 }}
-												/>
+												<Chip key={value} label={value} />
 											))}
 										</div>
 									)}>
-									{entities.map((entity, index) => (
-										<MenuItem key={index} value={entity.key}>
-											<Checkbox checked={formData.occupantsPassengers.indexOf(entity.key) > -1} />
-											<ListItemText primary={entity.value} />
-										</MenuItem>
-									))}
+									{entities
+										.filter(
+											(entity) => entity.parent?._id === eventId && entity.type === 'Person' && entity._id !== null,
+										)
+										.map((entity) => (
+											<MenuItem key={entity._id!} value={entity._id!}>
+												<Checkbox checked={formData.occupantsPassengers.indexOf(entity._id!) > -1} />
+												<ListItemText primary={`${entity.person.name.first} ${entity.person.name.last}`} />
+											</MenuItem>
+										))}
 								</Select>
 							</FormControl>
 						</Grid>
@@ -506,11 +551,15 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									value={formData.registrationOwner}
 									onChange={handleFormEntitySelectChange}>
 									<MenuItem value=''>Select a Vehicle Owner</MenuItem>
-									{entities.map((entity) => (
-										<MenuItem key={entity.key} value={entity.key}>
-											{entity.value}
-										</MenuItem>
-									))}
+									{entities
+										.filter(
+											(entity) => entity.parent?._id === eventId && entity.type === 'Person' && entity._id !== null,
+										)
+										.map((entity) => (
+											<MenuItem key={entity._id!} value={entity._id!}>
+												{entity.person.name.first} {entity.person.name.last}
+											</MenuItem>
+										))}
 								</Select>
 							</FormControl>
 						</Grid>

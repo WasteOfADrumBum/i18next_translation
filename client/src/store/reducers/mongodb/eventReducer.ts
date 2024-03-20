@@ -16,16 +16,16 @@ const eventReducer = (state: EventState = initialState, action: EventAction): Ev
 			return {
 				...state,
 				loading: false,
-				success: action.payload,
-				error: {},
+				success: { message: 'Event created successfully', data: action.payload },
+				error: undefined,
 			}
 		case actionTypes.DELETE_EVENT_SUCCESS:
 			return {
 				...state,
 				events: state.events.filter((event) => event._id !== action.payload),
 				loading: false,
-				success: action.payload,
-				error: {},
+				success: { message: 'Event deleted successfully', data: action.payload },
+				error: undefined,
 			}
 		case actionTypes.UPDATE_EVENT_SUCCESS:
 		case actionTypes.GET_EVENT_SUCCESS:
@@ -33,16 +33,16 @@ const eventReducer = (state: EventState = initialState, action: EventAction): Ev
 				...state,
 				event: action.payload as Event,
 				loading: false,
-				success: action.payload,
-				error: {},
+				success: { message: 'Operation successful', data: action.payload },
+				error: undefined,
 			}
 		case actionTypes.GET_EVENTS_SUCCESS:
 			return {
 				...state,
 				events: action.payload as unknown as Event[],
 				loading: false,
-				success: action.payload,
-				error: {},
+				success: { message: 'Operation successful', data: action.payload },
+				error: undefined,
 			}
 		case actionTypes.CREATE_EVENT_FAILURE:
 		case actionTypes.DELETE_EVENT_FAILURE:
@@ -52,7 +52,7 @@ const eventReducer = (state: EventState = initialState, action: EventAction): Ev
 			return {
 				...state,
 				loading: false,
-				error: action.payload,
+				error: { message: 'Operation failed', errorCode: 500 },
 			}
 		default:
 			return state

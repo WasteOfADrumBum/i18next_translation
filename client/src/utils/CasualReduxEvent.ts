@@ -18,7 +18,7 @@ const eventTypes = ['Accident', 'Fire', 'Theft', 'Medical Emergency']
 const eventSubTypes = ['Car Crash', 'House Fire', 'Robbery', 'Heart Attack']
 const statuses = ['Open', 'Closed', 'In Progress']
 
-const generateFakeReduxState = (): FakeReduxState => {
+export const generateFakeReduxState = (): FakeReduxState => {
 	const events: Event[] = []
 	for (let i = 1; i <= 25; i++) {
 		const eventType = getRandomElement(eventTypes)
@@ -66,5 +66,3 @@ const generateFakeLocation = (): string => {
 	const country = 'USA'
 	return `${street}, ${city}, ${state}, ${country}`
 }
-
-export { generateFakeReduxState }

@@ -1,3 +1,5 @@
+import { ErrorResponse, SuccessResponse } from './ResponseTypes'
+
 // Define the interface for a vehicle
 export interface Vehicle {
 	_id: string | null
@@ -37,8 +39,8 @@ export interface VehicleState {
 	vehicles: Vehicle[]
 	vehicle: Vehicle | null
 	loading: boolean
-	success?: {}
-	error?: {}
+	success?: SuccessResponse
+	error?: ErrorResponse
 }
 
 // Define the actions that can be performed on vehicles
@@ -55,6 +57,4 @@ export const initialState: VehicleState = {
 	vehicles: [],
 	vehicle: null,
 	loading: false,
-	success: {},
-	error: {},
 }

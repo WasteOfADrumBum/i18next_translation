@@ -1,3 +1,5 @@
+import { ErrorResponse, SuccessResponse } from './ResponseTypes'
+
 // Define the interface for an event
 export interface Event {
 	_id: string | null
@@ -39,8 +41,8 @@ export interface EventState {
 	events: Event[]
 	event: Event | null
 	loading: boolean
-	success?: {}
-	error?: {}
+	success?: SuccessResponse
+	error?: ErrorResponse
 }
 
 // Define the actions that can be performed on events
@@ -57,6 +59,4 @@ export const initialState: EventState = {
 	events: [],
 	event: null,
 	loading: false,
-	success: {},
-	error: {},
 }

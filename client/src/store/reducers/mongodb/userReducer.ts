@@ -1,10 +1,11 @@
 import { CLEAR_USER, SET_USER } from '../../actions/mongodb/userActionTypes'
+import { UserAction } from '../../types/UserTypes'
 
 const initialState = {
 	user: null, // Initial user state
 }
 
-const userReducer = (state = initialState, action: any) => {
+const userReducer = (state = initialState, action: UserAction) => {
 	switch (action.type) {
 		case SET_USER:
 			return {

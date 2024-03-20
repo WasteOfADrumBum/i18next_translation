@@ -3,22 +3,20 @@ import { Button, capitalize, Container, Divider, Grid, Typography } from '@mui/m
 import React, { FC, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Dispatch } from 'redux'
-import { RootState } from 'store'
 import { ActionsMenu, DynamicDataTable } from '../../components'
 import { HeaderContext } from '../../contexts/HeaderContext'
 import translations from '../../i18n/locales'
+import { AppDispatch, RootState } from '../../store'
 import { getEvents } from '../../store/actions/mongodb/eventActions'
 import { Event } from '../../store/types/EventTypes'
 import { ExtractLastFiveDigits, GetCountryAbbreviation, GetStateAbbreviation, TimeConversionsHelper } from '../../utils'
 
-const eventHeaderTranslations = translations.pages.events.header
 const eventTableTranslations = translations.pages.events.table.labels
 
 const EventListView: FC = () => {
 	const navigate = useNavigate()
 	const { setHeaderData } = useContext(HeaderContext)
-	const dispatch: Dispatch<any> = useDispatch()
+	const dispatch: AppDispatch = useDispatch()
 
 	// Fetch events from Redux store
 	useEffect(() => {

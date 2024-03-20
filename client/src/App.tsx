@@ -1,8 +1,7 @@
 // App.tsx
-import React, { ReactNode, useEffect, useState } from 'react'
-// @ts-ignore
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 import { Footer, Header, NavBar, TabsComponent } from './components'

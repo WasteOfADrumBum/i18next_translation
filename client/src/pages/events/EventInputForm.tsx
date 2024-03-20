@@ -1,5 +1,3 @@
-import React, { ChangeEvent, FC, FormEvent, useContext, useEffect, useState } from 'react'
-// @ts-ignore
 import { AddCircleOutline, CancelOutlined } from '@mui/icons-material'
 import {
 	Button,
@@ -23,6 +21,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
+import React, { ChangeEvent, FC, FormEvent, useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from 'store'
@@ -234,8 +233,8 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 				await dispatch(createEvent(eventData)) // Dispatch createEvent action to add new event
 				navigate('/dashboard') // Redirect to dashboard after adding event
 			}
-		} catch (error: any) {
-			console.error('Error:', error.message)
+		} catch (error: unknown) {
+			console.error('Error:', (error as Error).message)
 		}
 	}
 

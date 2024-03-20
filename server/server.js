@@ -54,7 +54,7 @@ postgresClient
 
 // Middleware to add pool to each request
 app.use((req, res, next) => {
-	// @ts-ignore
+	// @ts-expect-error req object does not have a dbPool property
 	req.dbPool = pool
 	next()
 })
@@ -84,7 +84,7 @@ app.use('/api/vehicles', VehiclesRoutes)
 // To test creat a GET http://localhost:5000/test on Postman
 app.get('/test', async (req, res) => {
 	try {
-		// @ts-ignore
+		// @ts-expect-error req object does not have a dbPool property
 		const client = await req.dbPool.connect()
 		const result = await client.query('SELECT $1::text as message', ['Hello PostgreSQL'])
 		client.release()

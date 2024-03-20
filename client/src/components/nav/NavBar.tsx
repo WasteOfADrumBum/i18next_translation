@@ -1,5 +1,3 @@
-import React, { FC, MouseEvent, useEffect, useState } from 'react'
-// @ts-ignore
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import MenuIcon from '@mui/icons-material/Menu'
 import {
@@ -13,6 +11,7 @@ import {
 	Toolbar,
 	Typography,
 } from '@mui/material'
+import React, { FC, MouseEvent, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ThemeSwitcher } from '../../components'
 import { useAuth } from '../../pages'

@@ -5,7 +5,7 @@ import { Box, Menu, MenuItem, Tab } from '@mui/material'
 import React, { Children, FC, isValidElement, ReactNode, SyntheticEvent, useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom'
 
-interface Tab {
+interface TabItem {
 	label: string
 	route: string
 	element: ReactNode
@@ -15,7 +15,7 @@ interface Tab {
 
 interface TabsComponentProps {
 	isAuthenticated: boolean
-	tabs: Tab[]
+	tabs: TabItem[]
 	children: ReactNode
 	basePath: string
 }
@@ -23,21 +23,17 @@ interface TabsComponentProps {
 const TabsComponent: FC<TabsComponentProps> = ({ isAuthenticated, tabs, children, basePath }) => {
 	const location = useLocation()
 	const navigate = useNavigate()
-	const [value, setValue] = useState<string>(`${tabs[0].route}`)
 	const { eventId } = useParams()
-
-	if (!isAuthenticated) return null
+	const [value, setValue] = useState<string>(tabs[0]?.route || '')
 
 	useEffect(() => {
-		if (eventId) {
-			// if location.pathname as nothing after the eventId, navigate to the first tab
-			if (location.pathname === `${basePath}${eventId}`) {
-				navigate(`${basePath}${eventId}${tabs[0].route}`)
-			} else {
-				navigate(location.pathname)
-			}
+		if (!isAuthenticated || !eventId) return
+		if (location.pathname === `${basePath}${eventId}`) {
+			navigate(`${basePath}${eventId}${tabs[0]?.route || ''}`)
+		} else {
+			navigate(location.pathname)
 		}
-	}, [eventId, basePath, navigate])
+	}, [isAuthenticated, eventId, location.pathname, basePath, navigate, tabs])
 
 	const handleChange = (_event: SyntheticEvent, newValue: string) => {
 		setValue(newValue)

@@ -1,19 +1,17 @@
-import { Container, Divider, Grid, Typography } from '@mui/material'
+import { Divider, Grid, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { Dispatch } from 'redux'
-import { RootState } from 'store'
 import { HeaderContext } from '../../contexts/HeaderContext'
+import { AppDispatch, RootState } from '../../store'
 import { readVehicle } from '../../store/actions/mongodb/vehicleActions'
-import { GetStateAbbreviation } from '../../utils'
 
 const VehicleDetailsView: FC = () => {
-const { setHeaderData } = useContext(HeaderContext)
-	const dispatch: Dispatch<any> = useDispatch()
+	const { setHeaderData } = useContext(HeaderContext)
+	const dispatch: AppDispatch = useDispatch()
 	const { eventId, vehicleId } = useParams<{ eventId: string; vehicleId: string }>()
 
-		// Fetch vehcile details from Redux store
+	// Fetch vehcile details from Redux store
 	useEffect(() => {
 		if (vehicleId) {
 			// Check if vehicleId is not undefined
@@ -22,7 +20,7 @@ const { setHeaderData } = useContext(HeaderContext)
 	}, [dispatch, vehicleId])
 
 	// Access vehicle details from Redux store
-	const { vehicle, loading, error } = useSelector((state: RootState) => state.vehicles)
+	const { vehicle } = useSelector((state: RootState) => state.vehicles)
 
 	// Update header data when component mounts
 	useEffect(() => {

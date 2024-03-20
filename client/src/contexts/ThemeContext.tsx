@@ -10,6 +10,7 @@ interface ThemeContextProviderProps {
 export const ThemeContextProvider: FC<ThemeContextProviderProps> = ({ children }) => {
 	const [darkMode, setDarkMode] = useState<boolean>(true)
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const toggleDarkMode = () => {
 		setDarkMode((prevMode) => !prevMode)
 	}

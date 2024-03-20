@@ -3,17 +3,16 @@ import { Button, capitalize, Container, Divider, Grid, Typography } from '@mui/m
 import React, { FC, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Dispatch } from 'redux'
 import { ActionsMenu, DynamicDataTable } from '../../components'
 import { HeaderContext } from '../../contexts/HeaderContext'
-import { RootState } from '../../store'
+import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { Entity } from '../../store/types/EntityTypes'
 import { ExtractLastFiveDigits, GetCountryAbbreviation, getEntitiesByEventId, GetStateAbbreviation } from '../../utils'
 
 const EntityListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
-	const dispatch: Dispatch<any> = useDispatch()
+	const dispatch: AppDispatch = useDispatch()
 	const navigate = useNavigate()
 	const { eventId } = useParams<{ eventId: string }>()
 
@@ -83,6 +82,7 @@ const EntityListView: FC = () => {
 
 	const handleDelete = (id: string | undefined) => {
 		// Implement delete logic as needed
+		console.log('Delete:', id)
 	}
 
 	const columns = [

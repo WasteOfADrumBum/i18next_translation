@@ -1,6 +1,5 @@
-import React, { FC, useContext } from 'react'
-// @ts-ignore
 import { Box, Button, Container, ThemeProvider, Typography } from '@mui/material'
+import React, { FC, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../../contexts/ThemeContext'
 import { darkTheme, lightTheme } from '../../styles/theme'

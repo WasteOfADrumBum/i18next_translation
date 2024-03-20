@@ -3,10 +3,9 @@ import { Button, Container, Divider, Grid, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Dispatch } from 'redux'
 import { ActionsMenu, DynamicDataTable } from '../../components'
 import { HeaderContext } from '../../contexts/HeaderContext'
-import { RootState } from '../../store'
+import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { getVehicles } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
@@ -14,7 +13,7 @@ import { ExtractLastFiveDigits, getVehiclesByEventId } from '../../utils'
 
 const VehicleListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
-	const dispatch: Dispatch<any> = useDispatch()
+	const dispatch: AppDispatch = useDispatch()
 	const navigate = useNavigate()
 	const { eventId } = useParams<{ eventId: string }>()
 
@@ -32,7 +31,7 @@ const VehicleListView: FC = () => {
 	}, [dispatch])
 
 	// Access entities from Redux store
-	const { entities, loading: entitiesLoading, error: entitiesError } = useSelector((state: RootState) => state.entities)
+	const { entities } = useSelector((state: RootState) => state.entities)
 
 	// Get entity name from entity ID
 	const getEntityName = (id: string | undefined) => {
@@ -111,6 +110,7 @@ const VehicleListView: FC = () => {
 
 	const handleDelete = (id: string | undefined) => {
 		// Implement delete logic as needed
+		console.log('Delete:', id)
 	}
 
 	const columns = [
