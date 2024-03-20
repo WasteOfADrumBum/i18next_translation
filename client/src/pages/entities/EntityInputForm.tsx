@@ -427,7 +427,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 												disableFuture
 												slotProps={{
 													textField: {
-														required: true,
+														required: false,
 														fullWidth: true,
 													},
 												}}
@@ -453,6 +453,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 												label='First Name'
 												variant='outlined'
 												fullWidth
+												required
 												value={formData.personNameFirst}
 												onChange={handleFormChange}
 											/>
@@ -473,6 +474,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 												label='Last Name'
 												variant='outlined'
 												fullWidth
+												required
 												value={formData.personNameLast}
 												onChange={handleFormChange}
 											/>
@@ -635,7 +637,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 												onChange={(date) => handleFormDateChange(date, 'personIdentificationVisaExpiryDate')}
 												slotProps={{
 													textField: {
-														required: true,
+														required: false,
 														fullWidth: true,
 													},
 												}}
@@ -712,7 +714,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 												disableFuture
 												slotProps={{
 													textField: {
-														required: true,
+														required: false,
 														fullWidth: true,
 													},
 												}}

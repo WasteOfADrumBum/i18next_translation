@@ -25,6 +25,14 @@ const EntityListView: FC = () => {
 	// Access entities from Redux store
 	const { entities, loading, error } = useSelector((state: RootState) => state.entities)
 
+	// Based on the current event ID, filter entities associated with the event
+	const getEventEntities = (entities: Entity[], eventId: string) => {
+		return entities.filter((entity) => entity.parent._id === eventId)
+	}
+
+	// Make a new array of entities associated with the current event
+	const eventEntities = getEventEntities(entities, eventId ?? '')
+
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
@@ -104,7 +112,7 @@ const EntityListView: FC = () => {
 				} else if (data.type === 'Organization') {
 					const { contactName } = data.organization
 					const { legalName } = data.organization.legal
-					name = `${legalName || ''} ${contactName || ''}`.trim() || 'N/A'
+					name = `${legalName || ''} (${contactName || ''})`.trim() || 'N/A'
 				} else {
 					name = 'N/A'
 				}
@@ -150,7 +158,7 @@ const EntityListView: FC = () => {
 				<Typography variant='h6'>Error: {error.toString()}</Typography>
 			) : (
 				<DynamicDataTable
-					data={entities}
+					data={eventEntities}
 					columns={columns}
 					rowsPerPageOptions={[5, 10, 25]}
 					pagination={{ rowsPerPage: 5 }}

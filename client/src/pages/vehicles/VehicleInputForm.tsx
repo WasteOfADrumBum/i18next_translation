@@ -532,10 +532,9 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								defaultValue={dayjs()}
 								value={dayjs(formData.registrationExpirationDate)}
 								onChange={(date) => handleFormDateChange(date, 'registrationExpirationDate')}
-								disableFuture
 								slotProps={{
 									textField: {
-										required: true,
+										required: false,
 										fullWidth: true,
 									},
 								}}
@@ -584,6 +583,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 										label='Policy Number'
 										variant='outlined'
 										fullWidth
+										required
 										value={formData.insurancePolicyNumber}
 										onChange={handleFormChange}
 									/>
@@ -594,6 +594,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 										label='Provider'
 										variant='outlined'
 										fullWidth
+										required
 										value={formData.insuranceProvider}
 										onChange={handleFormChange}
 									/>
@@ -605,7 +606,6 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 										defaultValue={dayjs()}
 										value={dayjs(formData.insuranceExpirationDate)}
 										onChange={(date) => handleFormDateChange(date, 'insuranceExpirationDate')}
-										disableFuture
 										slotProps={{
 											textField: {
 												required: true,

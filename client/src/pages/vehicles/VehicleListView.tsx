@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, FC } from 'react'
-import { Grid, Button, Container, Typography, capitalize, Divider } from '@mui/material'
-import { AddCircleOutline } from '@mui/icons-material'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch } from 'redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { HeaderContext } from '../../contexts/HeaderContext'
-import { getVehicles } from '../../store/actions/mongodb/vehicleActions'
+import { Dispatch } from 'redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { Grid, Button, Container, Typography, Divider } from '@mui/material'
+import { AddCircleOutline } from '@mui/icons-material'
 import { RootState } from '../../store'
+import { getVehicles } from '../../store/actions/mongodb/vehicleActions'
+import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
-import { DynamicDataTable, ActionsMenu } from '../../components'
+import { HeaderContext } from '../../contexts/HeaderContext'
 import { ExtractLastFiveDigits } from '../../utils'
+import { DynamicDataTable, ActionsMenu } from '../../components'
 
 const VehicleListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -24,6 +25,41 @@ const VehicleListView: FC = () => {
 
 	// Access vehicles from Redux store
 	const { vehicles, loading, error } = useSelector((state: RootState) => state.vehicles)
+
+	// Fetch entities from Redux store
+	useEffect(() => {
+		dispatch(getEntities())
+	}, [dispatch])
+
+	// Access entities from Redux store
+	const { entities, loading: entitiesLoading, error: entitiesError } = useSelector((state: RootState) => state.entities)
+
+	// Get entity name from entity ID
+	const getEntityName = (id: string | undefined) => {
+		if (id) {
+			const entity = entities.find((entity) => entity._id === id)
+			if (entity) {
+				if (entity.type === 'Person') {
+					return `${entity.person.name.first ? entity.person.name.first : ''} ${
+						entity.person.name.middle ? entity.person.name.middle : ''
+					} ${entity.person.name.last ? entity.person.name.last : ''}`
+				} else if (entity.type === 'Organization') {
+					return `${entity.organization.legal.legalName ? entity.organization.legal.legalName : ''} (${
+						entity.organization.contactName ? entity.organization.contactName : ''
+					})`
+				}
+			}
+		}
+		return 'N/A'
+	}
+
+	// Based on the current event ID, filter vehicles associated with the event
+	const getEventVehicles = (vehicles: Vehicle[], eventId: string) => {
+		return vehicles.filter((vehicle) => vehicle.parent._id === eventId)
+	}
+
+	// Make a new array of vehicles that are associated with the current event
+	const eventVehicles = getEventVehicles(vehicles, eventId ?? '')
 
 	useEffect(() => {
 		// Update header data when component mounts
@@ -89,6 +125,34 @@ const VehicleListView: FC = () => {
 			render: (data: Vehicle) => <Typography>{data._id ? ExtractLastFiveDigits(data._id) : 'N/A'}</Typography>,
 		},
 		{
+			id: 'description',
+			label: 'Description',
+			render: (data: Vehicle) => (
+				<Typography>
+					{data.year ? data.year : ''} {data.make ? data.make : ''} {data.model ? data.model : ''}{' '}
+					{data.color ? `(${data.color})` : ''}
+				</Typography>
+			),
+		},
+		{
+			id: 'driver',
+			label: 'Driver',
+			render: (data: Vehicle) => (
+				<Typography>{data.occupants.driver ? getEntityName(data.occupants.driver) : 'N/A'} </Typography>
+			),
+		},
+		{
+			id: 'occupants',
+			label: 'Occupants',
+			render: (data: Vehicle) => (
+				<Typography>
+					{data.occupants.passengers
+						? data.occupants.passengers.map((passengerId) => getEntityName(passengerId)).join(', ')
+						: 'N/A'}
+				</Typography>
+			),
+		},
+		{
 			id: 'actions',
 			label: 'Actions',
 			render: (data: Vehicle) => (
@@ -114,7 +178,7 @@ const VehicleListView: FC = () => {
 				<Typography variant='h6'>Error: {error.toString()}</Typography>
 			) : (
 				<DynamicDataTable
-					data={vehicles}
+					data={eventVehicles}
 					columns={columns}
 					rowsPerPageOptions={[5, 10, 25]}
 					pagination={{ rowsPerPage: 5 }}
