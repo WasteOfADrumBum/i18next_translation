@@ -11,6 +11,7 @@ export interface Vehicle {
 	model: string
 	year: number
 	color: string
+	vin: string
 	occupants: {
 		driver: string | null // UUID from entities
 		passengers: string[] // Array of UUIDs from entities

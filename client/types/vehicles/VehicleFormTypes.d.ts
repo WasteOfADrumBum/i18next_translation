@@ -6,6 +6,7 @@ export interface VehicleFormData {
 	model: string
 	year: number
 	color: string
+	vin: string
 	occupantsDriver: string | null // UUID from entities
 	occupantsPassengers: string[] // Array of UUIDs from entities
 	registrationOwner: string | null // UUID from entities

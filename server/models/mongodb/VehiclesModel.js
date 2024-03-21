@@ -9,6 +9,7 @@ const vehiclesModelSchema = new mongoose.Schema({
 	model: { type: String, required: true },
 	year: { type: Number, required: true },
 	color: { type: String, required: true },
+	vin: { type: String, required: true },
 	occupants: {
 		driver: {
 			type: mongoose.Schema.Types.ObjectId,

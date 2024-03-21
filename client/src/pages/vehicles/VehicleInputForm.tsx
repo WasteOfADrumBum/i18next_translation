@@ -75,6 +75,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 		model: vehicleValues?.model || '',
 		year: vehicleValues?.year || new Date().getFullYear(),
 		color: vehicleValues?.color || '',
+		vin: vehicleValues?.vin || '',
 		occupantsDriver: vehicleValues?.occupantsDriver || '',
 		occupantsPassengers: vehicleValues?.occupantsPassengers || [],
 		registrationOwner: vehicleValues?.registrationOwner || '',
@@ -185,6 +186,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 				model: vehicle.model,
 				year: vehicle.year,
 				color: vehicle.color,
+				vin: vehicle.vin,
 				occupantsDriver: vehicle.occupants.driver,
 				occupantsPassengers: vehicle.occupants.passengers,
 				registrationOwner: vehicle.registration.owner,
@@ -217,6 +219,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 				model: formData.model,
 				year: formData.year,
 				color: formData.color,
+				vin: formData.vin,
 				occupants: {
 					driver: formData.occupantsDriver,
 					passengers: formData.occupantsPassengers,
@@ -398,7 +401,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							</Typography>
 							<Divider />
 						</Grid>
-						<Grid item xs={3}>
+						<Grid item xs={4}>
 							<TextField
 								required
 								name='year'
@@ -416,7 +419,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								))}
 							</TextField>
 						</Grid>
-						<Grid item xs={3}>
+						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='make-label'>Make</InputLabel>
 								<Select
@@ -435,7 +438,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								</Select>
 							</FormControl>
 						</Grid>
-						<Grid item xs={3}>
+						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='model-label'>Model</InputLabel>
 								<Select
@@ -455,7 +458,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								</Select>
 							</FormControl>
 						</Grid>
-						<Grid item xs={3}>
+						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='color-label'>Color</InputLabel>
 								<Select
@@ -474,13 +477,24 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								</Select>
 							</FormControl>
 						</Grid>
+						<Grid item xs={4}>
+							<TextField
+								required
+								name='vin'
+								label='VIN'
+								variant='outlined'
+								fullWidth
+								value={formData.vin}
+								onChange={handleFormChange}
+							/>
+						</Grid>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
 								Occupants
 							</Typography>
 							<Divider />
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='driver-label'>Driver</InputLabel>
 								<Select
@@ -503,7 +517,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								</Select>
 							</FormControl>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='passengers-label'>Passengers</InputLabel>
 								<Select
@@ -515,14 +529,17 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									input={<OutlinedInput label='Tag' />}
 									multiple
 									renderValue={(selected) => (
-										 <div>
-                        {selected.map((value) => {
-                            const selectedPerson = entities.find(entity => entity._id === value);
-                            return (
-                                <Chip key={value} label={`${selectedPerson?.person.name.first} ${selectedPerson?.person.name.last}`} />
-                            );
-                        })}
-                    </div>
+										<div>
+											{selected.map((value) => {
+												const selectedPerson = entities.find((entity) => entity._id === value)
+												return (
+													<Chip
+														key={value}
+														label={`${selectedPerson?.person.name.first} ${selectedPerson?.person.name.last}`}
+													/>
+												)
+											})}
+										</div>
 									)}>
 									{entities
 										.filter(
@@ -543,28 +560,28 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							</Typography>
 							<Divider />
 						</Grid>
-						<Grid item xs={12}>
-        <FormControl fullWidth variant='outlined'>
-            <InputLabel id='owner-label'>Owner</InputLabel>
-            <Select
-                required
-                labelId='owner-label'
-                id='owner'
-                name='registrationOwner'
-                value={formData.registrationOwner}
-                onChange={handleFormEntitySelectChange}>
-                <MenuItem value=''>Select a Vehicle Owner</MenuItem>
-                {entities
-                    .filter(
-                        (entity) => entity.parent?._id === eventId && entity._id !== null
-                    )
-                    .map((entity) => (
-                        <MenuItem key={entity._id!} value={entity._id!}>
-                            {entity.type === 'Person' ? `${entity.person.name.first} ${entity.person.name.last}` : entity.organization.legal.legalName}
-                        </MenuItem>
-                    ))}
-            </Select>
-        </FormControl>
+						<Grid item xs={4}>
+							<FormControl fullWidth variant='outlined'>
+								<InputLabel id='owner-label'>Owner</InputLabel>
+								<Select
+									required
+									labelId='owner-label'
+									id='owner'
+									name='registrationOwner'
+									value={formData.registrationOwner}
+									onChange={handleFormEntitySelectChange}>
+									<MenuItem value=''>Select a Vehicle Owner</MenuItem>
+									{entities
+										.filter((entity) => entity.parent?._id === eventId && entity._id !== null)
+										.map((entity) => (
+											<MenuItem key={entity._id!} value={entity._id!}>
+												{entity.type === 'Person'
+													? `${entity.person.name.first} ${entity.person.name.last}`
+													: entity.organization.legal.legalName}
+											</MenuItem>
+										))}
+								</Select>
+							</FormControl>
 						</Grid>
 						<Grid item xs={4}>
 							<TextField

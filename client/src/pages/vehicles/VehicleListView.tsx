@@ -106,7 +106,7 @@ const VehicleListView: FC = () => {
 
 	const handleView = (id: string | undefined) => {
 		if (id) {
-			navigate(`${id}/details`)
+			navigate(`${id}`)
 		}
 	}
 
