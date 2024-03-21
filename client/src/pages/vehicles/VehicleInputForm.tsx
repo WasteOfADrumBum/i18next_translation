@@ -515,11 +515,14 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									input={<OutlinedInput label='Tag' />}
 									multiple
 									renderValue={(selected) => (
-										<div>
-											{selected.map((value) => (
-												<Chip key={value} label={value} />
-											))}
-										</div>
+										 <div>
+                        {selected.map((value) => {
+                            const selectedPerson = entities.find(entity => entity._id === value);
+                            return (
+                                <Chip key={value} label={`${selectedPerson?.person.name.first} ${selectedPerson?.person.name.last}`} />
+                            );
+                        })}
+                    </div>
 									)}>
 									{entities
 										.filter(
@@ -541,27 +544,27 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<Divider />
 						</Grid>
 						<Grid item xs={12}>
-							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='owner-label'>Owner</InputLabel>
-								<Select
-									required
-									labelId='owner-label'
-									id='owner'
-									name='registrationOwner'
-									value={formData.registrationOwner}
-									onChange={handleFormEntitySelectChange}>
-									<MenuItem value=''>Select a Vehicle Owner</MenuItem>
-									{entities
-										.filter(
-											(entity) => entity.parent?._id === eventId && entity.type === 'Person' && entity._id !== null,
-										)
-										.map((entity) => (
-											<MenuItem key={entity._id!} value={entity._id!}>
-												{entity.person.name.first} {entity.person.name.last}
-											</MenuItem>
-										))}
-								</Select>
-							</FormControl>
+        <FormControl fullWidth variant='outlined'>
+            <InputLabel id='owner-label'>Owner</InputLabel>
+            <Select
+                required
+                labelId='owner-label'
+                id='owner'
+                name='registrationOwner'
+                value={formData.registrationOwner}
+                onChange={handleFormEntitySelectChange}>
+                <MenuItem value=''>Select a Vehicle Owner</MenuItem>
+                {entities
+                    .filter(
+                        (entity) => entity.parent?._id === eventId && entity._id !== null
+                    )
+                    .map((entity) => (
+                        <MenuItem key={entity._id!} value={entity._id!}>
+                            {entity.type === 'Person' ? `${entity.person.name.first} ${entity.person.name.last}` : entity.organization.legal.legalName}
+                        </MenuItem>
+                    ))}
+            </Select>
+        </FormControl>
 						</Grid>
 						<Grid item xs={4}>
 							<TextField
