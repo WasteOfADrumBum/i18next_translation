@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom'
 import { HeaderContext } from '../../contexts/HeaderContext'
 import { AppDispatch, RootState } from '../../store'
 import { readVehicle } from '../../store/actions/mongodb/vehicleActions'
+import { readEntity } from '../../store/actions/mongodb/entityActions'
+import { Entity } from '../../store/types/EntityTypes'
 
 const VehicleDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -21,6 +23,30 @@ const VehicleDetailsView: FC = () => {
 
 	// Access vehicle details from Redux store
 	const { vehicle } = useSelector((state: RootState) => state.vehicles)
+
+	// Fetch user details from Redux store
+	useEffect(() => {
+		if (eventId) {
+			// Check if eventId is not undefined
+			dispatch(readEntity(eventId))
+		}
+	}, [dispatch, eventId])
+
+	// Access user details from Redux store
+	const { entity } = useSelector((state: RootState) => state.entities)
+
+	// Function to get entity name
+	const getEntityName = (entity: Entity) => {
+		if (entity?.type === 'Person') {
+			return `${entity?.person.name.first} ${entity?.person.name.last}`
+		} else if (entity?.type === 'Organization') {
+			return entity?.organization.legal.legalName
+		} else {
+			return ''
+		}
+	}
+
+	if (entity) console.log(getEntityName(entity))
 
 	// Update header data when component mounts
 	useEffect(() => {
