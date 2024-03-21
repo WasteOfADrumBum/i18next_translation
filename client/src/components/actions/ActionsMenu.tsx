@@ -3,7 +3,7 @@ import { IconButton, Menu, MenuItem } from '@mui/material'
 import React, { FC, MouseEvent, useState } from 'react'
 import translations from '../../i18n/locales'
 
-const buttonTranslations = translations.buttons
+const buttonTranslations = translations.common.buttons
 
 const ActionsMenu: FC<{ onView: () => void; onEdit: () => void; onDelete: () => void }> = ({
 	onView,

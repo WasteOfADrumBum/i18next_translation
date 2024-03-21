@@ -1,0 +1,17 @@
+{
+	"buttons": {
+		"submit": "Submit",
+		"cancel": "Cancel",
+		"save": "Save",
+		"delete": "Delete",
+		"view": "View",
+		"edit": "Edit",
+		"add": "Add",
+		"login": "Login",
+		"logout": "Logout",
+		"register": "Register",
+		"forgotPassword": "Forgot Password",
+		"resetPassword": "Reset Password",
+		"changePassword": "Change Password"
+	}
+}

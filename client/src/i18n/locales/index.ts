@@ -1,5 +1,5 @@
 // Components
-import buttons from './components/buttons.json'
+import common from './common/common.json'
 // Errors
 import errors from './errors/errors.json'
 // Pages
@@ -17,7 +17,7 @@ import user from './pages/user.json'
  */
 
 const translations = {
-	buttons,
+	common,
 	errors,
 	pages: {
 		about,
