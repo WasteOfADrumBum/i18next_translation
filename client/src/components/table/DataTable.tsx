@@ -47,7 +47,15 @@ interface DynamicDataTableProps<T> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const DynamicDataTable: FC<DynamicDataTableProps<any>> = ({ data, columns, rowsPerPageOptions, pagination, page, onPageChange, onRowsPerPageChange }) => {
+const DynamicDataTable: FC<DynamicDataTableProps<any>> = ({
+	data,
+	columns,
+	rowsPerPageOptions,
+	pagination,
+	page,
+	onPageChange,
+	onRowsPerPageChange,
+}) => {
 	const handleChangePage = (event: unknown, newPage: number) => {
 		onPageChange(newPage)
 	}

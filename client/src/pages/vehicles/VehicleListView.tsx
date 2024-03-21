@@ -77,9 +77,17 @@ const VehicleListView: FC = () => {
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item>
-						<Typography variant='caption'>Total Vehicles: {vehicles.length}</Typography>
-					</Grid>
+					{vehicles.length > 0 ? (
+						<Grid item>
+							<Typography variant='caption'>Total Vehicles: {vehicles.length}</Typography>
+						</Grid>
+					) : (
+						<Grid item xs={12}>
+							<Typography variant='caption' color={'secondary'}>
+								* Entitites are required before adding a vehicle
+							</Typography>
+						</Grid>
+					)}
 				</Grid>
 			),
 			returnButton: true,
@@ -163,9 +171,11 @@ const VehicleListView: FC = () => {
 	return (
 		<Container maxWidth='xl'>
 			<Grid container justifyContent='flex-end'>
-				<Button onClick={() => navigate(`create`)} sx={{ margin: 1 }}>
-					<AddCircleOutline sx={{ marginRight: 1 }} /> Add Vehicle
-				</Button>
+				{vehicles.length > 0 && (
+					<Button onClick={() => navigate(`create`)} sx={{ margin: 1 }}>
+						<AddCircleOutline sx={{ marginRight: 1 }} /> Add Vehicle
+					</Button>
+				)}
 			</Grid>
 			{loading ? (
 				<Typography variant='h6'>Loading...</Typography>
