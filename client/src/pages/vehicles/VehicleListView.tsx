@@ -77,7 +77,7 @@ const VehicleListView: FC = () => {
 							</Grid>
 						</Grid>
 					</Grid>
-					{vehicles.length > 0 ? (
+					{entities.length > 0 ? (
 						<Grid item>
 							<Typography variant='caption'>Total Vehicles: {vehicles.length}</Typography>
 						</Grid>
@@ -171,7 +171,7 @@ const VehicleListView: FC = () => {
 	return (
 		<Container maxWidth='xl'>
 			<Grid container justifyContent='flex-end'>
-				{vehicles.length > 0 && (
+				{entities.length > 0 && (
 					<Button onClick={() => navigate(`create`)} sx={{ margin: 1 }}>
 						<AddCircleOutline sx={{ marginRight: 1 }} /> Add Vehicle
 					</Button>
