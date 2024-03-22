@@ -47,7 +47,8 @@
 		"how": "How"
 	},
 	"forms": {
-		"requiredDisclaimer": "All fields marker with an asterisk (*) are required"
+		"requiredDisclaimer": "All fields marker with an asterisk (*) are required",
+		"vehiclesRequireEntities": "* Entitites are required before adding a vehicle"
 	},
 	"statusIndicator": {
 		"loading": "Loading...",
@@ -59,5 +60,13 @@
 		"expires": "Expires",
 		"invalid": "Invalid",
 		"required": "Required"
+	},
+	"boolean": {
+		"yes": "Yes",
+		"no": "No",
+		"true": "True",
+		"false": "False",
+		"on": "On",
+		"off": "Off"
 	}
 }

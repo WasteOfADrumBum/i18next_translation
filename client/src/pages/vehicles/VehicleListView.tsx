@@ -12,7 +12,10 @@ import { getVehicles } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
 import { ExtractLastFiveDigits, getVehiclesByEventId } from '../../utils'
 
-// TODO: Add translations
+const vehcileHeaderT = translations.pages.vehicles.header
+const vehcileFieldT = translations.pages.vehicles.fields
+const vehcileTitlesT = translations.pages.vehicles.titles
+const vehcileButtonT = translations.pages.vehicles.buttons
 const statusIndicatorT = translations.common.statusIndicator
 
 const VehicleListView: FC = () => {
@@ -62,12 +65,12 @@ const VehicleListView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: 'Vehicles',
-			subheader: 'Vehicles associated with your primary event record',
+			header: vehcileHeaderT.title.all,
+			subheader: vehcileHeaderT.subtitle.all,
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={6}>
-						<Typography variant='caption'>Event ID:</Typography>
+						<Typography variant='caption'>{vehcileFieldT.id}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
@@ -80,7 +83,7 @@ const VehicleListView: FC = () => {
 					{entities.length > 0 ? (
 						<>
 							<Grid item xs={6}>
-								<Typography variant='caption'>Total Vehicles:</Typography>
+								<Typography variant='caption'>{vehcileHeaderT.content.total}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color={'primary'}>
@@ -91,7 +94,7 @@ const VehicleListView: FC = () => {
 					) : (
 						<Grid item xs={12}>
 							<Typography variant='caption' color={'secondary'}>
-								* Entitites are required before adding a vehicle
+								{translations.common.forms.vehiclesRequireEntities}
 							</Typography>
 						</Grid>
 					)}
@@ -104,9 +107,9 @@ const VehicleListView: FC = () => {
 		// Clean up header data when component unmounts
 		return () => {
 			setHeaderData({
-				header: 'React MUI Template', // Default header
-				subheader: 'A template for building React applications with Material-UI', // Default subheader
-				extraContent: null, // No extra content
+				header: '',
+				subheader: '',
+				extraContent: null,
 			})
 		}
 	}, [setHeaderData, vehicles.length])
@@ -131,14 +134,14 @@ const VehicleListView: FC = () => {
 	const columns = [
 		{
 			id: '_id',
-			label: 'ID',
+			label: vehcileFieldT.id,
 			render: (data: Vehicle) => (
 				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : statusIndicatorT.na}</Typography>
 			),
 		},
 		{
 			id: 'description',
-			label: 'Description',
+			label: vehcileTitlesT.description,
 			render: (data: Vehicle) => (
 				<Typography>
 					{data.year ? data.year : ''} {data.make ? data.make : ''} {data.model ? data.model : ''}{' '}
@@ -148,14 +151,14 @@ const VehicleListView: FC = () => {
 		},
 		{
 			id: 'driver',
-			label: 'Driver',
+			label: vehcileFieldT.occupants.driver,
 			render: (data: Vehicle) => (
 				<Typography>{data.occupants.driver ? getEntityName(data.occupants.driver) : statusIndicatorT.na} </Typography>
 			),
 		},
 		{
 			id: 'occupants',
-			label: 'Occupants',
+			label: vehcileTitlesT.occupants,
 			render: (data: Vehicle) => (
 				<Typography>
 					{data.occupants.passengers
@@ -166,7 +169,7 @@ const VehicleListView: FC = () => {
 		},
 		{
 			id: 'actions',
-			label: 'Actions',
+			label: translations.common.tables.actions,
 			render: (data: Vehicle) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}
@@ -182,14 +185,16 @@ const VehicleListView: FC = () => {
 			<Grid container justifyContent='flex-end'>
 				{entities.length > 0 && (
 					<Button onClick={() => navigate(`create`)} sx={{ margin: 1 }}>
-						<AddCircleOutline sx={{ marginRight: 1 }} /> Add Vehicle
+						<AddCircleOutline sx={{ marginRight: 1 }} /> {vehcileButtonT.new}
 					</Button>
 				)}
 			</Grid>
 			{loading ? (
-				<Typography variant='h6'>Loading...</Typography>
+				<Typography variant='h6'>{statusIndicatorT.loading}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
-				<Typography variant='h6'>Error: {error.toString()}</Typography>
+				<Typography variant='h6'>
+					{statusIndicatorT.error}: {error.toString()}
+				</Typography>
 			) : (
 				<DynamicDataTable
 					data={eventVehicles}

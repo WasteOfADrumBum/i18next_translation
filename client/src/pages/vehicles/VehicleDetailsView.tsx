@@ -3,12 +3,17 @@ import React, { FC, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { HeaderContext } from '../../contexts/HeaderContext'
+import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { readVehicle } from '../../store/actions/mongodb/vehicleActions'
 import { TimeConversionsHelper } from '../../utils'
 
-// TODO: Add translations
+const vehicleHeaderT = translations.pages.vehicles.header
+const vehicleFieldT = translations.pages.vehicles.fields
+const vehicleTitlesT = translations.pages.vehicles.titles
+const statusIndicatorT = translations.common.statusIndicator
+const booleanT = translations.common.boolean
 
 const VehicleDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -53,14 +58,14 @@ const VehicleDetailsView: FC = () => {
 	// Update header data when component mounts
 	useEffect(() => {
 		setHeaderData({
-			header: 'Vehicle Details',
-			subheader: 'Details for your vehicle record',
+			header: vehicleHeaderT.title.single,
+			subheader: vehicleHeaderT.subtitle.single,
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={12}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>Vehicle ID:</Typography>
+								<Typography variant='caption'>{vehicleFieldT.id}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -81,8 +86,8 @@ const VehicleDetailsView: FC = () => {
 		// Clean up header data when component unmounts
 		return () => {
 			setHeaderData({
-				header: 'React MUI Template',
-				subheader: 'A template for building React applications with Material-UI',
+				header: '',
+				subheader: '',
 				extraContent: null,
 			})
 		}
@@ -93,63 +98,69 @@ const VehicleDetailsView: FC = () => {
 		<Container maxWidth='xl'>
 			{/* Display vehicle details */}
 			{loading ? (
-				<Typography variant='h6'>Loading...</Typography>
+				<Typography variant='h6'>{statusIndicatorT.loading}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
-				<Typography variant='h6'>Error: {error.toString()}</Typography>
+				<Typography variant='h6'>
+					{statusIndicatorT.error}: {error.toString()}
+				</Typography>
 			) : (
 				<Grid container spacing={2}>
 					{/* Entity Information */}
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							Description
+							{vehicleTitlesT.description}
 						</Typography>
 						<Divider />
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Year
+							{vehicleFieldT.year}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.year || 'No year was provided'}</Typography>
+						<Typography variant='body2'>
+							{vehicle?.year || vehicleFieldT.year + ' ' + statusIndicatorT.notAvailable}
+						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Make
+							{vehicleFieldT.make}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.make || 'No make was provided'}</Typography>
+						<Typography variant='body2'>
+							{vehicle?.make || vehicleFieldT.make + ' ' + statusIndicatorT.notAvailable}
+						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Model
+							{vehicleFieldT.model}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.model || 'No model was provided'}</Typography>
+						<Typography variant='body2'>
+							{vehicle?.model || vehicleFieldT.model + ' ' + statusIndicatorT.notAvailable}
+						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Year
+							{vehicleFieldT.color}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.year || 'No year was provided'}</Typography>
+						<Typography variant='body2'>
+							{vehicle?.color || vehicleFieldT.color + ' ' + statusIndicatorT.notAvailable}
+						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Color
+							{vehicleFieldT.vin}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.color || 'No color was provided'}</Typography>
-					</Grid>
-					<Grid item xs={3}>
-						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							VIN
+						<Typography variant='body2'>
+							{vehicle?.vin || vehicleFieldT.vin + ' ' + statusIndicatorT.notAvailable}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.vin || 'No VIN was provided'}</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							Occupants
+							{vehicleTitlesT.occupants}
 						</Typography>
 						<Divider />
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Driver
+							{vehicleFieldT.occupants.driver}
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.occupants?.driver ? getEntityName(vehicle.occupants.driver) : 'No driver was provided'}
@@ -157,114 +168,126 @@ const VehicleDetailsView: FC = () => {
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Passengers
+							{vehicleFieldT.occupants.passengers}
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.occupants?.passengers
 								? vehicle.occupants.passengers.map((passenger) => getEntityName(passenger)).join(', ')
-								: 'No passengers were provided'}
+								: vehicleFieldT.occupants.passengers + ' ' + statusIndicatorT.notAvailable}
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							Registration
+							{vehicleTitlesT.registration}
 						</Typography>
 						<Divider />
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Owner
+							{vehicleFieldT.registration.owner}
 						</Typography>
 						<Typography variant='body2'>
-							{vehicle?.registration?.owner ? getEntityName(vehicle.registration.owner) : 'No owner was provided'}
+							{vehicle?.registration?.owner
+								? getEntityName(vehicle.registration.owner)
+								: vehicleFieldT.registration.owner + ' ' + statusIndicatorT.notAvailable}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Plate Number
+							{vehicleFieldT.registration.plateNumber}
 						</Typography>
 						<Typography variant='body2'>
-							{vehicle?.registration?.plateNumber.toLocaleUpperCase() || 'No plate number was provided'}
+							{vehicle?.registration?.plateNumber.toLocaleUpperCase() ||
+								vehicleFieldT.registration.plateNumber + ' ' + statusIndicatorT.notAvailable}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							State
+							{vehicleFieldT.registration.state}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.registration?.state || 'No state was provided'}</Typography>
+						<Typography variant='body2'>
+							{vehicle?.registration?.state || vehicleFieldT.registration.state + ' ' + statusIndicatorT.notAvailable}
+						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Expiration Date
+							{vehicleFieldT.registration.expirationDate}
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.registration?.expirationDate
 								? TimeConversionsHelper.convertTime(vehicle?.registration?.expirationDate, 'MM/DD/YYYY', false, 'UTC')
-								: 'No expiration date was provided'}
+								: vehicleFieldT.registration.expirationDate + ' ' + statusIndicatorT.notAvailable}
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							Insurance
+							{vehicleTitlesT.insurance}
 						</Typography>
 						<Divider />
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Policy Number
+							{vehicleFieldT.insurance.policyNumber}
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.insurance?.policyNumber
 								? vehicle?.insurance?.policyNumber.toUpperCase()
-								: 'No policy number was provided'}
+								: vehicleFieldT.insurance.policyNumber + ' ' + statusIndicatorT.notAvailable}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Provider
+							{vehicleFieldT.insurance.provider}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.insurance?.provider ?? 'No provider was provided'}</Typography>
+						<Typography variant='body2'>
+							{vehicle?.insurance?.provider ?? vehicleFieldT.insurance.provider + ' ' + statusIndicatorT.notAvailable}
+						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Expiration Date
+							{vehicleFieldT.insurance.expirationDate}
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.insurance?.expirationDate
 								? TimeConversionsHelper.convertTime(vehicle?.insurance?.expirationDate, 'MM/DD/YYYY', false, 'UTC')
-								: 'No expiration date was provided'}
+								: vehicleFieldT.insurance.expirationDate + ' ' + statusIndicatorT.notAvailable}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Insured
+							{vehicleFieldT.insurance.insured}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.insurance?.insured ? 'Yes' : 'No'}</Typography>
+						<Typography variant='body2'>{vehicle?.insurance?.insured ? booleanT.yes : booleanT.no}</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							Legality
+							{vehicleTitlesT.legality}
 						</Typography>
 						<Divider />
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Stolen
+							{vehicleFieldT.stolen}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.stolen ? 'Yes' : 'No'}</Typography>
+						<Typography variant='body2'>{vehicle?.stolen ? booleanT.yes : booleanT.no}</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Illegal Modifications
+							{vehicleFieldT.illegalModifications.wasModified}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.illegalModifications.wasModified ? 'Yes' : 'No'}</Typography>
+						<Typography variant='body2'>
+							{vehicle?.illegalModifications.wasModified ? booleanT.yes : booleanT.no}
+						</Typography>
 					</Grid>
 					{vehicle?.illegalModifications.wasModified && (
 						<Grid item xs={6}>
 							<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-								Modifications
+								{vehicleFieldT.illegalModifications.description}
 							</Typography>
-							<Typography variant='body2'>{vehicle?.illegalModifications.description}</Typography>
+							<Typography variant='body2'>
+								{vehicle?.illegalModifications.description ??
+									vehicleFieldT.illegalModifications.description + ' ' + statusIndicatorT.notAvailable}
+							</Typography>
 						</Grid>
 					)}
 				</Grid>

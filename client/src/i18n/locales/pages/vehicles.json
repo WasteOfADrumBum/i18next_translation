@@ -34,9 +34,11 @@
 	},
 	"titles": {
 		"parent": "Parent Record",
+		"description": "Description",
 		"occupants": "Occupants",
 		"registration": "Registration",
 		"insurance": "Insurance",
+		"legality": "Legality",
 		"illegalModifications": "Illegal Modifications"
 	},
 	"header": {

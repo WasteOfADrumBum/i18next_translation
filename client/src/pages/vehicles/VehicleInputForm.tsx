@@ -29,12 +29,17 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from 'store'
 import { VehicleFormData } from '../../../types/vehicles/VehicleFormTypes'
 import { HeaderContext } from '../../contexts/HeaderContext'
+import translations from '../../i18n/locales'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { createVehicle, readVehicle, updateVehicle } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
 import { states, vehicleColors, vehicleMakes, vehicleModels } from '../../utils'
 
-// TODO: Add translations
+const vehicleHeaderT = translations.pages.vehicles.header
+const vehicleFieldT = translations.pages.vehicles.fields
+const vehicleTitlesT = translations.pages.vehicles.titles
+const statusIndicatorT = translations.common.statusIndicator
+const booleanT = translations.common.boolean
 
 interface VehicleInputFormProps {
 	vehicleValues?: VehicleFormData
@@ -126,14 +131,14 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						parent: entity.parent,
 						type: entity.type,
 						person: entity.person,
-						organization: { contactName: null, legal: { legalName: null } }, // Include other properties here based on your Entity type
+						organization: { contactName: null, legal: { legalName: null } },
 					}
 				} else if (entity.type === 'Organization') {
 					return {
 						_id: entity._id,
 						parent: entity.parent,
 						type: entity.type,
-						person: { name: { first: null, middle: null, last: null, suffix: null } }, // Include other properties here based on your Entity type
+						person: { name: { first: null, middle: null, last: null, suffix: null } },
 						organization: entity.organization,
 					}
 				} else {
@@ -141,8 +146,8 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						_id: entity._id,
 						parent: entity.parent,
 						type: entity.type,
-						person: { name: { first: null, middle: null, last: null, suffix: null } }, // Include other properties here based on your Entity type
-						organization: { contactName: null, legal: { legalName: null } }, // Include other properties here based on your Entity type
+						person: { name: { first: null, middle: null, last: null, suffix: null } },
+						organization: { contactName: null, legal: { legalName: null } },
 					}
 				}
 			})
@@ -153,12 +158,12 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	// Update header data when component mounts
 	useEffect(() => {
 		setHeaderData({
-			header: vehicleValues ? 'Update Vehicle' : 'Add Vehicle',
-			subheader: vehicleValues ? 'Update an existing vehicle' : 'Add a new vehicle',
+			header: vehicleValues ? vehicleHeaderT.title.edit : vehicleHeaderT.title.new,
+			subheader: vehicleValues ? vehicleHeaderT.subtitle.edit : vehicleHeaderT.subtitle.new,
 			extraContent: (
 				<Grid container spacing={0}>
 					<Grid item xs={12}>
-						<Typography variant='caption'>All fields marker with an asterisk (*) are required</Typography>
+						<Typography variant='caption'>{translations.common.forms.requiredDisclaimer}</Typography>
 					</Grid>
 				</Grid>
 			),
@@ -247,7 +252,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 
 			// Check if parent ID is provided
 			if (vehicleData.parent._id === null || vehicleData.parent._id === '') {
-				console.error('Parent ID is required or vehicle data will be an orphaned record')
+				console.error(translations.errors.parentIdRequired)
 			} else if (vehicleData._id !== null) {
 				dispatch(updateVehicle(vehicleData)) // Update vehicle
 				console.log('Updating vehicle:', vehicleData)
