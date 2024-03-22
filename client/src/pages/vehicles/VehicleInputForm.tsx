@@ -397,14 +397,14 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 				{loading && <CircularProgress />}
 				{typeof error === 'object' && Object.keys(error).length !== 0 && (
 					<Typography color='error' variant='h6'>
-						Error: {error.toString()}
+						{statusIndicatorT.error}: {error.toString()}
 					</Typography>
 				)}
 				<form onSubmit={onSubmit}>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								Description
+								{vehicleTitlesT.description}
 							</Typography>
 							<Divider />
 						</Grid>
@@ -497,7 +497,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								Occupants
+								{vehicleTitlesT.occupants}
 							</Typography>
 							<Divider />
 						</Grid>
@@ -564,7 +564,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								Registration
+								{vehicleTitlesT.registration}
 							</Typography>
 							<Divider />
 						</Grid>
@@ -636,7 +636,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								Insurance
+								{vehicleTitlesT.insurance}
 							</Typography>
 							<Divider />
 						</Grid>
@@ -695,7 +695,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						)}
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								Legality
+								{vehicleTitlesT.legality}
 							</Typography>
 							<Divider />
 						</Grid>
