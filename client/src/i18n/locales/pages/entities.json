@@ -1,0 +1,94 @@
+{
+	"fields": {
+		"parent": {
+			"id": "Parent ID",
+			"name": "Parent Name"
+		},
+		"type": "Entity Type",
+		"person": {
+			"name": {
+				"first": "First Name",
+				"middle": "Middle Name",
+				"last": "Last Name",
+				"suffix": "Suffix"
+			},
+			"dob": "Date of Birth",
+			"age": "Age",
+			"nativeLanguage": "Native Language",
+			"identification": {
+				"ssn": "Social Security Number",
+				"passportCountry": "Passport Country",
+				"passportNumber": "Passport Number",
+				"driverLicenseState": "Driver License State",
+				"driverLicenseNumber": "Driver License Number",
+				"nationalIdNumber": "National ID Number",
+				"visaType": "Visa Type",
+				"visaExpiryDate": "Visa Expiry Date",
+				"isIllegalResident": "Is Illegal Resident",
+				"illegalStatusDescription": "Illegal Status Description"
+			},
+			"employment": {
+				"jobTitle": "Job Title",
+				"department": "Department",
+				"employeeId": "Employee ID",
+				"hireDate": "Hire Date",
+				"employmentStatus": "Employment Status"
+			}
+		},
+		"organization": {
+			"contactName": "Contact Name",
+			"legal": {
+				"legalName": "Legal Name",
+				"legalEntityType": "Legal Entity Type",
+				"legalStatus": "Legal Status",
+				"incorporationDate": "Incorporation Date",
+				"businessRegistrationNumber": "Business Registration Number"
+			}
+		},
+		"contact": {
+			"phone": "Phone Number",
+			"email": "Email Address",
+			"socialMedia": "Social Media"
+		},
+		"address": {
+			"address": "Street Address",
+			"city": "City",
+			"state": "State",
+			"zip": "Zip Code",
+			"county": "County",
+			"country": "Country"
+		}
+	},
+	"titles": {
+		"parent": "Parent Record",
+		"person": "Person",
+		"organization": "Organization",
+		"contact": "Contact",
+		"address": "Address"
+	},
+	"header": {
+		"title": {
+			"new": "New Entity",
+			"edit": "Edit Entity",
+			"all": "All Entities",
+			"single": "Entity"
+		},
+		"subtitle": {
+			"new": "Create a new entity record",
+			"edit": "Edit an existing entity record",
+			"all": "View all entity records",
+			"single": "View a single entity record"
+		},
+		"content": {
+			"total": "Total Entities"
+		}
+	},
+	"buttons": {
+		"new": "New Entity",
+		"edit": "Edit Entity",
+		"delete": "Delete Entity",
+		"save": "Save Entity",
+		"update": "Update Entity",
+		"view": "View Entity"
+	}
+}

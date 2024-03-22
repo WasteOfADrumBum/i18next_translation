@@ -1,0 +1,66 @@
+{
+	"fields": {
+		"parent": {
+			"id": "Parent ID",
+			"name": "Parent Name"
+		},
+		"make": "Make",
+		"model": "Model",
+		"year": "Year",
+		"color": "Color",
+		"vin": "VIN Number",
+		"occupants": {
+			"driver": "Driver Name",
+			"passengers": "Passenger Names"
+		},
+		"registration": {
+			"owner": "Owner Name",
+			"plateNumber": "Plate Number",
+			"expirationDate": "Expiration Date",
+			"state": "State"
+		},
+		"insurance": {
+			"policyNumber": "Policy Number",
+			"provider": "Provider",
+			"expirationDate": "Expiration Date",
+			"insured": "Insured"
+		},
+		"stolen": "Was Stolen",
+		"illegalModifications": {
+			"wasModified": "Was Modified",
+			"description": "Description"
+		}
+	},
+	"titles": {
+		"parent": "Parent Record",
+		"occupants": "Occupants",
+		"registration": "Registration",
+		"insurance": "Insurance",
+		"illegalModifications": "Illegal Modifications"
+	},
+	"header": {
+		"title": {
+			"new": "New Vehicle",
+			"edit": "Edit Vehicle",
+			"all": "All Vehicles",
+			"single": "Vehicle"
+		},
+		"subtitle": {
+			"new": "Create a new vehicle record",
+			"edit": "Edit an existing vehicle record",
+			"all": "View all vehicle records",
+			"single": "View a single vehicle record"
+		},
+		"content": {
+			"total": "Total Vehicles"
+		}
+	},
+	"buttons": {
+		"new": "New Vehicle",
+		"edit": "Edit Vehicle",
+		"delete": "Delete Vehicle",
+		"save": "Save Vehicle",
+		"update": "Update Vehicle",
+		"view": "View Vehicle"
+	}
+}

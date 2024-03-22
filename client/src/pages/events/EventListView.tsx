@@ -11,7 +11,11 @@ import { getEvents } from '../../store/actions/mongodb/eventActions'
 import { Event } from '../../store/types/EventTypes'
 import { ExtractLastFiveDigits, GetCountryAbbreviation, GetStateAbbreviation, TimeConversionsHelper } from '../../utils'
 
-const eventTableTranslations = translations.pages.events.table.labels
+const eventHeaderT = translations.pages.events.header
+const eventFieldT = translations.pages.events.fields
+const eventTitlesT = translations.pages.events.titles
+const eventButtonT = translations.pages.events.buttons
+const prepositions = translations.common.prepositions
 
 const EventListView: FC = () => {
 	const navigate = useNavigate()
@@ -29,12 +33,14 @@ const EventListView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: 'Events',
-			subheader: 'All Events',
+			header: eventHeaderT.title.all,
+			subheader: eventHeaderT.subtitle.all,
 			extraContent: (
 				<Grid container spacing={1} direction='column' alignItems='flex-start'>
 					<Grid item>
-						<Typography>Total Events: {events.length}</Typography>
+						<Typography>
+							{eventHeaderT.content.total} : {events.length}
+						</Typography>
 						<Divider />
 					</Grid>
 					{getEventStatusCounts(events).map(({ status, count }) => (
@@ -79,12 +85,12 @@ const EventListView: FC = () => {
 	const columns = [
 		{
 			id: '_id',
-			label: 'ID',
+			label: eventFieldT.id,
 			render: (data: Event) => <Typography>{data._id ? ExtractLastFiveDigits(data._id) : 'N/A'}</Typography>,
 		},
 		{
 			id: 'type',
-			label: 'Type',
+			label: eventTitlesT.type,
 			render: (data: Event) => (
 				<>
 					<Typography>{data.type ? data.type.eventType : 'N/A'}</Typography>
@@ -95,7 +101,7 @@ const EventListView: FC = () => {
 		},
 		{
 			id: 'title',
-			label: 'Title',
+			label: eventFieldT.details.title,
 			render: (data: Event) => <Typography>{data.details ? data.details.title : 'N/A'}</Typography>,
 		},
 		{
@@ -109,7 +115,7 @@ const EventListView: FC = () => {
 		},
 		{
 			id: 'location',
-			label: 'Location',
+			label: eventTitlesT.location,
 			render: (data: Event) => (
 				<Typography>
 					{data.location
@@ -122,7 +128,7 @@ const EventListView: FC = () => {
 		},
 		{
 			id: 'methodOfReceipt',
-			label: 'Method of Receipt',
+			label: eventFieldT.details.methodOfReceipt,
 			render: (data: Event) => <Typography>{data.details ? data.details.methodOfReceipt : 'N/A'}</Typography>,
 		},
 		{
@@ -130,24 +136,24 @@ const EventListView: FC = () => {
 			label: 'Dates',
 			render: (data: Event) => (
 				<Typography>
-					Reported:{' '}
+					{eventTitlesT.reported}:{' '}
 					{data.reported
 						? TimeConversionsHelper.convertTime(data.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC') +
-							' by ' +
+							` ${prepositions.by} ` +
 							(data.reported.reporter ? data.reported.reporter : 'N/A')
 						: 'N/A'}
 					<br />
-					Submitted:{' '}
+					{eventTitlesT.submitted}:{' '}
 					{data.submitted
 						? `${TimeConversionsHelper.convertTime(data.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')} by ${
 								data.submitted.submittedBy ? data.submitted.submittedBy : 'N/A'
 							}`
 						: 'N/A'}
 					<br />
-					Updated:{' '}
+					{eventTitlesT.updated}:{' '}
 					{data.updated
 						? TimeConversionsHelper.convertTime(data.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC') +
-							' by ' +
+							` ${prepositions.by} ` +
 							(data.updated.updatedBy ? data.updated.updatedBy : 'N/A')
 						: 'N/A'}
 				</Typography>
@@ -155,12 +161,12 @@ const EventListView: FC = () => {
 		},
 		{
 			id: 'status',
-			label: 'Status',
+			label: eventFieldT.status,
 			render: (data: Event) => <Typography>{data.status ? capitalize(data.status) : 'N/A'}</Typography>,
 		},
 		{
 			id: 'actions',
-			label: eventTableTranslations.actions,
+			label: translations.common.tables.actions,
 			render: (data: Event) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}
@@ -184,7 +190,7 @@ const EventListView: FC = () => {
 		<Container maxWidth='xl'>
 			<Grid container justifyContent='flex-end'>
 				<Button onClick={() => navigate('/event/create')} sx={{ margin: 1 }}>
-					<AddCircleOutline sx={{ marginRight: 1 }} /> Add Event
+					<AddCircleOutline sx={{ marginRight: 1 }} /> {eventButtonT.new}
 				</Button>
 			</Grid>
 			{loading ? (

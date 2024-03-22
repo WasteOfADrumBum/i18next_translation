@@ -1,22 +1,70 @@
 {
-	"table": {
-		"labels": {
-			"id": "ID",
-			"eventDate": "Date",
-			"eventType": "Type",
-			"eventSubtype": "Subtype",
-			"location": "Location",
-			"reporter": "Reporter",
-			"recordedDate": "Recorded Date",
-			"lastUpdatedBy": "Last Updated By",
-			"status": "Status",
-			"actions": "Actions"
+	"fields": {
+		"id": "ID",
+		"status": "Status",
+		"reported": {
+			"reporter": "Reported By",
+			"reportedDate": "Reported Date"
+		},
+		"updated": {
+			"updatedBy": "Updated By",
+			"updatedDate": "Updated Date"
+		},
+		"submitted": {
+			"submittedBy": "Submitted By",
+			"submittedDate": "Submitted Date"
+		},
+		"type": {
+			"eventType": "Event Type",
+			"eventSubType": "Event Sub Type"
+		},
+		"details": {
+			"title": "Title",
+			"description": "Description",
+			"tagging": "Tagging",
+			"methodOfReceipt": "Method of Receipt"
+		},
+		"location": {
+			"address": "Address",
+			"city": "City",
+			"zip": "Zip",
+			"country": "Country",
+			"county": "County",
+			"state": "State"
 		}
 	},
+	"titles": {
+		"reported": "Reported",
+		"updated": "Updated",
+		"submitted": "Submitted",
+		"type": "Type",
+		"details": "Details",
+		"location": "Location"
+	},
 	"header": {
-		"title": "Events",
-		"subtitle": "List of all events",
-		"total": "Total Events",
-		"status": "Status"
+		"title": {
+			"new": "New Event",
+			"edit": "Edit Event",
+			"all": "All Events",
+			"single": "Event"
+		},
+		"subtitle": {
+			"new": "Create a new event record",
+			"edit": "Edit an existing event record",
+			"all": "View all event records",
+			"single": "View a single event record"
+		},
+		"content": {
+			"total": "Total Events",
+			"status": "Status"
+		}
+	},
+	"buttons": {
+		"new": "New Event",
+		"edit": "Edit Event",
+		"delete": "Delete Event",
+		"save": "Save Event",
+		"update": "Update Event",
+		"view": "View Event"
 	}
 }

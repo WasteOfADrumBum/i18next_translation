@@ -13,5 +13,46 @@
 		"forgotPassword": "Forgot Password",
 		"resetPassword": "Reset Password",
 		"changePassword": "Change Password"
+	},
+	"tables": {
+		"actions": "Actions",
+		"view": "View",
+		"edit": "Edit",
+		"delete": "Delete"
+	},
+	"prepositions": {
+		"of": "of",
+		"for": "for",
+		"by": "by",
+		"on": "on",
+		"at": "at",
+		"in": "in",
+		"to": "to",
+		"with": "with",
+		"from": "from",
+		"about": "about",
+		"into": "into",
+		"after": "after",
+		"before": "before",
+		"under": "under",
+		"over": "over",
+		"between": "between"
+	},
+	"interrogatives": {
+		"what": "What",
+		"who": "Who",
+		"where": "Where",
+		"when": "When",
+		"why": "Why",
+		"how": "How"
+	},
+	"forms": {
+		"requiredDisclaimer": "All fields marker with an asterisk (*) are required"
+	},
+	"statusIndicator": {
+		"loading": "Loading...",
+		"success": "Success",
+		"error": "Error",
+		"notAvailable": "Not Available"
 	}
 }

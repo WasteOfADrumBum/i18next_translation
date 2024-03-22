@@ -8,6 +8,8 @@ import contact from './pages/contact.json'
 import events from './pages/events.json'
 import home from './pages/home.json'
 import user from './pages/user.json'
+import vehicles from './pages/vehicles.json'
+import entities from './pages/entities.json'
 
 /*
  * This file is used to import all the translations from the different files and export them as a single object.
@@ -25,6 +27,8 @@ const translations = {
 		events,
 		home,
 		user,
+		vehicles,
+		entities,
 	},
 }
 

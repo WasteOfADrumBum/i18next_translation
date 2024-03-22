@@ -3,9 +3,15 @@ import React, { FC, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { HeaderContext } from '../../contexts/HeaderContext'
+import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { readEvent } from '../../store/actions/mongodb/eventActions'
 import { TimeConversionsHelper } from '../../utils'
+
+const eventHeaderT = translations.pages.events.header
+const eventFieldT = translations.pages.events.fields
+const eventTitlesT = translations.pages.events.titles
+const statusIndicator = translations.common.statusIndicator
 
 const EventDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -26,14 +32,14 @@ const EventDetailsView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: 'Event Details',
-			subheader: 'Details for your primary event record',
+			header: eventHeaderT.title.single,
+			subheader: eventHeaderT.subtitle.single,
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={12}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>Event ID:</Typography>
+								<Typography variant='caption'>{eventFieldT.id}</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -48,7 +54,7 @@ const EventDetailsView: FC = () => {
 					<Grid item xs={12}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>Submitted By:</Typography>
+								<Typography variant='caption'>{eventFieldT.submitted.submittedBy}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -58,7 +64,7 @@ const EventDetailsView: FC = () => {
 						</Grid>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>Submitted Date:</Typography>
+								<Typography variant='caption'>{eventFieldT.submitted.submittedDate}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -72,7 +78,7 @@ const EventDetailsView: FC = () => {
 					<Grid item xs={12}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>Reported By:</Typography>
+								<Typography variant='caption'>{eventFieldT.reported.reporter}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -82,7 +88,7 @@ const EventDetailsView: FC = () => {
 						</Grid>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>Reported Date:</Typography>
+								<Typography variant='caption'>{eventFieldT.reported.reportedDate}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -96,7 +102,7 @@ const EventDetailsView: FC = () => {
 					<Grid item xs={12}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>Updated By:</Typography>
+								<Typography variant='caption'>{eventFieldT.updated.updatedBy}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -106,7 +112,7 @@ const EventDetailsView: FC = () => {
 						</Grid>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>Updated Date:</Typography>
+								<Typography variant='caption'>{eventFieldT.updated.updatedDate}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -126,43 +132,47 @@ const EventDetailsView: FC = () => {
 		// Clean up header data when component unmounts
 		return () => {
 			setHeaderData({
-				header: 'React MUI Template', // Default header
-				subheader: 'A template for building React applications with Material-UI', // Default subheader
-				extraContent: null, // No extra content
+				header: '',
+				subheader: '',
+				extraContent: null,
 			})
 		}
 	}, [setHeaderData, event])
 
 	return (
 		<Container maxWidth='xl'>
-			{/* Display event details */}
 			{loading ? (
-				<Typography variant='h6'>Loading...</Typography>
+				<Typography variant='h6'>{statusIndicator.loading}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
-				<Typography variant='h6'>Error: {error.toString()}</Typography>
+				<Typography variant='h6'>
+					{statusIndicator.error}: {error.toString()}
+				</Typography>
 			) : (
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
 						<Typography variant='h5' mb={1} color='primary'>
-							{event?.details?.title || 'Title not available'}
+							{event?.details?.title || eventFieldT.details.title + ' ' + statusIndicator.notAvailable}
 						</Typography>
 						<Divider />
 						<Typography variant='body1' mt={1}>
-							{event?.details?.description || 'Description not available'}
+							{event?.details?.description || eventFieldT.details.description + ' ' + statusIndicator.notAvailable}
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='subtitle1'>
-							Method of Receipt: {event?.details?.methodOfReceipt || 'Method of receipt not available'}
+							Method of Receipt:{' '}
+							{event?.details?.methodOfReceipt ||
+								eventFieldT.details.methodOfReceipt + ' ' + statusIndicator.notAvailable}
 						</Typography>
 						<Typography variant='subtitle1'>
-							Location: {event?.location?.address}, {event?.location?.city}, {event?.location?.state},{' '}
+							{eventTitlesT.location}: {event?.location?.address}, {event?.location?.city}, {event?.location?.state},{' '}
 							{event?.location?.zip}
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='subtitle1'>
-							Tags: {event?.details?.tagging?.join(', ') || 'Tags not available'}
+							{eventFieldT.details.tagging}:{' '}
+							{event?.details?.tagging?.join(', ') || eventFieldT.details.tagging + ' ' + statusIndicator.notAvailable}
 						</Typography>
 					</Grid>
 				</Grid>
