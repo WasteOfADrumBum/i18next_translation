@@ -8,6 +8,8 @@ import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { readVehicle } from '../../store/actions/mongodb/vehicleActions'
 import { TimeConversionsHelper } from '../../utils'
 
+// TODO: Add translations
+
 const VehicleDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
 	const dispatch: AppDispatch = useDispatch()

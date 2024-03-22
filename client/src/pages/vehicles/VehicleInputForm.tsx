@@ -34,6 +34,8 @@ import { createVehicle, readVehicle, updateVehicle } from '../../store/actions/m
 import { Vehicle } from '../../store/types/VehicleTypes'
 import { states, vehicleColors, vehicleMakes, vehicleModels } from '../../utils'
 
+// TODO: Add translations
+
 interface VehicleInputFormProps {
 	vehicleValues?: VehicleFormData
 }

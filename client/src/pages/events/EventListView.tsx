@@ -37,6 +37,7 @@ const EventListView: FC = () => {
 			header: eventHeaderT.title.all,
 			subheader: eventHeaderT.subtitle.all,
 			extraContent: (
+				/* TODO: Fix this formatting to match others */
 				<Grid container spacing={1} direction='column' alignItems='flex-start'>
 					<Grid item>
 						<Typography>

@@ -12,6 +12,7 @@ import { getVehicles } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
 import { ExtractLastFiveDigits, getVehiclesByEventId } from '../../utils'
 
+// TODO: Add translations
 const statusIndicatorT = translations.common.statusIndicator
 
 const VehicleListView: FC = () => {
