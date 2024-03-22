@@ -16,6 +16,7 @@ const eventFieldT = translations.pages.events.fields
 const eventTitlesT = translations.pages.events.titles
 const eventButtonT = translations.pages.events.buttons
 const prepositions = translations.common.prepositions
+const statusIndicatorT = translations.common.statusIndicator
 
 const EventListView: FC = () => {
 	const navigate = useNavigate()
@@ -86,30 +87,36 @@ const EventListView: FC = () => {
 		{
 			id: '_id',
 			label: eventFieldT.id,
-			render: (data: Event) => <Typography>{data._id ? ExtractLastFiveDigits(data._id) : 'N/A'}</Typography>,
+			render: (data: Event) => (
+				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : statusIndicatorT.na}</Typography>
+			),
 		},
 		{
 			id: 'type',
 			label: eventTitlesT.type,
 			render: (data: Event) => (
 				<>
-					<Typography>{data.type ? data.type.eventType : 'N/A'}</Typography>
+					<Typography>{data.type ? data.type.eventType : statusIndicatorT.na}</Typography>
 					<Divider />
-					<Typography>{data.type ? data.type.eventSubType : 'N/A'}</Typography>
+					<Typography>{data.type ? data.type.eventSubType : statusIndicatorT.na}</Typography>
 				</>
 			),
 		},
 		{
 			id: 'title',
 			label: eventFieldT.details.title,
-			render: (data: Event) => <Typography>{data.details ? data.details.title : 'N/A'}</Typography>,
+			render: (data: Event) => <Typography>{data.details ? data.details.title : statusIndicatorT.na}</Typography>,
 		},
 		{
 			id: 'tagging',
 			label: 'Tagging',
 			render: (data: Event) => (
 				<Typography>
-					{data.details ? (data.details.tagging ? data.details.tagging.join(', ') : 'N/A') : 'N/A'}
+					{data.details
+						? data.details.tagging
+							? data.details.tagging.join(', ')
+							: statusIndicatorT.na
+						: statusIndicatorT.na}
 				</Typography>
 			),
 		},
@@ -122,14 +129,16 @@ const EventListView: FC = () => {
 						? `${data.location.city}, ${GetStateAbbreviation(data.location.state)}, ${GetCountryAbbreviation(
 								data.location.country,
 							)}`
-						: 'N/A'}
+						: statusIndicatorT.na}
 				</Typography>
 			),
 		},
 		{
 			id: 'methodOfReceipt',
 			label: eventFieldT.details.methodOfReceipt,
-			render: (data: Event) => <Typography>{data.details ? data.details.methodOfReceipt : 'N/A'}</Typography>,
+			render: (data: Event) => (
+				<Typography>{data.details ? data.details.methodOfReceipt : statusIndicatorT.na}</Typography>
+			),
 		},
 		{
 			id: 'Dates',
@@ -140,29 +149,29 @@ const EventListView: FC = () => {
 					{data.reported
 						? TimeConversionsHelper.convertTime(data.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC') +
 							` ${prepositions.by} ` +
-							(data.reported.reporter ? data.reported.reporter : 'N/A')
-						: 'N/A'}
+							(data.reported.reporter ? data.reported.reporter : statusIndicatorT.na)
+						: statusIndicatorT.na}
 					<br />
 					{eventTitlesT.submitted}:{' '}
 					{data.submitted
 						? `${TimeConversionsHelper.convertTime(data.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')} by ${
-								data.submitted.submittedBy ? data.submitted.submittedBy : 'N/A'
+								data.submitted.submittedBy ? data.submitted.submittedBy : statusIndicatorT.na
 							}`
-						: 'N/A'}
+						: statusIndicatorT.na}
 					<br />
 					{eventTitlesT.updated}:{' '}
 					{data.updated
 						? TimeConversionsHelper.convertTime(data.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC') +
 							` ${prepositions.by} ` +
-							(data.updated.updatedBy ? data.updated.updatedBy : 'N/A')
-						: 'N/A'}
+							(data.updated.updatedBy ? data.updated.updatedBy : statusIndicatorT.na)
+						: statusIndicatorT.na}
 				</Typography>
 			),
 		},
 		{
 			id: 'status',
 			label: eventFieldT.status,
-			render: (data: Event) => <Typography>{data.status ? capitalize(data.status) : 'N/A'}</Typography>,
+			render: (data: Event) => <Typography>{data.status ? capitalize(data.status) : statusIndicatorT.na}</Typography>,
 		},
 		{
 			id: 'actions',

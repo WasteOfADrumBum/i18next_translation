@@ -53,6 +53,11 @@
 		"loading": "Loading...",
 		"success": "Success",
 		"error": "Error",
-		"notAvailable": "Not Available"
+		"notAvailable": "Not Available",
+		"na": "N/A",
+		"expired": "Expired",
+		"expires": "Expires",
+		"invalid": "Invalid",
+		"required": "Required"
 	}
 }

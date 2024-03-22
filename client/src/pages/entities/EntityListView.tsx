@@ -5,10 +5,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ActionsMenu, DynamicDataTable } from '../../components'
 import { HeaderContext } from '../../contexts/HeaderContext'
+import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { Entity } from '../../store/types/EntityTypes'
 import { ExtractLastFiveDigits, GetCountryAbbreviation, getEntitiesByEventId, GetStateAbbreviation } from '../../utils'
+
+const entityHeaderT = translations.pages.entities.header
+const entityFieldT = translations.pages.entities.fields
+const entityTitlesT = translations.pages.entities.titles
+const entityButtonT = translations.pages.entities.buttons
+const statusIndicatorT = translations.common.statusIndicator
 
 const EntityListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -30,14 +37,14 @@ const EntityListView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: 'Entities',
-			subheader: 'Entities associated with your primary event record',
+			header: entityHeaderT.title.all,
+			subheader: entityHeaderT.subtitle.all,
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={12}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>Event ID:</Typography>
+								<Typography variant='caption'>{entityFieldT.parent.id}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -50,7 +57,9 @@ const EntityListView: FC = () => {
 						</Grid>
 					</Grid>
 					<Grid item>
-						<Typography variant='caption'>Total Entities: {entities.length}</Typography>
+						<Typography variant='caption'>
+							{entityHeaderT.content.total}: {entities.length}
+						</Typography>
 					</Grid>
 				</Grid>
 			),
@@ -61,9 +70,9 @@ const EntityListView: FC = () => {
 		// Clean up header data when component unmounts
 		return () => {
 			setHeaderData({
-				header: 'React MUI Template', // Default header
-				subheader: 'A template for building React applications with Material-UI', // Default subheader
-				extraContent: null, // No extra content
+				header: '',
+				subheader: '',
+				extraContent: null,
 			})
 		}
 	}, [setHeaderData, entities.length])
@@ -88,17 +97,19 @@ const EntityListView: FC = () => {
 	const columns = [
 		{
 			id: '_id',
-			label: 'ID',
-			render: (data: Entity) => <Typography>{data._id ? ExtractLastFiveDigits(data._id) : 'N/A'}</Typography>,
+			label: entityFieldT.id,
+			render: (data: Entity) => (
+				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : statusIndicatorT.na}</Typography>
+			),
 		},
 		{
 			id: 'type',
-			label: 'Type',
-			render: (data: Entity) => <Typography>{capitalize(data.type || 'N/A')}</Typography>,
+			label: entityFieldT.type,
+			render: (data: Entity) => <Typography>{capitalize(data.type || statusIndicatorT.na)}</Typography>,
 		},
 		{
 			id: 'name',
-			label: 'Name',
+			label: entityTitlesT.name,
 			render: (data: Entity) => {
 				let name = ''
 				if (data.type === 'Person') {
@@ -107,29 +118,29 @@ const EntityListView: FC = () => {
 				} else if (data.type === 'Organization') {
 					const { contactName } = data.organization
 					const { legalName } = data.organization.legal
-					name = `${legalName || ''} (${contactName || ''})`.trim() || 'N/A'
+					name = `${legalName || ''} (${contactName || ''})`.trim() || statusIndicatorT.na
 				} else {
-					name = 'N/A'
+					name = statusIndicatorT.na
 				}
 				return <Typography>{name}</Typography>
 			},
 		},
 		{
 			id: 'location',
-			label: 'Location',
+			label: entityTitlesT.location,
 			render: (data: Entity) => (
 				<Typography>
 					{data.address
-						? `${data.address.city}, ${GetStateAbbreviation(data.address.state || 'N/A')}, ${GetCountryAbbreviation(
-								data.address.country || 'N/A',
+						? `${data.address.city}, ${GetStateAbbreviation(data.address.state || statusIndicatorT.na)}, ${GetCountryAbbreviation(
+								data.address.country || statusIndicatorT.na,
 							)}`
-						: 'N/A'}
+						: statusIndicatorT.na}
 				</Typography>
 			),
 		},
 		{
 			id: 'actions',
-			label: 'Actions',
+			label: translations.common.tables.actions,
 			render: (data: Entity) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}
@@ -144,13 +155,15 @@ const EntityListView: FC = () => {
 		<Container maxWidth='xl'>
 			<Grid container justifyContent='flex-end'>
 				<Button onClick={() => navigate(`create`)} sx={{ margin: 1 }}>
-					<AddCircleOutline sx={{ marginRight: 1 }} /> Add Entity
+					<AddCircleOutline sx={{ marginRight: 1 }} /> {entityButtonT.new}
 				</Button>
 			</Grid>
 			{loading ? (
-				<Typography variant='h6'>Loading...</Typography>
+				<Typography variant='h6'>{statusIndicatorT.loading}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
-				<Typography variant='h6'>Error: {error.toString()}</Typography>
+				<Typography variant='h6'>
+					{statusIndicatorT.error}: {error.toString()}
+				</Typography>
 			) : (
 				<DynamicDataTable
 					data={eventEntities}

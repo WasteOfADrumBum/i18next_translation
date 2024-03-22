@@ -1,5 +1,6 @@
 {
 	"fields": {
+		"id": "ID",
 		"parent": {
 			"id": "Parent ID",
 			"name": "Parent Name"
@@ -55,16 +56,24 @@
 			"city": "City",
 			"state": "State",
 			"zip": "Zip Code",
+			"zipNan": "Zip code must be a number",
 			"county": "County",
 			"country": "Country"
 		}
 	},
 	"titles": {
+		"information": "Information",
 		"parent": "Parent Record",
 		"person": "Person",
+		"name": "Name",
+		"identification": "Identification",
+		"passport": "Passport",
+		"driverLicense": "Driver License",
+		"employment": "Employment",
 		"organization": "Organization",
-		"contact": "Contact",
-		"address": "Address"
+		"legal": "Legal",
+		"contact": "Contact Information",
+		"location": "Location"
 	},
 	"header": {
 		"title": {

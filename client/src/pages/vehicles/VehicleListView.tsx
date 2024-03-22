@@ -5,11 +5,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ActionsMenu, DynamicDataTable } from '../../components'
 import { HeaderContext } from '../../contexts/HeaderContext'
+import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { getVehicles } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
 import { ExtractLastFiveDigits, getVehiclesByEventId } from '../../utils'
+
+const statusIndicatorT = translations.common.statusIndicator
 
 const VehicleListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -49,7 +52,7 @@ const VehicleListView: FC = () => {
 				}
 			}
 		}
-		return 'N/A'
+		return statusIndicatorT.na
 	}
 
 	// Make a new array of vehicles that are associated with the current event
@@ -125,7 +128,9 @@ const VehicleListView: FC = () => {
 		{
 			id: '_id',
 			label: 'ID',
-			render: (data: Vehicle) => <Typography>{data._id ? ExtractLastFiveDigits(data._id) : 'N/A'}</Typography>,
+			render: (data: Vehicle) => (
+				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : statusIndicatorT.na}</Typography>
+			),
 		},
 		{
 			id: 'description',
@@ -141,7 +146,7 @@ const VehicleListView: FC = () => {
 			id: 'driver',
 			label: 'Driver',
 			render: (data: Vehicle) => (
-				<Typography>{data.occupants.driver ? getEntityName(data.occupants.driver) : 'N/A'} </Typography>
+				<Typography>{data.occupants.driver ? getEntityName(data.occupants.driver) : statusIndicatorT.na} </Typography>
 			),
 		},
 		{
@@ -151,7 +156,7 @@ const VehicleListView: FC = () => {
 				<Typography>
 					{data.occupants.passengers
 						? data.occupants.passengers.map((passengerId) => getEntityName(passengerId)).join(', ')
-						: 'N/A'}
+						: statusIndicatorT.na}
 				</Typography>
 			),
 		},

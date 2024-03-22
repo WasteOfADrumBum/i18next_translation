@@ -11,7 +11,7 @@ import { TimeConversionsHelper } from '../../utils'
 const eventHeaderT = translations.pages.events.header
 const eventFieldT = translations.pages.events.fields
 const eventTitlesT = translations.pages.events.titles
-const statusIndicator = translations.common.statusIndicator
+const statusIndicatorT = translations.common.statusIndicator
 
 const EventDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -70,7 +70,7 @@ const EventDetailsView: FC = () => {
 								<Typography variant='caption' color='primary'>
 									{event?.submitted?.submittedDate
 										? TimeConversionsHelper.convertTime(event?.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')
-										: 'N/A'}
+										: statusIndicatorT.na}
 								</Typography>
 							</Grid>
 						</Grid>
@@ -94,7 +94,7 @@ const EventDetailsView: FC = () => {
 								<Typography variant='caption' color='primary'>
 									{event?.reported?.reportedDate
 										? TimeConversionsHelper.convertTime(event?.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC')
-										: 'N/A'}
+										: statusIndicatorT.na}
 								</Typography>
 							</Grid>
 						</Grid>
@@ -118,7 +118,7 @@ const EventDetailsView: FC = () => {
 								<Typography variant='caption' color='primary'>
 									{event?.updated?.updatedDate
 										? TimeConversionsHelper.convertTime(event?.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC')
-										: 'N/A'}
+										: statusIndicatorT.na}
 								</Typography>
 							</Grid>
 						</Grid>
@@ -142,27 +142,27 @@ const EventDetailsView: FC = () => {
 	return (
 		<Container maxWidth='xl'>
 			{loading ? (
-				<Typography variant='h6'>{statusIndicator.loading}</Typography>
+				<Typography variant='h6'>{statusIndicatorT.loading}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
 				<Typography variant='h6'>
-					{statusIndicator.error}: {error.toString()}
+					{statusIndicatorT.error}: {error.toString()}
 				</Typography>
 			) : (
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
 						<Typography variant='h5' mb={1} color='primary'>
-							{event?.details?.title || eventFieldT.details.title + ' ' + statusIndicator.notAvailable}
+							{event?.details?.title || eventFieldT.details.title + ' ' + statusIndicatorT.notAvailable}
 						</Typography>
 						<Divider />
 						<Typography variant='body1' mt={1}>
-							{event?.details?.description || eventFieldT.details.description + ' ' + statusIndicator.notAvailable}
+							{event?.details?.description || eventFieldT.details.description + ' ' + statusIndicatorT.notAvailable}
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='subtitle1'>
 							Method of Receipt:{' '}
 							{event?.details?.methodOfReceipt ||
-								eventFieldT.details.methodOfReceipt + ' ' + statusIndicator.notAvailable}
+								eventFieldT.details.methodOfReceipt + ' ' + statusIndicatorT.notAvailable}
 						</Typography>
 						<Typography variant='subtitle1'>
 							{eventTitlesT.location}: {event?.location?.address}, {event?.location?.city}, {event?.location?.state},{' '}
@@ -172,7 +172,7 @@ const EventDetailsView: FC = () => {
 					<Grid item xs={12}>
 						<Typography variant='subtitle1'>
 							{eventFieldT.details.tagging}:{' '}
-							{event?.details?.tagging?.join(', ') || eventFieldT.details.tagging + ' ' + statusIndicator.notAvailable}
+							{event?.details?.tagging?.join(', ') || eventFieldT.details.tagging + ' ' + statusIndicatorT.notAvailable}
 						</Typography>
 					</Grid>
 				</Grid>

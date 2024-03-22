@@ -3,9 +3,15 @@ import React, { FC, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { HeaderContext } from '../../contexts/HeaderContext'
+import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { readEntity } from '../../store/actions/mongodb/entityActions'
-import { GetCountryAbbreviation, GetStateAbbreviation } from '../../utils'
+import { GetCountryAbbreviation, GetStateAbbreviation, TimeConversionsHelper } from '../../utils'
+
+const entityHeaderT = translations.pages.entities.header
+const entityFieldT = translations.pages.entities.fields
+const entityTitlesT = translations.pages.entities.titles
+const statusIndicatorT = translations.common.statusIndicator
 
 const EntityDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -26,14 +32,14 @@ const EntityDetailsView: FC = () => {
 	// Update header data when component mounts
 	useEffect(() => {
 		setHeaderData({
-			header: 'Entity Details',
-			subheader: 'Details for your entity record',
+			header: entityHeaderT.title.single,
+			subheader: entityHeaderT.subtitle.single,
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={12}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>Entity ID:</Typography>
+								<Typography variant='caption'>{entityFieldT.id}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -48,7 +54,7 @@ const EntityDetailsView: FC = () => {
 					<Grid item xs={12}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>Entity Type:</Typography>
+								<Typography variant='caption'>{entityFieldT.type}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -66,8 +72,8 @@ const EntityDetailsView: FC = () => {
 		// Clean up header data when component unmounts
 		return () => {
 			setHeaderData({
-				header: 'React MUI Template',
-				subheader: 'A template for building React applications with Material-UI',
+				header: '',
+				subheader: '',
 				extraContent: null,
 			})
 		}
@@ -78,15 +84,17 @@ const EntityDetailsView: FC = () => {
 		<Container maxWidth='xl'>
 			{/* Display event details */}
 			{loading ? (
-				<Typography variant='h6'>Loading...</Typography>
+				<Typography variant='h6'>{statusIndicatorT.loading}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
-				<Typography variant='h6'>Error: {error.toString()}</Typography>
+				<Typography variant='h6'>
+					{statusIndicatorT.error}: {error.toString()}
+				</Typography>
 			) : (
 				<Grid container spacing={2}>
 					{/* Entity Information */}
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							Entity Information
+							{entityTitlesT.identification}
 						</Typography>
 						<Divider />
 					</Grid>
@@ -94,7 +102,7 @@ const EntityDetailsView: FC = () => {
 						<>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Name
+									{entityTitlesT.name}
 								</Typography>
 								<Typography variant='body2'>
 									{entity?.person.name.first && `${entity?.person.name.first}`}
@@ -105,135 +113,150 @@ const EntityDetailsView: FC = () => {
 							</Grid>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									DOB/Age
+									{entityFieldT.person.dob} ({entityFieldT.person.age})
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.person.dob && `${new Date(entity?.person.dob).toLocaleDateString()}`}
-									{entity?.person.age && ` (${entity?.person.age})`}
+									{entity?.person.dob
+										? TimeConversionsHelper.convertTime(entity?.person.dob, 'MM/DD/YYYY', false, 'UTC')
+										: entityFieldT.person.dob + ' ' + statusIndicatorT.notAvailable}
+									{entity?.person.age || entityFieldT.person.age + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Native Language
+									{entityFieldT.person.nativeLanguage}
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.person.nativeLanguage || 'No native language provided.'}
+									{entity?.person.nativeLanguage ||
+										entityFieldT.person.nativeLanguage + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 							<Grid item xs={12}>
 								<Typography variant='h4' color={'primary'} mb={1}>
-									Identification
+									{entityTitlesT.identification}
 								</Typography>
 								<Divider />
 							</Grid>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									SSN
+									{entityFieldT.person.identification.ssn}
 								</Typography>
-								<Typography variant='body2'>{entity?.person.identification.ssn || 'No SSN provided.'}</Typography>
+								<Typography variant='body2'>
+									{entity?.person.identification.ssn ||
+										entityFieldT.person.identification.ssn + ' ' + statusIndicatorT.notAvailable}
+								</Typography>
 							</Grid>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Passport Number
+									{entityTitlesT.passport}
 								</Typography>
 								<Typography variant='body2'>
 									{entity?.person.identification.passportCountry &&
 										GetCountryAbbreviation(entity?.person.identification.passportCountry) + ' '}
-									{entity?.person.identification.passportNumber || 'No passport number provided.'}
+									{entity?.person.identification.passportNumber ||
+										entityFieldT.person.identification.passportNumber + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Driver License Number
+									{entityTitlesT.driverLicense}
 								</Typography>
 								<Typography variant='body2'>
 									{entity?.person.identification.driverLicenseState &&
 										GetStateAbbreviation(entity?.person.identification.driverLicenseState) + ' '}
-									{entity?.person.identification.driverLicenseNumber || 'No driver license number provided.'}
+									{entity?.person.identification.driverLicenseNumber ||
+										entityFieldT.person.identification.driverLicenseNumber + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									National ID Number
+									{entityFieldT.person.identification.nationalIdNumber}
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.person.identification.nationalIdNumber || 'No national ID number provided.'}
+									{entity?.person.identification.nationalIdNumber ||
+										entityFieldT.person.identification.nationalIdNumber + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Visa Type
+									{entityFieldT.person.identification.visaType}
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.person.identification.visaType || 'No visa provided.'}
+									{entity?.person.identification.visaType ||
+										entityFieldT.person.identification.visaType + ' ' + statusIndicatorT.notAvailable}
 									{entity?.person.identification.visaType &&
 										entity?.person.identification.visaExpiryDate &&
-										` (Expires: ${new Date(entity?.person.identification.visaExpiryDate).toLocaleDateString()})`}
+										` (${statusIndicatorT.expires}: ${TimeConversionsHelper.convertTime(entity?.person.identification.visaExpiryDate, 'MM/DD/YYYY', false, 'UTC')})`}
 								</Typography>
 							</Grid>
 							{(entity?.person.identification.isIllegalResident && (
 								<Grid item xs={3}>
 									<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-										Illegal Status Description
+										{entityFieldT.person.identification.isIllegalResident}
 									</Typography>
 									<Typography variant='body2'>
 										{entity?.person.identification.illegalStatusDescription ||
-											'No illegal status description provided.'}
+											entityFieldT.person.identification.illegalStatusDescription + ' ' + statusIndicatorT.notAvailable}
 									</Typography>
 								</Grid>
 							)) || (
 								<Grid item xs={3}>
 									<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-										Legal Resident
+										{entityFieldT.person.identification.isIllegalResident}
 									</Typography>
 									<Typography variant='body2'>Yes</Typography>
 								</Grid>
 							)}
 							<Grid item xs={12}>
 								<Typography variant='h4' color={'primary'} mb={1}>
-									Employment
+									{entityTitlesT.employment}
 								</Typography>
 								<Divider />
 							</Grid>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Job Title
+									{entityFieldT.person.employment.jobTitle}
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.person.employment.jobTitle || 'No job title provided.'}
+									{entity?.person.employment.jobTitle ||
+										entityFieldT.person.employment.jobTitle + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Department
+									{entityFieldT.person.employment.department}
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.person.employment.department || 'No department provided.'}
+									{entity?.person.employment.department ||
+										entityFieldT.person.employment.department + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Employee ID
+									{entityFieldT.person.employment.employeeId}
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.person.employment.employeeId || 'No employee ID provided.'}
+									{entity?.person.employment.employeeId ||
+										entityFieldT.person.employment.employeeId + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Hire Date
+									{entityFieldT.person.employment.hireDate}
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.person.employment.hireDate &&
-										`${new Date(entity?.person.employment.hireDate).toLocaleDateString()}`}
+									{entity?.person.employment.hireDate
+										? TimeConversionsHelper.convertTime(entity?.person.employment.hireDate, 'MM/DD/YYYY', false, 'UTC')
+										: entityFieldT.person.employment.hireDate + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 							<Grid item xs={3}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Employment Status
+									{entityFieldT.person.employment.employmentStatus}
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.person.employment.employmentStatus || 'No employment status provided.'}
+									{entity?.person.employment.employmentStatus ||
+										entityFieldT.person.employment.employmentStatus + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 						</>
@@ -242,40 +265,53 @@ const EntityDetailsView: FC = () => {
 						<>
 							<Grid item xs={6}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Legal Name
+									{entityFieldT.organization.legal.legalName}
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.organization.legal.legalName || 'No legal name provided.'}
+									{entity?.organization.legal.legalName ||
+										entityFieldT.organization.legal.legalName + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Legal Entity Type
+									{entityFieldT.organization.legal.legalEntityType}
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.organization.legal.legalEntityType || 'No legal entity type provided.'}
+									{entity?.organization.legal.legalEntityType ||
+										entityFieldT.organization.legal.legalEntityType + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Legal Status
+									{entityFieldT.organization.legal.legalStatus}
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.organization.legal.legalStatus || 'No legal status provided.'}
+									{entity?.organization.legal.legalStatus ||
+										entityFieldT.organization.legal.legalStatus + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Incorporation Date
+									{entityFieldT.organization.legal.incorporationDate}
 								</Typography>
-								<Typography variant='body2'></Typography>
+								<Typography variant='body2'>
+									{entity?.organization.legal.incorporationDate
+										? TimeConversionsHelper.convertTime(
+												entity?.organization.legal.incorporationDate,
+												'MM/DD/YYYY',
+												false,
+												'UTC',
+											)
+										: entityFieldT.organization.legal.incorporationDate + ' ' + statusIndicatorT.notAvailable}
+								</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-									Business Registration Number
+									{entityFieldT.organization.legal.businessRegistrationNumber}
 								</Typography>
 								<Typography variant='body2'>
-									{entity?.organization.legal.businessRegistrationNumber || 'No business registration number provided.'}
+									{entity?.organization.legal.businessRegistrationNumber ||
+										entityFieldT.organization.legal.businessRegistrationNumber + ' ' + statusIndicatorT.notAvailable}
 								</Typography>
 							</Grid>
 						</>
@@ -283,40 +319,49 @@ const EntityDetailsView: FC = () => {
 					{/* Contact Information */}
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							Contact Information
+							{entityTitlesT.contact}
 						</Typography>
 						<Divider />
 					</Grid>
 					{entity?.type === 'Organization' && (
 						<Grid item xs={12}>
 							<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-								Contact Name
+								{entityFieldT.organization.contactName}
 							</Typography>
-							<Typography variant='body2'>{entity?.organization.contactName || 'No contact name provided.'}</Typography>
+							<Typography variant='body2'>
+								{entity?.organization.contactName ||
+									entityFieldT.organization.contactName + ' ' + statusIndicatorT.notAvailable}
+							</Typography>
 						</Grid>
 					)}
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Phone
+							{entityFieldT.contact.phone}
 						</Typography>
-						<Typography variant='body2'>{entity?.contact.phone || 'No phone provided.'}</Typography>
+						<Typography variant='body2'>
+							{entity?.contact.phone || entityFieldT.contact.phone + ' ' + statusIndicatorT.notAvailable}
+						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Email
+							{entityFieldT.contact.email}
 						</Typography>
-						<Typography variant='body2'>{entity?.contact.email || 'No email provided.'}</Typography>
+						<Typography variant='body2'>
+							{entity?.contact.email || entityFieldT.contact.email + ' ' + statusIndicatorT.notAvailable}
+						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							Social Media
+							{entityFieldT.contact.socialMedia}
 						</Typography>
-						<Typography variant='body2'>{entity?.contact.socialMedia || 'No social media provided.'}</Typography>
+						<Typography variant='body2'>
+							{entity?.contact.socialMedia || entityFieldT.contact.socialMedia + ' ' + statusIndicatorT.notAvailable}
+						</Typography>
 					</Grid>
 					{/* Address */}
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							Address
+							{entityTitlesT.location}
 						</Typography>
 						<Divider />
 					</Grid>
@@ -329,7 +374,7 @@ const EntityDetailsView: FC = () => {
 						</Typography>
 						<Typography variant='body2'>
 							{GetCountryAbbreviation(entity?.address.country || '')}{' '}
-							{entity?.address.county && `(${entity?.address.county} County)`}
+							{entity?.address.county && `(${entity?.address.county} ${entityFieldT.address.county})`}
 						</Typography>
 						<Typography variant='body2'></Typography>
 					</Grid>

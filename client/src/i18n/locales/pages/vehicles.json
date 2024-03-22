@@ -1,5 +1,6 @@
 {
 	"fields": {
+		"id": "ID",
 		"parent": {
 			"id": "Parent ID",
 			"name": "Parent Name"

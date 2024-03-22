@@ -36,7 +36,6 @@ const eventHeaderT = translations.pages.events.header
 const eventFieldT = translations.pages.events.fields
 const eventButtonT = translations.pages.events.buttons
 const interrogatives = translations.common.interrogatives
-const requiredDisclaimer = translations.common.forms.requiredDisclaimer
 const statusIndicator = translations.common.statusIndicator
 const commonButton = translations.common.buttons
 
@@ -91,7 +90,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 			extraContent: (
 				<Grid container spacing={0}>
 					<Grid item xs={12}>
-						<Typography variant='caption'>{requiredDisclaimer}</Typography>
+						<Typography variant='caption'>{translations.common.forms.requiredDisclaimer}</Typography>
 					</Grid>
 				</Grid>
 			),
