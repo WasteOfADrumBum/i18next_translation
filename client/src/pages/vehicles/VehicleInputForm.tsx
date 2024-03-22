@@ -536,6 +536,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 													<Chip
 														key={value}
 														label={`${selectedPerson?.person.name.first} ${selectedPerson?.person.name.last}`}
+														sx={{ marginRight: 1 }}
 													/>
 												)
 											})}

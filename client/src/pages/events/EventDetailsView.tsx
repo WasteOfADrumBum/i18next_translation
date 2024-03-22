@@ -36,92 +36,52 @@ const EventDetailsView: FC = () => {
 			subheader: eventHeaderT.subtitle.single,
 			extraContent: (
 				<Grid container spacing={1}>
-					<Grid item xs={12}>
-						<Grid container spacing={1}>
-							<Grid item xs={6}>
-								<Typography variant='caption'>{eventFieldT.id}</Typography>
-							</Grid>
-							<Grid item xs={6}>
-								<Typography variant='caption' color='primary'>
-									{event?._id}
-								</Typography>
-							</Grid>
-							<Grid item xs={12}>
-								<Divider />
-							</Grid>
-						</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption'>{eventFieldT.id}:</Typography>
+					</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption' color='primary'>
+							{event?._id}
+						</Typography>
 					</Grid>
 					<Grid item xs={12}>
-						<Grid container spacing={1}>
-							<Grid item xs={6}>
-								<Typography variant='caption'>{eventFieldT.submitted.submittedBy}:</Typography>
-							</Grid>
-							<Grid item xs={6}>
-								<Typography variant='caption' color='primary'>
-									{event?.submitted?.submittedBy}
-								</Typography>
-							</Grid>
-						</Grid>
-						<Grid container spacing={1}>
-							<Grid item xs={6}>
-								<Typography variant='caption'>{eventFieldT.submitted.submittedDate}:</Typography>
-							</Grid>
-							<Grid item xs={6}>
-								<Typography variant='caption' color='primary'>
-									{event?.submitted?.submittedDate
-										? TimeConversionsHelper.convertTime(event?.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')
-										: statusIndicatorT.na}
-								</Typography>
-							</Grid>
-						</Grid>
+						<Divider />
 					</Grid>
-					<Grid item xs={12}>
-						<Grid container spacing={1}>
-							<Grid item xs={6}>
-								<Typography variant='caption'>{eventFieldT.reported.reporter}:</Typography>
-							</Grid>
-							<Grid item xs={6}>
-								<Typography variant='caption' color='primary'>
-									{event?.reported?.reporter}
-								</Typography>
-							</Grid>
-						</Grid>
-						<Grid container spacing={1}>
-							<Grid item xs={6}>
-								<Typography variant='caption'>{eventFieldT.reported.reportedDate}:</Typography>
-							</Grid>
-							<Grid item xs={6}>
-								<Typography variant='caption' color='primary'>
-									{event?.reported?.reportedDate
-										? TimeConversionsHelper.convertTime(event?.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC')
-										: statusIndicatorT.na}
-								</Typography>
-							</Grid>
-						</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption'>{eventTitlesT.submitted}:</Typography>
 					</Grid>
-					<Grid item xs={12}>
-						<Grid container spacing={1}>
-							<Grid item xs={6}>
-								<Typography variant='caption'>{eventFieldT.updated.updatedBy}:</Typography>
-							</Grid>
-							<Grid item xs={6}>
-								<Typography variant='caption' color='primary'>
-									{event?.updated?.updatedBy}
-								</Typography>
-							</Grid>
-						</Grid>
-						<Grid container spacing={1}>
-							<Grid item xs={6}>
-								<Typography variant='caption'>{eventFieldT.updated.updatedDate}:</Typography>
-							</Grid>
-							<Grid item xs={6}>
-								<Typography variant='caption' color='primary'>
-									{event?.updated?.updatedDate
-										? TimeConversionsHelper.convertTime(event?.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC')
-										: statusIndicatorT.na}
-								</Typography>
-							</Grid>
-						</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption' color='primary'>
+							{event?.submitted?.submittedDate
+								? TimeConversionsHelper.convertTime(event?.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')
+								: eventFieldT.submitted.submittedDate + ' ' + statusIndicatorT.na}{' '}
+							{translations.common.prepositions.by}{' '}
+							{event?.submitted?.submittedBy || eventFieldT.submitted.submittedBy + ' ' + statusIndicatorT.na}
+						</Typography>
+					</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption'>{eventTitlesT.reported}:</Typography>
+					</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption' color='primary'>
+							{event?.reported?.reportedDate
+								? TimeConversionsHelper.convertTime(event?.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC')
+								: eventFieldT.reported.reportedDate + ' ' + statusIndicatorT.na}{' '}
+							{translations.common.prepositions.by}{' '}
+							{event?.reported?.reporter || eventFieldT.reported.reporter + ' ' + statusIndicatorT.na}
+						</Typography>
+					</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption'>{eventTitlesT.updated}:</Typography>
+					</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption' color='primary'>
+							{event?.updated?.updatedDate
+								? TimeConversionsHelper.convertTime(event?.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC')
+								: eventFieldT.updated.updatedDate + ' ' + statusIndicatorT.na}{' '}
+							{translations.common.prepositions.by}{' '}
+							{event?.updated?.updatedBy || eventFieldT.updated.updatedBy + ' ' + statusIndicatorT.na}
+						</Typography>
 					</Grid>
 				</Grid>
 			),

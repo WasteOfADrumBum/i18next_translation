@@ -55,7 +55,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		reporter: eventValues?.reporter || '',
 		reportedDate: eventValues?.reportedDate || new Date(),
 		updatedBy: eventValues?.updatedBy || '',
-		updatedDate: eventValues?.updatedDate || new Date(),
+		updatedDate: new Date(),
 		submittedBy: eventValues?.submittedBy || '',
 		submittedDate: eventValues?.submittedDate || new Date(),
 		eventType: eventValues?.eventType || '',
@@ -117,7 +117,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 				reporter: event.reported.reporter,
 				reportedDate: event.reported.reportedDate,
 				updatedBy: event.updated.updatedBy,
-				updatedDate: event.updated.updatedDate,
+				updatedDate: new Date(), // Set updatedDate to current date
 				submittedBy: event.submitted.submittedBy,
 				submittedDate: event.submitted.submittedDate,
 				eventType: event.type.eventType,
@@ -324,6 +324,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 							/>
 						</Grid>
 						<Grid item xs={6}>
+							{/* Updated by field is disabled and set to the current user */}
 							<TextField
 								required
 								name='updatedBy'
@@ -342,6 +343,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								value={dayjs(formData.updatedDate)}
 								onChange={(date) => handleFormDateChange(date, 'updatedDate')}
 								disableFuture
+								disabled
 								slotProps={{
 									textField: {
 										required: true,
@@ -410,7 +412,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									renderValue={(selected) => (
 										<div>
 											{selected.map((value) => (
-												<Chip key={value} label={value} sx={{ marginRight: 5 }} />
+												<Chip key={value} label={value} sx={{ marginRight: 1 }} />
 											))}
 										</div>
 									)}>

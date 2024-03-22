@@ -65,25 +65,28 @@ const VehicleListView: FC = () => {
 			subheader: 'Vehicles associated with your primary event record',
 			extraContent: (
 				<Grid container spacing={1}>
+					<Grid item xs={6}>
+						<Typography variant='caption'>Event ID:</Typography>
+					</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption' color='primary'>
+							{eventId}
+						</Typography>
+					</Grid>
 					<Grid item xs={12}>
-						<Grid container spacing={1}>
-							<Grid item xs={6}>
-								<Typography variant='caption'>Event ID:</Typography>
-							</Grid>
-							<Grid item xs={6}>
-								<Typography variant='caption' color='primary'>
-									{eventId}
-								</Typography>
-							</Grid>
-							<Grid item xs={12}>
-								<Divider />
-							</Grid>
-						</Grid>
+						<Divider />
 					</Grid>
 					{entities.length > 0 ? (
-						<Grid item>
-							<Typography variant='caption'>Total Vehicles: {vehicles.length}</Typography>
-						</Grid>
+						<>
+							<Grid item xs={6}>
+								<Typography variant='caption'>Total Vehicles:</Typography>
+							</Grid>
+							<Grid item xs={6}>
+								<Typography variant='caption' color={'primary'}>
+									{vehicles.length}
+								</Typography>
+							</Grid>
+						</>
 					) : (
 						<Grid item xs={12}>
 							<Typography variant='caption' color={'secondary'}>

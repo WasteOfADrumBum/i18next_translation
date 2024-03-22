@@ -41,24 +41,23 @@ const EntityListView: FC = () => {
 			subheader: entityHeaderT.subtitle.all,
 			extraContent: (
 				<Grid container spacing={1}>
-					<Grid item xs={12}>
-						<Grid container spacing={1}>
-							<Grid item xs={6}>
-								<Typography variant='caption'>{entityFieldT.parent.id}:</Typography>
-							</Grid>
-							<Grid item xs={6}>
-								<Typography variant='caption' color='primary'>
-									{eventId}
-								</Typography>
-							</Grid>
-							<Grid item xs={12}>
-								<Divider />
-							</Grid>
-						</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption'>{entityFieldT.id}:</Typography>
 					</Grid>
-					<Grid item>
-						<Typography variant='caption'>
-							{entityHeaderT.content.total}: {entities.length}
+					<Grid item xs={6}>
+						<Typography variant='caption' color='primary'>
+							{eventId}
+						</Typography>
+					</Grid>
+					<Grid item xs={12}>
+						<Divider />
+					</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption'>{entityHeaderT.content.total}:</Typography>
+					</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption' color='primary'>
+							{eventEntities.length}
 						</Typography>
 					</Grid>
 				</Grid>
