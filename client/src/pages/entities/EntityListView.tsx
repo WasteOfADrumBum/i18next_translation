@@ -80,7 +80,7 @@ const EntityListView: FC = () => {
 				extraContent: null,
 			})
 		}
-	}, [setHeaderData, entities.length])
+	}, [setHeaderData, entities.length, eventId, eventEntities.length])
 
 	const handleView = (id: string | undefined) => {
 		if (id) {

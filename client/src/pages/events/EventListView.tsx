@@ -70,7 +70,7 @@ const EventListView: FC = () => {
 				extraContent: null,
 			})
 		}
-	}, [setHeaderData])
+	}, [setHeaderData, events])
 
 	const handleView = (id: string | undefined) => {
 		if (id) {

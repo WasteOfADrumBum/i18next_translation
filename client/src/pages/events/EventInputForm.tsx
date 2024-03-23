@@ -106,7 +106,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 				extraContent: null,
 			})
 		}
-	}, [setHeaderData])
+	}, [setHeaderData, eventValues])
 
 	// Update form data when event details are fetched from Redux store
 	useEffect(() => {
@@ -134,7 +134,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 				state: event.location.state,
 			})
 		}
-	}, [event])
+	}, [event, eventId])
 
 	// Handle form field changes
 	const handleFormChange = (event: ChangeEvent<{ name?: string; value: unknown }>) => {
