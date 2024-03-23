@@ -1,21 +1,16 @@
 import { Container, Divider, Grid, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { HeaderContext } from '../../contexts'
-import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { readVehicle } from '../../store/actions/mongodb/vehicleActions'
 import { TimeConversionsHelper } from '../../utils'
 
-const vehicleHeaderT = translations.pages.vehicles.en.header
-const vehicleFieldT = translations.pages.vehicles.en.fields
-const vehicleTitlesT = translations.pages.vehicles.en.titles
-const statusIndicatorT = translations.common.en.statusIndicator
-const booleanT = translations.common.en.boolean
-
 const VehicleDetailsView: FC = () => {
+	const { t } = useTranslation()
 	const { setHeaderData } = useContext(HeaderContext)
 	const dispatch: AppDispatch = useDispatch()
 	const { eventId, vehicleId } = useParams<{ eventId: string; vehicleId: string }>()
@@ -58,14 +53,14 @@ const VehicleDetailsView: FC = () => {
 	// Update header data when component mounts
 	useEffect(() => {
 		setHeaderData({
-			header: vehicleHeaderT.title.single,
-			subheader: vehicleHeaderT.subtitle.single,
+			header: t('pages:vehicles.header.title.single'),
+			subheader: t('pages:vehicles.header.subtitle.single'),
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={12}>
 						<Grid container spacing={1}>
 							<Grid item xs={6}>
-								<Typography variant='caption'>{vehicleFieldT.id}:</Typography>
+								<Typography variant='caption'>{t('pages:vehicles.fields.id')}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color='primary'>
@@ -98,195 +93,207 @@ const VehicleDetailsView: FC = () => {
 		<Container maxWidth='xl'>
 			{/* Display vehicle details */}
 			{loading ? (
-				<Typography variant='h6'>{statusIndicatorT.loading}</Typography>
+				<Typography variant='h6'>{t('common:statusIndicator.loading')}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
 				<Typography variant='h6'>
-					{statusIndicatorT.error}: {error.toString()}
+					{t('common:statusIndicator.error')}: {error.toString()}
 				</Typography>
 			) : (
 				<Grid container spacing={2}>
 					{/* Entity Information */}
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							{vehicleTitlesT.description}
+							{t('pages:vehicles.titles.description')}
 						</Typography>
 						<Divider />
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.year}
+							{t('pages:vehicles.fields.year')}
 						</Typography>
 						<Typography variant='body2'>
-							{vehicle?.year || vehicleFieldT.year + ' ' + statusIndicatorT.notAvailable}
+							{vehicle?.year || t('pages:vehicles.fields.year') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.make}
+							{t('pages:vehicles.fields.make')}
 						</Typography>
 						<Typography variant='body2'>
-							{vehicle?.make || vehicleFieldT.make + ' ' + statusIndicatorT.notAvailable}
+							{vehicle?.make || t('pages:vehicles.fields.make') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.model}
+							{t('pages:vehicles.fields.model')}
 						</Typography>
 						<Typography variant='body2'>
-							{vehicle?.model || vehicleFieldT.model + ' ' + statusIndicatorT.notAvailable}
+							{vehicle?.model || t('pages:vehicles.fields.model') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.color}
+							{t('pages:vehicles.fields.color')}
 						</Typography>
 						<Typography variant='body2'>
-							{vehicle?.color || vehicleFieldT.color + ' ' + statusIndicatorT.notAvailable}
+							{vehicle?.color || t('pages:vehicles.fields.color') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.vin}
+							{t('pages:vehicles.fields.vin')}
 						</Typography>
 						<Typography variant='body2'>
-							{vehicle?.vin || vehicleFieldT.vin + ' ' + statusIndicatorT.notAvailable}
+							{vehicle?.vin || t('pages:vehicles.fields.vin') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							{vehicleTitlesT.occupants}
+							{t('pages:vehicles.titles.occupants')}
 						</Typography>
 						<Divider />
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.occupants.driver}
+							{t('pages:vehicles.fields.occupants.driver')}
 						</Typography>
 						<Typography variant='body2'>
-							{vehicle?.occupants?.driver ? getEntityName(vehicle.occupants.driver) : 'No driver was provided'}
+							{vehicle?.occupants?.driver
+								? getEntityName(vehicle.occupants.driver)
+								: t('pages:vehicles.fields.occupants.driver') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.occupants.passengers}
+							{t('pages:vehicles.fields.occupants.passengers')}
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.occupants?.passengers
 								? vehicle.occupants.passengers.map((passenger) => getEntityName(passenger)).join(', ')
-								: vehicleFieldT.occupants.passengers + ' ' + statusIndicatorT.notAvailable}
+								: t('pages:vehicles.fields.occupants.passengers') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							{vehicleTitlesT.registration}
+							{t('pages:vehicles.titles.registration')}
 						</Typography>
 						<Divider />
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.registration.owner}
+							{t('pages:vehicles.fields.registration.owner')}
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.registration?.owner
 								? getEntityName(vehicle.registration.owner)
-								: vehicleFieldT.registration.owner + ' ' + statusIndicatorT.notAvailable}
+								: t('pages:vehicles.fields.registration.owner') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.registration.plateNumber}
+							{t('pages:vehicles.fields.registration.plateNumber')}
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.registration?.plateNumber.toLocaleUpperCase() ||
-								vehicleFieldT.registration.plateNumber + ' ' + statusIndicatorT.notAvailable}
+								t('pages:vehicles.fields.registration.plateNumber') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.registration.state}
+							{t('pages:vehicles.fields.registration.state')}
 						</Typography>
 						<Typography variant='body2'>
-							{vehicle?.registration?.state || vehicleFieldT.registration.state + ' ' + statusIndicatorT.notAvailable}
+							{vehicle?.registration?.state ||
+								t('pages:vehicles.fields.registration.state') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.registration.expirationDate}
+							{t('pages:vehicles.fields.registration.expirationDate')}
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.registration?.expirationDate
 								? TimeConversionsHelper.convertTime(vehicle?.registration?.expirationDate, 'MM/DD/YYYY', false, 'UTC')
-								: vehicleFieldT.registration.expirationDate + ' ' + statusIndicatorT.notAvailable}
+								: t('pages:vehicles.fields.registration.expirationDate') +
+									' ' +
+									t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							{vehicleTitlesT.insurance}
+							{t('pages:vehicles.titles.insurance')}
 						</Typography>
 						<Divider />
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.insurance.policyNumber}
+							{t('pages:vehicles.fields.insurance.policyNumber')}
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.insurance?.policyNumber
 								? vehicle?.insurance?.policyNumber.toUpperCase()
-								: vehicleFieldT.insurance.policyNumber + ' ' + statusIndicatorT.notAvailable}
+								: t('pages:vehicles.fields.insurance.policyNumber') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.insurance.provider}
+							{t('pages:vehicles.fields.insurance.provider')}
 						</Typography>
 						<Typography variant='body2'>
-							{vehicle?.insurance?.provider ?? vehicleFieldT.insurance.provider + ' ' + statusIndicatorT.notAvailable}
+							{vehicle?.insurance?.provider ??
+								t('pages:vehicles.fields.insurance.provider') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.insurance.expirationDate}
+							{t('pages:vehicles.fields.insurance.expirationDate')}
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.insurance?.expirationDate
 								? TimeConversionsHelper.convertTime(vehicle?.insurance?.expirationDate, 'MM/DD/YYYY', false, 'UTC')
-								: vehicleFieldT.insurance.expirationDate + ' ' + statusIndicatorT.notAvailable}
+								: t('pages:vehicles.fields.insurance.expirationDate') + ' ' + t('common:statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.insurance.insured}
+							{t('pages:vehicles.fields.insurance.insured')}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.insurance?.insured ? booleanT.yes : booleanT.no}</Typography>
+						<Typography variant='body2'>
+							{vehicle?.insurance?.insured ? t('common:boolean.yes') : t('common:boolean.no')}
+						</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='h4' color={'primary'} mb={1}>
-							{vehicleTitlesT.legality}
+							{t('pages:vehicles.titles.legality')}
 						</Typography>
 						<Divider />
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.stolen}
+							{t('pages:vehicles.fields.stolen')}
 						</Typography>
-						<Typography variant='body2'>{vehicle?.stolen ? booleanT.yes : booleanT.no}</Typography>
+						<Typography variant='body2'>
+							{vehicle?.stolen ? t('common:boolean.yes') : t('common:boolean.no')}
+						</Typography>
 					</Grid>
 					<Grid item xs={3}>
 						<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-							{vehicleFieldT.illegalModifications.wasModified}
+							{t('pages:vehicles.fields.illegalModifications.wasModified')}
 						</Typography>
 						<Typography variant='body2'>
-							{vehicle?.illegalModifications.wasModified ? booleanT.yes : booleanT.no}
+							{vehicle?.illegalModifications.wasModified ? t('common:boolean.yes') : t('common:boolean.no')}
 						</Typography>
 					</Grid>
 					{vehicle?.illegalModifications.wasModified && (
 						<Grid item xs={6}>
 							<Typography variant='body1' mb={1} sx={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-								{vehicleFieldT.illegalModifications.description}
+								{t('pages:vehicles.fields.illegalModifications.description')}
 							</Typography>
 							<Typography variant='body2'>
 								{vehicle?.illegalModifications.description ??
-									vehicleFieldT.illegalModifications.description + ' ' + statusIndicatorT.notAvailable}
+									t('pages:vehicles.fields.illegalModifications.description') +
+										' ' +
+										t('common:statusIndicator.notAvailable')}
 							</Typography>
 						</Grid>
 					)}

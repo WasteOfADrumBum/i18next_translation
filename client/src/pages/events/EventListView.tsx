@@ -1,24 +1,18 @@
 import { AddCircleOutline } from '@mui/icons-material'
 import { Button, capitalize, Container, Divider, Grid, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { ActionsMenu, DynamicDataTable } from '../../components'
 import { HeaderContext } from '../../contexts'
-import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { getEvents } from '../../store/actions/mongodb/eventActions'
 import { Event } from '../../store/types/EventTypes'
 import { ExtractLastFiveDigits, GetCountryAbbreviation, GetStateAbbreviation, TimeConversionsHelper } from '../../utils'
 
-const eventHeaderT = translations.pages.events.en.header
-const eventFieldT = translations.pages.events.en.fields
-const eventTitlesT = translations.pages.events.en.titles
-const eventButtonT = translations.pages.events.en.buttons
-const prepositions = translations.common.en.prepositions
-const statusIndicatorT = translations.common.en.statusIndicator
-
 const EventListView: FC = () => {
+	const { t } = useTranslation()
 	const navigate = useNavigate()
 	const { setHeaderData } = useContext(HeaderContext)
 	const dispatch: AppDispatch = useDispatch()
@@ -34,14 +28,14 @@ const EventListView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: eventHeaderT.title.all,
-			subheader: eventHeaderT.subtitle.all,
+			header: t('pages:events.header.title.all'),
+			subheader: t('pages:events.header.subtitle.all'),
 			extraContent: (
 				/* TODO: Fix this formatting to match others */
 				<Grid container spacing={1} direction='column' alignItems='flex-start'>
 					<Grid item>
 						<Typography>
-							{eventHeaderT.content.total} : {events.length}
+							{t('pages:events.header.content.total')} : {events.length}
 						</Typography>
 						<Divider />
 					</Grid>
@@ -87,96 +81,100 @@ const EventListView: FC = () => {
 	const columns = [
 		{
 			id: '_id',
-			label: eventFieldT.id,
+			label: t('pages:events.fields.id'),
 			render: (data: Event) => (
-				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : statusIndicatorT.na}</Typography>
+				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common:statusIndicator.na')}</Typography>
 			),
 		},
 		{
 			id: 'type',
-			label: eventTitlesT.type,
+			label: t('pages:events.titles.type'),
 			render: (data: Event) => (
 				<>
-					<Typography>{data.type ? data.type.eventType : statusIndicatorT.na}</Typography>
+					<Typography>{data.type ? data.type.eventType : t('common:statusIndicator.na')}</Typography>
 					<Divider />
-					<Typography>{data.type ? data.type.eventSubType : statusIndicatorT.na}</Typography>
+					<Typography>{data.type ? data.type.eventSubType : t('common:statusIndicator.na')}</Typography>
 				</>
 			),
 		},
 		{
 			id: 'title',
-			label: eventFieldT.details.title,
-			render: (data: Event) => <Typography>{data.details ? data.details.title : statusIndicatorT.na}</Typography>,
+			label: t('pages:events.fields.details.title'),
+			render: (data: Event) => (
+				<Typography>{data.details ? data.details.title : t('common:statusIndicator.na')}</Typography>
+			),
 		},
 		{
 			id: 'tagging',
-			label: 'Tagging',
+			label: t('pages:events.fields.details.tagging'),
 			render: (data: Event) => (
 				<Typography>
 					{data.details
 						? data.details.tagging
 							? data.details.tagging.join(', ')
-							: statusIndicatorT.na
-						: statusIndicatorT.na}
+							: t('common:statusIndicator.na')
+						: t('common:statusIndicator.na')}
 				</Typography>
 			),
 		},
 		{
 			id: 'location',
-			label: eventTitlesT.location,
+			label: t('pages:events.titles.location'),
 			render: (data: Event) => (
 				<Typography>
 					{data.location
 						? `${data.location.city}, ${GetStateAbbreviation(data.location.state)}, ${GetCountryAbbreviation(
 								data.location.country,
 							)}`
-						: statusIndicatorT.na}
+						: t('common:statusIndicator.na')}
 				</Typography>
 			),
 		},
 		{
 			id: 'methodOfReceipt',
-			label: eventFieldT.details.methodOfReceipt,
+			label: t('pages:events.fields.details.methodOfReceipt'),
 			render: (data: Event) => (
-				<Typography>{data.details ? data.details.methodOfReceipt : statusIndicatorT.na}</Typography>
+				<Typography>{data.details ? data.details.methodOfReceipt : t('common:statusIndicator.na')}</Typography>
 			),
 		},
 		{
 			id: 'Dates',
-			label: 'Dates',
+			label: t('pages:events.titles.dates'),
 			render: (data: Event) => (
 				<Typography>
-					{eventTitlesT.reported}:{' '}
+					{t('pages:events.titles.reported')}:{' '}
 					{data.reported
 						? TimeConversionsHelper.convertTime(data.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC') +
-							` ${prepositions.by} ` +
-							(data.reported.reporter ? data.reported.reporter : statusIndicatorT.na)
-						: statusIndicatorT.na}
+							` ${t('common:prepositions.by')} ` +
+							(data.reported.reporter ? data.reported.reporter : t('common:statusIndicator.na'))
+						: t('common:statusIndicator.na')}
 					<br />
-					{eventTitlesT.submitted}:{' '}
+					{t('pages:events.titles.submitted')}:{' '}
 					{data.submitted
 						? `${TimeConversionsHelper.convertTime(data.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')} by ${
-								data.submitted.submittedBy ? data.submitted.submittedBy : statusIndicatorT.na
+								data.submitted.submittedBy ? data.submitted.submittedBy : t('common:statusIndicator.na')
 							}`
-						: statusIndicatorT.na}
+						: t('common:statusIndicator.na')}
 					<br />
-					{eventTitlesT.updated}:{' '}
+					{t('pages:events.titles.updated')}:{' '}
 					{data.updated
 						? TimeConversionsHelper.convertTime(data.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC') +
-							` ${prepositions.by} ` +
-							(data.updated.updatedBy ? data.updated.updatedBy : statusIndicatorT.na)
-						: statusIndicatorT.na}
+							` ${t('common:prepositions.by')} ` +
+							(data.updated.updatedBy ? data.updated.updatedBy : t('common:statusIndicator.na'))
+						: t('common:statusIndicator.na')}
 				</Typography>
 			),
 		},
 		{
 			id: 'status',
-			label: eventFieldT.status,
-			render: (data: Event) => <Typography>{data.status ? capitalize(data.status) : statusIndicatorT.na}</Typography>,
+			label: t('pages:events.fields.status'),
+			render: (data: Event) => (
+				<Typography>{data.status ? capitalize(data.status) : t('common:statusIndicator.na')}</Typography>
+			),
 		},
 		{
 			id: 'actions',
-			label: translations.common.en.tables.actions,
+			label: t('common:tables.actions'),
 			render: (data: Event) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}
@@ -200,13 +198,15 @@ const EventListView: FC = () => {
 		<Container maxWidth='xl'>
 			<Grid container justifyContent='flex-end'>
 				<Button onClick={() => navigate('/event/create')} sx={{ margin: 1 }}>
-					<AddCircleOutline sx={{ marginRight: 1 }} /> {eventButtonT.new}
+					<AddCircleOutline sx={{ marginRight: 1 }} /> {t('pages:events.buttons.new')}
 				</Button>
 			</Grid>
 			{loading ? (
-				<Typography variant='h6'>Loading...</Typography>
+				<Typography variant='h6'>{t('common:statusIndicator.loading')}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
-				<Typography variant='h6'>Error: {error.toString()}</Typography>
+				<Typography variant='h6'>
+					{t('common:statusIndicator.error')}: {error.toString()}
+				</Typography>
 			) : (
 				<DynamicDataTable
 					data={events}

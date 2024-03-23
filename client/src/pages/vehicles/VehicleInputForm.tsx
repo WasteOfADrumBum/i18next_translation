@@ -24,23 +24,16 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
 import React, { ChangeEvent, FC, FormEvent, useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from 'store'
 import { VehicleFormData } from '../../../types/vehicles/VehicleFormTypes'
 import { HeaderContext } from '../../contexts'
-import translations from '../../i18n/locales'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { createVehicle, readVehicle, updateVehicle } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
 import { states, vehicleColors, vehicleMakes, vehicleModels } from '../../utils'
-
-const vehicleHeaderT = translations.pages.vehicles.en.header
-const vehicleFieldT = translations.pages.vehicles.en.fields
-const vehiclePlaceholderT = translations.pages.vehicles.en.placeholders
-const vehicleTitlesT = translations.pages.vehicles.en.titles
-const vehicleButtonT = translations.pages.vehicles.en.buttons
-const statusIndicatorT = translations.common.en.statusIndicator
 
 interface VehicleInputFormProps {
 	vehicleValues?: VehicleFormData
@@ -70,6 +63,7 @@ interface EntityListItem {
 }
 
 const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
+	const { t } = useTranslation()
 	const navigate = useNavigate()
 	const { setHeaderData } = useContext(HeaderContext)
 	const dispatch = useDispatch<AppDispatch>()
@@ -159,12 +153,12 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	// Update header data when component mounts
 	useEffect(() => {
 		setHeaderData({
-			header: vehicleValues ? vehicleHeaderT.title.edit : vehicleHeaderT.title.new,
-			subheader: vehicleValues ? vehicleHeaderT.subtitle.edit : vehicleHeaderT.subtitle.new,
+			header: vehicleValues ? t('pages:vehicles.header.title.edit') : t('pages:vehicles.header.title.new'),
+			subheader: vehicleValues ? t('pages:vehicles.header.subtitle.edit') : t('pages:vehicles.header.subtitle.new'),
 			extraContent: (
 				<Grid container spacing={0}>
 					<Grid item xs={12}>
-						<Typography variant='caption'>{translations.common.en.forms.requiredDisclaimer}</Typography>
+						<Typography variant='caption'>{t('common:forms.requiredDisclaimer')}</Typography>
 					</Grid>
 				</Grid>
 			),
@@ -253,7 +247,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 
 			// Check if parent ID is provided
 			if (vehicleData.parent._id === null || vehicleData.parent._id === '') {
-				console.error(translations.errors.en.parentIdRequired)
+				console.error(t('errors:parentIdRequired'))
 			} else if (vehicleData._id !== null) {
 				dispatch(updateVehicle(vehicleData)) // Update vehicle
 				console.log('Updating vehicle:', vehicleData)
@@ -460,14 +454,14 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 				{loading && <CircularProgress />}
 				{typeof error === 'object' && Object.keys(error).length !== 0 && (
 					<Typography color='error' variant='h6'>
-						{statusIndicatorT.error}: {error.toString()}
+						{t('common:statusIndicator.error')}: {error.toString()}
 					</Typography>
 				)}
 				<form onSubmit={onSubmit}>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{vehicleTitlesT.description}
+								{t('pages:vehicles.titles.description')}
 							</Typography>
 							<Divider />
 						</Grid>
@@ -475,7 +469,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<TextField
 								required
 								name='year'
-								label={vehicleFieldT.year}
+								label={t('pages:vehicles.fields.year')}
 								variant='outlined'
 								fullWidth
 								select
@@ -492,7 +486,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='make-label' required>
-									{vehicleFieldT.make}
+									{t('pages:vehicles.fields.make')}
 								</InputLabel>
 								<Select
 									required
@@ -501,7 +495,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									name='make'
 									value={formData.make}
 									onChange={handleFormConditionalSelectChange}>
-									<MenuItem value=''>{vehiclePlaceholderT.make}</MenuItem>
+									<MenuItem value=''>{t('pages:vehicles.placeholders.make')}</MenuItem>
 									{vehicleMakes.map((option, index) => (
 										<MenuItem key={index} value={option}>
 											{option}
@@ -513,7 +507,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='model-label' required>
-									{vehicleFieldT.model}
+									{t('pages:vehicles.fields.model')}
 								</InputLabel>
 								<Select
 									required
@@ -522,7 +516,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									name='model'
 									value={formData.model}
 									onChange={handleFormConditionalSelectChange}>
-									<MenuItem value=''>{vehiclePlaceholderT.model}</MenuItem>
+									<MenuItem value=''>{t('pages:vehicles.placeholders.model')}</MenuItem>
 									{formData.make &&
 										vehicleModels[formData.make].map((option, index) => (
 											<MenuItem key={index} value={option}>
@@ -535,7 +529,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='color-label' required>
-									{vehicleFieldT.color}
+									{t('pages:vehicles.fields.color')}
 								</InputLabel>
 								<Select
 									required
@@ -544,7 +538,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									name='color'
 									value={formData.color}
 									onChange={handleFormConditionalSelectChange}>
-									<MenuItem value=''>{vehiclePlaceholderT.color}</MenuItem>
+									<MenuItem value=''>{t('pages:vehicles.placeholders.color')}</MenuItem>
 									{vehicleColors.map((option, index) => (
 										<MenuItem key={index} value={option}>
 											{option}
@@ -557,7 +551,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<TextField
 								required
 								name='vin'
-								label={vehicleFieldT.vin}
+								label={t('pages:vehicles.fields.vin')}
 								variant='outlined'
 								fullWidth
 								value={formData.vin}
@@ -566,14 +560,14 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{vehicleTitlesT.occupants}
+								{t('pages:vehicles.titles.occupants')}
 							</Typography>
 							<Divider />
 						</Grid>
 						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='driver-label' required>
-									{vehicleFieldT.occupants.driver}
+									{t('pages:vehicles.fields.occupants.driver')}
 								</InputLabel>
 								{eventId && (
 									<Select
@@ -583,7 +577,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 										name='occupantsDriver'
 										value={formData.occupantsDriver}
 										onChange={handleFormEntitySelectChange}>
-										<MenuItem value=''>{vehiclePlaceholderT.driver}</MenuItem>
+										<MenuItem value=''>{t('pages:vehicles.placeholders.driver')}</MenuItem>
 										{renderEntityMenuItems(entities, eventId, 'Person')}
 									</Select>
 								)}
@@ -591,7 +585,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='passengers-label'>{vehicleFieldT.occupants.passengers}</InputLabel>
+								<InputLabel id='passengers-label'>{t('pages:vehicles.fields.occupants.passengers')}</InputLabel>
 								{eventId && (
 									<Select
 										labelId='passengers-label'
@@ -609,14 +603,14 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{vehicleTitlesT.registration}
+								{t('pages:vehicles.titles.registration')}
 							</Typography>
 							<Divider />
 						</Grid>
 						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
 								<InputLabel id='owner-label' required>
-									{vehicleFieldT.registration.owner}
+									{t('pages:vehicles.fields.registration.owner')}
 								</InputLabel>
 								<Select
 									required
@@ -625,7 +619,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									name='registrationOwner'
 									value={formData.registrationOwner}
 									onChange={handleFormEntitySelectChange}>
-									<MenuItem value=''>{vehiclePlaceholderT.owner}</MenuItem>
+									<MenuItem value=''>{t('pages:vehicles.placeholders.owner')}</MenuItem>
 									{renderEntityMenuItems(entities, eventId, 'All')}
 								</Select>
 							</FormControl>
@@ -634,7 +628,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<TextField
 								required
 								name='registrationPlateNumber'
-								label={vehicleFieldT.registration.plateNumber}
+								label={t('pages:vehicles.fields.registration.plateNumber')}
 								variant='outlined'
 								fullWidth
 								value={formData.registrationPlateNumber}
@@ -644,7 +638,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						<Grid item xs={4}>
 							<DatePicker
 								name='registrationExpirationDate'
-								label={vehicleFieldT.registration.expirationDate}
+								label={t('pages:vehicles.fields.registration.expirationDate')}
 								defaultValue={dayjs()}
 								value={dayjs(formData.registrationExpirationDate)}
 								onChange={(date) => handleFormDateChange(date, 'registrationExpirationDate')}
@@ -660,7 +654,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<TextField
 								required
 								name='registrationState'
-								label={vehicleFieldT.registration.state}
+								label={t('pages:vehicles.fields.registration.state')}
 								variant='outlined'
 								fullWidth
 								select
@@ -675,7 +669,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{vehicleTitlesT.insurance}
+								{t('pages:vehicles.titles.insurance')}
 							</Typography>
 							<Divider />
 						</Grid>
@@ -688,7 +682,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 										onChange={handleFormSwitchChange('insuranceInsured')}
 									/>
 								}
-								label={vehicleFieldT.insurance.insured}
+								label={t('pages:vehicles.fields.insurance.insured')}
 							/>
 						</Grid>
 						{formData.insuranceInsured && (
@@ -696,7 +690,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								<Grid item xs={4}>
 									<TextField
 										name='insurancePolicyNumber'
-										label={vehicleFieldT.insurance.policyNumber}
+										label={t('pages:vehicles.fields.insurance.policyNumber')}
 										variant='outlined'
 										fullWidth
 										required
@@ -707,7 +701,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								<Grid item xs={4}>
 									<TextField
 										name='insuranceProvider'
-										label={vehicleFieldT.insurance.provider}
+										label={t('pages:vehicles.fields.insurance.provider')}
 										variant='outlined'
 										fullWidth
 										required
@@ -718,7 +712,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								<Grid item xs={4}>
 									<DatePicker
 										name='insuranceExpirationDate'
-										label={vehicleFieldT.insurance.expirationDate}
+										label={t('pages:vehicles.fields.insurance.expirationDate')}
 										defaultValue={dayjs()}
 										value={dayjs(formData.insuranceExpirationDate)}
 										onChange={(date) => handleFormDateChange(date, 'insuranceExpirationDate')}
@@ -734,14 +728,14 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						)}
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{vehicleTitlesT.legality}
+								{t('pages:vehicles.titles.legality')}
 							</Typography>
 							<Divider />
 						</Grid>
 						<Grid item xs={6}>
 							<FormControlLabel
 								control={<Switch name='stolen' checked={formData.stolen} onChange={handleFormSwitchChange('stolen')} />}
-								label={vehicleFieldT.stolen}
+								label={t('pages:vehicles.fields.stolen')}
 							/>
 						</Grid>
 						<Grid item xs={6}>
@@ -753,14 +747,14 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 										onChange={handleFormSwitchChange('illegalModificationsWasModified')}
 									/>
 								}
-								label={vehicleFieldT.illegalModifications.wasModified}
+								label={t('pages:vehicles.fields.illegalModifications.wasModified')}
 							/>
 						</Grid>
 						{formData.illegalModificationsWasModified && (
 							<Grid item xs={12}>
 								<TextField
 									name='illegalModificationsDescription'
-									label={vehicleFieldT.illegalModifications.description}
+									label={t('pages:vehicles.fields.illegalModifications.description')}
 									variant='outlined'
 									fullWidth
 									required
@@ -775,11 +769,11 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								color='secondary'
 								onClick={() => navigate('/dashboard/event/${eventId}/vehicle')}>
 								<CancelOutlined sx={{ marginRight: 1 }} />
-								{translations.common.en.buttons.cancel}
+								{t('common:buttons.cancel')}
 							</Button>
 							<Button type='submit' variant='contained' color='primary' sx={{ textAlign: 'right' }}>
 								<AddCircleOutline sx={{ marginRight: 1 }} />
-								{vehicle?._id ? vehicleButtonT.edit : vehicleButtonT.new}
+								{vehicle?._id ? t('pages:vehicles.buttons.edit') : t('pages:vehicles.buttons.new')}
 							</Button>
 						</Grid>
 					</Grid>
