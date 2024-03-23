@@ -2,6 +2,7 @@
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import React, { ReactNode, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 import { Footer, Header, NavBar, TabsComponent } from './components'
@@ -37,9 +38,18 @@ function App() {
 		console.log('%cApp Loaded', 'color: green; font-size: 24px;')
 	}, [])
 
+	const { t, i18n } = useTranslation()
 	const [darkMode, setDarkMode] = useState<boolean>(true)
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
 	const dispatch = useDispatch()
+
+	useEffect(() => {
+		console.log('%cSelected language:', 'color: blue; font-weight: bold;', i18n.language)
+	}, [i18n.language])
+
+	const changeLanguage = (lng: string) => {
+		i18n.changeLanguage(lng)
+	}
 
 	const toggleDarkMode = () => {
 		setDarkMode((prevMode) => !prevMode)
@@ -104,7 +114,12 @@ function App() {
 					<CssBaseline />
 					<Router>
 						<HeaderContextProvider>
-							<NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />
+							<NavBar
+								darkMode={darkMode}
+								toggleDarkMode={toggleDarkMode}
+								onLoginToggle={handleLoginToggle}
+								changeLanguage={changeLanguage}
+							/>
 							<div style={{ minHeight: '100vh', marginTop: '64px', marginBottom: '64px' }}>
 								{isAuthenticated && <Header user={{ name: fakeUser.name, role: fakeUser.role }}></Header>}
 								<Routes>

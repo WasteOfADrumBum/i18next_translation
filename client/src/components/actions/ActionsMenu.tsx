@@ -2,8 +2,9 @@ import { MoreVert as MoreVertIcon } from '@mui/icons-material'
 import { IconButton, Menu, MenuItem } from '@mui/material'
 import React, { FC, MouseEvent, useState } from 'react'
 import translations from '../../i18n/locales'
+import { GetLanguage } from '../../utils'
 
-const buttonTranslations = translations.common.buttons
+const buttonTranslations = translations.common[GetLanguage()].buttons
 
 const ActionsMenu: FC<{ onView: () => void; onEdit: () => void; onDelete: () => void }> = ({
 	onView,

@@ -9,14 +9,20 @@ import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { getEvents } from '../../store/actions/mongodb/eventActions'
 import { Event } from '../../store/types/EventTypes'
-import { ExtractLastFiveDigits, GetCountryAbbreviation, GetStateAbbreviation, TimeConversionsHelper } from '../../utils'
+import {
+	ExtractLastFiveDigits,
+	GetCountryAbbreviation,
+	GetLanguage,
+	GetStateAbbreviation,
+	TimeConversionsHelper,
+} from '../../utils'
 
-const eventHeaderT = translations.pages.events.header
-const eventFieldT = translations.pages.events.fields
-const eventTitlesT = translations.pages.events.titles
-const eventButtonT = translations.pages.events.buttons
-const prepositions = translations.common.prepositions
-const statusIndicatorT = translations.common.statusIndicator
+const eventHeaderT = translations.pages.events[GetLanguage()].header
+const eventFieldT = translations.pages.events[GetLanguage()].fields
+const eventTitlesT = translations.pages.events[GetLanguage()].titles
+const eventButtonT = translations.pages.events[GetLanguage()].buttons
+const prepositions = translations.common[GetLanguage()].prepositions
+const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
 
 const EventListView: FC = () => {
 	const navigate = useNavigate()
@@ -176,7 +182,7 @@ const EventListView: FC = () => {
 		},
 		{
 			id: 'actions',
-			label: translations.common.tables.actions,
+			label: translations.common[GetLanguage()].tables.actions,
 			render: (data: Event) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}

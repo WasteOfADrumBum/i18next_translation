@@ -9,13 +9,19 @@ import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { Entity } from '../../store/types/EntityTypes'
-import { ExtractLastFiveDigits, GetCountryAbbreviation, getEntitiesByEventId, GetStateAbbreviation } from '../../utils'
+import {
+	ExtractLastFiveDigits,
+	GetCountryAbbreviation,
+	getEntitiesByEventId,
+	GetLanguage,
+	GetStateAbbreviation,
+} from '../../utils'
 
-const entityHeaderT = translations.pages.entities.header
-const entityFieldT = translations.pages.entities.fields
-const entityTitlesT = translations.pages.entities.titles
-const entityButtonT = translations.pages.entities.buttons
-const statusIndicatorT = translations.common.statusIndicator
+const entityHeaderT = translations.pages.entities[GetLanguage()].header
+const entityFieldT = translations.pages.entities[GetLanguage()].fields
+const entityTitlesT = translations.pages.entities[GetLanguage()].titles
+const entityButtonT = translations.pages.entities[GetLanguage()].buttons
+const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
 
 const EntityListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -139,7 +145,7 @@ const EntityListView: FC = () => {
 		},
 		{
 			id: 'actions',
-			label: translations.common.tables.actions,
+			label: translations.common[GetLanguage()].tables.actions,
 			render: (data: Entity) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}

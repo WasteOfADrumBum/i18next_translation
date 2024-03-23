@@ -10,13 +10,13 @@ import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { getVehicles } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
-import { ExtractLastFiveDigits, getVehiclesByEventId } from '../../utils'
+import { ExtractLastFiveDigits, GetLanguage, getVehiclesByEventId } from '../../utils'
 
-const vehcileHeaderT = translations.pages.vehicles.header
-const vehcileFieldT = translations.pages.vehicles.fields
-const vehcileTitlesT = translations.pages.vehicles.titles
-const vehcileButtonT = translations.pages.vehicles.buttons
-const statusIndicatorT = translations.common.statusIndicator
+const vehcileHeaderT = translations.pages.vehicles[GetLanguage()].header
+const vehcileFieldT = translations.pages.vehicles[GetLanguage()].fields
+const vehcileTitlesT = translations.pages.vehicles[GetLanguage()].titles
+const vehcileButtonT = translations.pages.vehicles[GetLanguage()].buttons
+const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
 
 const VehicleListView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -94,7 +94,7 @@ const VehicleListView: FC = () => {
 					) : (
 						<Grid item xs={12}>
 							<Typography variant='caption' color={'secondary'}>
-								{translations.common.forms.vehiclesRequireEntities}
+								{translations.common[GetLanguage()].forms.vehiclesRequireEntities}
 							</Typography>
 						</Grid>
 					)}
@@ -169,7 +169,7 @@ const VehicleListView: FC = () => {
 		},
 		{
 			id: 'actions',
-			label: translations.common.tables.actions,
+			label: translations.common[GetLanguage()].tables.actions,
 			render: (data: Vehicle) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}

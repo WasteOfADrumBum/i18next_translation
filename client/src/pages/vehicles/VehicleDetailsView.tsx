@@ -7,13 +7,13 @@ import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { readVehicle } from '../../store/actions/mongodb/vehicleActions'
-import { TimeConversionsHelper } from '../../utils'
+import { GetLanguage, TimeConversionsHelper } from '../../utils'
 
-const vehicleHeaderT = translations.pages.vehicles.header
-const vehicleFieldT = translations.pages.vehicles.fields
-const vehicleTitlesT = translations.pages.vehicles.titles
-const statusIndicatorT = translations.common.statusIndicator
-const booleanT = translations.common.boolean
+const vehicleHeaderT = translations.pages.vehicles[GetLanguage()].header
+const vehicleFieldT = translations.pages.vehicles[GetLanguage()].fields
+const vehicleTitlesT = translations.pages.vehicles[GetLanguage()].titles
+const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
+const booleanT = translations.common[GetLanguage()].boolean
 
 const VehicleDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)

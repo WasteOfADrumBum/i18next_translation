@@ -1,6 +1,5 @@
 import translations from '../i18n/locales'
-
-const errorTranslations = translations.errors
+import { GetLanguage } from '../utils'
 
 interface TimeConversionsHelper {
 	convertTime: (input: Date | string | number, format: string, includeTime: boolean, timeZone: string) => string
@@ -18,7 +17,7 @@ export const TimeConversionsHelper: TimeConversionsHelper = {
 		}
 
 		if (isNaN(date.getTime())) {
-			throw new Error(errorTranslations.invalidDateInput)
+			throw new Error(translations.errors[GetLanguage()].invalidDateInput)
 		}
 
 		let formattedDate = ''

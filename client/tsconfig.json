@@ -11,10 +11,22 @@
 		"jsx": "react",
 		"baseUrl": "./",
 		"paths": {
-			"*": ["src/*"],
-			"@utils/*": ["src/utils/*"]
+			"*": [
+				"src/*"
+			],
+			"@utils/*": [
+				"src/utils/*"
+			]
 		},
-		"lib": ["es6", "dom", "es2017"]
+		"lib": [
+			"es6",
+			"dom",
+			"es2017"
+		]
 	},
-	"exclude": ["node_modules", "build"]
+	"exclude": [
+		"node_modules",
+		"build",
+		"ignored"
+	]
 }

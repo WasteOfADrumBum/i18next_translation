@@ -1,10 +1,15 @@
 import { Box, Button, Container, ThemeProvider, Typography } from '@mui/material'
 import React, { FC, useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../../contexts/ThemeContext'
+import translations from '../../i18n/locales'
 import { darkTheme, lightTheme } from '../../styles/theme'
+import { GetLanguage } from '../../utils'
 
 const Home: FC = () => {
+	const { t } = useTranslation()
+	const tHome = translations.pages.home[GetLanguage()]
 	const darkMode = useContext(ThemeContext)
 	const theme = darkMode ? darkTheme : lightTheme
 	const navigate = useNavigate()
@@ -28,18 +33,16 @@ const Home: FC = () => {
 						marginBottom: '2rem',
 					}}>
 					<Typography variant='h1' component='h1' gutterBottom>
-						Welcome to our Content Management System
+						{t(tHome.header)}
 					</Typography>
 					<Typography variant='body1' component='p' gutterBottom>
-						This is a MERN (MongoDB, Express.js, React.js, Node.js) stack application with Redux for state management
-						and Docker support.
+						{t(tHome.body.content)}
 					</Typography>
 					<Typography variant='body2' component='p' gutterBottom>
-						This is the home page of my application. To access the secure content management system, please log in and
-						authenticate using your credentials.
+						{t(tHome.body.content2)}
 					</Typography>
 					<Button variant='contained' color='primary' sx={{ mt: 4 }} onClick={handleLoginClick}>
-						Login
+						{t(translations.common[GetLanguage()].buttons.login)}
 					</Button>
 				</Box>
 			</Container>

@@ -34,16 +34,17 @@ import {
 	countries,
 	employmentStatus,
 	entityTypes,
+	GetLanguage,
 	nativeLanguages,
 	states,
 } from '../../utils'
 
-const entityHeaderT = translations.pages.entities.header
-const entityFieldT = translations.pages.entities.fields
-const entityTitlesT = translations.pages.entities.titles
-const entityButtonT = translations.pages.entities.buttons
-const statusIndicatorT = translations.common.statusIndicator
-const commonButton = translations.common.buttons
+const entityHeaderT = translations.pages.entities[GetLanguage()].header
+const entityFieldT = translations.pages.entities[GetLanguage()].fields
+const entityTitlesT = translations.pages.entities[GetLanguage()].titles
+const entityButtonT = translations.pages.entities[GetLanguage()].buttons
+const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
+const commonButton = translations.common[GetLanguage()].buttons
 
 interface EntityInputFormProps {
 	entityValues?: EntityFormData
@@ -115,7 +116,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 			extraContent: (
 				<Grid container spacing={0}>
 					<Grid item xs={12}>
-						<Typography variant='caption'>{translations.common.forms.requiredDisclaimer}</Typography>
+						<Typography variant='caption'>{translations.common[GetLanguage()].forms.requiredDisclaimer}</Typography>
 					</Grid>
 				</Grid>
 			),
@@ -258,7 +259,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 
 			// Check if parent ID is provided
 			if (entityData.parent._id === null || entityData.parent._id === '') {
-				console.error(translations.errors.parentIdRequired)
+				console.error(translations.errors[GetLanguage()].parentIdRequired)
 			} else if (entityData._id !== null) {
 				dispatch(updateEntity(entityData))
 				console.log('Updating entity: ', entityData)
@@ -269,7 +270,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 				navigate(`/dashboard/event/${eventId}/entity`)
 			}
 		} catch (error) {
-			console.error(`${translations.errors.genericError}: `, error)
+			console.error(`${translations.errors[GetLanguage()].genericError}: `, error)
 		}
 	}
 

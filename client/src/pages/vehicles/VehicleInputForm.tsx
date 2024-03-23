@@ -33,14 +33,14 @@ import translations from '../../i18n/locales'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { createVehicle, readVehicle, updateVehicle } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
-import { states, vehicleColors, vehicleMakes, vehicleModels } from '../../utils'
+import { GetLanguage, states, vehicleColors, vehicleMakes, vehicleModels } from '../../utils'
 
-const vehicleHeaderT = translations.pages.vehicles.header
-const vehicleFieldT = translations.pages.vehicles.fields
-const vehiclePlaceholderT = translations.pages.vehicles.placeholders
-const vehicleTitlesT = translations.pages.vehicles.titles
-const vehicleButtonT = translations.pages.vehicles.buttons
-const statusIndicatorT = translations.common.statusIndicator
+const vehicleHeaderT = translations.pages.vehicles[GetLanguage()].header
+const vehicleFieldT = translations.pages.vehicles[GetLanguage()].fields
+const vehiclePlaceholderT = translations.pages.vehicles[GetLanguage()].placeholders
+const vehicleTitlesT = translations.pages.vehicles[GetLanguage()].titles
+const vehicleButtonT = translations.pages.vehicles[GetLanguage()].buttons
+const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
 
 interface VehicleInputFormProps {
 	vehicleValues?: VehicleFormData
@@ -164,7 +164,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 			extraContent: (
 				<Grid container spacing={0}>
 					<Grid item xs={12}>
-						<Typography variant='caption'>{translations.common.forms.requiredDisclaimer}</Typography>
+						<Typography variant='caption'>{translations.common[GetLanguage()].forms.requiredDisclaimer}</Typography>
 					</Grid>
 				</Grid>
 			),
@@ -253,7 +253,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 
 			// Check if parent ID is provided
 			if (vehicleData.parent._id === null || vehicleData.parent._id === '') {
-				console.error(translations.errors.parentIdRequired)
+				console.error(translations.errors[GetLanguage()].parentIdRequired)
 			} else if (vehicleData._id !== null) {
 				dispatch(updateVehicle(vehicleData)) // Update vehicle
 				console.log('Updating vehicle:', vehicleData)
@@ -775,7 +775,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								color='secondary'
 								onClick={() => navigate('/dashboard/event/${eventId}/vehicle')}>
 								<CancelOutlined sx={{ marginRight: 1 }} />
-								{translations.common.buttons.cancel}
+								{translations.common[GetLanguage()].buttons.cancel}
 							</Button>
 							<Button type='submit' variant='contained' color='primary' sx={{ textAlign: 'right' }}>
 								<AddCircleOutline sx={{ marginRight: 1 }} />

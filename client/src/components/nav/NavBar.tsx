@@ -7,26 +7,39 @@ import {
 	IconButton,
 	Menu,
 	MenuItem,
+	Select,
+	SelectChangeEvent,
 	Switch,
 	Toolbar,
 	Typography,
 } from '@mui/material'
 import React, { FC, MouseEvent, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { ThemeSwitcher } from '../../components'
+import translations from '../../i18n/locales'
 import { useAuth } from '../../pages'
 
 interface NavBarProps {
 	onLoginToggle: (newState: boolean) => void
 	darkMode: boolean
 	toggleDarkMode: () => void
+	changeLanguage?: (lng: string) => void
 }
 
 const NavBar: FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) => {
+	const { t, i18n } = useTranslation()
 	const { isAuthenticated } = useAuth()
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
 	const [loginState, setLoginState] = useState<boolean>(isAuthenticated)
+	const [selectedLanguage, setSelectedLanguage] = useState(i18n.language)
+
+	const handleLanguageChange = (event: SelectChangeEvent<string>) => {
+		const newLanguage = event.target.value as string
+		setSelectedLanguage(newLanguage)
+		i18n.changeLanguage(newLanguage)
+	}
 
 	useEffect(() => {
 		// Update loginState when isAuthenticated changes
@@ -94,6 +107,14 @@ const NavBar: FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) =>
 					/>
 					<ThemeSwitcher darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 				</FormGroup>
+				<Select value={selectedLanguage} label='' onChange={handleLanguageChange} sx={{ marginX: 1 }}>
+					<MenuItem value='en'>{t(translations.languages.english)}</MenuItem>
+					<MenuItem value='es'>{t(translations.languages.spanish)}</MenuItem>
+					<MenuItem value='fr'>{t(translations.languages.french)}</MenuItem>
+					<MenuItem value='de'>{t(translations.languages.german)}</MenuItem>
+					<MenuItem value='ja'>{t(translations.languages.japanese)}</MenuItem>
+					<MenuItem value='zh'>{t(translations.languages.chinese)}</MenuItem>
+				</Select>
 				{isAuthenticated && (
 					<div>
 						<IconButton

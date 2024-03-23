@@ -33,5 +33,8 @@ describe('Translation Check', () => {
 
 function isTranslationKey(key: string): boolean {
 	// Check if the key exists in the translations object
-	return key.replace(/["`]/g, '') in translations.buttons || key.replace(/["`]/g, '') in translations.pages
+	return (
+		key.replace(/["`]/g, '') in translations.common[GetLanguage()].buttons ||
+		key.replace(/["`]/g, '') in translations.pages
+	)
 }

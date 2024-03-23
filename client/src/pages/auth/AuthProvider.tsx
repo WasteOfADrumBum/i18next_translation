@@ -1,7 +1,8 @@
 import React, { createContext, FC, ReactNode, useContext, useState } from 'react'
 import translations from '../../i18n/locales'
+import { GetLanguage } from '../../utils'
 
-const errorTranslations = translations.errors
+const errorTranslations = translations.errors[GetLanguage()]
 
 // Define types for authentication state and context
 interface AuthState {

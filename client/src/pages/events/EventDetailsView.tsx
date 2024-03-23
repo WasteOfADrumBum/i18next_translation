@@ -6,12 +6,12 @@ import { HeaderContext } from '../../contexts/HeaderContext'
 import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { readEvent } from '../../store/actions/mongodb/eventActions'
-import { TimeConversionsHelper } from '../../utils'
+import { GetLanguage, TimeConversionsHelper } from '../../utils'
 
-const eventHeaderT = translations.pages.events.header
-const eventFieldT = translations.pages.events.fields
-const eventTitlesT = translations.pages.events.titles
-const statusIndicatorT = translations.common.statusIndicator
+const eventHeaderT = translations.pages.events[GetLanguage()].header
+const eventFieldT = translations.pages.events[GetLanguage()].fields
+const eventTitlesT = translations.pages.events[GetLanguage()].titles
+const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
 
 const EventDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -55,7 +55,7 @@ const EventDetailsView: FC = () => {
 							{event?.submitted?.submittedDate
 								? TimeConversionsHelper.convertTime(event?.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')
 								: eventFieldT.submitted.submittedDate + ' ' + statusIndicatorT.na}{' '}
-							{translations.common.prepositions.by}{' '}
+							{translations.common[GetLanguage()].prepositions.by}{' '}
 							{event?.submitted?.submittedBy || eventFieldT.submitted.submittedBy + ' ' + statusIndicatorT.na}
 						</Typography>
 					</Grid>
@@ -67,7 +67,7 @@ const EventDetailsView: FC = () => {
 							{event?.reported?.reportedDate
 								? TimeConversionsHelper.convertTime(event?.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC')
 								: eventFieldT.reported.reportedDate + ' ' + statusIndicatorT.na}{' '}
-							{translations.common.prepositions.by}{' '}
+							{translations.common[GetLanguage()].prepositions.by}{' '}
 							{event?.reported?.reporter || eventFieldT.reported.reporter + ' ' + statusIndicatorT.na}
 						</Typography>
 					</Grid>
@@ -79,7 +79,7 @@ const EventDetailsView: FC = () => {
 							{event?.updated?.updatedDate
 								? TimeConversionsHelper.convertTime(event?.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC')
 								: eventFieldT.updated.updatedDate + ' ' + statusIndicatorT.na}{' '}
-							{translations.common.prepositions.by}{' '}
+							{translations.common[GetLanguage()].prepositions.by}{' '}
 							{event?.updated?.updatedBy || eventFieldT.updated.updatedBy + ' ' + statusIndicatorT.na}
 						</Typography>
 					</Grid>

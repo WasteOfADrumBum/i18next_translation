@@ -6,12 +6,12 @@ import { HeaderContext } from '../../contexts/HeaderContext'
 import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { readEntity } from '../../store/actions/mongodb/entityActions'
-import { GetCountryAbbreviation, GetStateAbbreviation, TimeConversionsHelper } from '../../utils'
+import { GetCountryAbbreviation, GetLanguage, GetStateAbbreviation, TimeConversionsHelper } from '../../utils'
 
-const entityHeaderT = translations.pages.entities.header
-const entityFieldT = translations.pages.entities.fields
-const entityTitlesT = translations.pages.entities.titles
-const statusIndicatorT = translations.common.statusIndicator
+const entityHeaderT = translations.pages.entities[GetLanguage()].header
+const entityFieldT = translations.pages.entities[GetLanguage()].fields
+const entityTitlesT = translations.pages.entities[GetLanguage()].titles
+const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
 
 const EntityDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
