@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import translations from '../src/i18n/locales/index' // Import your translation keys
+import { useTranslation } from 'react-i18next'
 
 const directoriesToCheck: string[] = [
 	path.join(__dirname, '../src/components'),
@@ -31,10 +31,8 @@ describe('Translation Check', () => {
 	})
 })
 
-function isTranslationKey(key: string): boolean {
-	// Check if the key exists in the translations object
-	return (
-		key.replace(/["`]/g, '') in translations.common[GetLanguage()].buttons ||
-		key.replace(/["`]/g, '') in translations.pages
-	)
+function isTranslationKey(match: string): boolean {
+	const { t } = useTranslation()
+	const translationKeys: string[] = Object.keys(t('translation', { returnObjects: true }))
+	return translationKeys.includes(match.replace(/"|`/g, ''))
 }

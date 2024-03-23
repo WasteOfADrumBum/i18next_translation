@@ -7,7 +7,6 @@ import {
 	IconButton,
 	Menu,
 	MenuItem,
-	Select,
 	SelectChangeEvent,
 	Switch,
 	Toolbar,
@@ -16,8 +15,7 @@ import {
 import React, { FC, MouseEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { ThemeSwitcher } from '../../components'
-import translations from '../../i18n/locales'
+import { LanguageSwticher, ThemeSwitcher } from '../../components'
 import { useAuth } from '../../pages'
 
 interface NavBarProps {
@@ -107,14 +105,7 @@ const NavBar: FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) =>
 					/>
 					<ThemeSwitcher darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 				</FormGroup>
-				<Select value={selectedLanguage} label='' onChange={handleLanguageChange} sx={{ marginX: 1 }}>
-					<MenuItem value='en'>{t(translations.languages.english)}</MenuItem>
-					<MenuItem value='es'>{t(translations.languages.spanish)}</MenuItem>
-					<MenuItem value='fr'>{t(translations.languages.french)}</MenuItem>
-					<MenuItem value='de'>{t(translations.languages.german)}</MenuItem>
-					<MenuItem value='ja'>{t(translations.languages.japanese)}</MenuItem>
-					<MenuItem value='zh'>{t(translations.languages.chinese)}</MenuItem>
-				</Select>
+				<LanguageSwticher />
 				{isAuthenticated && (
 					<div>
 						<IconButton

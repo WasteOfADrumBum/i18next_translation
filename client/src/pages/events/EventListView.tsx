@@ -4,25 +4,19 @@ import React, { FC, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { ActionsMenu, DynamicDataTable } from '../../components'
-import { HeaderContext } from '../../contexts/HeaderContext'
+import { HeaderContext } from '../../contexts'
 import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { getEvents } from '../../store/actions/mongodb/eventActions'
 import { Event } from '../../store/types/EventTypes'
-import {
-	ExtractLastFiveDigits,
-	GetCountryAbbreviation,
-	GetLanguage,
-	GetStateAbbreviation,
-	TimeConversionsHelper,
-} from '../../utils'
+import { ExtractLastFiveDigits, GetCountryAbbreviation, GetStateAbbreviation, TimeConversionsHelper } from '../../utils'
 
-const eventHeaderT = translations.pages.events[GetLanguage()].header
-const eventFieldT = translations.pages.events[GetLanguage()].fields
-const eventTitlesT = translations.pages.events[GetLanguage()].titles
-const eventButtonT = translations.pages.events[GetLanguage()].buttons
-const prepositions = translations.common[GetLanguage()].prepositions
-const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
+const eventHeaderT = translations.pages.events.en.header
+const eventFieldT = translations.pages.events.en.fields
+const eventTitlesT = translations.pages.events.en.titles
+const eventButtonT = translations.pages.events.en.buttons
+const prepositions = translations.common.en.prepositions
+const statusIndicatorT = translations.common.en.statusIndicator
 
 const EventListView: FC = () => {
 	const navigate = useNavigate()
@@ -182,7 +176,7 @@ const EventListView: FC = () => {
 		},
 		{
 			id: 'actions',
-			label: translations.common[GetLanguage()].tables.actions,
+			label: translations.common.en.tables.actions,
 			render: (data: Event) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}

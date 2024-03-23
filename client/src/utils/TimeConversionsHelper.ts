@@ -1,5 +1,4 @@
-import translations from '../i18n/locales'
-import { GetLanguage } from '../utils'
+import { useTranslation } from 'react-i18next'
 
 interface TimeConversionsHelper {
 	convertTime: (input: Date | string | number, format: string, includeTime: boolean, timeZone: string) => string
@@ -7,6 +6,7 @@ interface TimeConversionsHelper {
 
 export const TimeConversionsHelper: TimeConversionsHelper = {
 	convertTime: (input: Date | string | number, format: string, includeTime: boolean, timeZone: string): string => {
+		const { t } = useTranslation()
 		let date: Date
 
 		// If input is a string or a number, convert it to a Date object
@@ -17,7 +17,7 @@ export const TimeConversionsHelper: TimeConversionsHelper = {
 		}
 
 		if (isNaN(date.getTime())) {
-			throw new Error(translations.errors[GetLanguage()].invalidDateInput)
+			throw new Error(t('errors:invalidDateInput'))
 		}
 
 		let formattedDate = ''

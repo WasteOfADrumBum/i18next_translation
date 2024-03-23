@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from 'store'
 import { EntityFormData } from '../../../types/entities/EntityFormTypes'
-import { HeaderContext } from '../../contexts/HeaderContext'
+import { HeaderContext } from '../../contexts'
 import translations from '../../i18n/locales'
 import { createEntity, readEntity, updateEntity } from '../../store/actions/mongodb/entityActions'
 import { Entity } from '../../store/types/EntityTypes'
@@ -34,17 +34,16 @@ import {
 	countries,
 	employmentStatus,
 	entityTypes,
-	GetLanguage,
 	nativeLanguages,
 	states,
 } from '../../utils'
 
-const entityHeaderT = translations.pages.entities[GetLanguage()].header
-const entityFieldT = translations.pages.entities[GetLanguage()].fields
-const entityTitlesT = translations.pages.entities[GetLanguage()].titles
-const entityButtonT = translations.pages.entities[GetLanguage()].buttons
-const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
-const commonButton = translations.common[GetLanguage()].buttons
+const entityHeaderT = translations.pages.entities.en.header
+const entityFieldT = translations.pages.entities.en.fields
+const entityTitlesT = translations.pages.entities.en.titles
+const entityButtonT = translations.pages.entities.en.buttons
+const statusIndicatorT = translations.common.en.statusIndicator
+const commonButton = translations.common.en.buttons
 
 interface EntityInputFormProps {
 	entityValues?: EntityFormData
@@ -116,7 +115,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 			extraContent: (
 				<Grid container spacing={0}>
 					<Grid item xs={12}>
-						<Typography variant='caption'>{translations.common[GetLanguage()].forms.requiredDisclaimer}</Typography>
+						<Typography variant='caption'>{translations.common.en.forms.requiredDisclaimer}</Typography>
 					</Grid>
 				</Grid>
 			),
@@ -259,7 +258,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 
 			// Check if parent ID is provided
 			if (entityData.parent._id === null || entityData.parent._id === '') {
-				console.error(translations.errors[GetLanguage()].parentIdRequired)
+				console.error(translations.errors.en.parentIdRequired)
 			} else if (entityData._id !== null) {
 				dispatch(updateEntity(entityData))
 				console.log('Updating entity: ', entityData)
@@ -270,7 +269,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 				navigate(`/dashboard/event/${eventId}/entity`)
 			}
 		} catch (error) {
-			console.error(`${translations.errors[GetLanguage()].genericError}: `, error)
+			console.error(`${translations.errors.en.genericError}: `, error)
 		}
 	}
 

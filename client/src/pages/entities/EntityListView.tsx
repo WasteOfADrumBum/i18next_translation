@@ -1,29 +1,18 @@
 import { AddCircleOutline } from '@mui/icons-material'
 import { Button, capitalize, Container, Divider, Grid, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ActionsMenu, DynamicDataTable } from '../../components'
-import { HeaderContext } from '../../contexts/HeaderContext'
-import translations from '../../i18n/locales'
+import { HeaderContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { Entity } from '../../store/types/EntityTypes'
-import {
-	ExtractLastFiveDigits,
-	GetCountryAbbreviation,
-	getEntitiesByEventId,
-	GetLanguage,
-	GetStateAbbreviation,
-} from '../../utils'
-
-const entityHeaderT = translations.pages.entities[GetLanguage()].header
-const entityFieldT = translations.pages.entities[GetLanguage()].fields
-const entityTitlesT = translations.pages.entities[GetLanguage()].titles
-const entityButtonT = translations.pages.entities[GetLanguage()].buttons
-const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
+import { ExtractLastFiveDigits, GetCountryAbbreviation, getEntitiesByEventId, GetStateAbbreviation } from '../../utils'
 
 const EntityListView: FC = () => {
+	const { t } = useTranslation()
 	const { setHeaderData } = useContext(HeaderContext)
 	const dispatch: AppDispatch = useDispatch()
 	const navigate = useNavigate()
@@ -43,12 +32,12 @@ const EntityListView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: entityHeaderT.title.all,
-			subheader: entityHeaderT.subtitle.all,
+			header: t('pages:entities.header.all'),
+			subheader: t('pages:entities.subheader.all'),
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={6}>
-						<Typography variant='caption'>{entityFieldT.id}:</Typography>
+						<Typography variant='caption'>{t('pages:entities.fields.eventId')}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
@@ -59,7 +48,7 @@ const EntityListView: FC = () => {
 						<Divider />
 					</Grid>
 					<Grid item xs={6}>
-						<Typography variant='caption'>{entityHeaderT.content.total}:</Typography>
+						<Typography variant='caption'>{t('pages:entities.header.content.total')}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
@@ -102,19 +91,19 @@ const EntityListView: FC = () => {
 	const columns = [
 		{
 			id: '_id',
-			label: entityFieldT.id,
+			label: t('entities:fields.id'),
 			render: (data: Entity) => (
-				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : statusIndicatorT.na}</Typography>
+				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common:statusIndicatorT.na')}</Typography>
 			),
 		},
 		{
 			id: 'type',
-			label: entityFieldT.type,
-			render: (data: Entity) => <Typography>{capitalize(data.type || statusIndicatorT.na)}</Typography>,
+			label: t('entities:fields.type'),
+			render: (data: Entity) => <Typography>{capitalize(data.type || t('common:statusIndicatorT.na'))}</Typography>,
 		},
 		{
 			id: 'name',
-			label: entityTitlesT.name,
+			label: t('entities:title.type'),
 			render: (data: Entity) => {
 				let name = ''
 				if (data.type === 'Person') {
@@ -123,29 +112,29 @@ const EntityListView: FC = () => {
 				} else if (data.type === 'Organization') {
 					const { contactName } = data.organization
 					const { legalName } = data.organization.legal
-					name = `${legalName || ''} (${contactName || ''})`.trim() || statusIndicatorT.na
+					name = `${legalName || ''} (${contactName || ''})`.trim() || t('common:statusIndicatorT.na')
 				} else {
-					name = statusIndicatorT.na
+					name = t('common:statusIndicatorT.na')
 				}
 				return <Typography>{name}</Typography>
 			},
 		},
 		{
 			id: 'location',
-			label: entityTitlesT.location,
+			label: t('entities:title.location'),
 			render: (data: Entity) => (
 				<Typography>
 					{data.address
-						? `${data.address.city}, ${GetStateAbbreviation(data.address.state || statusIndicatorT.na)}, ${GetCountryAbbreviation(
-								data.address.country || statusIndicatorT.na,
+						? `${data.address.city}, ${GetStateAbbreviation(data.address.state || t('common:statusIndicatorT.na'))}, ${GetCountryAbbreviation(
+								data.address.country || t('common:statusIndicatorT.na'),
 							)}`
-						: statusIndicatorT.na}
+						: t('common:statusIndicatorT.na')}
 				</Typography>
 			),
 		},
 		{
 			id: 'actions',
-			label: translations.common[GetLanguage()].tables.actions,
+			label: t('common:tables.actions'),
 			render: (data: Entity) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}
@@ -160,14 +149,14 @@ const EntityListView: FC = () => {
 		<Container maxWidth='xl'>
 			<Grid container justifyContent='flex-end'>
 				<Button onClick={() => navigate(`create`)} sx={{ margin: 1 }}>
-					<AddCircleOutline sx={{ marginRight: 1 }} /> {entityButtonT.new}
+					<AddCircleOutline sx={{ marginRight: 1 }} /> {t('entity:button.new')}
 				</Button>
 			</Grid>
 			{loading ? (
-				<Typography variant='h6'>{statusIndicatorT.loading}</Typography>
+				<Typography variant='h6'>{t('common:statusIndicatorT.loading')}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
 				<Typography variant='h6'>
-					{statusIndicatorT.error}: {error.toString()}
+					{t('common:statusIndicatorT.error')}: {error.toString()}
 				</Typography>
 			) : (
 				<DynamicDataTable

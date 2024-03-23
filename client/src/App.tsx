@@ -2,11 +2,9 @@
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import React, { ReactNode, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 import { Footer, Header, NavBar, TabsComponent } from './components'
-import { HeaderContextProvider, ThemeContextProvider } from './contexts'
 import {
 	About,
 	EntityDetailsView,
@@ -38,18 +36,9 @@ function App() {
 		console.log('%cApp Loaded', 'color: green; font-size: 24px;')
 	}, [])
 
-	const { t, i18n } = useTranslation()
 	const [darkMode, setDarkMode] = useState<boolean>(true)
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
 	const dispatch = useDispatch()
-
-	useEffect(() => {
-		console.log('%cSelected language:', 'color: blue; font-weight: bold;', i18n.language)
-	}, [i18n.language])
-
-	const changeLanguage = (lng: string) => {
-		i18n.changeLanguage(lng)
-	}
 
 	const toggleDarkMode = () => {
 		setDarkMode((prevMode) => !prevMode)
@@ -108,110 +97,101 @@ function App() {
 	]
 
 	return (
-		<ThemeContextProvider>
-			<AuthProvider>
-				<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-					<CssBaseline />
-					<Router>
-						<HeaderContextProvider>
-							<NavBar
-								darkMode={darkMode}
-								toggleDarkMode={toggleDarkMode}
-								onLoginToggle={handleLoginToggle}
-								changeLanguage={changeLanguage}
+		<AuthProvider>
+			<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+				<CssBaseline />
+				<Router>
+					<NavBar darkMode={darkMode} toggleDarkMode={toggleDarkMode} onLoginToggle={handleLoginToggle} />
+					<div style={{ minHeight: '100vh', marginTop: '64px', marginBottom: '64px' }}>
+						{isAuthenticated && <Header user={{ name: fakeUser.name, role: fakeUser.role }} />}
+						<Routes>
+							<Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Home />} />
+							<Route path='/login' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Login />} />
+							<Route path='/about' element={<About />} />
+							{/* Private Routes */}
+							<Route
+								path='/dashboard'
+								element={<PrivateRoute element={<EventListView />} isAuthenticated={isAuthenticated} />}
 							/>
-							<div style={{ minHeight: '100vh', marginTop: '64px', marginBottom: '64px' }}>
-								{isAuthenticated && <Header user={{ name: fakeUser.name, role: fakeUser.role }}></Header>}
-								<Routes>
-									<Route path='/' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Home />} />
-									<Route path='/login' element={isAuthenticated ? <Navigate to='/dashboard' /> : <Login />} />
-									<Route path='/about' element={<About />} />
-									{/* Private Routes */}
-									<Route
-										path='/dashboard'
-										element={<PrivateRoute element={<EventListView />} isAuthenticated={isAuthenticated} />}
-									/>
-									<Route
-										path={`/dashboard/event/:eventId/*`}
+							<Route
+								path={`/dashboard/event/:eventId/*`}
+								element={
+									<PrivateRoute
+										isAuthenticated={isAuthenticated}
 										element={
-											<PrivateRoute
-												isAuthenticated={isAuthenticated}
-												element={
-													<TabsComponent isAuthenticated={isAuthenticated} tabs={tabs} basePath={`/dashboard/event/`}>
-														<Route path='/details' element={<EventDetailsView />} />
-														<Route path='/entity' element={<EntityListView />} />
-														<Route path='/vehicle' element={<VehicleListView />} />
-													</TabsComponent>
-												}
-											/>
+											<TabsComponent isAuthenticated={isAuthenticated} tabs={tabs} basePath={`/dashboard/event/`}>
+												<Route path='/details' element={<EventDetailsView />} />
+												<Route path='/entity' element={<EntityListView />} />
+												<Route path='/vehicle' element={<VehicleListView />} />
+											</TabsComponent>
 										}
 									/>
-									{/* Events */}
-									<Route
-										path='/event/create'
-										element={<PrivateRoute element={<EventInputForm />} isAuthenticated={isAuthenticated} />}
-									/>
-									<Route
-										path='/event/:eventId/edit'
-										element={<PrivateRoute element={<EventInputForm />} isAuthenticated={isAuthenticated} />}
-									/>
-									<Route
-										path='/event/:eventId'
-										element={<PrivateRoute element={<EventDetailsView />} isAuthenticated={isAuthenticated} />}
-									/>
-									{/* Entities */}
-									<Route
-										path='dashboard/event/:eventId/entity/create'
-										element={<PrivateRoute element={<EntityInputForm />} isAuthenticated={isAuthenticated} />}
-									/>
-									<Route
-										path='dashboard/event/:eventId/entity/:entityId/edit'
-										element={<PrivateRoute element={<EntityInputForm />} isAuthenticated={isAuthenticated} />}
-									/>
-									<Route
-										path='dashboard/event/:eventId/entity/:entityId'
-										element={<PrivateRoute element={<EntityDetailsView />} isAuthenticated={isAuthenticated} />}
-									/>
-									{/* Vehicles */}
-									<Route
-										path='dashboard/event/:eventId/vehicle/create'
-										element={<PrivateRoute element={<VehicleInputForm />} isAuthenticated={isAuthenticated} />}
-									/>
-									<Route
-										path='dashboard/event/:eventId/vehicle/:vehicleId/edit'
-										element={<PrivateRoute element={<VehicleInputForm />} isAuthenticated={isAuthenticated} />}
-									/>
-									<Route
-										path='dashboard/event/:eventId/vehicle/:vehicleId'
-										element={<PrivateRoute element={<VehicleDetailsView />} isAuthenticated={isAuthenticated} />}
-									/>
-									{/* Users */}
-									<Route
-										path='/users'
-										element={<PrivateRoute element={<UserListView />} isAuthenticated={isAuthenticated} />}
-									/>
-									<Route
-										path='/users/create'
-										element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}
-									/>
-									<Route
-										path='/users/edit/:userId'
-										element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}
-									/>
-									<Route
-										path='/users/:userId'
-										element={<PrivateRoute element={<UserDetailsView />} isAuthenticated={isAuthenticated} />}
-									/>
-									{/* Catch-all route for 404 */}
-									<Route path='*' element={<NotFound />} />
-								</Routes>
-							</div>
-							<Footer />
-						</HeaderContextProvider>
-					</Router>
-				</ThemeProvider>
-			</AuthProvider>
-		</ThemeContextProvider>
+								}
+							/>
+							{/* Events */}
+							<Route
+								path='/event/create'
+								element={<PrivateRoute element={<EventInputForm />} isAuthenticated={isAuthenticated} />}
+							/>
+							<Route
+								path='/event/:eventId/edit'
+								element={<PrivateRoute element={<EventInputForm />} isAuthenticated={isAuthenticated} />}
+							/>
+							<Route
+								path='/event/:eventId'
+								element={<PrivateRoute element={<EventDetailsView />} isAuthenticated={isAuthenticated} />}
+							/>
+							{/* Entities */}
+							<Route
+								path='dashboard/event/:eventId/entity/create'
+								element={<PrivateRoute element={<EntityInputForm />} isAuthenticated={isAuthenticated} />}
+							/>
+							<Route
+								path='dashboard/event/:eventId/entity/:entityId/edit'
+								element={<PrivateRoute element={<EntityInputForm />} isAuthenticated={isAuthenticated} />}
+							/>
+							<Route
+								path='dashboard/event/:eventId/entity/:entityId'
+								element={<PrivateRoute element={<EntityDetailsView />} isAuthenticated={isAuthenticated} />}
+							/>
+							{/* Vehicles */}
+							<Route
+								path='dashboard/event/:eventId/vehicle/create'
+								element={<PrivateRoute element={<VehicleInputForm />} isAuthenticated={isAuthenticated} />}
+							/>
+							<Route
+								path='dashboard/event/:eventId/vehicle/:vehicleId/edit'
+								element={<PrivateRoute element={<VehicleInputForm />} isAuthenticated={isAuthenticated} />}
+							/>
+							<Route
+								path='dashboard/event/:eventId/vehicle/:vehicleId'
+								element={<PrivateRoute element={<VehicleDetailsView />} isAuthenticated={isAuthenticated} />}
+							/>
+							{/* Users */}
+							<Route
+								path='/users'
+								element={<PrivateRoute element={<UserListView />} isAuthenticated={isAuthenticated} />}
+							/>
+							<Route
+								path='/users/create'
+								element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}
+							/>
+							<Route
+								path='/users/edit/:userId'
+								element={<PrivateRoute element={<UserInputForm />} isAuthenticated={isAuthenticated} />}
+							/>
+							<Route
+								path='/users/:userId'
+								element={<PrivateRoute element={<UserDetailsView />} isAuthenticated={isAuthenticated} />}
+							/>
+							{/* Catch-all route for 404 */}
+							<Route path='*' element={<NotFound />} />
+						</Routes>
+					</div>
+					<Footer />
+				</Router>
+			</ThemeProvider>
+		</AuthProvider>
 	)
 }
 

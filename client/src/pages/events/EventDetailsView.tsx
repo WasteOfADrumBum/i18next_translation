@@ -2,16 +2,16 @@ import { Container, Divider, Grid, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { HeaderContext } from '../../contexts/HeaderContext'
+import { HeaderContext } from '../../contexts'
 import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { readEvent } from '../../store/actions/mongodb/eventActions'
-import { GetLanguage, TimeConversionsHelper } from '../../utils'
+import { TimeConversionsHelper } from '../../utils'
 
-const eventHeaderT = translations.pages.events[GetLanguage()].header
-const eventFieldT = translations.pages.events[GetLanguage()].fields
-const eventTitlesT = translations.pages.events[GetLanguage()].titles
-const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
+const eventHeaderT = translations.pages.events.en.header
+const eventFieldT = translations.pages.events.en.fields
+const eventTitlesT = translations.pages.events.en.titles
+const statusIndicatorT = translations.common.en.statusIndicator
 
 const EventDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)
@@ -55,7 +55,7 @@ const EventDetailsView: FC = () => {
 							{event?.submitted?.submittedDate
 								? TimeConversionsHelper.convertTime(event?.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')
 								: eventFieldT.submitted.submittedDate + ' ' + statusIndicatorT.na}{' '}
-							{translations.common[GetLanguage()].prepositions.by}{' '}
+							{translations.common.en.prepositions.by}{' '}
 							{event?.submitted?.submittedBy || eventFieldT.submitted.submittedBy + ' ' + statusIndicatorT.na}
 						</Typography>
 					</Grid>
@@ -67,7 +67,7 @@ const EventDetailsView: FC = () => {
 							{event?.reported?.reportedDate
 								? TimeConversionsHelper.convertTime(event?.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC')
 								: eventFieldT.reported.reportedDate + ' ' + statusIndicatorT.na}{' '}
-							{translations.common[GetLanguage()].prepositions.by}{' '}
+							{translations.common.en.prepositions.by}{' '}
 							{event?.reported?.reporter || eventFieldT.reported.reporter + ' ' + statusIndicatorT.na}
 						</Typography>
 					</Grid>
@@ -79,7 +79,7 @@ const EventDetailsView: FC = () => {
 							{event?.updated?.updatedDate
 								? TimeConversionsHelper.convertTime(event?.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC')
 								: eventFieldT.updated.updatedDate + ' ' + statusIndicatorT.na}{' '}
-							{translations.common[GetLanguage()].prepositions.by}{' '}
+							{translations.common.en.prepositions.by}{' '}
 							{event?.updated?.updatedBy || eventFieldT.updated.updatedBy + ' ' + statusIndicatorT.na}
 						</Typography>
 					</Grid>

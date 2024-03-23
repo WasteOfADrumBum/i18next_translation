@@ -28,19 +28,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from 'store'
 import { VehicleFormData } from '../../../types/vehicles/VehicleFormTypes'
-import { HeaderContext } from '../../contexts/HeaderContext'
+import { HeaderContext } from '../../contexts'
 import translations from '../../i18n/locales'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { createVehicle, readVehicle, updateVehicle } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
-import { GetLanguage, states, vehicleColors, vehicleMakes, vehicleModels } from '../../utils'
+import { states, vehicleColors, vehicleMakes, vehicleModels } from '../../utils'
 
-const vehicleHeaderT = translations.pages.vehicles[GetLanguage()].header
-const vehicleFieldT = translations.pages.vehicles[GetLanguage()].fields
-const vehiclePlaceholderT = translations.pages.vehicles[GetLanguage()].placeholders
-const vehicleTitlesT = translations.pages.vehicles[GetLanguage()].titles
-const vehicleButtonT = translations.pages.vehicles[GetLanguage()].buttons
-const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
+const vehicleHeaderT = translations.pages.vehicles.en.header
+const vehicleFieldT = translations.pages.vehicles.en.fields
+const vehiclePlaceholderT = translations.pages.vehicles.en.placeholders
+const vehicleTitlesT = translations.pages.vehicles.en.titles
+const vehicleButtonT = translations.pages.vehicles.en.buttons
+const statusIndicatorT = translations.common.en.statusIndicator
 
 interface VehicleInputFormProps {
 	vehicleValues?: VehicleFormData
@@ -164,7 +164,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 			extraContent: (
 				<Grid container spacing={0}>
 					<Grid item xs={12}>
-						<Typography variant='caption'>{translations.common[GetLanguage()].forms.requiredDisclaimer}</Typography>
+						<Typography variant='caption'>{translations.common.en.forms.requiredDisclaimer}</Typography>
 					</Grid>
 				</Grid>
 			),
@@ -253,7 +253,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 
 			// Check if parent ID is provided
 			if (vehicleData.parent._id === null || vehicleData.parent._id === '') {
-				console.error(translations.errors[GetLanguage()].parentIdRequired)
+				console.error(translations.errors.en.parentIdRequired)
 			} else if (vehicleData._id !== null) {
 				dispatch(updateVehicle(vehicleData)) // Update vehicle
 				console.log('Updating vehicle:', vehicleData)
@@ -775,7 +775,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								color='secondary'
 								onClick={() => navigate('/dashboard/event/${eventId}/vehicle')}>
 								<CancelOutlined sx={{ marginRight: 1 }} />
-								{translations.common[GetLanguage()].buttons.cancel}
+								{translations.common.en.buttons.cancel}
 							</Button>
 							<Button type='submit' variant='contained' color='primary' sx={{ textAlign: 'right' }}>
 								<AddCircleOutline sx={{ marginRight: 1 }} />

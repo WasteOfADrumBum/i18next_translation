@@ -1,8 +1,5 @@
 import React, { createContext, FC, ReactNode, useContext, useState } from 'react'
-import translations from '../../i18n/locales'
-import { GetLanguage } from '../../utils'
-
-const errorTranslations = translations.errors[GetLanguage()]
+import { useTranslation } from 'react-i18next'
 
 // Define types for authentication state and context
 interface AuthState {
@@ -17,8 +14,9 @@ const AuthContext = createContext<AuthState | undefined>(undefined)
 // Custom hook to consume AuthContext
 export const useAuth = () => {
 	const context = useContext(AuthContext)
+	const { t } = useTranslation()
 	if (!context) {
-		throw new Error(errorTranslations.useAuthMustBeUsedWithinAuthProvider)
+		throw new Error(t('errors:useAuthMustBeUsedWithinAuthProvider'))
 	}
 	return context
 }

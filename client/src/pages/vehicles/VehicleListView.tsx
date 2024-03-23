@@ -1,24 +1,19 @@
 import { AddCircleOutline } from '@mui/icons-material'
 import { Button, Container, Divider, Grid, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ActionsMenu, DynamicDataTable } from '../../components'
-import { HeaderContext } from '../../contexts/HeaderContext'
-import translations from '../../i18n/locales'
+import { HeaderContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { getVehicles } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
-import { ExtractLastFiveDigits, GetLanguage, getVehiclesByEventId } from '../../utils'
-
-const vehcileHeaderT = translations.pages.vehicles[GetLanguage()].header
-const vehcileFieldT = translations.pages.vehicles[GetLanguage()].fields
-const vehcileTitlesT = translations.pages.vehicles[GetLanguage()].titles
-const vehcileButtonT = translations.pages.vehicles[GetLanguage()].buttons
-const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
+import { ExtractLastFiveDigits, getVehiclesByEventId } from '../../utils'
 
 const VehicleListView: FC = () => {
+	const { t } = useTranslation()
 	const { setHeaderData } = useContext(HeaderContext)
 	const dispatch: AppDispatch = useDispatch()
 	const navigate = useNavigate()
@@ -56,7 +51,7 @@ const VehicleListView: FC = () => {
 				}
 			}
 		}
-		return statusIndicatorT.na
+		return t('common:statusIndicator.na')
 	}
 
 	// Make a new array of vehicles that are associated with the current event
@@ -65,12 +60,12 @@ const VehicleListView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: vehcileHeaderT.title.all,
-			subheader: vehcileHeaderT.subtitle.all,
+			header: t('pages:vehicles.header.title.all'),
+			subheader: t('pages:vehicles.header.subtitle.all'),
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={6}>
-						<Typography variant='caption'>{vehcileFieldT.id}:</Typography>
+						<Typography variant='caption'>{t('pages:vehicles.fiels.id')}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
@@ -83,7 +78,7 @@ const VehicleListView: FC = () => {
 					{entities.length > 0 ? (
 						<>
 							<Grid item xs={6}>
-								<Typography variant='caption'>{vehcileHeaderT.content.total}:</Typography>
+								<Typography variant='caption'>{t('pages:vehicles.header.content.total')}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color={'primary'}>
@@ -94,7 +89,7 @@ const VehicleListView: FC = () => {
 					) : (
 						<Grid item xs={12}>
 							<Typography variant='caption' color={'secondary'}>
-								{translations.common[GetLanguage()].forms.vehiclesRequireEntities}
+								{t('common:forms.vehiclesRequireEntities')}
 							</Typography>
 						</Grid>
 					)}
@@ -134,14 +129,14 @@ const VehicleListView: FC = () => {
 	const columns = [
 		{
 			id: '_id',
-			label: vehcileFieldT.id,
+			label: t('pages:vehicles.fiels.id'),
 			render: (data: Vehicle) => (
-				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : statusIndicatorT.na}</Typography>
+				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common:statusIndicator.na')}</Typography>
 			),
 		},
 		{
 			id: 'description',
-			label: vehcileTitlesT.description,
+			label: t('pages:vehicles.title.description'),
 			render: (data: Vehicle) => (
 				<Typography>
 					{data.year ? data.year : ''} {data.make ? data.make : ''} {data.model ? data.model : ''}{' '}
@@ -151,25 +146,27 @@ const VehicleListView: FC = () => {
 		},
 		{
 			id: 'driver',
-			label: vehcileFieldT.occupants.driver,
+			label: t('pages:vehicles.fields.occupants.driver'),
 			render: (data: Vehicle) => (
-				<Typography>{data.occupants.driver ? getEntityName(data.occupants.driver) : statusIndicatorT.na} </Typography>
+				<Typography>
+					{data.occupants.driver ? getEntityName(data.occupants.driver) : t('common:statusIndicator.na')}{' '}
+				</Typography>
 			),
 		},
 		{
 			id: 'occupants',
-			label: vehcileTitlesT.occupants,
+			label: t('pages:vehicles.title.occupants'),
 			render: (data: Vehicle) => (
 				<Typography>
 					{data.occupants.passengers
 						? data.occupants.passengers.map((passengerId) => getEntityName(passengerId)).join(', ')
-						: statusIndicatorT.na}
+						: t('common:statusIndicator.na')}
 				</Typography>
 			),
 		},
 		{
 			id: 'actions',
-			label: translations.common[GetLanguage()].tables.actions,
+			label: t('common:tables.actions'),
 			render: (data: Vehicle) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}
@@ -185,15 +182,15 @@ const VehicleListView: FC = () => {
 			<Grid container justifyContent='flex-end'>
 				{entities.length > 0 && (
 					<Button onClick={() => navigate(`create`)} sx={{ margin: 1 }}>
-						<AddCircleOutline sx={{ marginRight: 1 }} /> {vehcileButtonT.new}
+						<AddCircleOutline sx={{ marginRight: 1 }} /> {t('pages:vehicles.buttons.new')}
 					</Button>
 				)}
 			</Grid>
 			{loading ? (
-				<Typography variant='h6'>{statusIndicatorT.loading}</Typography>
+				<Typography variant='h6'>{t('common:statusIndicator.loading')}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
 				<Typography variant='h6'>
-					{statusIndicatorT.error}: {error.toString()}
+					{t('common:statusIndicator.error')}: {error.toString()}
 				</Typography>
 			) : (
 				<DynamicDataTable

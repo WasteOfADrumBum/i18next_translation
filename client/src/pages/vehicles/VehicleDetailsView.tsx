@@ -2,18 +2,18 @@ import { Container, Divider, Grid, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { HeaderContext } from '../../contexts/HeaderContext'
+import { HeaderContext } from '../../contexts'
 import translations from '../../i18n/locales'
 import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { readVehicle } from '../../store/actions/mongodb/vehicleActions'
-import { GetLanguage, TimeConversionsHelper } from '../../utils'
+import { TimeConversionsHelper } from '../../utils'
 
-const vehicleHeaderT = translations.pages.vehicles[GetLanguage()].header
-const vehicleFieldT = translations.pages.vehicles[GetLanguage()].fields
-const vehicleTitlesT = translations.pages.vehicles[GetLanguage()].titles
-const statusIndicatorT = translations.common[GetLanguage()].statusIndicator
-const booleanT = translations.common[GetLanguage()].boolean
+const vehicleHeaderT = translations.pages.vehicles.en.header
+const vehicleFieldT = translations.pages.vehicles.en.fields
+const vehicleTitlesT = translations.pages.vehicles.en.titles
+const statusIndicatorT = translations.common.en.statusIndicator
+const booleanT = translations.common.en.boolean
 
 const VehicleDetailsView: FC = () => {
 	const { setHeaderData } = useContext(HeaderContext)

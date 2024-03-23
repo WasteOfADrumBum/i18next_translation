@@ -1,16 +1,14 @@
 import { MoreVert as MoreVertIcon } from '@mui/icons-material'
 import { IconButton, Menu, MenuItem } from '@mui/material'
 import React, { FC, MouseEvent, useState } from 'react'
-import translations from '../../i18n/locales'
-import { GetLanguage } from '../../utils'
-
-const buttonTranslations = translations.common[GetLanguage()].buttons
+import { useTranslation } from 'react-i18next';
 
 const ActionsMenu: FC<{ onView: () => void; onEdit: () => void; onDelete: () => void }> = ({
 	onView,
 	onEdit,
 	onDelete,
 }) => {
+	const { t } = useTranslation()
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
 	const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -27,9 +25,9 @@ const ActionsMenu: FC<{ onView: () => void; onEdit: () => void; onDelete: () => 
 				<MoreVertIcon />
 			</IconButton>
 			<Menu id='actions-menu' anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-				<MenuItem onClick={onView}>{buttonTranslations.view}</MenuItem>
-				<MenuItem onClick={onEdit}>{buttonTranslations.edit}</MenuItem>
-				<MenuItem onClick={onDelete}>{buttonTranslations.delete}</MenuItem>
+				<MenuItem onClick={onView}>{t('common:buttons.view')}</MenuItem>
+				<MenuItem onClick={onEdit}>{t('common:buttons.edit')}</MenuItem>
+				<MenuItem onClick={onDelete}>{t('common:buttons.delete')}</MenuItem>
 			</Menu>
 		</>
 	)

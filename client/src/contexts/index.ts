@@ -1,2 +1,3 @@
-export { HeaderContextProvider } from './HeaderContext'
-export { ThemeContextProvider } from './ThemeContext'
+export { HeaderContext, HeaderContextProvider } from './HeaderContext'
+export { LanguageContextProvider, useLanguage } from './LanguageContext'
+export { ThemeContext, ThemeContextProvider } from './ThemeContext'

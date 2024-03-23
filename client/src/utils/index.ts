@@ -1,7 +1,6 @@
 export { ExtractLastFiveDigits } from './ExtractLastFiveDigits'
 export { getEntitiesByEventId, getVehiclesByEventId } from './filters/filters'
 export { GetCountryAbbreviation } from './GetCountryAbbreviation'
-export { GetLanguage } from './GetLanguage'
 export { GetStateAbbreviation } from './GetStateAbbreviations'
 export { TimeConversionsHelper } from './TimeConversionsHelper'
 export { countries } from './valueProviders/countries'

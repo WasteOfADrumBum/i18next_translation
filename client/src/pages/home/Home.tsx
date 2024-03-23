@@ -2,14 +2,12 @@ import { Box, Button, Container, ThemeProvider, Typography } from '@mui/material
 import React, { FC, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { ThemeContext } from '../../contexts/ThemeContext'
-import translations from '../../i18n/locales'
+import { ThemeContext } from '../../contexts'
 import { darkTheme, lightTheme } from '../../styles/theme'
-import { GetLanguage } from '../../utils'
+
+const { t } = useTranslation()
 
 const Home: FC = () => {
-	const { t } = useTranslation()
-	const tHome = translations.pages.home[GetLanguage()]
 	const darkMode = useContext(ThemeContext)
 	const theme = darkMode ? darkTheme : lightTheme
 	const navigate = useNavigate()
@@ -33,16 +31,16 @@ const Home: FC = () => {
 						marginBottom: '2rem',
 					}}>
 					<Typography variant='h1' component='h1' gutterBottom>
-						{t(tHome.header)}
+						{t('pages:home.header')}
 					</Typography>
 					<Typography variant='body1' component='p' gutterBottom>
-						{t(tHome.body.content)}
+						{t('pages:home.body.content')}
 					</Typography>
 					<Typography variant='body2' component='p' gutterBottom>
-						{t(tHome.body.content2)}
+						{t('pages:home.body.content2')}
 					</Typography>
 					<Button variant='contained' color='primary' sx={{ mt: 4 }} onClick={handleLoginClick}>
-						{t(translations.common[GetLanguage()].buttons.login)}
+						{t('common:buttons.login')}
 					</Button>
 				</Box>
 			</Container>

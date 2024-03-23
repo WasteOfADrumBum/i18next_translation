@@ -26,18 +26,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from 'store'
 import { EventFormData } from '../../../types/events/EventFormTypes'
-import { HeaderContext } from '../../contexts/HeaderContext'
+import { HeaderContext } from '../../contexts'
 import translations from '../../i18n/locales'
 import { createEvent, readEvent, updateEvent } from '../../store/actions/mongodb/eventActions'
 import { Event } from '../../store/types/EventTypes'
-import { countries, eventSubTypes, eventTypes, GetLanguage, methodsOfReceipt, states } from '../../utils'
+import { countries, eventSubTypes, eventTypes, methodsOfReceipt, states } from '../../utils'
 
-const eventHeaderT = translations.pages.events[GetLanguage()].header
-const eventFieldT = translations.pages.events[GetLanguage()].fields
-const eventButtonT = translations.pages.events[GetLanguage()].buttons
-const interrogatives = translations.common[GetLanguage()].interrogatives
-const statusIndicator = translations.common[GetLanguage()].statusIndicator
-const commonButton = translations.common[GetLanguage()].buttons
+const eventHeaderT = translations.pages.events.en.header
+const eventFieldT = translations.pages.events.en.fields
+const eventButtonT = translations.pages.events.en.buttons
+const interrogatives = translations.common.en.interrogatives
+const statusIndicator = translations.common.en.statusIndicator
+const commonButton = translations.common.en.buttons
 
 interface EventInputFormProps {
 	eventValues?: EventFormData
@@ -90,7 +90,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 			extraContent: (
 				<Grid container spacing={0}>
 					<Grid item xs={12}>
-						<Typography variant='caption'>{translations.common[GetLanguage()].forms.requiredDisclaimer}</Typography>
+						<Typography variant='caption'>{translations.common.en.forms.requiredDisclaimer}</Typography>
 					</Grid>
 				</Grid>
 			),
