@@ -37,9 +37,10 @@ import { states, vehicleColors, vehicleMakes, vehicleModels } from '../../utils'
 
 const vehicleHeaderT = translations.pages.vehicles.header
 const vehicleFieldT = translations.pages.vehicles.fields
+const vehiclePlaceholderT = translations.pages.vehicles.placeholders
 const vehicleTitlesT = translations.pages.vehicles.titles
+const vehicleButtonT = translations.pages.vehicles.buttons
 const statusIndicatorT = translations.common.statusIndicator
-const booleanT = translations.common.boolean
 
 interface VehicleInputFormProps {
 	vehicleValues?: VehicleFormData
@@ -186,8 +187,8 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	useEffect(() => {
 		if (vehicleId && vehicle) {
 			setFormData({
-				_id: vehicle._id!,
-				parentId: vehicle.parent._id,
+				_id: vehicle._id || undefined,
+				parentId: vehicle.parent._id || null,
 				parentName: vehicle.parent.name,
 				make: vehicle.make,
 				model: vehicle.model,
@@ -391,6 +392,68 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 		}
 	}
 
+	// Render entity menu items
+	const renderEntityMenuItems = (
+		entities: EntityListItem[],
+		eventId: string | undefined,
+		entityType: 'Person' | 'Organization' | 'All',
+	): JSX.Element[] => {
+		return entities
+			.filter((entity) => {
+				if (entityType === 'All') {
+					return entity.parent?._id === eventId
+				} else {
+					return entity.parent?._id === eventId && entity.type === entityType
+				}
+			})
+			.map((entity) => {
+				if (!entity._id) return null
+
+				return (
+					<MenuItem key={entity._id} value={entity._id}>
+						{entity.person.name.first || ''} {entity.person.name.last || ''}
+					</MenuItem>
+				)
+			})
+			.filter(Boolean) as JSX.Element[]
+	}
+
+	// Function to render the selected values in the passengers Select component
+	const renderSelectedValues = (selected: string[]) => {
+		return (
+			<div>
+				{selected.map((value) => {
+					const selectedPerson = entities.find((entity) => entity._id === value)
+					return (
+						<Chip
+							key={value}
+							label={`${selectedPerson?.person.name.first} ${selectedPerson?.person.name.last}`}
+							sx={{ marginRight: 1 }}
+						/>
+					)
+				})}
+			</div>
+		)
+	}
+
+	// Function to render the menu items for the passengers Select component
+	const renderMenuItems = (entities: EntityListItem[], eventId: string | undefined) => {
+		return (
+			eventId &&
+			entities
+				.filter((entity) => entity.parent?._id === eventId && entity.type === 'Person' && entity._id !== null)
+				.map(
+					(entity) =>
+						entity._id && (
+							<MenuItem key={entity._id} value={entity._id}>
+								<Checkbox checked={formData.occupantsPassengers.indexOf(entity._id) > -1} />
+								<ListItemText primary={`${entity.person.name.first || ''} ${entity.person.name.last || ''}`} />
+							</MenuItem>
+						),
+				)
+		)
+	}
+
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<Container>
@@ -412,7 +475,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<TextField
 								required
 								name='year'
-								label='Year'
+								label={vehicleFieldT.year}
 								variant='outlined'
 								fullWidth
 								select
@@ -428,7 +491,9 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='make-label'>Make</InputLabel>
+								<InputLabel id='make-label' required>
+									{vehicleFieldT.make}
+								</InputLabel>
 								<Select
 									required
 									labelId='make-label'
@@ -436,7 +501,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									name='make'
 									value={formData.make}
 									onChange={handleFormConditionalSelectChange}>
-									<MenuItem value=''>Select a Vehcile Make</MenuItem>
+									<MenuItem value=''>{vehiclePlaceholderT.make}</MenuItem>
 									{vehicleMakes.map((option, index) => (
 										<MenuItem key={index} value={option}>
 											{option}
@@ -447,7 +512,9 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='model-label'>Model</InputLabel>
+								<InputLabel id='model-label' required>
+									{vehicleFieldT.model}
+								</InputLabel>
 								<Select
 									required
 									labelId='model-label'
@@ -455,7 +522,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									name='model'
 									value={formData.model}
 									onChange={handleFormConditionalSelectChange}>
-									<MenuItem value=''>Select Vehicle Model</MenuItem>
+									<MenuItem value=''>{vehiclePlaceholderT.model}</MenuItem>
 									{formData.make &&
 										vehicleModels[formData.make].map((option, index) => (
 											<MenuItem key={index} value={option}>
@@ -467,7 +534,9 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='color-label'>Color</InputLabel>
+								<InputLabel id='color-label' required>
+									{vehicleFieldT.color}
+								</InputLabel>
 								<Select
 									required
 									labelId='color-label'
@@ -475,7 +544,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									name='color'
 									value={formData.color}
 									onChange={handleFormConditionalSelectChange}>
-									<MenuItem value=''>Select a Vehcile Color</MenuItem>
+									<MenuItem value=''>{vehiclePlaceholderT.color}</MenuItem>
 									{vehicleColors.map((option, index) => (
 										<MenuItem key={index} value={option}>
 											{option}
@@ -488,7 +557,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<TextField
 								required
 								name='vin'
-								label='VIN'
+								label={vehicleFieldT.vin}
 								variant='outlined'
 								fullWidth
 								value={formData.vin}
@@ -503,63 +572,39 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='driver-label'>Driver</InputLabel>
-								<Select
-									required
-									labelId='driver-label'
-									id='driver'
-									name='occupantsDriver'
-									value={formData.occupantsDriver}
-									onChange={handleFormEntitySelectChange}>
-									<MenuItem value=''>Select a Driver</MenuItem>
-									{entities
-										.filter(
-											(entity) => entity.parent?._id === eventId && entity.type === 'Person' && entity._id !== null,
-										)
-										.map((entity) => (
-											<MenuItem key={entity._id!} value={entity._id!}>
-												{entity.person.name.first} {entity.person.name.last}
-											</MenuItem>
-										))}
-								</Select>
+								<InputLabel id='driver-label' required>
+									{vehicleFieldT.occupants.driver}
+								</InputLabel>
+								{eventId && (
+									<Select
+										required
+										labelId='driver-label'
+										id='driver'
+										name='occupantsDriver'
+										value={formData.occupantsDriver}
+										onChange={handleFormEntitySelectChange}>
+										<MenuItem value=''>{vehiclePlaceholderT.driver}</MenuItem>
+										{renderEntityMenuItems(entities, eventId, 'Person')}
+									</Select>
+								)}
 							</FormControl>
 						</Grid>
 						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='passengers-label'>Passengers</InputLabel>
-								<Select
-									labelId='passengers-label'
-									id='passengers'
-									name='occupantsPassengers'
-									value={formData.occupantsPassengers}
-									onChange={handleFormMultiSelectChange}
-									input={<OutlinedInput label='Tag' />}
-									multiple
-									renderValue={(selected) => (
-										<div>
-											{selected.map((value) => {
-												const selectedPerson = entities.find((entity) => entity._id === value)
-												return (
-													<Chip
-														key={value}
-														label={`${selectedPerson?.person.name.first} ${selectedPerson?.person.name.last}`}
-														sx={{ marginRight: 1 }}
-													/>
-												)
-											})}
-										</div>
-									)}>
-									{entities
-										.filter(
-											(entity) => entity.parent?._id === eventId && entity.type === 'Person' && entity._id !== null,
-										)
-										.map((entity) => (
-											<MenuItem key={entity._id!} value={entity._id!}>
-												<Checkbox checked={formData.occupantsPassengers.indexOf(entity._id!) > -1} />
-												<ListItemText primary={`${entity.person.name.first} ${entity.person.name.last}`} />
-											</MenuItem>
-										))}
-								</Select>
+								<InputLabel id='passengers-label'>{vehicleFieldT.occupants.passengers}</InputLabel>
+								{eventId && (
+									<Select
+										labelId='passengers-label'
+										id='passengers'
+										name='occupantsPassengers'
+										value={formData.occupantsPassengers}
+										onChange={handleFormMultiSelectChange}
+										input={<OutlinedInput label='Tag' />}
+										multiple
+										renderValue={(selected) => renderSelectedValues(selected)}>
+										{renderMenuItems(entities, eventId)}
+									</Select>
+								)}
 							</FormControl>
 						</Grid>
 						<Grid item xs={12}>
@@ -570,7 +615,9 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						</Grid>
 						<Grid item xs={4}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='owner-label'>Owner</InputLabel>
+								<InputLabel id='owner-label' required>
+									{vehicleFieldT.registration.owner}
+								</InputLabel>
 								<Select
 									required
 									labelId='owner-label'
@@ -578,16 +625,8 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									name='registrationOwner'
 									value={formData.registrationOwner}
 									onChange={handleFormEntitySelectChange}>
-									<MenuItem value=''>Select a Vehicle Owner</MenuItem>
-									{entities
-										.filter((entity) => entity.parent?._id === eventId && entity._id !== null)
-										.map((entity) => (
-											<MenuItem key={entity._id!} value={entity._id!}>
-												{entity.type === 'Person'
-													? `${entity.person.name.first} ${entity.person.name.last}`
-													: entity.organization.legal.legalName}
-											</MenuItem>
-										))}
+									<MenuItem value=''>{vehiclePlaceholderT.owner}</MenuItem>
+									{renderEntityMenuItems(entities, eventId, 'All')}
 								</Select>
 							</FormControl>
 						</Grid>
@@ -595,7 +634,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<TextField
 								required
 								name='registrationPlateNumber'
-								label='Plate Number'
+								label={vehicleFieldT.registration.plateNumber}
 								variant='outlined'
 								fullWidth
 								value={formData.registrationPlateNumber}
@@ -605,7 +644,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						<Grid item xs={4}>
 							<DatePicker
 								name='registrationExpirationDate'
-								label='Expiration Date'
+								label={vehicleFieldT.registration.expirationDate}
 								defaultValue={dayjs()}
 								value={dayjs(formData.registrationExpirationDate)}
 								onChange={(date) => handleFormDateChange(date, 'registrationExpirationDate')}
@@ -621,7 +660,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 							<TextField
 								required
 								name='registrationState'
-								label='State'
+								label={vehicleFieldT.registration.state}
 								variant='outlined'
 								fullWidth
 								select
@@ -649,7 +688,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 										onChange={handleFormSwitchChange('insuranceInsured')}
 									/>
 								}
-								label='Insured'
+								label={vehicleFieldT.insurance.insured}
 							/>
 						</Grid>
 						{formData.insuranceInsured && (
@@ -657,7 +696,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								<Grid item xs={4}>
 									<TextField
 										name='insurancePolicyNumber'
-										label='Policy Number'
+										label={vehicleFieldT.insurance.policyNumber}
 										variant='outlined'
 										fullWidth
 										required
@@ -668,7 +707,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								<Grid item xs={4}>
 									<TextField
 										name='insuranceProvider'
-										label='Provider'
+										label={vehicleFieldT.insurance.provider}
 										variant='outlined'
 										fullWidth
 										required
@@ -679,7 +718,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								<Grid item xs={4}>
 									<DatePicker
 										name='insuranceExpirationDate'
-										label='Expiration Date'
+										label={vehicleFieldT.insurance.expirationDate}
 										defaultValue={dayjs()}
 										value={dayjs(formData.insuranceExpirationDate)}
 										onChange={(date) => handleFormDateChange(date, 'insuranceExpirationDate')}
@@ -702,7 +741,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 						<Grid item xs={6}>
 							<FormControlLabel
 								control={<Switch name='stolen' checked={formData.stolen} onChange={handleFormSwitchChange('stolen')} />}
-								label='Stolen'
+								label={vehicleFieldT.stolen}
 							/>
 						</Grid>
 						<Grid item xs={6}>
@@ -714,16 +753,17 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 										onChange={handleFormSwitchChange('illegalModificationsWasModified')}
 									/>
 								}
-								label='Modified'
+								label={vehicleFieldT.illegalModifications.wasModified}
 							/>
 						</Grid>
 						{formData.illegalModificationsWasModified && (
 							<Grid item xs={12}>
 								<TextField
 									name='illegalModificationsDescription'
-									label='Modifications'
+									label={vehicleFieldT.illegalModifications.description}
 									variant='outlined'
 									fullWidth
+									required
 									value={formData.illegalModificationsDescription}
 									onChange={handleFormChange}
 								/>
@@ -735,11 +775,11 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								color='secondary'
 								onClick={() => navigate('/dashboard/event/${eventId}/vehicle')}>
 								<CancelOutlined sx={{ marginRight: 1 }} />
-								Cancel
+								{translations.common.buttons.cancel}
 							</Button>
 							<Button type='submit' variant='contained' color='primary' sx={{ textAlign: 'right' }}>
 								<AddCircleOutline sx={{ marginRight: 1 }} />
-								{vehicle?._id ? 'Save Changes' : 'Add Event'}
+								{vehicle?._id ? vehicleButtonT.edit : vehicleButtonT.new}
 							</Button>
 						</Grid>
 					</Grid>

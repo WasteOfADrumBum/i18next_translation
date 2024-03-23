@@ -32,6 +32,13 @@
 			"description": "Description"
 		}
 	},
+	"placeholders": {
+		"make": "Select a Vehcile Make",
+		"model": "Select Vehicle Model",
+		"color": "Select a Vehcile Color",
+		"driver": "Select a Driver",
+		"owner": "Select a Vehicle Owner"
+	},
 	"titles": {
 		"parent": "Parent Record",
 		"description": "Description",
