@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+// TODO: Turn this into a context instead of a hook
+
 export const GetLanguage = () => {
 	const { i18n } = useTranslation()
 	const [language, setLanguage] = useState<'en' | 'es'>(i18n.language as 'en' | 'es') // Define type here
