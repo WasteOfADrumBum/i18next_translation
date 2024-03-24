@@ -2,7 +2,7 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
 // Import translations
-import { enTranslation, esTranslation } from './locales'
+import { deTranslation, enTranslation, esTranslation, frTranslation, jaTranslation, zhTranslation } from './locales'
 
 i18n.use(initReactI18next).init({
 	resources: {
@@ -11,6 +11,18 @@ i18n.use(initReactI18next).init({
 		},
 		es: {
 			translation: esTranslation,
+		},
+		de: {
+			translation: deTranslation,
+		},
+		fr: {
+			translation: frTranslation,
+		},
+		ja: {
+			translation: jaTranslation,
+		},
+		zh: {
+			translation: zhTranslation,
 		},
 	},
 	fallbackLng: 'en', // Fallback language
