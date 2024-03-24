@@ -96,7 +96,7 @@ const EventDetailsView: FC = () => {
 				extraContent: null,
 			})
 		}
-	}, [setHeaderData, event])
+	}, [setHeaderData, event, t])
 
 	return (
 		<Container maxWidth='xl'>

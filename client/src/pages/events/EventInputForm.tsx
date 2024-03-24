@@ -100,7 +100,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 				extraContent: null,
 			})
 		}
-	}, [setHeaderData, eventValues])
+	}, [setHeaderData, eventValues, t])
 
 	// Update form data when event details are fetched from Redux store
 	useEffect(() => {

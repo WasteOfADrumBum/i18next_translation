@@ -126,7 +126,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 				returnButton: true,
 			})
 		}
-	}, [setHeaderData, eventId, entityValues])
+	}, [setHeaderData, eventId, entityValues, t])
 
 	// Update form data when entity data is fetched from Redux store
 	useEffect(() => {

@@ -5,9 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../../contexts'
 import { darkTheme, lightTheme } from '../../styles/theme'
 
-const { t } = useTranslation()
-
 const Home: FC = () => {
+	const { t } = useTranslation()
 	const darkMode = useContext(ThemeContext)
 	const theme = darkMode ? darkTheme : lightTheme
 	const navigate = useNavigate()

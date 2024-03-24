@@ -86,7 +86,7 @@ const VehicleDetailsView: FC = () => {
 				extraContent: null,
 			})
 		}
-	}, [setHeaderData, vehicle, eventId])
+	}, [setHeaderData, vehicle, eventId, t])
 	console.log(vehicle)
 
 	return (

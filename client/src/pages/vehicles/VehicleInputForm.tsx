@@ -175,7 +175,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 				returnButton: true,
 			})
 		}
-	}, [eventId, setHeaderData, vehicleValues])
+	}, [eventId, setHeaderData, vehicleValues, t])
 
 	// Update form data when vehicle details are fetched from Redux store
 	useEffect(() => {
