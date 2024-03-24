@@ -1,72 +1,72 @@
 {
 	"buttons": {
-		"submit": "Submit",
-		"cancel": "Cancel",
-		"save": "Save",
-		"delete": "Delete",
-		"view": "View",
-		"edit": "Edit",
-		"add": "Add",
-		"login": "Login",
-		"logout": "Logout",
-		"register": "Register",
-		"forgotPassword": "Forgot Password",
-		"resetPassword": "Reset Password",
-		"changePassword": "Change Password"
+		"submit": "Enviar",
+		"cancel": "Cancelar",
+		"save": "Guardar",
+		"delete": "Eliminar",
+		"view": "Ver",
+		"edit": "Editar",
+		"add": "Agregar",
+		"login": "Iniciar sesión",
+		"logout": "Cerrar sesión",
+		"register": "Registrarse",
+		"forgotPassword": "¿Olvidó su contraseña?",
+		"resetPassword": "Restablecer contraseña",
+		"changePassword": "Cambiar contraseña"
 	},
 	"tables": {
-		"actions": "Actions",
-		"view": "View",
-		"edit": "Edit",
-		"delete": "Delete"
+		"actions": "Acciones",
+		"view": "Ver",
+		"edit": "Editar",
+		"delete": "Eliminar"
 	},
 	"prepositions": {
-		"of": "of",
-		"for": "for",
-		"by": "by",
-		"on": "on",
-		"at": "at",
-		"in": "in",
-		"to": "to",
-		"with": "with",
-		"from": "from",
-		"about": "about",
-		"into": "into",
-		"after": "after",
-		"before": "before",
-		"under": "under",
-		"over": "over",
-		"between": "between"
+		"of": "de",
+		"for": "para",
+		"by": "por",
+		"on": "en",
+		"at": "a",
+		"in": "en",
+		"to": "a",
+		"with": "con",
+		"from": "desde",
+		"about": "acerca de",
+		"into": "dentro de",
+		"after": "después de",
+		"before": "antes de",
+		"under": "debajo de",
+		"over": "sobre",
+		"between": "entre"
 	},
 	"interrogatives": {
-		"what": "What",
-		"who": "Who",
-		"where": "Where",
-		"when": "When",
-		"why": "Why",
-		"how": "How"
+		"what": "Qué",
+		"who": "Quién",
+		"where": "Dónde",
+		"when": "Cuándo",
+		"why": "Por qué",
+		"how": "Cómo"
 	},
 	"forms": {
-		"requiredDisclaimer": "All fields marker with an asterisk (*) are required",
-		"vehiclesRequireEntities": "* Entitites are required before adding a vehicle"
+		"requiredDisclaimer": "Todos los campos marcados con un asterisco (*) son obligatorios",
+		"vehiclesRequireEntities": "* Se requieren entidades antes de agregar un vehículo"
 	},
 	"statusIndicator": {
-		"loading": "Loading...",
-		"success": "Success",
+		"loading": "Cargando...",
+		"success": "Éxito",
 		"error": "Error",
-		"notAvailable": "Not Available",
-		"na": "N/A",
-		"expired": "Expired",
-		"expires": "Expires",
-		"invalid": "Invalid",
-		"required": "Required"
+		"notAvailable": "No disponible",
+		"na": "N/D",
+		"expired": "Caducado",
+		"expires": "Caduca",
+		"invalid": "Inválido",
+		"required": "Requerido"
 	},
 	"boolean": {
-		"yes": "Yes",
+		"yes": "Sí",
 		"no": "No",
-		"true": "True",
-		"false": "False",
-		"on": "On",
-		"off": "Off"
+		"true": "Verdadero",
+		"false": "Falso",
+		"on": "Encendido",
+		"off": "Apagado"
 	}
 }

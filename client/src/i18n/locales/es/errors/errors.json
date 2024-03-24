@@ -1,8 +1,8 @@
 {
-	"rootElementNotFound": "Root element not found",
-	"useAuthMustBeUsedWithinAuthProvider": "useAuth must be used within an AuthProvider",
-	"invalidDateInput": "Invalid date",
-	"unknownErrorOccurred": "An unknown error occurred",
-	"genericError": "An error occurred",
-	"parentIdRequired": "Parent ID is required or entity data will be an orphaned record"
+	"rootElementNotFound": "Elemento raíz no encontrado",
+	"useAuthMustBeUsedWithinAuthProvider": "useAuth debe ser utilizado dentro de un AuthProvider",
+	"invalidDateInput": "Fecha inválida",
+	"unknownErrorOccurred": "Ocurrió un error desconocido",
+	"genericError": "Ocurrió un error",
+	"parentIdRequired": "Se requiere el ID del padre o los datos de la entidad serán un registro huérfano"
 }

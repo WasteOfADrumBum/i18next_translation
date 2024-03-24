@@ -2,102 +2,102 @@
 	"fields": {
 		"id": "ID",
 		"parent": {
-			"id": "Parent ID",
-			"name": "Parent Name"
+			"id": "ID del Padre",
+			"name": "Nombre del Padre"
 		},
-		"type": "Entity Type",
+		"type": "Tipo de Entidad",
 		"person": {
 			"name": {
-				"first": "First Name",
-				"middle": "Middle Name",
-				"last": "Last Name",
-				"suffix": "Suffix"
+				"first": "Nombre",
+				"middle": "Segundo Nombre",
+				"last": "Apellido",
+				"suffix": "Sufijo"
 			},
-			"dob": "Date of Birth",
-			"age": "Age",
-			"nativeLanguage": "Native Language",
+			"dob": "Fecha de Nacimiento",
+			"age": "Edad",
+			"nativeLanguage": "Idioma Nativo",
 			"identification": {
-				"ssn": "Social Security Number",
-				"passportCountry": "Passport Country",
-				"passportNumber": "Passport Number",
-				"driverLicenseState": "Driver License State",
-				"driverLicenseNumber": "Driver License Number",
-				"nationalIdNumber": "National ID Number",
-				"visaType": "Visa Type",
-				"visaExpiryDate": "Visa Expiry Date",
-				"isIllegalResident": "Is Illegal Resident",
-				"illegalStatusDescription": "Illegal Status Description"
+				"ssn": "Número de Seguro Social",
+				"passportCountry": "País del Pasaporte",
+				"passportNumber": "Número de Pasaporte",
+				"driverLicenseState": "Estado de la Licencia de Conducir",
+				"driverLicenseNumber": "Número de Licencia de Conducir",
+				"nationalIdNumber": "Número de Identificación Nacional",
+				"visaType": "Tipo de Visa",
+				"visaExpiryDate": "Fecha de Vencimiento de la Visa",
+				"isIllegalResident": "Es Residente Ilegal",
+				"illegalStatusDescription": "Descripción del Estado Ilegal"
 			},
 			"employment": {
-				"jobTitle": "Job Title",
-				"department": "Department",
-				"employeeId": "Employee ID",
-				"hireDate": "Hire Date",
-				"employmentStatus": "Employment Status"
+				"jobTitle": "Cargo",
+				"department": "Departamento",
+				"employeeId": "ID de Empleado",
+				"hireDate": "Fecha de Contratación",
+				"employmentStatus": "Estado Laboral"
 			}
 		},
 		"organization": {
-			"contactName": "Contact Name",
+			"contactName": "Nombre de Contacto",
 			"legal": {
-				"legalName": "Legal Name",
-				"legalEntityType": "Legal Entity Type",
-				"legalStatus": "Legal Status",
-				"incorporationDate": "Incorporation Date",
-				"businessRegistrationNumber": "Business Registration Number"
+				"legalName": "Nombre Legal",
+				"legalEntityType": "Tipo de Entidad Legal",
+				"legalStatus": "Estado Legal",
+				"incorporationDate": "Fecha de Incorporación",
+				"businessRegistrationNumber": "Número de Registro Comercial"
 			}
 		},
 		"contact": {
-			"phone": "Phone Number",
-			"email": "Email Address",
-			"socialMedia": "Social Media"
+			"phone": "Número de Teléfono",
+			"email": "Dirección de Correo Electrónico",
+			"socialMedia": "Redes Sociales"
 		},
 		"address": {
-			"address": "Street Address",
-			"city": "City",
-			"state": "State",
-			"zip": "Zip Code",
-			"zipNan": "Zip code must be a number",
-			"county": "County",
-			"country": "Country"
+			"address": "Dirección",
+			"city": "Ciudad",
+			"state": "Estado",
+			"zip": "Código Postal",
+			"zipNan": "El código postal debe ser un número",
+			"county": "Condado",
+			"country": "País"
 		}
 	},
 	"titles": {
-		"information": "Information",
-		"parent": "Parent Record",
-		"person": "Person",
-		"name": "Name",
-		"identification": "Identification",
-		"passport": "Passport",
-		"driverLicense": "Driver License",
-		"employment": "Employment",
-		"organization": "Organization",
+		"information": "Información",
+		"parent": "Registro del Padre",
+		"person": "Persona",
+		"name": "Nombre",
+		"identification": "Identificación",
+		"passport": "Pasaporte",
+		"driverLicense": "Licencia de Conducir",
+		"employment": "Empleo",
+		"organization": "Organización",
 		"legal": "Legal",
-		"contact": "Contact Information",
-		"location": "Location"
+		"contact": "Información de Contacto",
+		"location": "Ubicación"
 	},
 	"header": {
 		"title": {
-			"new": "New Entity",
-			"edit": "Edit Entity",
-			"all": "All Entities",
-			"single": "Entity"
+			"new": "Nueva Entidad",
+			"edit": "Editar Entidad",
+			"all": "Todas las Entidades",
+			"single": "Entidad"
 		},
 		"subtitle": {
-			"new": "Create a new entity record",
-			"edit": "Edit an existing entity record",
-			"all": "View all entity records",
-			"single": "View a single entity record"
+			"new": "Crear un nuevo registro de entidad",
+			"edit": "Editar un registro de entidad existente",
+			"all": "Ver todos los registros de entidad",
+			"single": "Ver un solo registro de entidad"
 		},
 		"content": {
-			"total": "Total Entities"
+			"total": "Total de Entidades"
 		}
 	},
 	"buttons": {
-		"new": "New Entity",
-		"edit": "Edit Entity",
-		"delete": "Delete Entity",
-		"save": "Save Entity",
-		"update": "Update Entity",
-		"view": "View Entity"
+		"new": "Nueva Entidad",
+		"edit": "Editar Entidad",
+		"delete": "Eliminar Entidad",
+		"save": "Guardar Entidad",
+		"update": "Actualizar Entidad",
+		"view": "Ver Entidad"
 	}
 }

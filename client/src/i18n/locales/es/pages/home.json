@@ -1,7 +1,7 @@
 {
-	"header": "Welcome to our Content Management System",
+	"header": "Bienvenido a nuestro Sistema de Gestión de Contenidos",
 	"body": {
-		"content": "This is a MERN (MongoDB, Express.js, React.js, Node.js) stack application with Redux for state management and Docker support.",
-		"content2": "This is the home page of my application. To access the secure content management system, please log in and authenticate using your credentials."
+		"content": "Esta es una aplicación de pila MERN (MongoDB, Express.js, React.js, Node.js) con Redux para la gestión de estado y soporte Docker.",
+		"content2": "Esta es la página de inicio de mi aplicación. Para acceder al sistema seguro de gestión de contenidos, por favor inicie sesión y autentíquese utilizando sus credenciales."
 	}
 }
