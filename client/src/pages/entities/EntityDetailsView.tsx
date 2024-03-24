@@ -73,7 +73,7 @@ const EntityDetailsView: FC = () => {
 				extraContent: null,
 			})
 		}
-	}, [setHeaderData, entity, eventId])
+	}, [setHeaderData, entity, eventId, t])
 	console.log(entity)
 
 	return (
@@ -113,7 +113,7 @@ const EntityDetailsView: FC = () => {
 								</Typography>
 								<Typography variant='body2'>
 									{entity?.person.dob
-										? TimeConversionsHelper.convertTime(entity?.person.dob, 'MM/DD/YYYY', false, 'UTC')
+										? TimeConversionsHelper.convertTime(t, entity?.person.dob, 'MM/DD/YYYY', false, 'UTC')
 										: t('pages.entities.fields.person.dob') + ' ' + t('common.statusIndicator.notAvailable')}
 									{entity?.person.age ||
 										t('pages.entities.fields.person.age') + ' ' + t('common.statusIndicator.notAvailable')}
@@ -193,7 +193,7 @@ const EntityDetailsView: FC = () => {
 											t('common.statusIndicator.notAvailable')}
 									{entity?.person.identification.visaType &&
 										entity?.person.identification.visaExpiryDate &&
-										` (${t('common.statusIndicator.expires')}: ${TimeConversionsHelper.convertTime(entity?.person.identification.visaExpiryDate, 'MM/DD/YYYY', false, 'UTC')})`}
+										` (${t('common.statusIndicator.expires')}: ${TimeConversionsHelper.convertTime(t, entity?.person.identification.visaExpiryDate, 'MM/DD/YYYY', false, 'UTC')})`}
 								</Typography>
 							</Grid>
 							{(entity?.person.identification.isIllegalResident && (
@@ -261,7 +261,13 @@ const EntityDetailsView: FC = () => {
 								</Typography>
 								<Typography variant='body2'>
 									{entity?.person.employment.hireDate
-										? TimeConversionsHelper.convertTime(entity?.person.employment.hireDate, 'MM/DD/YYYY', false, 'UTC')
+										? TimeConversionsHelper.convertTime(
+												t,
+												entity?.person.employment.hireDate,
+												'MM/DD/YYYY',
+												false,
+												'UTC',
+											)
 										: t('pages.entities.fields.person.employment.hireDate') +
 											' ' +
 											t('common.statusIndicator.notAvailable')}
@@ -322,6 +328,7 @@ const EntityDetailsView: FC = () => {
 								<Typography variant='body2'>
 									{entity?.organization.legal.incorporationDate
 										? TimeConversionsHelper.convertTime(
+												t,
 												entity?.organization.legal.incorporationDate,
 												'MM/DD/YYYY',
 												false,

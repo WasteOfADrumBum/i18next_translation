@@ -65,7 +65,7 @@ const VehicleListView: FC = () => {
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={6}>
-						<Typography variant='caption'>{t('pages.vehicles.fiels.id')}:</Typography>
+						<Typography variant='caption'>{t('pages.vehicles.fields.id')}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
@@ -107,7 +107,7 @@ const VehicleListView: FC = () => {
 				extraContent: null,
 			})
 		}
-	}, [setHeaderData, vehicles.length, eventId, entities.length])
+	}, [setHeaderData, vehicles.length, eventId, entities.length, t])
 
 	const handleView = (id: string | undefined) => {
 		if (id) {
@@ -129,14 +129,14 @@ const VehicleListView: FC = () => {
 	const columns = [
 		{
 			id: '_id',
-			label: t('pages.vehicles.fiels.id'),
+			label: t('pages.vehicles.fields.id'),
 			render: (data: Vehicle) => (
 				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common.statusIndicator.na')}</Typography>
 			),
 		},
 		{
 			id: 'description',
-			label: t('pages.vehicles.title.description'),
+			label: t('pages.vehicles.titles.description'),
 			render: (data: Vehicle) => (
 				<Typography>
 					{data.year ? data.year : ''} {data.make ? data.make : ''} {data.model ? data.model : ''}{' '}
@@ -155,7 +155,7 @@ const VehicleListView: FC = () => {
 		},
 		{
 			id: 'occupants',
-			label: t('pages.vehicles.title.occupants'),
+			label: t('pages.vehicles.titles.occupants'),
 			render: (data: Vehicle) => (
 				<Typography>
 					{data.occupants.passengers

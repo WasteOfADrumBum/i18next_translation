@@ -144,21 +144,21 @@ const EventListView: FC = () => {
 				<Typography>
 					{t('pages.events.titles.reported')}:{' '}
 					{data.reported
-						? TimeConversionsHelper.convertTime(data.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC') +
+						? TimeConversionsHelper.convertTime(t, data.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC') +
 							` ${t('common.prepositions.by')} ` +
 							(data.reported.reporter ? data.reported.reporter : t('common.statusIndicator.na'))
 						: t('common.statusIndicator.na')}
 					<br />
 					{t('pages.events.titles.submitted')}:{' '}
 					{data.submitted
-						? `${TimeConversionsHelper.convertTime(data.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')} by ${
+						? `${TimeConversionsHelper.convertTime(t, data.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')} by ${
 								data.submitted.submittedBy ? data.submitted.submittedBy : t('common.statusIndicator.na')
 							}`
 						: t('common.statusIndicator.na')}
 					<br />
 					{t('pages.events.titles.updated')}:{' '}
 					{data.updated
-						? TimeConversionsHelper.convertTime(data.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC') +
+						? TimeConversionsHelper.convertTime(t, data.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC') +
 							` ${t('common.prepositions.by')} ` +
 							(data.updated.updatedBy ? data.updated.updatedBy : t('common.statusIndicator.na'))
 						: t('common.statusIndicator.na')}

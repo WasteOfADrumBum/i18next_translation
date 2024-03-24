@@ -213,7 +213,13 @@ const VehicleDetailsView: FC = () => {
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.registration?.expirationDate
-								? TimeConversionsHelper.convertTime(vehicle?.registration?.expirationDate, 'MM/DD/YYYY', false, 'UTC')
+								? TimeConversionsHelper.convertTime(
+										t,
+										vehicle?.registration?.expirationDate,
+										'MM/DD/YYYY',
+										false,
+										'UTC',
+									)
 								: t('pages.vehicles.fields.registration.expirationDate') +
 									' ' +
 									t('common.statusIndicator.notAvailable')}
@@ -250,7 +256,7 @@ const VehicleDetailsView: FC = () => {
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.insurance?.expirationDate
-								? TimeConversionsHelper.convertTime(vehicle?.insurance?.expirationDate, 'MM/DD/YYYY', false, 'UTC')
+								? TimeConversionsHelper.convertTime(t, vehicle?.insurance?.expirationDate, 'MM/DD/YYYY', false, 'UTC')
 								: t('pages.vehicles.fields.insurance.expirationDate') + ' ' + t('common.statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>

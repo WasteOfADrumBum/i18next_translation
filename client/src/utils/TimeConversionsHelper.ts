@@ -1,12 +1,15 @@
-import { useTranslation } from 'react-i18next'
-
 interface TimeConversionsHelper {
-	convertTime: (input: Date | string | number, format: string, includeTime: boolean, timeZone: string) => string
+	convertTime: (
+		t: (key: string) => string,
+		input: Date | string | number,
+		format: string,
+		includeTime: boolean,
+		timeZone: string,
+	) => string
 }
 
 export const TimeConversionsHelper: TimeConversionsHelper = {
-	convertTime: (input: Date | string | number, format: string, includeTime: boolean, timeZone: string): string => {
-		const { t } = useTranslation()
+	convertTime: (t, input, format, includeTime, timeZone): string => {
 		let date: Date
 
 		// If input is a string or a number, convert it to a Date object
@@ -26,10 +29,10 @@ export const TimeConversionsHelper: TimeConversionsHelper = {
 			year: 'numeric',
 			month: format.includes('MM') ? '2-digit' : undefined,
 			day: format.includes('DD') ? '2-digit' : undefined,
-			hour: format.includes('hh') || format.includes('HH') ? '2-digit' : undefined,
-			minute: format.includes('mm') ? '2-digit' : undefined,
-			second: format.includes('ss') ? '2-digit' : undefined,
-			hour12: format.includes('hh'),
+			hour: includeTime && (format.includes('hh') || format.includes('HH')) ? '2-digit' : undefined,
+			minute: includeTime && format.includes('mm') ? '2-digit' : undefined,
+			second: includeTime && format.includes('ss') ? '2-digit' : undefined,
+			hour12: includeTime && format.includes('hh'),
 		}
 
 		formattedDate = date.toLocaleString(undefined, options)

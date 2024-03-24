@@ -49,7 +49,7 @@ const EventDetailsView: FC = () => {
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
 							{event?.submitted?.submittedDate
-								? TimeConversionsHelper.convertTime(event?.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')
+								? TimeConversionsHelper.convertTime(t, event?.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')
 								: t('pages.events.fields.submitted.submittedDate') + ' ' + t('common.statusIndicator.na')}{' '}
 							{t('common.prepositions.by')}{' '}
 							{event?.submitted?.submittedBy ||
@@ -62,7 +62,7 @@ const EventDetailsView: FC = () => {
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
 							{event?.reported?.reportedDate
-								? TimeConversionsHelper.convertTime(event?.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC')
+								? TimeConversionsHelper.convertTime(t, event?.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC')
 								: t('pages.events.fields.reported.reportedDate') + ' ' + t('common.statusIndicator.na')}{' '}
 							{t('common.prepositions.by')}{' '}
 							{event?.reported?.reporter ||
@@ -75,7 +75,7 @@ const EventDetailsView: FC = () => {
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
 							{event?.updated?.updatedDate
-								? TimeConversionsHelper.convertTime(event?.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC')
+								? TimeConversionsHelper.convertTime(t, event?.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC')
 								: t('pages.events.fields.updated.updatedDate') + ' ' + t('common.statusIndicator.na')}{' '}
 							{t('common.prepositions.by')}{' '}
 							{event?.updated?.updatedBy ||

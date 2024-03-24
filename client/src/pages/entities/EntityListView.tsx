@@ -32,12 +32,12 @@ const EntityListView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: t('pages.entities.header.all'),
-			subheader: t('pages.entities.subheader.all'),
+			header: t('pages.entities.header.title.all'),
+			subheader: t('pages.entities.header.subtitle.all'),
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={6}>
-						<Typography variant='caption'>{t('pages.entities.fields.eventId')}:</Typography>
+						<Typography variant='caption'>{t('pages.entities.fields.id')}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
@@ -69,7 +69,7 @@ const EntityListView: FC = () => {
 				extraContent: null,
 			})
 		}
-	}, [setHeaderData, entities.length, eventId, eventEntities.length])
+	}, [setHeaderData, entities.length, eventId, eventEntities.length, t])
 
 	const handleView = (id: string | undefined) => {
 		if (id) {
@@ -91,19 +91,19 @@ const EntityListView: FC = () => {
 	const columns = [
 		{
 			id: '_id',
-			label: t('entities:fields.id'),
+			label: t('pages.entities.fields.id'),
 			render: (data: Entity) => (
 				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common.statusIndicatorT.na')}</Typography>
 			),
 		},
 		{
 			id: 'type',
-			label: t('entities:fields.type'),
+			label: t('pages.entities.fields.type'),
 			render: (data: Entity) => <Typography>{capitalize(data.type || t('common.statusIndicatorT.na'))}</Typography>,
 		},
 		{
 			id: 'name',
-			label: t('entities:title.type'),
+			label: t('pages.entities.fields.type'),
 			render: (data: Entity) => {
 				let name = ''
 				if (data.type === 'Person') {
@@ -121,7 +121,7 @@ const EntityListView: FC = () => {
 		},
 		{
 			id: 'location',
-			label: t('entities:title.location'),
+			label: t('pages.entities.titles.location'),
 			render: (data: Entity) => (
 				<Typography>
 					{data.address
@@ -149,7 +149,7 @@ const EntityListView: FC = () => {
 		<Container maxWidth='xl'>
 			<Grid container justifyContent='flex-end'>
 				<Button onClick={() => navigate(`create`)} sx={{ margin: 1 }}>
-					<AddCircleOutline sx={{ marginRight: 1 }} /> {t('entity:button.new')}
+					<AddCircleOutline sx={{ marginRight: 1 }} /> {t('pages.entities.buttons.new')}
 				</Button>
 			</Grid>
 			{loading ? (
