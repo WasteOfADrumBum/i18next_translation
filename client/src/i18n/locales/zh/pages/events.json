@@ -1,71 +1,71 @@
 {
 	"fields": {
-		"id": "ID",
-		"status": "Status",
+		"id": "编号",
+		"status": "状态",
 		"reported": {
-			"reporter": "Reported By",
-			"reportedDate": "Reported Date"
+			"reporter": "报告人",
+			"reportedDate": "报告日期"
 		},
 		"updated": {
-			"updatedBy": "Updated By",
-			"updatedDate": "Updated Date"
+			"updatedBy": "更新人",
+			"updatedDate": "更新日期"
 		},
 		"submitted": {
-			"submittedBy": "Submitted By",
-			"submittedDate": "Submitted Date"
+			"submittedBy": "提交人",
+			"submittedDate": "提交日期"
 		},
 		"type": {
-			"eventType": "Event Type",
-			"eventSubType": "Event Sub Type"
+			"eventType": "事件类型",
+			"eventSubType": "事件子类型"
 		},
 		"details": {
-			"title": "Title",
-			"description": "Description",
-			"tagging": "Tagging",
-			"methodOfReceipt": "Method of Receipt"
+			"title": "标题",
+			"description": "描述",
+			"tagging": "标记",
+			"methodOfReceipt": "接收方式"
 		},
 		"location": {
-			"address": "Address",
-			"city": "City",
-			"zip": "Zip",
-			"country": "Country",
-			"county": "County",
-			"state": "State"
+			"address": "地址",
+			"city": "城市",
+			"zip": "邮政编码",
+			"country": "国家",
+			"county": "县",
+			"state": "州"
 		}
 	},
 	"titles": {
-		"reported": "Reported",
-		"updated": "Updated",
-		"submitted": "Submitted",
-		"type": "Type",
-		"details": "Details",
-		"location": "Location",
-		"dates": "Dates"
+		"reported": "报告的",
+		"updated": "已更新",
+		"submitted": "已提交",
+		"type": "类型",
+		"details": "详情",
+		"location": "位置",
+		"dates": "日期"
 	},
 	"header": {
 		"title": {
-			"new": "New Event",
-			"edit": "Edit Event",
-			"all": "All Events",
-			"single": "Event"
+			"new": "新事件",
+			"edit": "编辑事件",
+			"all": "所有事件",
+			"single": "事件"
 		},
 		"subtitle": {
-			"new": "Create a new event record",
-			"edit": "Edit an existing event record",
-			"all": "View all event records",
-			"single": "View a single event record"
+			"new": "创建新事件记录",
+			"edit": "编辑现有事件记录",
+			"all": "查看所有事件记录",
+			"single": "查看单个事件记录"
 		},
 		"content": {
-			"total": "Total Events",
-			"status": "Status"
+			"total": "总事件数",
+			"status": "状态"
 		}
 	},
 	"buttons": {
-		"new": "New Event",
-		"edit": "Edit Event",
-		"delete": "Delete Event",
-		"save": "Save Event",
-		"update": "Update Event",
-		"view": "View Event"
+		"new": "新事件",
+		"edit": "编辑事件",
+		"delete": "删除事件",
+		"save": "保存事件",
+		"update": "更新事件",
+		"view": "查看事件"
 	}
 }

@@ -1,8 +1,8 @@
 {
-	"rootElementNotFound": "Root element not found",
-	"useAuthMustBeUsedWithinAuthProvider": "useAuth must be used within an AuthProvider",
-	"invalidDateInput": "Invalid date",
-	"unknownErrorOccurred": "An unknown error occurred",
-	"genericError": "An error occurred",
-	"parentIdRequired": "Parent ID is required or entity data will be an orphaned record"
+	"rootElementNotFound": "未找到根元素",
+	"useAuthMustBeUsedWithinAuthProvider": "useAuth 必须在 AuthProvider 内使用",
+	"invalidDateInput": "无效的日期",
+	"unknownErrorOccurred": "发生未知错误",
+	"genericError": "发生错误",
+	"parentIdRequired": "需要父 ID，否则实体数据将成为孤立记录"
 }

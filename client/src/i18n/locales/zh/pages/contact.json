@@ -1,7 +1,7 @@
 {
-	"contactUs": "Contact Us",
-	"name": "Name",
-	"email": "Email",
-	"message": "Message",
-	"send": "Send"
+	"contactUs": "联系我们",
+	"name": "姓名",
+	"email": "邮箱",
+	"message": "信息",
+	"send": "发送"
 }

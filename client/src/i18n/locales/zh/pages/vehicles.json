@@ -1,76 +1,76 @@
 {
 	"fields": {
-		"id": "ID",
+		"id": "编号",
 		"parent": {
-			"id": "Parent ID",
-			"name": "Parent Name"
+			"id": "父 ID",
+			"name": "父名称"
 		},
-		"make": "Make",
-		"model": "Model",
-		"year": "Year",
-		"color": "Color",
-		"vin": "VIN Number",
+		"make": "制造商",
+		"model": "型号",
+		"year": "年份",
+		"color": "颜色",
+		"vin": "车辆识别号码",
 		"occupants": {
-			"driver": "Driver Name",
-			"passengers": "Passenger Names"
+			"driver": "驾驶员名称",
+			"passengers": "乘客名称"
 		},
 		"registration": {
-			"owner": "Owner Name",
-			"plateNumber": "Plate Number",
-			"expirationDate": "Expiration Date",
-			"state": "State"
+			"owner": "所有者名称",
+			"plateNumber": "车牌号码",
+			"expirationDate": "到期日期",
+			"state": "州"
 		},
 		"insurance": {
-			"policyNumber": "Policy Number",
-			"provider": "Provider",
-			"expirationDate": "Expiration Date",
-			"insured": "Insured"
+			"policyNumber": "保险单号",
+			"provider": "提供者",
+			"expirationDate": "到期日期",
+			"insured": "被保险人"
 		},
-		"stolen": "Was Stolen",
+		"stolen": "被盗",
 		"illegalModifications": {
-			"wasModified": "Was Modified",
-			"description": "Description"
+			"wasModified": "已修改",
+			"description": "描述"
 		}
 	},
 	"placeholders": {
-		"make": "Select a Vehcile Make",
-		"model": "Select Vehicle Model",
-		"color": "Select a Vehcile Color",
-		"driver": "Select a Driver",
-		"owner": "Select a Vehicle Owner"
+		"make": "选择车辆制造商",
+		"model": "选择车辆型号",
+		"color": "选择车辆颜色",
+		"driver": "选择驾驶员",
+		"owner": "选择车辆所有者"
 	},
 	"titles": {
-		"parent": "Parent Record",
-		"description": "Description",
-		"occupants": "Occupants",
-		"registration": "Registration",
-		"insurance": "Insurance",
-		"legality": "Legality",
-		"illegalModifications": "Illegal Modifications"
+		"parent": "父记录",
+		"description": "描述",
+		"occupants": "乘客",
+		"registration": "注册",
+		"insurance": "保险",
+		"legality": "合法性",
+		"illegalModifications": "非法修改"
 	},
 	"header": {
 		"title": {
-			"new": "New Vehicle",
-			"edit": "Edit Vehicle",
-			"all": "All Vehicles",
-			"single": "Vehicle"
+			"new": "新车辆",
+			"edit": "编辑车辆",
+			"all": "所有车辆",
+			"single": "车辆"
 		},
 		"subtitle": {
-			"new": "Create a new vehicle record",
-			"edit": "Edit an existing vehicle record",
-			"all": "View all vehicle records",
-			"single": "View a single vehicle record"
+			"new": "创建新车辆记录",
+			"edit": "编辑现有车辆记录",
+			"all": "查看所有车辆记录",
+			"single": "查看单个车辆记录"
 		},
 		"content": {
-			"total": "Total Vehicles"
+			"total": "总车辆数"
 		}
 	},
 	"buttons": {
-		"new": "New Vehicle",
-		"edit": "Edit Vehicle",
-		"delete": "Delete Vehicle",
-		"save": "Save Vehicle",
-		"update": "Update Vehicle",
-		"view": "View Vehicle"
+		"new": "新车辆",
+		"edit": "编辑车辆",
+		"delete": "删除车辆",
+		"save": "保存车辆",
+		"update": "更新车辆",
+		"view": "查看车辆"
 	}
 }

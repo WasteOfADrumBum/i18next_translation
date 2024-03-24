@@ -2,102 +2,102 @@
 	"fields": {
 		"id": "ID",
 		"parent": {
-			"id": "Parent ID",
-			"name": "Parent Name"
+			"id": "父 ID",
+			"name": "父名称"
 		},
-		"type": "Entity Type",
+		"type": "实体类型",
 		"person": {
 			"name": {
-				"first": "First Name",
-				"middle": "Middle Name",
-				"last": "Last Name",
-				"suffix": "Suffix"
+				"first": "名字",
+				"middle": "中间名",
+				"last": "姓",
+				"suffix": "后缀"
 			},
-			"dob": "Date of Birth",
-			"age": "Age",
-			"nativeLanguage": "Native Language",
+			"dob": "出生日期",
+			"age": "年龄",
+			"nativeLanguage": "母语",
 			"identification": {
-				"ssn": "Social Security Number",
-				"passportCountry": "Passport Country",
-				"passportNumber": "Passport Number",
-				"driverLicenseState": "Driver License State",
-				"driverLicenseNumber": "Driver License Number",
-				"nationalIdNumber": "National ID Number",
-				"visaType": "Visa Type",
-				"visaExpiryDate": "Visa Expiry Date",
-				"isIllegalResident": "Is Illegal Resident",
-				"illegalStatusDescription": "Illegal Status Description"
+				"ssn": "社会安全号码",
+				"passportCountry": "护照国家",
+				"passportNumber": "护照号码",
+				"driverLicenseState": "驾照州",
+				"driverLicenseNumber": "驾照号码",
+				"nationalIdNumber": "国家身份证号码",
+				"visaType": "签证类型",
+				"visaExpiryDate": "签证到期日期",
+				"isIllegalResident": "是否非法居民",
+				"illegalStatusDescription": "非法状态描述"
 			},
 			"employment": {
-				"jobTitle": "Job Title",
-				"department": "Department",
-				"employeeId": "Employee ID",
-				"hireDate": "Hire Date",
-				"employmentStatus": "Employment Status"
+				"jobTitle": "职位",
+				"department": "部门",
+				"employeeId": "员工编号",
+				"hireDate": "入职日期",
+				"employmentStatus": "就业状态"
 			}
 		},
 		"organization": {
-			"contactName": "Contact Name",
+			"contactName": "联系人姓名",
 			"legal": {
-				"legalName": "Legal Name",
-				"legalEntityType": "Legal Entity Type",
-				"legalStatus": "Legal Status",
-				"incorporationDate": "Incorporation Date",
-				"businessRegistrationNumber": "Business Registration Number"
+				"legalName": "法定名称",
+				"legalEntityType": "法定实体类型",
+				"legalStatus": "法定状态",
+				"incorporationDate": "公司注册日期",
+				"businessRegistrationNumber": "工商注册号码"
 			}
 		},
 		"contact": {
-			"phone": "Phone Number",
-			"email": "Email Address",
-			"socialMedia": "Social Media"
+			"phone": "电话号码",
+			"email": "电子邮件地址",
+			"socialMedia": "社交媒体"
 		},
 		"address": {
-			"address": "Street Address",
-			"city": "City",
-			"state": "State",
-			"zip": "Zip Code",
-			"zipNan": "Zip code must be a number",
-			"county": "County",
-			"country": "Country"
+			"address": "街道地址",
+			"city": "城市",
+			"state": "州",
+			"zip": "邮政编码",
+			"zipNan": "邮政编码必须为数字",
+			"county": "县",
+			"country": "国家"
 		}
 	},
 	"titles": {
-		"information": "Information",
-		"parent": "Parent Record",
-		"person": "Person",
-		"name": "Name",
-		"identification": "Identification",
-		"passport": "Passport",
-		"driverLicense": "Driver License",
-		"employment": "Employment",
-		"organization": "Organization",
-		"legal": "Legal",
-		"contact": "Contact Information",
-		"location": "Location"
+		"information": "信息",
+		"parent": "父记录",
+		"person": "个人",
+		"name": "名称",
+		"identification": "身份验证",
+		"passport": "护照",
+		"driverLicense": "驾驶证",
+		"employment": "就业",
+		"organization": "组织",
+		"legal": "法律",
+		"contact": "联系信息",
+		"location": "位置"
 	},
 	"header": {
 		"title": {
-			"new": "New Entity",
-			"edit": "Edit Entity",
-			"all": "All Entities",
-			"single": "Entity"
+			"new": "新实体",
+			"edit": "编辑实体",
+			"all": "所有实体",
+			"single": "实体"
 		},
 		"subtitle": {
-			"new": "Create a new entity record",
-			"edit": "Edit an existing entity record",
-			"all": "View all entity records",
-			"single": "View a single entity record"
+			"new": "创建新实体记录",
+			"edit": "编辑现有实体记录",
+			"all": "查看所有实体记录",
+			"single": "查看单个实体记录"
 		},
 		"content": {
-			"total": "Total Entities"
+			"total": "总实体数"
 		}
 	},
 	"buttons": {
-		"new": "New Entity",
-		"edit": "Edit Entity",
-		"delete": "Delete Entity",
-		"save": "Save Entity",
-		"update": "Update Entity",
-		"view": "View Entity"
+		"new": "新实体",
+		"edit": "编辑实体",
+		"delete": "删除实体",
+		"save": "保存实体",
+		"update": "更新实体",
+		"view": "查看实体"
 	}
 }

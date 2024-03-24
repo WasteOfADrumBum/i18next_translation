@@ -1,13 +1,13 @@
 {
-	"profile": "Profile",
-	"login": "Login",
-	"register": "Register",
-	"logout": "Logout",
-	"username": "Username",
-	"password": "Password",
-	"confirmPassword": "Confirm Password",
-	"forgotPassword": "Forgot Password",
-	"resetPassword": "Reset Password",
-	"updateProfile": "Update Profile",
-	"deleteAccount": "Delete Account"
+	"profile": "个人资料",
+	"login": "登录",
+	"register": "注册",
+	"logout": "登出",
+	"username": "用户名",
+	"password": "密码",
+	"confirmPassword": "确认密码",
+	"forgotPassword": "忘记密码",
+	"resetPassword": "重置密码",
+	"updateProfile": "更新个人资料",
+	"deleteAccount": "删除帐户"
 }

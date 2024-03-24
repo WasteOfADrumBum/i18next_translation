@@ -1,72 +1,72 @@
 {
 	"buttons": {
-		"submit": "Submit",
-		"cancel": "Cancel",
-		"save": "Save",
-		"delete": "Delete",
-		"view": "View",
-		"edit": "Edit",
-		"add": "Add",
-		"login": "Login",
-		"logout": "Logout",
-		"register": "Register",
-		"forgotPassword": "Forgot Password",
-		"resetPassword": "Reset Password",
-		"changePassword": "Change Password"
+		"submit": "提交",
+		"cancel": "取消",
+		"save": "保存",
+		"delete": "删除",
+		"view": "查看",
+		"edit": "编辑",
+		"add": "添加",
+		"login": "登录",
+		"logout": "登出",
+		"register": "注册",
+		"forgotPassword": "忘记密码",
+		"resetPassword": "重置密码",
+		"changePassword": "修改密码"
 	},
 	"tables": {
-		"actions": "Actions",
-		"view": "View",
-		"edit": "Edit",
-		"delete": "Delete"
+		"actions": "动作",
+		"view": "查看",
+		"edit": "编辑",
+		"delete": "删除"
 	},
 	"prepositions": {
-		"of": "of",
-		"for": "for",
-		"by": "by",
-		"on": "on",
-		"at": "at",
-		"in": "in",
-		"to": "to",
-		"with": "with",
-		"from": "from",
-		"about": "about",
-		"into": "into",
-		"after": "after",
-		"before": "before",
-		"under": "under",
-		"over": "over",
-		"between": "between"
+		"of": "的",
+		"for": "为",
+		"by": "由",
+		"on": "在",
+		"at": "在",
+		"in": "在",
+		"to": "到",
+		"with": "与",
+		"from": "从",
+		"about": "关于",
+		"into": "进入",
+		"after": "之后",
+		"before": "之前",
+		"under": "在...下",
+		"over": "超过",
+		"between": "之间"
 	},
 	"interrogatives": {
-		"what": "What",
-		"who": "Who",
-		"where": "Where",
-		"when": "When",
-		"why": "Why",
-		"how": "How"
+		"what": "什么",
+		"who": "谁",
+		"where": "哪里",
+		"when": "何时",
+		"why": "为什么",
+		"how": "如何"
 	},
 	"forms": {
-		"requiredDisclaimer": "All fields marker with an asterisk (*) are required",
-		"vehiclesRequireEntities": "* Entitites are required before adding a vehicle"
+		"requiredDisclaimer": "所有带星号 (*) 的字段都是必填项",
+		"vehiclesRequireEntities": "* 添加车辆前需要实体"
 	},
 	"statusIndicator": {
-		"loading": "Loading...",
-		"success": "Success",
-		"error": "Error",
-		"notAvailable": "Not Available",
+		"loading": "加载中...",
+		"success": "成功",
+		"error": "错误",
+		"notAvailable": "不可用",
 		"na": "N/A",
-		"expired": "Expired",
-		"expires": "Expires",
-		"invalid": "Invalid",
-		"required": "Required"
+		"expired": "已过期",
+		"expires": "到期",
+		"invalid": "无效",
+		"required": "必填"
 	},
 	"boolean": {
-		"yes": "Yes",
-		"no": "No",
-		"true": "True",
-		"false": "False",
-		"on": "On",
-		"off": "Off"
+		"yes": "是",
+		"no": "否",
+		"true": "真",
+		"false": "假",
+		"on": "开",
+		"off": "关"
 	}
 }
