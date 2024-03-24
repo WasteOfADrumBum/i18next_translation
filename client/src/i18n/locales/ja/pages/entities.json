@@ -2,102 +2,102 @@
 	"fields": {
 		"id": "ID",
 		"parent": {
-			"id": "Parent ID",
-			"name": "Parent Name"
+			"id": "親ID",
+			"name": "親名"
 		},
-		"type": "Entity Type",
+		"type": "エンティティタイプ",
 		"person": {
 			"name": {
-				"first": "First Name",
-				"middle": "Middle Name",
-				"last": "Last Name",
-				"suffix": "Suffix"
+				"first": "ファーストネーム",
+				"middle": "ミドルネーム",
+				"last": "苗字",
+				"suffix": "接尾辞"
 			},
-			"dob": "Date of Birth",
-			"age": "Age",
-			"nativeLanguage": "Native Language",
+			"dob": "生年月日",
+			"age": "年齢",
+			"nativeLanguage": "母国語",
 			"identification": {
-				"ssn": "Social Security Number",
-				"passportCountry": "Passport Country",
-				"passportNumber": "Passport Number",
-				"driverLicenseState": "Driver License State",
-				"driverLicenseNumber": "Driver License Number",
-				"nationalIdNumber": "National ID Number",
-				"visaType": "Visa Type",
-				"visaExpiryDate": "Visa Expiry Date",
-				"isIllegalResident": "Is Illegal Resident",
-				"illegalStatusDescription": "Illegal Status Description"
+				"ssn": "社会保障番号",
+				"passportCountry": "パスポートの国",
+				"passportNumber": "パスポート番号",
+				"driverLicenseState": "運転免許証の州",
+				"driverLicenseNumber": "運転免許証番号",
+				"nationalIdNumber": "国民ID番号",
+				"visaType": "ビザの種類",
+				"visaExpiryDate": "ビザ有効期限日",
+				"isIllegalResident": "不法滞在者かどうか",
+				"illegalStatusDescription": "不法滞在状態の説明"
 			},
 			"employment": {
-				"jobTitle": "Job Title",
-				"department": "Department",
-				"employeeId": "Employee ID",
-				"hireDate": "Hire Date",
-				"employmentStatus": "Employment Status"
+				"jobTitle": "職名",
+				"department": "部署",
+				"employeeId": "従業員ID",
+				"hireDate": "雇用日",
+				"employmentStatus": "雇用状況"
 			}
 		},
 		"organization": {
-			"contactName": "Contact Name",
+			"contactName": "連絡先名",
 			"legal": {
-				"legalName": "Legal Name",
-				"legalEntityType": "Legal Entity Type",
-				"legalStatus": "Legal Status",
-				"incorporationDate": "Incorporation Date",
-				"businessRegistrationNumber": "Business Registration Number"
+				"legalName": "法人名",
+				"legalEntityType": "法人の種類",
+				"legalStatus": "法的地位",
+				"incorporationDate": "設立日",
+				"businessRegistrationNumber": "事業登録番号"
 			}
 		},
 		"contact": {
-			"phone": "Phone Number",
-			"email": "Email Address",
-			"socialMedia": "Social Media"
+			"phone": "電話番号",
+			"email": "メールアドレス",
+			"socialMedia": "ソーシャルメディア"
 		},
 		"address": {
-			"address": "Street Address",
-			"city": "City",
-			"state": "State",
-			"zip": "Zip Code",
-			"zipNan": "Zip code must be a number",
-			"county": "County",
-			"country": "Country"
+			"address": "住所",
+			"city": "市区町村",
+			"state": "州",
+			"zip": "郵便番号",
+			"zipNan": "郵便番号は数字でなければなりません",
+			"county": "郡",
+			"country": "国"
 		}
 	},
 	"titles": {
-		"information": "Information",
-		"parent": "Parent Record",
-		"person": "Person",
-		"name": "Name",
-		"identification": "Identification",
-		"passport": "Passport",
-		"driverLicense": "Driver License",
-		"employment": "Employment",
-		"organization": "Organization",
-		"legal": "Legal",
-		"contact": "Contact Information",
-		"location": "Location"
+		"information": "情報",
+		"parent": "親レコード",
+		"person": "人",
+		"name": "名前",
+		"identification": "識別",
+		"passport": "パスポート",
+		"driverLicense": "運転免許証",
+		"employment": "雇用",
+		"organization": "組織",
+		"legal": "法的",
+		"contact": "連絡先情報",
+		"location": "場所"
 	},
 	"header": {
 		"title": {
-			"new": "New Entity",
-			"edit": "Edit Entity",
-			"all": "All Entities",
-			"single": "Entity"
+			"new": "新しいエンティティ",
+			"edit": "エンティティの編集",
+			"all": "すべてのエンティティ",
+			"single": "エンティティ"
 		},
 		"subtitle": {
-			"new": "Create a new entity record",
-			"edit": "Edit an existing entity record",
-			"all": "View all entity records",
-			"single": "View a single entity record"
+			"new": "新しいエンティティレコードを作成します",
+			"edit": "既存のエンティティレコードを編集します",
+			"all": "すべてのエンティティレコードを表示します",
+			"single": "単一のエンティティレコードを表示します"
 		},
 		"content": {
-			"total": "Total Entities"
+			"total": "総エンティティ数"
 		}
 	},
 	"buttons": {
-		"new": "New Entity",
-		"edit": "Edit Entity",
-		"delete": "Delete Entity",
-		"save": "Save Entity",
-		"update": "Update Entity",
-		"view": "View Entity"
+		"new": "新しいエンティティ",
+		"edit": "エンティティの編集",
+		"delete": "エンティティの削除",
+		"save": "エンティティの保存",
+		"update": "エンティティの更新",
+		"view": "エンティティの表示"
 	}
 }

@@ -1,72 +1,72 @@
 {
 	"buttons": {
-		"submit": "Submit",
-		"cancel": "Cancel",
-		"save": "Save",
-		"delete": "Delete",
-		"view": "View",
-		"edit": "Edit",
-		"add": "Add",
-		"login": "Login",
-		"logout": "Logout",
-		"register": "Register",
-		"forgotPassword": "Forgot Password",
-		"resetPassword": "Reset Password",
-		"changePassword": "Change Password"
+		"submit": "提出する",
+		"cancel": "キャンセル",
+		"save": "保存",
+		"delete": "削除",
+		"view": "見る",
+		"edit": "編集",
+		"add": "追加する",
+		"login": "ログイン",
+		"logout": "ログアウト",
+		"register": "登録",
+		"forgotPassword": "パスワードをお忘れですか",
+		"resetPassword": "パスワードをリセット",
+		"changePassword": "パスワードを変更"
 	},
 	"tables": {
-		"actions": "Actions",
-		"view": "View",
-		"edit": "Edit",
-		"delete": "Delete"
+		"actions": "アクション",
+		"view": "見る",
+		"edit": "編集",
+		"delete": "削除"
 	},
 	"prepositions": {
-		"of": "of",
-		"for": "for",
-		"by": "by",
-		"on": "on",
-		"at": "at",
-		"in": "in",
-		"to": "to",
-		"with": "with",
-		"from": "from",
-		"about": "about",
-		"into": "into",
-		"after": "after",
-		"before": "before",
-		"under": "under",
-		"over": "over",
-		"between": "between"
+		"of": "の",
+		"for": "のための",
+		"by": "によって",
+		"on": "で",
+		"at": "で",
+		"in": "で",
+		"to": "に",
+		"with": "と",
+		"from": "から",
+		"about": "約",
+		"into": "に",
+		"after": "後",
+		"before": "前",
+		"under": "下",
+		"over": "以上",
+		"between": "間"
 	},
 	"interrogatives": {
-		"what": "What",
-		"who": "Who",
-		"where": "Where",
-		"when": "When",
-		"why": "Why",
-		"how": "How"
+		"what": "何",
+		"who": "誰",
+		"where": "どこ",
+		"when": "いつ",
+		"why": "なぜ",
+		"how": "どのように"
 	},
 	"forms": {
-		"requiredDisclaimer": "All fields marker with an asterisk (*) are required",
-		"vehiclesRequireEntities": "* Entitites are required before adding a vehicle"
+		"requiredDisclaimer": "すべてのフィールドは(*)でマークされています。",
+		"vehiclesRequireEntities": "* 車両を追加する前にエンティティが必要です"
 	},
 	"statusIndicator": {
-		"loading": "Loading...",
-		"success": "Success",
-		"error": "Error",
-		"notAvailable": "Not Available",
-		"na": "N/A",
-		"expired": "Expired",
-		"expires": "Expires",
-		"invalid": "Invalid",
-		"required": "Required"
+		"loading": "読み込み中...",
+		"success": "成功",
+		"error": "エラー",
+		"notAvailable": "利用不可",
+		"na": "利用不可",
+		"expired": "期限切れ",
+		"expires": "有効期限",
+		"invalid": "無効",
+		"required": "必須"
 	},
 	"boolean": {
-		"yes": "Yes",
-		"no": "No",
-		"true": "True",
-		"false": "False",
-		"on": "On",
-		"off": "Off"
+		"yes": "はい",
+		"no": "いいえ",
+		"true": "真",
+		"false": "偽",
+		"on": "オン",
+		"off": "オフ"
 	}
 }

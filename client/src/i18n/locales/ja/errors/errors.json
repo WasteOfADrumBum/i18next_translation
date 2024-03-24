@@ -1,8 +1,8 @@
 {
-	"rootElementNotFound": "Root element not found",
-	"useAuthMustBeUsedWithinAuthProvider": "useAuth must be used within an AuthProvider",
-	"invalidDateInput": "Invalid date",
-	"unknownErrorOccurred": "An unknown error occurred",
-	"genericError": "An error occurred",
-	"parentIdRequired": "Parent ID is required or entity data will be an orphaned record"
+	"rootElementNotFound": "ルート要素が見つかりません",
+	"useAuthMustBeUsedWithinAuthProvider": "useAuthはAuthProvider内で使用される必要があります",
+	"invalidDateInput": "無効な日付",
+	"unknownErrorOccurred": "不明なエラーが発生しました",
+	"genericError": "エラーが発生しました",
+	"parentIdRequired": "親IDが必要です。エンティティデータが孤立したレコードになります"
 }

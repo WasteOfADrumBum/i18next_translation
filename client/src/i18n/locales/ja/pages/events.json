@@ -1,71 +1,71 @@
 {
 	"fields": {
 		"id": "ID",
-		"status": "Status",
+		"status": "ステータス",
 		"reported": {
-			"reporter": "Reported By",
-			"reportedDate": "Reported Date"
+			"reporter": "報告者",
+			"reportedDate": "報告日"
 		},
 		"updated": {
-			"updatedBy": "Updated By",
-			"updatedDate": "Updated Date"
+			"updatedBy": "更新者",
+			"updatedDate": "更新日"
 		},
 		"submitted": {
-			"submittedBy": "Submitted By",
-			"submittedDate": "Submitted Date"
+			"submittedBy": "提出者",
+			"submittedDate": "提出日"
 		},
 		"type": {
-			"eventType": "Event Type",
-			"eventSubType": "Event Sub Type"
+			"eventType": "イベントの種類",
+			"eventSubType": "イベントのサブタイプ"
 		},
 		"details": {
-			"title": "Title",
-			"description": "Description",
-			"tagging": "Tagging",
-			"methodOfReceipt": "Method of Receipt"
+			"title": "タイトル",
+			"description": "説明",
+			"tagging": "タグ付け",
+			"methodOfReceipt": "受信方法"
 		},
 		"location": {
-			"address": "Address",
-			"city": "City",
-			"zip": "Zip",
-			"country": "Country",
-			"county": "County",
-			"state": "State"
+			"address": "住所",
+			"city": "市区町村",
+			"zip": "郵便番号",
+			"country": "国",
+			"county": "郡",
+			"state": "州"
 		}
 	},
 	"titles": {
-		"reported": "Reported",
-		"updated": "Updated",
-		"submitted": "Submitted",
-		"type": "Type",
-		"details": "Details",
-		"location": "Location",
-		"dates": "Dates"
+		"reported": "報告された",
+		"updated": "更新された",
+		"submitted": "提出された",
+		"type": "タイプ",
+		"details": "詳細",
+		"location": "場所",
+		"dates": "日付"
 	},
 	"header": {
 		"title": {
-			"new": "New Event",
-			"edit": "Edit Event",
-			"all": "All Events",
-			"single": "Event"
+			"new": "新しいイベント",
+			"edit": "イベントを編集",
+			"all": "すべてのイベント",
+			"single": "イベント"
 		},
 		"subtitle": {
-			"new": "Create a new event record",
-			"edit": "Edit an existing event record",
-			"all": "View all event records",
-			"single": "View a single event record"
+			"new": "新しいイベントレコードを作成",
+			"edit": "既存のイベントレコードを編集",
+			"all": "すべてのイベントレコードを表示",
+			"single": "単一のイベントレコードを表示"
 		},
 		"content": {
-			"total": "Total Events",
-			"status": "Status"
+			"total": "合計イベント数",
+			"status": "ステータス"
 		}
 	},
 	"buttons": {
-		"new": "New Event",
-		"edit": "Edit Event",
-		"delete": "Delete Event",
-		"save": "Save Event",
-		"update": "Update Event",
-		"view": "View Event"
+		"new": "新しいイベント",
+		"edit": "イベントを編集",
+		"delete": "イベントを削除",
+		"save": "イベントを保存",
+		"update": "イベントを更新",
+		"view": "イベントを表示"
 	}
 }

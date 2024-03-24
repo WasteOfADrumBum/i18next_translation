@@ -2,75 +2,75 @@
 	"fields": {
 		"id": "ID",
 		"parent": {
-			"id": "Parent ID",
-			"name": "Parent Name"
+			"id": "親のID",
+			"name": "親の名前"
 		},
-		"make": "Make",
-		"model": "Model",
-		"year": "Year",
-		"color": "Color",
-		"vin": "VIN Number",
+		"make": "メーカー",
+		"model": "モデル",
+		"year": "年",
+		"color": "色",
+		"vin": "VIN番号",
 		"occupants": {
-			"driver": "Driver Name",
-			"passengers": "Passenger Names"
+			"driver": "ドライバーの名前",
+			"passengers": "乗客の名前"
 		},
 		"registration": {
-			"owner": "Owner Name",
-			"plateNumber": "Plate Number",
-			"expirationDate": "Expiration Date",
-			"state": "State"
+			"owner": "所有者の名前",
+			"plateNumber": "ナンバープレート",
+			"expirationDate": "有効期限日",
+			"state": "州"
 		},
 		"insurance": {
-			"policyNumber": "Policy Number",
-			"provider": "Provider",
-			"expirationDate": "Expiration Date",
-			"insured": "Insured"
+			"policyNumber": "保険番号",
+			"provider": "プロバイダー",
+			"expirationDate": "有効期限日",
+			"insured": "保険加入者"
 		},
-		"stolen": "Was Stolen",
+		"stolen": "盗難された",
 		"illegalModifications": {
-			"wasModified": "Was Modified",
-			"description": "Description"
+			"wasModified": "改造された",
+			"description": "説明"
 		}
 	},
 	"placeholders": {
-		"make": "Select a Vehcile Make",
-		"model": "Select Vehicle Model",
-		"color": "Select a Vehcile Color",
-		"driver": "Select a Driver",
-		"owner": "Select a Vehicle Owner"
+		"make": "車両メーカーを選択",
+		"model": "車両モデルを選択",
+		"color": "車両の色を選択",
+		"driver": "ドライバーを選択",
+		"owner": "車両の所有者を選択"
 	},
 	"titles": {
-		"parent": "Parent Record",
-		"description": "Description",
-		"occupants": "Occupants",
-		"registration": "Registration",
-		"insurance": "Insurance",
-		"legality": "Legality",
-		"illegalModifications": "Illegal Modifications"
+		"parent": "親レコード",
+		"description": "説明",
+		"occupants": "乗員",
+		"registration": "登録",
+		"insurance": "保険",
+		"legality": "合法性",
+		"illegalModifications": "違法改造"
 	},
 	"header": {
 		"title": {
-			"new": "New Vehicle",
-			"edit": "Edit Vehicle",
-			"all": "All Vehicles",
-			"single": "Vehicle"
+			"new": "新しい車両",
+			"edit": "車両を編集",
+			"all": "すべての車両",
+			"single": "車両"
 		},
 		"subtitle": {
-			"new": "Create a new vehicle record",
-			"edit": "Edit an existing vehicle record",
-			"all": "View all vehicle records",
-			"single": "View a single vehicle record"
+			"new": "新しい車両レコードを作成",
+			"edit": "既存の車両レコードを編集",
+			"all": "すべての車両レコードを表示",
+			"single": "単一の車両レコードを表示"
 		},
 		"content": {
-			"total": "Total Vehicles"
+			"total": "総車両数"
 		}
 	},
 	"buttons": {
-		"new": "New Vehicle",
-		"edit": "Edit Vehicle",
-		"delete": "Delete Vehicle",
-		"save": "Save Vehicle",
-		"update": "Update Vehicle",
-		"view": "View Vehicle"
+		"new": "新しい車両",
+		"edit": "車両を編集",
+		"delete": "車両を削除",
+		"save": "車両を保存",
+		"update": "車両を更新",
+		"view": "車両を表示"
 	}
 }

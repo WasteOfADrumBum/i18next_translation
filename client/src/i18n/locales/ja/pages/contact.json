@@ -1,7 +1,7 @@
 {
-	"contactUs": "Contact Us",
-	"name": "Name",
-	"email": "Email",
-	"message": "Message",
-	"send": "Send"
+	"contactUs": "お問い合わせ",
+	"name": "名前",
+	"email": "Eメール",
+	"message": "メッセージ",
+	"send": "送信"
 }
