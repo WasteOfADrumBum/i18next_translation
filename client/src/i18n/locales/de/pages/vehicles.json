@@ -1,0 +1,76 @@
+{
+	"fields": {
+		"id": "ID",
+		"parent": {
+			"id": "Eltern-ID",
+			"name": "Elternname"
+		},
+		"make": "Hersteller",
+		"model": "Modell",
+		"year": "Jahr",
+		"color": "Farbe",
+		"vin": "Fahrgestellnummer",
+		"occupants": {
+			"driver": "Fahrername",
+			"passengers": "Namen der Insassen"
+		},
+		"registration": {
+			"owner": "Besitzername",
+			"plateNumber": "Kennzeichen",
+			"expirationDate": "Ablaufdatum",
+			"state": "Bundesland"
+		},
+		"insurance": {
+			"policyNumber": "Polizzennummer",
+			"provider": "Anbieter",
+			"expirationDate": "Ablaufdatum",
+			"insured": "Versicherter"
+		},
+		"stolen": "Wurde gestohlen",
+		"illegalModifications": {
+			"wasModified": "Wurde modifiziert",
+			"description": "Beschreibung"
+		}
+	},
+	"placeholders": {
+		"make": "Wählen Sie einen Fahrzeughersteller aus",
+		"model": "Wählen Sie ein Fahrzeugmodell aus",
+		"color": "Wählen Sie eine Fahrzeugfarbe aus",
+		"driver": "Wählen Sie einen Fahrer aus",
+		"owner": "Wählen Sie einen Fahrzeugbesitzer aus"
+	},
+	"titles": {
+		"parent": "Eltern Datensatz",
+		"description": "Beschreibung",
+		"occupants": "Insassen",
+		"registration": "Registrierung",
+		"insurance": "Versicherung",
+		"legality": "Legalität",
+		"illegalModifications": "Illegale Modifikationen"
+	},
+	"header": {
+		"title": {
+			"new": "Neues Fahrzeug",
+			"edit": "Fahrzeug bearbeiten",
+			"all": "Alle Fahrzeuge",
+			"single": "Fahrzeug"
+		},
+		"subtitle": {
+			"new": "Neuen Fahrzeug Datensatz erstellen",
+			"edit": "Bestehenden Fahrzeug Datensatz bearbeiten",
+			"all": "Alle Fahrzeug Datensätze anzeigen",
+			"single": "Einen Fahrzeug Datensatz anzeigen"
+		},
+		"content": {
+			"total": "Gesamte Fahrzeuge"
+		}
+	},
+	"buttons": {
+		"new": "Neues Fahrzeug",
+		"edit": "Fahrzeug bearbeiten",
+		"delete": "Fahrzeug löschen",
+		"save": "Fahrzeug speichern",
+		"update": "Fahrzeug aktualisieren",
+		"view": "Fahrzeug anzeigen"
+	}
+}

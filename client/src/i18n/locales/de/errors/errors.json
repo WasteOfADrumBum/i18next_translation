@@ -1,0 +1,8 @@
+{
+	"rootElementNotFound": "Stammelement nicht gefunden",
+	"useAuthMustBeUsedWithinAuthProvider": "useAuth muss innerhalb eines AuthProviders verwendet werden",
+	"invalidDateInput": "Ungültiges Datum",
+	"unknownErrorOccurred": "Ein unbekannter Fehler ist aufgetreten",
+	"genericError": "Ein Fehler ist aufgetreten",
+	"parentIdRequired": "Eltern-ID ist erforderlich, sonst sind die Entitätsdaten ein verwaister Datensatz"
+}

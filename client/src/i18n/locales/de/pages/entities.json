@@ -1,0 +1,103 @@
+{
+	"fields": {
+		"id": "ID",
+		"parent": {
+			"id": "Eltern-ID",
+			"name": "Elternname"
+		},
+		"type": "Einheitstyp",
+		"person": {
+			"name": {
+				"first": "Vorname",
+				"middle": "Zweiter Vorname",
+				"last": "Nachname",
+				"suffix": "Suffix"
+			},
+			"dob": "Geburtsdatum",
+			"age": "Alter",
+			"nativeLanguage": "Muttersprache",
+			"identification": {
+				"ssn": "Sozialversicherungsnummer",
+				"passportCountry": "Passport Land",
+				"passportNumber": "Passportnummer",
+				"driverLicenseState": "Führerscheinstaat",
+				"driverLicenseNumber": "Führerscheinnummer",
+				"nationalIdNumber": "Nationales Ausweisnummer",
+				"visaType": "Visumtyp",
+				"visaExpiryDate": "Ablaufdatum des Visums",
+				"isIllegalResident": "Ist illegaler Bewohner",
+				"illegalStatusDescription": "Beschreibung des illegalen Status"
+			},
+			"employment": {
+				"jobTitle": "Berufsbezeichnung",
+				"department": "Abteilung",
+				"employeeId": "Mitarbeiter-ID",
+				"hireDate": "Einstellungsdatum",
+				"employmentStatus": "Beschäftigungsstatus"
+			}
+		},
+		"organization": {
+			"contactName": "Kontaktname",
+			"legal": {
+				"legalName": "Rechtsname",
+				"legalEntityType": "Rechtliche Einheitstyp",
+				"legalStatus": "Rechtsstatus",
+				"incorporationDate": "Gründungsdatum",
+				"businessRegistrationNumber": "Geschäftsregistrierungsnummer"
+			}
+		},
+		"contact": {
+			"phone": "Telefonnummer",
+			"email": "E-Mail-Adresse",
+			"socialMedia": "Soziale Medien"
+		},
+		"address": {
+			"address": "Straßenadresse",
+			"city": "Stadt",
+			"state": "Bundesland",
+			"zip": "Postleitzahl",
+			"zipNan": "Postleitzahl muss eine Zahl sein",
+			"county": "Landkreis",
+			"country": "Land"
+		}
+	},
+	"titles": {
+		"information": "Information",
+		"parent": "Eltern Datensatz",
+		"person": "Person",
+		"name": "Name",
+		"identification": "Identifikation",
+		"passport": "Reisepass",
+		"driverLicense": "Führerschein",
+		"employment": "Beschäftigung",
+		"organization": "Organisation",
+		"legal": "Rechtlich",
+		"contact": "Kontaktdaten",
+		"location": "Ort"
+	},
+	"header": {
+		"title": {
+			"new": "Neue Einheit",
+			"edit": "Einheit bearbeiten",
+			"all": "Alle Einheiten",
+			"single": "Einheit"
+		},
+		"subtitle": {
+			"new": "Neuen Einheit Datensatz erstellen",
+			"edit": "Bestehenden Einheit Datensatz bearbeiten",
+			"all": "Alle Einheit Datensätze anzeigen",
+			"single": "Einen Einheit Datensatz anzeigen"
+		},
+		"content": {
+			"total": "Gesamte Einheiten"
+		}
+	},
+	"buttons": {
+		"new": "Neue Einheit",
+		"edit": "Einheit bearbeiten",
+		"delete": "Einheit löschen",
+		"save": "Einheit speichern",
+		"update": "Einheit aktualisieren",
+		"view": "Einheit anzeigen"
+	}
+}

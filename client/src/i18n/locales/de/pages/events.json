@@ -1,0 +1,71 @@
+{
+	"fields": {
+		"id": "ID",
+		"status": "Status",
+		"reported": {
+			"reporter": "Gemeldet von",
+			"reportedDate": "Gemeldetes Datum"
+		},
+		"updated": {
+			"updatedBy": "Aktualisiert von",
+			"updatedDate": "Aktualisiertes Datum"
+		},
+		"submitted": {
+			"submittedBy": "Eingereicht von",
+			"submittedDate": "Eingereichtes Datum"
+		},
+		"type": {
+			"eventType": "Ereignistyp",
+			"eventSubType": "Ereignis-Untertyp"
+		},
+		"details": {
+			"title": "Titel",
+			"description": "Beschreibung",
+			"tagging": "Markierung",
+			"methodOfReceipt": "Empfangsmethode"
+		},
+		"location": {
+			"address": "Adresse",
+			"city": "Stadt",
+			"zip": "Postleitzahl",
+			"country": "Land",
+			"county": "Landkreis",
+			"state": "Bundesland"
+		}
+	},
+	"titles": {
+		"reported": "Gemeldet",
+		"updated": "Aktualisiert",
+		"submitted": "Eingereicht",
+		"type": "Typ",
+		"details": "Details",
+		"location": "Ort",
+		"dates": "Termine"
+	},
+	"header": {
+		"title": {
+			"new": "Neues Ereignis",
+			"edit": "Ereignis bearbeiten",
+			"all": "Alle Ereignisse",
+			"single": "Ereignis"
+		},
+		"subtitle": {
+			"new": "Neuen Ereignis Datensatz erstellen",
+			"edit": "Bestehenden Ereignis Datensatz bearbeiten",
+			"all": "Alle Ereignis Datensätze anzeigen",
+			"single": "Einen Ereignis Datensatz anzeigen"
+		},
+		"content": {
+			"total": "Gesamte Ereignisse",
+			"status": "Status"
+		}
+	},
+	"buttons": {
+		"new": "Neues Ereignis",
+		"edit": "Ereignis bearbeiten",
+		"delete": "Ereignis löschen",
+		"save": "Ereignis speichern",
+		"update": "Ereignis aktualisieren",
+		"view": "Ereignis anzeigen"
+	}
+}

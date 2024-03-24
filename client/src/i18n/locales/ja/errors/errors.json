@@ -1,0 +1,8 @@
+{
+	"rootElementNotFound": "Root element not found",
+	"useAuthMustBeUsedWithinAuthProvider": "useAuth must be used within an AuthProvider",
+	"invalidDateInput": "Invalid date",
+	"unknownErrorOccurred": "An unknown error occurred",
+	"genericError": "An error occurred",
+	"parentIdRequired": "Parent ID is required or entity data will be an orphaned record"
+}

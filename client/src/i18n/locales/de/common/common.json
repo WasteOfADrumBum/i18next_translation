@@ -1,0 +1,72 @@
+{
+	"buttons": {
+		"submit": "Einreichen",
+		"cancel": "Abbrechen",
+		"save": "Speichern",
+		"delete": "Löschen",
+		"view": "Ansehen",
+		"edit": "Bearbeiten",
+		"add": "Hinzufügen",
+		"login": "Anmelden",
+		"logout": "Abmelden",
+		"register": "Registrieren",
+		"forgotPassword": "Passwort vergessen",
+		"resetPassword": "Passwort zurücksetzen",
+		"changePassword": "Passwort ändern"
+	},
+	"tables": {
+		"actions": "Aktionen",
+		"view": "Ansehen",
+		"edit": "Bearbeiten",
+		"delete": "Löschen"
+	},
+	"prepositions": {
+		"of": "von",
+		"for": "für",
+		"by": "durch",
+		"on": "auf",
+		"at": "bei",
+		"in": "in",
+		"to": "zu",
+		"with": "mit",
+		"from": "von",
+		"about": "über",
+		"into": "in",
+		"after": "nach",
+		"before": "vor",
+		"under": "unter",
+		"over": "über",
+		"between": "zwischen"
+	},
+	"interrogatives": {
+		"what": "Was",
+		"who": "Wer",
+		"where": "Wo",
+		"when": "Wann",
+		"why": "Warum",
+		"how": "Wie"
+	},
+	"forms": {
+		"requiredDisclaimer": "Alle Felder, die mit einem Stern (*) markiert sind, sind erforderlich",
+		"vehiclesRequireEntities": "* Entitäten sind erforderlich, bevor ein Fahrzeug hinzugefügt wird"
+	},
+	"statusIndicator": {
+		"loading": "Laden...",
+		"success": "Erfolg",
+		"error": "Fehler",
+		"notAvailable": "Nicht verfügbar",
+		"na": "N/A",
+		"expired": "Abgelaufen",
+		"expires": "Läuft ab",
+		"invalid": "Ungültig",
+		"required": "Erforderlich"
+	},
+	"boolean": {
+		"yes": "Ja",
+		"no": "Nein",
+		"true": "Wahr",
+		"false": "Falsch",
+		"on": "An",
+		"off": "Aus"
+	}
+}

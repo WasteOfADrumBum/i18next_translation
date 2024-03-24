@@ -1,0 +1,7 @@
+{
+	"header": "Willkommen in unserem Content Management System",
+	"body": {
+		"content": "Dies ist eine MERN (MongoDB, Express.js, React.js, Node.js) Stack-Anwendung mit Redux für das Zustandsmanagement und Docker-Unterstützung.",
+		"content2": "Dies ist die Startseite meiner Anwendung. Um auf das sichere Content-Management-System zuzugreifen, melden Sie sich bitte an und authentifizieren Sie sich mit Ihren Anmeldeinformationen."
+	}
+}

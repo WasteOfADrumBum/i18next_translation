@@ -1,0 +1,13 @@
+{
+	"profile": "Profil",
+	"login": "Anmelden",
+	"register": "Registrieren",
+	"logout": "Abmelden",
+	"username": "Benutzername",
+	"password": "Passwort",
+	"confirmPassword": "Passwort bestätigen",
+	"forgotPassword": "Passwort vergessen",
+	"resetPassword": "Passwort zurücksetzen",
+	"updateProfile": "Profil aktualisieren",
+	"deleteAccount": "Konto löschen"
+}
