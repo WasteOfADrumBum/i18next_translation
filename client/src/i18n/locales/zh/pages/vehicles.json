@@ -1,6 +1,6 @@
 {
 	"fields": {
-		"id": "编号",
+		"id": "ID",
 		"parent": {
 			"id": "父 ID",
 			"name": "父名称"

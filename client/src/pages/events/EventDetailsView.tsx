@@ -121,7 +121,7 @@ const EventDetailsView: FC = () => {
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='subtitle1'>
-							Method of Receipt:{' '}
+							{t('pages.events.fields.details.methodOfReceipt')}:{' '}
 							{event?.details?.methodOfReceipt ||
 								t('pages.events.fields.details.methodOfReceipt') + ' ' + t('common.statusIndicator.notAvailable')}
 						</Typography>

@@ -151,9 +151,9 @@ const EventListView: FC = () => {
 					<br />
 					{t('pages.events.titles.submitted')}:{' '}
 					{data.submitted
-						? `${TimeConversionsHelper.convertTime(t, data.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')} by ${
-								data.submitted.submittedBy ? data.submitted.submittedBy : t('common.statusIndicator.na')
-							}`
+						? TimeConversionsHelper.convertTime(t, data.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC') +
+							` ${t('common.prepositions.by')} ` +
+							(data.submitted.submittedBy ? data.submitted.submittedBy : t('common.statusIndicator.na'))
 						: t('common.statusIndicator.na')}
 					<br />
 					{t('pages.events.titles.updated')}:{' '}
