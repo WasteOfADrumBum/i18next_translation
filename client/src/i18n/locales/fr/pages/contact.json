@@ -1,7 +1,7 @@
 {
-	"contactUs": "Contact Us",
-	"name": "Name",
-	"email": "Email",
+	"contactUs": "Contactez-nous",
+	"name": "Nom",
+	"email": "E-mail",
 	"message": "Message",
-	"send": "Send"
+	"send": "Envoyer"
 }

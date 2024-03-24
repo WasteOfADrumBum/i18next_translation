@@ -2,75 +2,75 @@
 	"fields": {
 		"id": "ID",
 		"parent": {
-			"id": "Parent ID",
-			"name": "Parent Name"
+			"id": "ID Parent",
+			"name": "Nom du Parent"
 		},
-		"make": "Make",
-		"model": "Model",
-		"year": "Year",
-		"color": "Color",
-		"vin": "VIN Number",
+		"make": "Marque",
+		"model": "Modèle",
+		"year": "Année",
+		"color": "Couleur",
+		"vin": "Numéro de VIN",
 		"occupants": {
-			"driver": "Driver Name",
-			"passengers": "Passenger Names"
+			"driver": "Nom du Conducteur",
+			"passengers": "Noms des Passagers"
 		},
 		"registration": {
-			"owner": "Owner Name",
-			"plateNumber": "Plate Number",
-			"expirationDate": "Expiration Date",
-			"state": "State"
+			"owner": "Nom du Propriétaire",
+			"plateNumber": "Numéro de Plaque",
+			"expirationDate": "Date d'Expiration",
+			"state": "État"
 		},
 		"insurance": {
-			"policyNumber": "Policy Number",
-			"provider": "Provider",
-			"expirationDate": "Expiration Date",
-			"insured": "Insured"
+			"policyNumber": "Numéro de Police",
+			"provider": "Fournisseur",
+			"expirationDate": "Date d'Expiration",
+			"insured": "Assuré"
 		},
-		"stolen": "Was Stolen",
+		"stolen": "A été Volé",
 		"illegalModifications": {
-			"wasModified": "Was Modified",
+			"wasModified": "A été Modifié",
 			"description": "Description"
 		}
 	},
 	"placeholders": {
-		"make": "Select a Vehcile Make",
-		"model": "Select Vehicle Model",
-		"color": "Select a Vehcile Color",
-		"driver": "Select a Driver",
-		"owner": "Select a Vehicle Owner"
+		"make": "Sélectionnez une Marque de Véhicule",
+		"model": "Sélectionnez un Modèle de Véhicule",
+		"color": "Sélectionnez une Couleur de Véhicule",
+		"driver": "Sélectionnez un Conducteur",
+		"owner": "Sélectionnez un Propriétaire de Véhicule"
 	},
 	"titles": {
-		"parent": "Parent Record",
+		"parent": "Enregistrement Parent",
 		"description": "Description",
 		"occupants": "Occupants",
-		"registration": "Registration",
-		"insurance": "Insurance",
-		"legality": "Legality",
-		"illegalModifications": "Illegal Modifications"
+		"registration": "Enregistrement",
+		"insurance": "Assurance",
+		"legality": "Légalité",
+		"illegalModifications": "Modifications Illégales"
 	},
 	"header": {
 		"title": {
-			"new": "New Vehicle",
-			"edit": "Edit Vehicle",
-			"all": "All Vehicles",
-			"single": "Vehicle"
+			"new": "Nouveau Véhicule",
+			"edit": "Éditer Véhicule",
+			"all": "Tous les Véhicules",
+			"single": "Véhicule"
 		},
 		"subtitle": {
-			"new": "Create a new vehicle record",
-			"edit": "Edit an existing vehicle record",
-			"all": "View all vehicle records",
-			"single": "View a single vehicle record"
+			"new": "Créer un nouvel enregistrement de véhicule",
+			"edit": "Éditer un enregistrement de véhicule existant",
+			"all": "Voir tous les enregistrements de véhicules",
+			"single": "Voir un seul enregistrement de véhicule"
 		},
 		"content": {
-			"total": "Total Vehicles"
+			"total": "Total des Véhicules"
 		}
 	},
 	"buttons": {
-		"new": "New Vehicle",
-		"edit": "Edit Vehicle",
-		"delete": "Delete Vehicle",
-		"save": "Save Vehicle",
-		"update": "Update Vehicle",
-		"view": "View Vehicle"
+		"new": "Nouveau Véhicule",
+		"edit": "Éditer Véhicule",
+		"delete": "Supprimer Véhicule",
+		"save": "Enregistrer Véhicule",
+		"update": "Mettre à Jour Véhicule",
+		"view": "Voir Véhicule"
 	}
 }

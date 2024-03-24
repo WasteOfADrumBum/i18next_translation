@@ -1,13 +1,13 @@
 {
-	"profile": "Profile",
-	"login": "Login",
-	"register": "Register",
-	"logout": "Logout",
-	"username": "Username",
-	"password": "Password",
-	"confirmPassword": "Confirm Password",
-	"forgotPassword": "Forgot Password",
-	"resetPassword": "Reset Password",
-	"updateProfile": "Update Profile",
-	"deleteAccount": "Delete Account"
+	"profile": "Profil",
+	"login": "Connexion",
+	"register": "S'inscrire",
+	"logout": "Déconnexion",
+	"username": "Nom d'Utilisateur",
+	"password": "Mot de Passe",
+	"confirmPassword": "Confirmer le Mot de Passe",
+	"forgotPassword": "Mot de Passe Oublié",
+	"resetPassword": "Réinitialiser le Mot de Passe",
+	"updateProfile": "Mettre à Jour le Profil",
+	"deleteAccount": "Supprimer le Compte"
 }

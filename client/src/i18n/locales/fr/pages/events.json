@@ -1,71 +1,71 @@
 {
 	"fields": {
 		"id": "ID",
-		"status": "Status",
+		"status": "Statut",
 		"reported": {
-			"reporter": "Reported By",
-			"reportedDate": "Reported Date"
+			"reporter": "Signalé par",
+			"reportedDate": "Date de Signalement"
 		},
 		"updated": {
-			"updatedBy": "Updated By",
-			"updatedDate": "Updated Date"
+			"updatedBy": "Mis à Jour par",
+			"updatedDate": "Date de Mise à Jour"
 		},
 		"submitted": {
-			"submittedBy": "Submitted By",
-			"submittedDate": "Submitted Date"
+			"submittedBy": "Soumis par",
+			"submittedDate": "Date de Soumission"
 		},
 		"type": {
-			"eventType": "Event Type",
-			"eventSubType": "Event Sub Type"
+			"eventType": "Type d'Événement",
+			"eventSubType": "Sous-type d'Événement"
 		},
 		"details": {
-			"title": "Title",
+			"title": "Titre",
 			"description": "Description",
-			"tagging": "Tagging",
-			"methodOfReceipt": "Method of Receipt"
+			"tagging": "Étiquetage",
+			"methodOfReceipt": "Méthode de Réception"
 		},
 		"location": {
-			"address": "Address",
-			"city": "City",
-			"zip": "Zip",
-			"country": "Country",
-			"county": "County",
-			"state": "State"
+			"address": "Adresse",
+			"city": "Ville",
+			"zip": "Code Postal",
+			"country": "Pays",
+			"county": "Comté",
+			"state": "État"
 		}
 	},
 	"titles": {
-		"reported": "Reported",
-		"updated": "Updated",
-		"submitted": "Submitted",
+		"reported": "Signalé",
+		"updated": "Mis à Jour",
+		"submitted": "Soumis",
 		"type": "Type",
-		"details": "Details",
-		"location": "Location",
+		"details": "Détails",
+		"location": "Emplacement",
 		"dates": "Dates"
 	},
 	"header": {
 		"title": {
-			"new": "New Event",
-			"edit": "Edit Event",
-			"all": "All Events",
-			"single": "Event"
+			"new": "Nouvel Événement",
+			"edit": "Modifier l'Événement",
+			"all": "Tous les Événements",
+			"single": "Événement"
 		},
 		"subtitle": {
-			"new": "Create a new event record",
-			"edit": "Edit an existing event record",
-			"all": "View all event records",
-			"single": "View a single event record"
+			"new": "Créer un nouvel enregistrement d'événement",
+			"edit": "Modifier un enregistrement d'événement existant",
+			"all": "Voir tous les enregistrements d'événements",
+			"single": "Voir un seul enregistrement d'événement"
 		},
 		"content": {
-			"total": "Total Events",
-			"status": "Status"
+			"total": "Total des Événements",
+			"status": "Statut"
 		}
 	},
 	"buttons": {
-		"new": "New Event",
-		"edit": "Edit Event",
-		"delete": "Delete Event",
-		"save": "Save Event",
-		"update": "Update Event",
-		"view": "View Event"
+		"new": "Nouvel Événement",
+		"edit": "Modifier l'Événement",
+		"delete": "Supprimer l'Événement",
+		"save": "Enregistrer l'Événement",
+		"update": "Mettre à Jour l'Événement",
+		"view": "Voir l'Événement"
 	}
 }
