@@ -39,7 +39,8 @@
 		"submitted": "Submitted",
 		"type": "Type",
 		"details": "Details",
-		"location": "Location"
+		"location": "Location",
+		"dates": "Dates"
 	},
 	"header": {
 		"title": {

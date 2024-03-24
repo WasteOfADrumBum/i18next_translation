@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next'
 import commonEn from './en/common/common.json'
 import errorsEn from './en/errors/errors.json'
 import aboutEn from './en/pages/about.json'
@@ -45,7 +44,5 @@ const esTranslation = {
 		vehicles: vehiclesEs,
 	},
 }
-
-export const { t } = useTranslation()
 
 export { enTranslation, esTranslation }
