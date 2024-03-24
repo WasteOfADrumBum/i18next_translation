@@ -28,12 +28,12 @@ const EventDetailsView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: t('pages:events.header.title.single'),
-			subheader: t('pages:events.header.subtitle.single'),
+			header: t('pages.events.header.title.single'),
+			subheader: t('pages.events.header.subtitle.single'),
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={6}>
-						<Typography variant='caption'>{t('pages:events.fields.id')}:</Typography>
+						<Typography variant='caption'>{t('pages.events.fields.id')}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
@@ -44,42 +44,42 @@ const EventDetailsView: FC = () => {
 						<Divider />
 					</Grid>
 					<Grid item xs={6}>
-						<Typography variant='caption'>{t('pages:events.titles.submitted')}:</Typography>
+						<Typography variant='caption'>{t('pages.events.titles.submitted')}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
 							{event?.submitted?.submittedDate
 								? TimeConversionsHelper.convertTime(event?.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')
-								: t('pages:events.fields.submitted.submittedDate') + ' ' + t('common.statusIndicator.na')}{' '}
-							{t('common:prepositions.by')}{' '}
+								: t('pages.events.fields.submitted.submittedDate') + ' ' + t('common.statusIndicator.na')}{' '}
+							{t('common.prepositions.by')}{' '}
 							{event?.submitted?.submittedBy ||
-								t('pages:events.fields.submitted.submittedBy') + ' ' + t('common.statusIndicator.na')}
+								t('pages.events.fields.submitted.submittedBy') + ' ' + t('common.statusIndicator.na')}
 						</Typography>
 					</Grid>
 					<Grid item xs={6}>
-						<Typography variant='caption'>{t('pages:events.titles.reported')}:</Typography>
+						<Typography variant='caption'>{t('pages.events.titles.reported')}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
 							{event?.reported?.reportedDate
 								? TimeConversionsHelper.convertTime(event?.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC')
-								: t('pages:events.fields.reported.reportedDate') + ' ' + t('common.statusIndicator.na')}{' '}
-							{t('common:prepositions.by')}{' '}
+								: t('pages.events.fields.reported.reportedDate') + ' ' + t('common.statusIndicator.na')}{' '}
+							{t('common.prepositions.by')}{' '}
 							{event?.reported?.reporter ||
-								t('pages:events.fields.reported.reporter') + ' ' + t('common.statusIndicator.na')}
+								t('pages.events.fields.reported.reporter') + ' ' + t('common.statusIndicator.na')}
 						</Typography>
 					</Grid>
 					<Grid item xs={6}>
-						<Typography variant='caption'>{t('pages:events.titles.updated')}:</Typography>
+						<Typography variant='caption'>{t('pages.events.titles.updated')}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
 							{event?.updated?.updatedDate
 								? TimeConversionsHelper.convertTime(event?.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC')
-								: t('pages:events.fields.updated.updatedDate') + ' ' + t('common.statusIndicator.na')}{' '}
-							{t('common:prepositions.by')}{' '}
+								: t('pages.events.fields.updated.updatedDate') + ' ' + t('common.statusIndicator.na')}{' '}
+							{t('common.prepositions.by')}{' '}
 							{event?.updated?.updatedBy ||
-								t('pages:events.fields.updated.updatedBy') + ' ' + t('common.statusIndicator.na')}
+								t('pages.events.fields.updated.updatedBy') + ' ' + t('common.statusIndicator.na')}
 						</Typography>
 					</Grid>
 				</Grid>
@@ -111,30 +111,30 @@ const EventDetailsView: FC = () => {
 					<Grid item xs={12}>
 						<Typography variant='h5' mb={1} color='primary'>
 							{event?.details?.title ||
-								t('pages:events.fields.details.title') + ' ' + t('common.statusIndicator.notAvailable')}
+								t('pages.events.fields.details.title') + ' ' + t('common.statusIndicator.notAvailable')}
 						</Typography>
 						<Divider />
 						<Typography variant='body1' mt={1}>
 							{event?.details?.description ||
-								t('pages:events.fields.details.description') + ' ' + t('common.statusIndicator.notAvailable')}
+								t('pages.events.fields.details.description') + ' ' + t('common.statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='subtitle1'>
 							Method of Receipt:{' '}
 							{event?.details?.methodOfReceipt ||
-								t('pages:events.fields.details.methodOfReceipt') + ' ' + t('common.statusIndicator.notAvailable')}
+								t('pages.events.fields.details.methodOfReceipt') + ' ' + t('common.statusIndicator.notAvailable')}
 						</Typography>
 						<Typography variant='subtitle1'>
-							{t('pages:events.titles.location')}: {event?.location?.address}, {event?.location?.city},{' '}
+							{t('pages.events.titles.location')}: {event?.location?.address}, {event?.location?.city},{' '}
 							{event?.location?.state}, {event?.location?.zip}
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='subtitle1'>
-							{t('pages:events.fields.details.tagging')}:{' '}
+							{t('pages.events.fields.details.tagging')}:{' '}
 							{event?.details?.tagging?.join(', ') ||
-								t('pages:events.fields.details.tagging') + ' ' + t('common.statusIndicator.notAvailable')}
+								t('pages.events.fields.details.tagging') + ' ' + t('common.statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 				</Grid>

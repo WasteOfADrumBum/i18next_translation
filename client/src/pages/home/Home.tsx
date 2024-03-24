@@ -30,16 +30,16 @@ const Home: FC = () => {
 						marginBottom: '2rem',
 					}}>
 					<Typography variant='h1' component='h1' gutterBottom>
-						{t('pages:home.header')}
+						{t('pages.home.header')}
 					</Typography>
 					<Typography variant='body1' component='p' gutterBottom>
-						{t('pages:home.body.content')}
+						{t('pages.home.body.content')}
 					</Typography>
 					<Typography variant='body2' component='p' gutterBottom>
-						{t('pages:home.body.content2')}
+						{t('pages.home.body.content2')}
 					</Typography>
 					<Button variant='contained' color='primary' sx={{ mt: 4 }} onClick={handleLoginClick}>
-						{t('common:buttons.login')}
+						{t('common.buttons.login')}
 					</Button>
 				</Box>
 			</Container>

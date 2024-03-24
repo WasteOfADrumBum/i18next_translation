@@ -28,14 +28,14 @@ const EventListView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: t('pages:events.header.title.all'),
-			subheader: t('pages:events.header.subtitle.all'),
+			header: t('pages.events.header.title.all'),
+			subheader: t('pages.events.header.subtitle.all'),
 			extraContent: (
 				/* TODO: Fix this formatting to match others */
 				<Grid container spacing={1} direction='column' alignItems='flex-start'>
 					<Grid item>
 						<Typography>
-							{t('pages:events.header.content.total')} : {events.length}
+							{t('pages.events.header.content.total')} : {events.length}
 						</Typography>
 						<Divider />
 					</Grid>
@@ -81,100 +81,100 @@ const EventListView: FC = () => {
 	const columns = [
 		{
 			id: '_id',
-			label: t('pages:events.fields.id'),
+			label: t('pages.events.fields.id'),
 			render: (data: Event) => (
-				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common:statusIndicator.na')}</Typography>
+				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common.statusIndicator.na')}</Typography>
 			),
 		},
 		{
 			id: 'type',
-			label: t('pages:events.titles.type'),
+			label: t('pages.events.titles.type'),
 			render: (data: Event) => (
 				<>
-					<Typography>{data.type ? data.type.eventType : t('common:statusIndicator.na')}</Typography>
+					<Typography>{data.type ? data.type.eventType : t('common.statusIndicator.na')}</Typography>
 					<Divider />
-					<Typography>{data.type ? data.type.eventSubType : t('common:statusIndicator.na')}</Typography>
+					<Typography>{data.type ? data.type.eventSubType : t('common.statusIndicator.na')}</Typography>
 				</>
 			),
 		},
 		{
 			id: 'title',
-			label: t('pages:events.fields.details.title'),
+			label: t('pages.events.fields.details.title'),
 			render: (data: Event) => (
-				<Typography>{data.details ? data.details.title : t('common:statusIndicator.na')}</Typography>
+				<Typography>{data.details ? data.details.title : t('common.statusIndicator.na')}</Typography>
 			),
 		},
 		{
 			id: 'tagging',
-			label: t('pages:events.fields.details.tagging'),
+			label: t('pages.events.fields.details.tagging'),
 			render: (data: Event) => (
 				<Typography>
 					{data.details
 						? data.details.tagging
 							? data.details.tagging.join(', ')
-							: t('common:statusIndicator.na')
-						: t('common:statusIndicator.na')}
+							: t('common.statusIndicator.na')
+						: t('common.statusIndicator.na')}
 				</Typography>
 			),
 		},
 		{
 			id: 'location',
-			label: t('pages:events.titles.location'),
+			label: t('pages.events.titles.location'),
 			render: (data: Event) => (
 				<Typography>
 					{data.location
 						? `${data.location.city}, ${GetStateAbbreviation(data.location.state)}, ${GetCountryAbbreviation(
 								data.location.country,
 							)}`
-						: t('common:statusIndicator.na')}
+						: t('common.statusIndicator.na')}
 				</Typography>
 			),
 		},
 		{
 			id: 'methodOfReceipt',
-			label: t('pages:events.fields.details.methodOfReceipt'),
+			label: t('pages.events.fields.details.methodOfReceipt'),
 			render: (data: Event) => (
-				<Typography>{data.details ? data.details.methodOfReceipt : t('common:statusIndicator.na')}</Typography>
+				<Typography>{data.details ? data.details.methodOfReceipt : t('common.statusIndicator.na')}</Typography>
 			),
 		},
 		{
 			id: 'Dates',
-			label: t('pages:events.titles.dates'),
+			label: t('pages.events.titles.dates'),
 			render: (data: Event) => (
 				<Typography>
-					{t('pages:events.titles.reported')}:{' '}
+					{t('pages.events.titles.reported')}:{' '}
 					{data.reported
 						? TimeConversionsHelper.convertTime(data.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC') +
-							` ${t('common:prepositions.by')} ` +
-							(data.reported.reporter ? data.reported.reporter : t('common:statusIndicator.na'))
-						: t('common:statusIndicator.na')}
+							` ${t('common.prepositions.by')} ` +
+							(data.reported.reporter ? data.reported.reporter : t('common.statusIndicator.na'))
+						: t('common.statusIndicator.na')}
 					<br />
-					{t('pages:events.titles.submitted')}:{' '}
+					{t('pages.events.titles.submitted')}:{' '}
 					{data.submitted
 						? `${TimeConversionsHelper.convertTime(data.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')} by ${
-								data.submitted.submittedBy ? data.submitted.submittedBy : t('common:statusIndicator.na')
+								data.submitted.submittedBy ? data.submitted.submittedBy : t('common.statusIndicator.na')
 							}`
-						: t('common:statusIndicator.na')}
+						: t('common.statusIndicator.na')}
 					<br />
-					{t('pages:events.titles.updated')}:{' '}
+					{t('pages.events.titles.updated')}:{' '}
 					{data.updated
 						? TimeConversionsHelper.convertTime(data.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC') +
-							` ${t('common:prepositions.by')} ` +
-							(data.updated.updatedBy ? data.updated.updatedBy : t('common:statusIndicator.na'))
-						: t('common:statusIndicator.na')}
+							` ${t('common.prepositions.by')} ` +
+							(data.updated.updatedBy ? data.updated.updatedBy : t('common.statusIndicator.na'))
+						: t('common.statusIndicator.na')}
 				</Typography>
 			),
 		},
 		{
 			id: 'status',
-			label: t('pages:events.fields.status'),
+			label: t('pages.events.fields.status'),
 			render: (data: Event) => (
-				<Typography>{data.status ? capitalize(data.status) : t('common:statusIndicator.na')}</Typography>
+				<Typography>{data.status ? capitalize(data.status) : t('common.statusIndicator.na')}</Typography>
 			),
 		},
 		{
 			id: 'actions',
-			label: t('common:tables.actions'),
+			label: t('common.tables.actions'),
 			render: (data: Event) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}
@@ -198,14 +198,14 @@ const EventListView: FC = () => {
 		<Container maxWidth='xl'>
 			<Grid container justifyContent='flex-end'>
 				<Button onClick={() => navigate('/event/create')} sx={{ margin: 1 }}>
-					<AddCircleOutline sx={{ marginRight: 1 }} /> {t('pages:events.buttons.new')}
+					<AddCircleOutline sx={{ marginRight: 1 }} /> {t('pages.events.buttons.new')}
 				</Button>
 			</Grid>
 			{loading ? (
-				<Typography variant='h6'>{t('common:statusIndicator.loading')}</Typography>
+				<Typography variant='h6'>{t('common.statusIndicator.loading')}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
 				<Typography variant='h6'>
-					{t('common:statusIndicator.error')}: {error.toString()}
+					{t('common.statusIndicator.error')}: {error.toString()}
 				</Typography>
 			) : (
 				<DynamicDataTable

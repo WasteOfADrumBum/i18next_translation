@@ -79,12 +79,12 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	// Update header data when component mounts
 	useEffect(() => {
 		setHeaderData({
-			header: eventValues ? t('pages:events.header.title.edit') : t('pages:events.header.title.new'),
-			subheader: eventValues ? t('pages:events.header.subtitle.edit') : t('pages:events.header.subtitle.new'),
+			header: eventValues ? t('pages.events.header.title.edit') : t('pages.events.header.title.new'),
+			subheader: eventValues ? t('pages.events.header.subtitle.edit') : t('pages.events.header.subtitle.new'),
 			extraContent: (
 				<Grid container spacing={0}>
 					<Grid item xs={12}>
-						<Typography variant='caption'>{t('common:forms.requiredDisclaimer')}</Typography>
+						<Typography variant='caption'>{t('common.forms.requiredDisclaimer')}</Typography>
 					</Grid>
 				</Grid>
 			),
@@ -246,20 +246,20 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 				{loading && <CircularProgress />}
 				{typeof error === 'object' && Object.keys(error).length !== 0 && (
 					<Typography color='error' variant='h6'>
-						{t('common:statusIndicator.error')}: {error.toString()}
+						{t('common.statusIndicator.error')}: {error.toString()}
 					</Typography>
 				)}
 				<form onSubmit={onSubmit}>
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{t('common:interrogatives.who')}
+								{t('common.interrogatives.who')}
 							</Typography>
 							<Divider />
 						</Grid>
 						<Grid item xs={6}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{t('common:interrogatives.when')}
+								{t('common.interrogatives.when')}
 							</Typography>
 							<Divider />
 						</Grid>
@@ -267,7 +267,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 							<TextField
 								required
 								name='reporter'
-								label={t('pages:events.fields.reported.reporter')}
+								label={t('pages.events.fields.reported.reporter')}
 								variant='outlined'
 								fullWidth
 								value={formData.reporter}
@@ -277,7 +277,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						<Grid item xs={6}>
 							<DatePicker
 								name='reportedDate'
-								label={t('pages:events.fields.reported.reportedDate')}
+								label={t('pages.events.fields.reported.reportedDate')}
 								defaultValue={dayjs()}
 								value={dayjs(formData.reportedDate)}
 								onChange={(date) => handleFormDateChange(date, 'reportedDate')}
@@ -294,7 +294,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 							<TextField
 								required
 								name='submittedBy'
-								label={t('pages:events.fields.submitted.submittedBy')}
+								label={t('pages.events.fields.submitted.submittedBy')}
 								variant='outlined'
 								fullWidth
 								value={formData.submittedBy}
@@ -304,7 +304,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						<Grid item xs={6}>
 							<DatePicker
 								name='submittedDate'
-								label={t('pages:events.fields.submitted.submittedDate')}
+								label={t('pages.events.fields.submitted.submittedDate')}
 								defaultValue={dayjs()}
 								value={dayjs(formData.submittedDate)}
 								onChange={(date) => handleFormDateChange(date, 'submittedDate')}
@@ -322,7 +322,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 							<TextField
 								required
 								name='updatedBy'
-								label={t('pages:events.fields.updated.updatedBy')}
+								label={t('pages.events.fields.updated.updatedBy')}
 								variant='outlined'
 								fullWidth
 								value={formData.updatedBy}
@@ -332,7 +332,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						<Grid item xs={6}>
 							<DatePicker
 								name='updatedDate'
-								label={t('pages:events.fields.updated.updatedDate')}
+								label={t('pages.events.fields.updated.updatedDate')}
 								defaultValue={dayjs()}
 								value={dayjs(formData.updatedDate)}
 								onChange={(date) => handleFormDateChange(date, 'updatedDate')}
@@ -348,13 +348,13 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{t('common:interrogatives.what')}
+								{t('common.interrogatives.what')}
 							</Typography>
 							<Divider />
 						</Grid>
 						<Grid item xs={6}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='eventType-label'>{t('pages:events.fields.type.eventType')}</InputLabel>
+								<InputLabel id='eventType-label'>{t('pages.events.fields.type.eventType')}</InputLabel>
 								<Select
 									required
 									labelId='eventType-label'
@@ -373,7 +373,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						</Grid>
 						<Grid item xs={6}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='eventSubType-label'>{t('pages:events.fields.type.eventSubType')}</InputLabel>
+								<InputLabel id='eventSubType-label'>{t('pages.events.fields.type.eventSubType')}</InputLabel>
 								<Select
 									required
 									labelId='eventSubType-label'
@@ -393,7 +393,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						</Grid>
 						<Grid item xs={6}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='tagging-label'>{t('pages:events.fields.details.tagging')}</InputLabel>
+								<InputLabel id='tagging-label'>{t('pages.events.fields.details.tagging')}</InputLabel>
 								<Select
 									required
 									labelId='tagging-label'
@@ -423,7 +423,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						</Grid>
 						<Grid item xs={6}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='methodOfReceipt-label'>{t('pages:events.fields.details.methodOfReceipt')}</InputLabel>
+								<InputLabel id='methodOfReceipt-label'>{t('pages.events.fields.details.methodOfReceipt')}</InputLabel>
 								<Select
 									required
 									labelId='methodOfReceipt-label'
@@ -442,7 +442,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{t('common:interrogatives.why')}
+								{t('common.interrogatives.why')}
 							</Typography>
 							<Divider />
 						</Grid>
@@ -450,7 +450,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 							<TextField
 								required
 								name='title'
-								label={t('pages:events.fields.details.title')}
+								label={t('pages.events.fields.details.title')}
 								variant='outlined'
 								fullWidth
 								value={formData.title}
@@ -461,7 +461,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 							<TextField
 								required
 								name='description'
-								label={t('pages:events.fields.details.description')}
+								label={t('pages.events.fields.details.description')}
 								variant='outlined'
 								fullWidth
 								multiline
@@ -472,7 +472,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{t('common:interrogatives.where')}
+								{t('common.interrogatives.where')}
 							</Typography>
 							<Divider />
 						</Grid>
@@ -482,7 +482,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									<TextField
 										required
 										name='address'
-										label={t('pages:events.fields.location.address')}
+										label={t('pages.events.fields.location.address')}
 										variant='outlined'
 										fullWidth
 										value={formData.address}
@@ -493,7 +493,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									<TextField
 										required
 										name='city'
-										label={t('pages:events.fields.location.city')}
+										label={t('pages.events.fields.location.city')}
 										variant='outlined'
 										fullWidth
 										value={formData.city}
@@ -504,7 +504,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									<TextField
 										required
 										name='state'
-										label={t('pages:events.fields.location.state')}
+										label={t('pages.events.fields.location.state')}
 										variant='outlined'
 										fullWidth
 										select
@@ -521,7 +521,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									<TextField
 										required
 										name='zip'
-										label={t('pages:events.fields.location.zip')}
+										label={t('pages.events.fields.location.zip')}
 										variant='outlined'
 										fullWidth
 										placeholder='Enter ZIP'
@@ -536,7 +536,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 								<Grid item xs={6}>
 									<TextField
 										name='county'
-										label={t('pages:events.fields.location.county')}
+										label={t('pages.events.fields.location.county')}
 										variant='outlined'
 										fullWidth
 										value={formData.county}
@@ -547,7 +547,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									<TextField
 										required
 										name='country'
-										label={t('pages:events.fields.location.country')}
+										label={t('pages.events.fields.location.country')}
 										variant='outlined'
 										fullWidth
 										select
@@ -565,11 +565,11 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 						<Grid item container xs={12} justifyContent='space-between'>
 							<Button variant='contained' color='secondary' onClick={() => navigate('/dashboard')}>
 								<CancelOutlined sx={{ marginRight: 1 }} />
-								{t('common:buttons.cancel')}
+								{t('common.buttons.cancel')}
 							</Button>
 							<Button type='submit' variant='contained' color='primary' sx={{ textAlign: 'right' }}>
 								<AddCircleOutline sx={{ marginRight: 1 }} />
-								{event?._id ? t('pages:events.buttons.edit') : t('pages:events.buttons.new')}
+								{event?._id ? t('pages.events.buttons.edit') : t('pages.events.buttons.new')}
 							</Button>
 						</Grid>
 					</Grid>

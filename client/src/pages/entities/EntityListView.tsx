@@ -32,12 +32,12 @@ const EntityListView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: t('pages:entities.header.all'),
-			subheader: t('pages:entities.subheader.all'),
+			header: t('pages.entities.header.all'),
+			subheader: t('pages.entities.subheader.all'),
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={6}>
-						<Typography variant='caption'>{t('pages:entities.fields.eventId')}:</Typography>
+						<Typography variant='caption'>{t('pages.entities.fields.eventId')}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
@@ -48,7 +48,7 @@ const EntityListView: FC = () => {
 						<Divider />
 					</Grid>
 					<Grid item xs={6}>
-						<Typography variant='caption'>{t('pages:entities.header.content.total')}:</Typography>
+						<Typography variant='caption'>{t('pages.entities.header.content.total')}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
@@ -93,13 +93,13 @@ const EntityListView: FC = () => {
 			id: '_id',
 			label: t('entities:fields.id'),
 			render: (data: Entity) => (
-				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common:statusIndicatorT.na')}</Typography>
+				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common.statusIndicatorT.na')}</Typography>
 			),
 		},
 		{
 			id: 'type',
 			label: t('entities:fields.type'),
-			render: (data: Entity) => <Typography>{capitalize(data.type || t('common:statusIndicatorT.na'))}</Typography>,
+			render: (data: Entity) => <Typography>{capitalize(data.type || t('common.statusIndicatorT.na'))}</Typography>,
 		},
 		{
 			id: 'name',
@@ -112,9 +112,9 @@ const EntityListView: FC = () => {
 				} else if (data.type === 'Organization') {
 					const { contactName } = data.organization
 					const { legalName } = data.organization.legal
-					name = `${legalName || ''} (${contactName || ''})`.trim() || t('common:statusIndicatorT.na')
+					name = `${legalName || ''} (${contactName || ''})`.trim() || t('common.statusIndicatorT.na')
 				} else {
-					name = t('common:statusIndicatorT.na')
+					name = t('common.statusIndicatorT.na')
 				}
 				return <Typography>{name}</Typography>
 			},
@@ -125,16 +125,16 @@ const EntityListView: FC = () => {
 			render: (data: Entity) => (
 				<Typography>
 					{data.address
-						? `${data.address.city}, ${GetStateAbbreviation(data.address.state || t('common:statusIndicatorT.na'))}, ${GetCountryAbbreviation(
-								data.address.country || t('common:statusIndicatorT.na'),
+						? `${data.address.city}, ${GetStateAbbreviation(data.address.state || t('common.statusIndicatorT.na'))}, ${GetCountryAbbreviation(
+								data.address.country || t('common.statusIndicatorT.na'),
 							)}`
-						: t('common:statusIndicatorT.na')}
+						: t('common.statusIndicatorT.na')}
 				</Typography>
 			),
 		},
 		{
 			id: 'actions',
-			label: t('common:tables.actions'),
+			label: t('common.tables.actions'),
 			render: (data: Entity) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}
@@ -153,10 +153,10 @@ const EntityListView: FC = () => {
 				</Button>
 			</Grid>
 			{loading ? (
-				<Typography variant='h6'>{t('common:statusIndicatorT.loading')}</Typography>
+				<Typography variant='h6'>{t('common.statusIndicatorT.loading')}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
 				<Typography variant='h6'>
-					{t('common:statusIndicatorT.error')}: {error.toString()}
+					{t('common.statusIndicatorT.error')}: {error.toString()}
 				</Typography>
 			) : (
 				<DynamicDataTable

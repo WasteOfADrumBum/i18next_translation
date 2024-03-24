@@ -51,7 +51,7 @@ const VehicleListView: FC = () => {
 				}
 			}
 		}
-		return t('common:statusIndicator.na')
+		return t('common.statusIndicator.na')
 	}
 
 	// Make a new array of vehicles that are associated with the current event
@@ -60,12 +60,12 @@ const VehicleListView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: t('pages:vehicles.header.title.all'),
-			subheader: t('pages:vehicles.header.subtitle.all'),
+			header: t('pages.vehicles.header.title.all'),
+			subheader: t('pages.vehicles.header.subtitle.all'),
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={6}>
-						<Typography variant='caption'>{t('pages:vehicles.fiels.id')}:</Typography>
+						<Typography variant='caption'>{t('pages.vehicles.fiels.id')}:</Typography>
 					</Grid>
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
@@ -78,7 +78,7 @@ const VehicleListView: FC = () => {
 					{entities.length > 0 ? (
 						<>
 							<Grid item xs={6}>
-								<Typography variant='caption'>{t('pages:vehicles.header.content.total')}:</Typography>
+								<Typography variant='caption'>{t('pages.vehicles.header.content.total')}:</Typography>
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color={'primary'}>
@@ -89,7 +89,7 @@ const VehicleListView: FC = () => {
 					) : (
 						<Grid item xs={12}>
 							<Typography variant='caption' color={'secondary'}>
-								{t('common:forms.vehiclesRequireEntities')}
+								{t('common.forms.vehiclesRequireEntities')}
 							</Typography>
 						</Grid>
 					)}
@@ -129,14 +129,14 @@ const VehicleListView: FC = () => {
 	const columns = [
 		{
 			id: '_id',
-			label: t('pages:vehicles.fiels.id'),
+			label: t('pages.vehicles.fiels.id'),
 			render: (data: Vehicle) => (
-				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common:statusIndicator.na')}</Typography>
+				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common.statusIndicator.na')}</Typography>
 			),
 		},
 		{
 			id: 'description',
-			label: t('pages:vehicles.title.description'),
+			label: t('pages.vehicles.title.description'),
 			render: (data: Vehicle) => (
 				<Typography>
 					{data.year ? data.year : ''} {data.make ? data.make : ''} {data.model ? data.model : ''}{' '}
@@ -146,27 +146,27 @@ const VehicleListView: FC = () => {
 		},
 		{
 			id: 'driver',
-			label: t('pages:vehicles.fields.occupants.driver'),
+			label: t('pages.vehicles.fields.occupants.driver'),
 			render: (data: Vehicle) => (
 				<Typography>
-					{data.occupants.driver ? getEntityName(data.occupants.driver) : t('common:statusIndicator.na')}{' '}
+					{data.occupants.driver ? getEntityName(data.occupants.driver) : t('common.statusIndicator.na')}{' '}
 				</Typography>
 			),
 		},
 		{
 			id: 'occupants',
-			label: t('pages:vehicles.title.occupants'),
+			label: t('pages.vehicles.title.occupants'),
 			render: (data: Vehicle) => (
 				<Typography>
 					{data.occupants.passengers
 						? data.occupants.passengers.map((passengerId) => getEntityName(passengerId)).join(', ')
-						: t('common:statusIndicator.na')}
+						: t('common.statusIndicator.na')}
 				</Typography>
 			),
 		},
 		{
 			id: 'actions',
-			label: t('common:tables.actions'),
+			label: t('common.tables.actions'),
 			render: (data: Vehicle) => (
 				<ActionsMenu
 					onView={() => handleView(data._id ?? '')}
@@ -182,15 +182,15 @@ const VehicleListView: FC = () => {
 			<Grid container justifyContent='flex-end'>
 				{entities.length > 0 && (
 					<Button onClick={() => navigate(`create`)} sx={{ margin: 1 }}>
-						<AddCircleOutline sx={{ marginRight: 1 }} /> {t('pages:vehicles.buttons.new')}
+						<AddCircleOutline sx={{ marginRight: 1 }} /> {t('pages.vehicles.buttons.new')}
 					</Button>
 				)}
 			</Grid>
 			{loading ? (
-				<Typography variant='h6'>{t('common:statusIndicator.loading')}</Typography>
+				<Typography variant='h6'>{t('common.statusIndicator.loading')}</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
 				<Typography variant='h6'>
-					{t('common:statusIndicator.error')}: {error.toString()}
+					{t('common.statusIndicator.error')}: {error.toString()}
 				</Typography>
 			) : (
 				<DynamicDataTable

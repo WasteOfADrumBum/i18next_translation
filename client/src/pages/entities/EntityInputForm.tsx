@@ -104,12 +104,12 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 	// Update header data when conomponent mounts
 	useEffect(() => {
 		setHeaderData({
-			header: entityValues ? t('pages:entities.header.title.edit') : t('pages:entities.header.title.new'),
-			subheader: entityValues ? t('pages:entities.header.subtitle.edit') : t('pages:entities.header.subtitle.new'),
+			header: entityValues ? t('pages.entities.header.title.edit') : t('pages.entities.header.title.new'),
+			subheader: entityValues ? t('pages.entities.header.subtitle.edit') : t('pages.entities.header.subtitle.new'),
 			extraContent: (
 				<Grid container spacing={0}>
 					<Grid item xs={12}>
-						<Typography variant='caption'>{t('common:forms.requiredDisclaimer')}</Typography>
+						<Typography variant='caption'>{t('common.forms.requiredDisclaimer')}</Typography>
 					</Grid>
 				</Grid>
 			),
@@ -331,7 +331,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 				{loading && <CircularProgress />}
 				{typeof error === 'object' && Object.keys(error).length !== 0 && (
 					<Typography color='error' variant='h6'>
-						{t('common:statusIndicator.error')}: {error.toString()}
+						{t('common.statusIndicator.error')}: {error.toString()}
 					</Typography>
 				)}
 				<form onSubmit={onSubmit}>
@@ -339,13 +339,13 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 						{/* Entity Type */}
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{t('pages:entities.fields.type')}
+								{t('pages.entities.fields.type')}
 							</Typography>
 							<Divider />
 						</Grid>
 						<Grid item xs={3}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='make-label'>{t('pages:entities.fields.type')}</InputLabel>
+								<InputLabel id='make-label'>{t('pages.entities.fields.type')}</InputLabel>
 								<Select
 									required
 									labelId='make-label'
@@ -376,7 +376,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={12}>
 											<TextField
 												name='organizationLegalLegalName'
-												label={t('pages:entities.fields.organization.legal.legalName')}
+												label={t('pages.entities.fields.organization.legal.legalName')}
 												variant='outlined'
 												fullWidth
 												value={formData.organizationLegalLegalName}
@@ -386,7 +386,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<FormControl fullWidth variant='outlined'>
 												<InputLabel id='organizationLegalLegalEntityType-label'>
-													{t('pages:entities.fields.organization.legal.legalEntityType')}
+													{t('pages.entities.fields.organization.legal.legalEntityType')}
 												</InputLabel>
 												<Select
 													labelId='organizationLegalLegalEntityType-label'
@@ -406,7 +406,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<FormControl fullWidth variant='outlined'>
 												<InputLabel id='organizationLegalLegalStatus-label'>
-													{t('pages:entities.fields.organization.legal.legalStatus')}
+													{t('pages.entities.fields.organization.legal.legalStatus')}
 												</InputLabel>
 												<Select
 													labelId='organizationLegalLegalStatus-label'
@@ -426,7 +426,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<DatePicker
 												name='organizationLegalIncorporationDate'
-												label={t('pages:entities.fields.organization.legal.incorporationDate')}
+												label={t('pages.entities.fields.organization.legal.incorporationDate')}
 												defaultValue={dayjs()}
 												value={dayjs(formData.organizationLegalIncorporationDate)}
 												onChange={(date) => handleFormDateChange(date, 'organizationLegalIncorporationDate')}
@@ -442,7 +442,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<TextField
 												name='organizationLegalBusinessRegistrationNumber'
-												label={t('pages:entities.fields.organization.legal.businessRegistrationNumber')}
+												label={t('pages.entities.fields.organization.legal.businessRegistrationNumber')}
 												variant='outlined'
 												fullWidth
 												value={formData.organizationLegalBusinessRegistrationNumber}
@@ -456,7 +456,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={3}>
 											<TextField
 												name='personNameFirst'
-												label={t('pages:entities.fields.person.name.first')}
+												label={t('pages.entities.fields.person.name.first')}
 												variant='outlined'
 												fullWidth
 												required
@@ -467,7 +467,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={3}>
 											<TextField
 												name='personNameMiddle'
-												label={t('pages:entities.fields.person.name.middle')}
+												label={t('pages.entities.fields.person.name.middle')}
 												variant='outlined'
 												fullWidth
 												value={formData.personNameMiddle}
@@ -477,7 +477,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={3}>
 											<TextField
 												name='personNameLast'
-												label={t('pages:entities.fields.person.name.last')}
+												label={t('pages.entities.fields.person.name.last')}
 												variant='outlined'
 												fullWidth
 												required
@@ -488,7 +488,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={3}>
 											<TextField
 												name='personNameSuffix'
-												label={t('pages:entities.fields.person.name.suffix')}
+												label={t('pages.entities.fields.person.name.suffix')}
 												variant='outlined'
 												fullWidth
 												value={formData.personNameSuffix}
@@ -498,7 +498,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<DatePicker
 												name='personDob'
-												label={t('pages:entities.fields.person.dob')}
+												label={t('pages.entities.fields.person.dob')}
 												defaultValue={dayjs()}
 												value={dayjs(formData.personDob)}
 												onChange={(date) => handleFormDateChange(date, 'personDob')}
@@ -514,7 +514,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<TextField
 												name='personAge'
-												label={t('pages:entities.fields.person.age')}
+												label={t('pages.entities.fields.person.age')}
 												variant='outlined'
 												fullWidth
 												disabled
@@ -525,7 +525,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<FormControl fullWidth variant='outlined'>
 												<InputLabel id='personNativeLanguage-label'>
-													{t('pages:entities.fields.person.nativeLanguage')}
+													{t('pages.entities.fields.person.nativeLanguage')}
 												</InputLabel>
 												<Select
 													required
@@ -546,14 +546,14 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										{/* Identification */}
 										<Grid item xs={12}>
 											<Typography variant='h4' color={'primary'} mb={1}>
-												{t('pages:entities.titles.identification')}
+												{t('pages.entities.titles.identification')}
 											</Typography>
 											<Divider />
 										</Grid>
 										<Grid item xs={6}>
 											<TextField
 												name='personIdentificationSsn'
-												label={t('pages:entities.fields.person.identification.ssn')}
+												label={t('pages.entities.fields.person.identification.ssn')}
 												variant='outlined'
 												fullWidth
 												value={formData.personIdentificationSsn}
@@ -563,7 +563,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<TextField
 												name='personIdentificationNationalIdNumber'
-												label={t('pages:entities.fields.person.identification.nationalIdNumber')}
+												label={t('pages.entities.fields.person.identification.nationalIdNumber')}
 												variant='outlined'
 												fullWidth
 												value={formData.personIdentificationNationalIdNumber}
@@ -573,7 +573,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<TextField
 												name='personIdentificationPassportNumber'
-												label={t('pages:entities.fields.person.identification.passportNumber')}
+												label={t('pages.entities.fields.person.identification.passportNumber')}
 												variant='outlined'
 												fullWidth
 												value={formData.personIdentificationPassportNumber}
@@ -583,7 +583,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<FormControl fullWidth variant='outlined'>
 												<InputLabel id='personIdentificationPassportCountry-label'>
-													{t('pages:entities.fields.person.identification.passportCountry')}
+													{t('pages.entities.fields.person.identification.passportCountry')}
 												</InputLabel>
 												<Select
 													labelId='personIdentificationPassportCountry-label'
@@ -603,7 +603,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<TextField
 												name='personIdentificationDriverLicenseNumber'
-												label={t('pages:entities.fields.person.identification.driverLicenseNumber')}
+												label={t('pages.entities.fields.person.identification.driverLicenseNumber')}
 												variant='outlined'
 												fullWidth
 												value={formData.personIdentificationDriverLicenseNumber}
@@ -613,7 +613,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<FormControl fullWidth variant='outlined'>
 												<InputLabel id='personIdentificationDriverLicenseState-label'>
-													{t('pages:entities.fields.person.identification.driverLicenseState')}
+													{t('pages.entities.fields.person.identification.driverLicenseState')}
 												</InputLabel>
 												<Select
 													labelId='personIdentificationDriverLicenseState-label'
@@ -633,7 +633,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<TextField
 												name='personIdentificationVisaType'
-												label={t('pages:entities.fields.person.identification.visaType')}
+												label={t('pages.entities.fields.person.identification.visaType')}
 												variant='outlined'
 												fullWidth
 												value={formData.personIdentificationVisaType}
@@ -643,7 +643,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<DatePicker
 												name='personIdentificationVisaExpiryDate'
-												label={t('pages:entities.fields.person.identification.visaExpiryDate')}
+												label={t('pages.entities.fields.person.identification.visaExpiryDate')}
 												defaultValue={dayjs()}
 												value={dayjs(formData.personIdentificationVisaExpiryDate)}
 												onChange={(date) => handleFormDateChange(date, 'personIdentificationVisaExpiryDate')}
@@ -664,14 +664,14 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 														onChange={handleFormSwitchChange('personIdentificationIsIllegalResident')}
 													/>
 												}
-												label={t('pages:entities.fields.person.identification.isIllegalResident')}
+												label={t('pages.entities.fields.person.identification.isIllegalResident')}
 											/>
 										</Grid>
 										{formData.personIdentificationIsIllegalResident && (
 											<Grid item xs={12}>
 												<TextField
 													name='personIdentificationIllegalStatusDescription'
-													label={t('pages:entities.fields.person.identification.illegalStatusDescription')}
+													label={t('pages.entities.fields.person.identification.illegalStatusDescription')}
 													variant='outlined'
 													fullWidth
 													value={formData.personIdentificationIllegalStatusDescription}
@@ -682,14 +682,14 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										{/* Employment */}
 										<Grid item xs={12}>
 											<Typography variant='h4' color={'primary'} mb={1}>
-												{t('pages:entities.titles.employment')}
+												{t('pages.entities.titles.employment')}
 											</Typography>
 											<Divider />
 										</Grid>
 										<Grid item xs={6}>
 											<TextField
 												name='personEmploymentJobTitle'
-												label={t('pages:entities.fields.person.employment.jobTitle')}
+												label={t('pages.entities.fields.person.employment.jobTitle')}
 												variant='outlined'
 												fullWidth
 												value={formData.personEmploymentJobTitle}
@@ -699,7 +699,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<TextField
 												name='personEmploymentDepartment'
-												label={t('pages:entities.fields.person.employment.department')}
+												label={t('pages.entities.fields.person.employment.department')}
 												variant='outlined'
 												fullWidth
 												value={formData.personEmploymentDepartment}
@@ -709,7 +709,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<TextField
 												name='personEmploymentEmployeeId'
-												label={t('pages:entities.fields.person.employment.employeeId')}
+												label={t('pages.entities.fields.person.employment.employeeId')}
 												variant='outlined'
 												fullWidth
 												value={formData.personEmploymentEmployeeId}
@@ -719,7 +719,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<DatePicker
 												name='personEmploymentHireDate'
-												label={t('pages:entities.fields.person.employment.hireDate')}
+												label={t('pages.entities.fields.person.employment.hireDate')}
 												defaultValue={dayjs()}
 												value={dayjs(formData.personEmploymentHireDate)}
 												onChange={(date) => handleFormDateChange(date, 'personEmploymentHireDate')}
@@ -735,7 +735,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 										<Grid item xs={6}>
 											<FormControl fullWidth variant='outlined'>
 												<InputLabel id='personEmploymentEmploymentStatus-label'>
-													{t('pages:entities.fields.person.employment.employmentStatus')}
+													{t('pages.entities.fields.person.employment.employmentStatus')}
 												</InputLabel>
 												<Select
 													labelId='personEmploymentEmploymentStatus-label'
@@ -759,7 +759,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 						{/* Contact Information */}
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{t('pages:entities.titles.contact')}
+								{t('pages.entities.titles.contact')}
 							</Typography>
 							<Divider />
 						</Grid>
@@ -767,7 +767,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 							<Grid item xs={12}>
 								<TextField
 									name='organizationContactName'
-									label={t('pages:entities.fields.organization.contactName')}
+									label={t('pages.entities.fields.organization.contactName')}
 									variant='outlined'
 									fullWidth
 									value={formData.organizationContactName}
@@ -778,7 +778,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 						<Grid item xs={6}>
 							<TextField
 								name='contactPhone'
-								label={t('pages:entities.fields.contact.phone')}
+								label={t('pages.entities.fields.contact.phone')}
 								variant='outlined'
 								fullWidth
 								value={formData.contactPhone}
@@ -788,7 +788,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 						<Grid item xs={6}>
 							<TextField
 								name='contactEmail'
-								label={t('pages:entities.fields.contact.email')}
+								label={t('pages.entities.fields.contact.email')}
 								variant='outlined'
 								fullWidth
 								value={formData.contactEmail}
@@ -798,7 +798,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 						<Grid item xs={6}>
 							<TextField
 								name='contactSocialMedia'
-								label={t('pages:entities.fields.contact.socialMedia')}
+								label={t('pages.entities.fields.contact.socialMedia')}
 								variant='outlined'
 								fullWidth
 								value={formData.contactSocialMedia}
@@ -808,14 +808,14 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 						{/* Address */}
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
-								{t('pages:entities.titles.location')}
+								{t('pages.entities.titles.location')}
 							</Typography>
 							<Divider />
 						</Grid>
 						<Grid item xs={6}>
 							<TextField
 								name='addressAddress'
-								label={t('pages:entities.fields.address.address')}
+								label={t('pages.entities.fields.address.address')}
 								variant='outlined'
 								fullWidth
 								value={formData.addressAddress}
@@ -825,7 +825,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 						<Grid item xs={6}>
 							<TextField
 								name='addressCity'
-								label={t('pages:entities.fields.address.city')}
+								label={t('pages.entities.fields.address.city')}
 								variant='outlined'
 								fullWidth
 								value={formData.addressCity}
@@ -834,7 +834,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 						</Grid>
 						<Grid item xs={6}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='addressState-label'>{t('pages:entities.fields.address.state')}</InputLabel>
+								<InputLabel id='addressState-label'>{t('pages.entities.fields.address.state')}</InputLabel>
 								<Select
 									labelId='addressState-label'
 									id='type'
@@ -853,7 +853,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 						<Grid item xs={6}>
 							<TextField
 								name='addressZip'
-								label={t('pages:entities.fields.address.zip')}
+								label={t('pages.entities.fields.address.zip')}
 								variant='outlined'
 								fullWidth
 								placeholder='Enter ZIP'
@@ -861,7 +861,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 								onChange={handleFormChange}
 								helperText={
 									!formData.addressZip || isNaN(formData.addressZip as number)
-										? t('pages:entities.fields.address.zipNan')
+										? t('pages.entities.fields.address.zipNan')
 										: ''
 								}
 								inputProps={{
@@ -872,7 +872,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 						<Grid item xs={6}>
 							<TextField
 								name='addressCounty'
-								label={t('pages:entities.fields.address.county')}
+								label={t('pages.entities.fields.address.county')}
 								variant='outlined'
 								fullWidth
 								value={formData.addressCounty}
@@ -881,7 +881,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 						</Grid>
 						<Grid item xs={6}>
 							<FormControl fullWidth variant='outlined'>
-								<InputLabel id='addressCountry-label'>{t('pages:entities.fields.address.country')}</InputLabel>
+								<InputLabel id='addressCountry-label'>{t('pages.entities.fields.address.country')}</InputLabel>
 								<Select
 									labelId='addressCountry-label'
 									id='type'
@@ -903,11 +903,11 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 								color='secondary'
 								onClick={() => navigate('/dashboard/event/${eventId}/entity')}>
 								<CancelOutlined sx={{ marginRight: 1 }} />
-								{t('common:buttons.cancel')}
+								{t('common.buttons.cancel')}
 							</Button>
 							<Button type='submit' variant='contained' color='primary' sx={{ textAlign: 'right' }}>
 								<AddCircleOutline sx={{ marginRight: 1 }} />
-								{entity?._id ? t('pages:entities.buttons.edit') : t('pages:entities.buttons.new')}
+								{entity?._id ? t('pages.entities.buttons.edit') : t('pages.entities.buttons.new')}
 							</Button>
 						</Grid>
 					</Grid>
