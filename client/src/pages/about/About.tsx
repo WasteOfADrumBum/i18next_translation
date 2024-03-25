@@ -1,12 +1,15 @@
 // About.tsx
 import { Container, Typography } from '@mui/material'
 import React, { FC } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const About: FC = () => {
+	const { t } = useTranslation()
+
 	return (
 		<Container>
 			<Typography variant='h2' gutterBottom>
-				About Us
+				{t('pages.about.aboutUs')}
 			</Typography>
 			<Typography variant='body1' gutterBottom>
 				This is the about page of our application.

@@ -87,7 +87,7 @@ const NavBar: FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) =>
 					)}
 				</Menu>
 				<Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-					Event Management System
+					{t('common.app.name')}
 				</Typography>
 				<FormGroup sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 					<FormControlLabel

@@ -4,5 +4,31 @@
 	"invalidDateInput": "无效的日期",
 	"unknownErrorOccurred": "发生未知错误",
 	"genericError": "发生错误",
-	"parentIdRequired": "需要父 ID，否则实体数据将成为孤立记录"
+	"parentIdRequired": "需要父 ID，否则实体数据将成为孤立记录",
+	"noDataAvailable": "没有可用的数据",
+	"404": {
+		"notFound": "未找到",
+		"message": "无法找到请求的资源，但将来可能再次可用"
+	},
+	"401": {
+		"unauthorized": "未经授权",
+		"message": "需要进行身份验证，但身份验证失败或尚未提供"
+	},
+	"403": {
+		"forbidden": "禁止访问",
+		"message": "您无权访问此资源"
+	},
+	"500": {
+		"serverError": "服务器错误",
+		"message": "服务器上发生错误，无法完成请求"
+	},
+	"503": {
+		"serviceUnavailable": "服务不可用",
+		"message": "服务器尚未准备好处理请求"
+	},
+	"505": {
+		"httpVersionNotSupported": "不支持的HTTP版本",
+		"message": "服务器不支持请求中使用的HTTP协议版本"
+	},
+	"networkError": "网络错误"
 }

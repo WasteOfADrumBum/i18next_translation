@@ -4,5 +4,31 @@
 	"invalidDateInput": "Fecha inválida",
 	"unknownErrorOccurred": "Ocurrió un error desconocido",
 	"genericError": "Ocurrió un error",
-	"parentIdRequired": "Se requiere el ID del padre o los datos de la entidad serán un registro huérfano"
+	"parentIdRequired": "Se requiere el ID del padre o los datos de la entidad serán un registro huérfano",
+	"noDataAvailable": "No hay datos disponibles",
+	"404": {
+		"notFound": "No encontrado",
+		"message": "No se pudo encontrar el recurso solicitado, pero puede estar disponible nuevamente en el futuro"
+	},
+	"401": {
+		"unauthorized": "No autorizado",
+		"message": "Se requiere autenticación y ha fallado o aún no se ha proporcionado"
+	},
+	"403": {
+		"forbidden": "Prohibido",
+		"message": "No tiene permiso para acceder a este recurso"
+	},
+	"500": {
+		"serverError": "Error del servidor",
+		"message": "Se produjo un error en el servidor y no se pudo completar la solicitud"
+	},
+	"503": {
+		"serviceUnavailable": "Servicio no disponible",
+		"message": "El servidor no está listo para manejar la solicitud"
+	},
+	"505": {
+		"httpVersionNotSupported": "Versión de HTTP no compatible",
+		"message": "El servidor no admite la versión del protocolo HTTP utilizada en la solicitud"
+	},
+	"networkError": "Error de red"
 }

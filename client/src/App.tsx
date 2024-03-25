@@ -2,6 +2,7 @@
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import React, { ReactNode, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 import { Footer, Header, NavBar, TabsComponent } from './components'
@@ -36,6 +37,7 @@ function App() {
 		console.log('%cApp Loaded', 'color: green; font-size: 24px;')
 	}, [])
 
+	const { t } = useTranslation()
 	const [darkMode, setDarkMode] = useState<boolean>(true)
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
 	const dispatch = useDispatch()
@@ -51,7 +53,6 @@ function App() {
 		console.log('%cTheme State (App):', logStyle, mode)
 	}, [darkMode])
 
-	
 	const fakeUser: { name: string; role: string } = {
 		name: 'John M. Doe',
 		role: 'Admin',
@@ -92,9 +93,9 @@ function App() {
 	}
 
 	const tabs = [
-		{ label: 'Details', route: '/details', element: <EventDetailsView /> },
-		{ label: 'Entity', route: '/entity', element: <EntityListView /> },
-		{ label: 'Vehicle', route: '/vehicle', element: <VehicleListView /> },
+		{ label: t('pages.events.titles.details'), route: '/details', element: <EventDetailsView /> },
+		{ label: t('pages.entities.pageTitle.singular'), route: '/entity', element: <EntityListView /> },
+		{ label: t('pages.vehicles.pageTitle.singular'), route: '/vehicle', element: <VehicleListView /> },
 	]
 
 	return (

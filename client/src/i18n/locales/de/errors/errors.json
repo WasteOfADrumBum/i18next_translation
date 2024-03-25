@@ -4,5 +4,31 @@
 	"invalidDateInput": "Ungültiges Datum",
 	"unknownErrorOccurred": "Ein unbekannter Fehler ist aufgetreten",
 	"genericError": "Ein Fehler ist aufgetreten",
-	"parentIdRequired": "Eltern-ID ist erforderlich, sonst sind die Entitätsdaten ein verwaister Datensatz"
+	"parentIdRequired": "Eltern-ID ist erforderlich, sonst sind die Entitätsdaten ein verwaister Datensatz",
+	"noDataAvailable": "Keine Daten verfügbar",
+	"404": {
+		"notFound": "Nicht gefunden",
+		"message": "Die angeforderte Ressource konnte nicht gefunden werden, ist aber möglicherweise in Zukunft verfügbar"
+	},
+	"401": {
+		"unauthorized": "Nicht autorisiert",
+		"message": "Die Authentifizierung ist erforderlich und ist fehlgeschlagen oder wurde noch nicht bereitgestellt"
+	},
+	"403": {
+		"forbidden": "Verboten",
+		"message": "Sie haben keine Berechtigung, auf diese Ressource zuzugreifen"
+	},
+	"500": {
+		"serverError": "Serverfehler",
+		"message": "Auf dem Server ist ein Fehler aufgetreten, und die Anfrage konnte nicht abgeschlossen werden"
+	},
+	"503": {
+		"serviceUnavailable": "Dienst nicht verfügbar",
+		"message": "Der Server ist nicht bereit, die Anfrage zu bearbeiten"
+	},
+	"505": {
+		"httpVersionNotSupported": "HTTP-Version nicht unterstützt",
+		"message": "Der Server unterstützt die in der Anfrage verwendete HTTP-Protokollversion nicht"
+	},
+	"networkError": "Netzwerkfehler"
 }

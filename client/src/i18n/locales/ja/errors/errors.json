@@ -4,5 +4,31 @@
 	"invalidDateInput": "無効な日付",
 	"unknownErrorOccurred": "不明なエラーが発生しました",
 	"genericError": "エラーが発生しました",
-	"parentIdRequired": "親IDが必要です。エンティティデータが孤立したレコードになります"
+	"parentIdRequired": "親IDが必要です。エンティティデータが孤立したレコードになります",
+	"noDataAvailable": "利用可能なデータがありません",
+	"404": {
+		"notFound": "見つかりません",
+		"message": "要求されたリソースが見つかりませんでしたが、将来利用可能になる可能性があります"
+	},
+	"401": {
+		"unauthorized": "認証されていません",
+		"message": "認証が必要であり、失敗したかまだ提供されていません"
+	},
+	"403": {
+		"forbidden": "アクセスが禁止されています",
+		"message": "このリソースにアクセスする権限がありません"
+	},
+	"500": {
+		"serverError": "サーバーエラー",
+		"message": "サーバーでエラーが発生し、リクエストを完了できませんでした"
+	},
+	"503": {
+		"serviceUnavailable": "サービス利用不可",
+		"message": "サーバーがリクエストを処理する準備ができていません"
+	},
+	"505": {
+		"httpVersionNotSupported": "HTTPバージョンがサポートされていません",
+		"message": "サーバーはリクエストで使用されたHTTPプロトコルバージョンをサポートしていません"
+	},
+	"networkError": "ネットワークエラー"
 }

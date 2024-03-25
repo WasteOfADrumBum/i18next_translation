@@ -15,6 +15,7 @@ import {
 	Typography,
 } from '@mui/material'
 import React, { ChangeEvent, FC, ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 
 /*
  * Connect your component to Redux using connect or useSelector and useDispatch.
@@ -81,6 +82,8 @@ const DynamicDataTable: FC<DynamicDataTableProps<any>> = ({
 	}
 
 	const NoDataMessage = () => {
+		const { t } = useTranslation()
+
 		return (
 			<Container maxWidth='xl'>
 				<Box
@@ -99,7 +102,7 @@ const DynamicDataTable: FC<DynamicDataTableProps<any>> = ({
 						alignItems: 'center',
 						justifyContent: 'center',
 					}}>
-					<Typography variant='h6'>No data available</Typography>
+					<Typography variant='h6'>{t('errors.noDataAvailable')}</Typography>
 					<Box ml={2}>
 						<IconButton color='primary' aria-label='refresh data' onClick={handleRefreshData}>
 							<RefreshIcon />

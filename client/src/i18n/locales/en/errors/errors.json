@@ -4,5 +4,31 @@
 	"invalidDateInput": "Invalid date",
 	"unknownErrorOccurred": "An unknown error occurred",
 	"genericError": "An error occurred",
-	"parentIdRequired": "Parent ID is required or entity data will be an orphaned record"
+	"parentIdRequired": "Parent ID is required or entity data will be an orphaned record",
+	"noDataAvailable": "No data available",
+	"404": {
+		"notFound": "Not found",
+		"message": "The requested resource could not be found but may be available again in the future"
+	},
+	"401": {
+		"unauthorized": "Unauthorized",
+		"message": "Authentication is required and has failed or has not yet been provided"
+	},
+	"403": {
+		"forbidden": "Forbidden",
+		"message": "You don't have permission to access this resource"
+	},
+	"500": {
+		"serverError": "Server error",
+		"message": "An error occurred on the server and the request could not be completed"
+	},
+	"503": {
+		"serviceUnavailable": "Service unavailable",
+		"message": "The server is not ready to handle the request"
+	},
+	"505": {
+		"httpVersionNotSupported": "HTTP version not supported",
+		"message": "The server does not support the HTTP protocol version used in the request"
+	},
+	"networkError": "Network error"
 }

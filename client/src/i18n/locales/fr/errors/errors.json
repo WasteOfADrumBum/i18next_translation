@@ -4,5 +4,31 @@
 	"invalidDateInput": "Date invalide",
 	"unknownErrorOccurred": "Une erreur inconnue s'est produite",
 	"genericError": "Une erreur s'est produite",
-	"parentIdRequired": "L'identifiant parent est requis sinon les données de l'entité seront un enregistrement orphelin"
+	"parentIdRequired": "L'identifiant parent est requis sinon les données de l'entité seront un enregistrement orphelin",
+	"noDataAvailable": "Aucune donnée disponible",
+	"404": {
+		"notFound": "Non trouvé",
+		"message": "La ressource demandée n'a pas pu être trouvée mais pourrait être à nouveau disponible à l'avenir"
+	},
+	"401": {
+		"unauthorized": "Non autorisé",
+		"message": "L'authentification est requise et a échoué ou n'a pas encore été fournie"
+	},
+	"403": {
+		"forbidden": "Interdit",
+		"message": "Vous n'avez pas la permission d'accéder à cette ressource"
+	},
+	"500": {
+		"serverError": "Erreur du serveur",
+		"message": "Une erreur s'est produite sur le serveur et la requête n'a pas pu être complétée"
+	},
+	"503": {
+		"serviceUnavailable": "Service non disponible",
+		"message": "Le serveur n'est pas prêt à traiter la demande"
+	},
+	"505": {
+		"httpVersionNotSupported": "Version HTTP non supportée",
+		"message": "Le serveur ne prend pas en charge la version du protocole HTTP utilisée dans la requête"
+	},
+	"networkError": "Erreur réseau"
 }
