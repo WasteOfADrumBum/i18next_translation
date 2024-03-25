@@ -13,6 +13,16 @@ const Login: FC = () => {
 		console.log('Password:', password)
 	}
 
+	const handleForgotPassword = () => {
+		// Perform forgot password logic here
+		console.log('Forgot password')
+	}
+
+	const handleRegister = () => {
+		// Perform register logic here
+		console.log('Register')
+	}
+
 	return (
 		<Container>
 			<Box
@@ -54,6 +64,15 @@ const Login: FC = () => {
 						sx={{ marginTop: '1rem' }}>
 						{t('common.buttons.login')}
 					</Button>
+					<Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem', alignItems: 'center' }}>
+						<Button variant='text' color='primary' onClick={handleForgotPassword}>
+							{t('common.buttons.forgotPassword')}
+						</Button>
+						<Typography sx={{ marginX: '0.5rem' }}>|</Typography>
+						<Button variant='text' color='primary' onClick={handleRegister}>
+							{t('common.buttons.register')}
+						</Button>
+					</Box>
 				</Paper>
 			</Box>
 		</Container>
