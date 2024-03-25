@@ -1,4 +1,13 @@
 {
+	"app": {
+		"name": "イベント管理システム",
+		"shortName": "EMS",
+		"description": "国際化（i18n）MERN Stack with TypeScript and Redux",
+		"version": "1.0.0",
+		"author": "Joshua M. Small",
+		"year": "2021",
+		"license": "MIT"
+	},
 	"buttons": {
 		"submit": "提出する",
 		"cancel": "キャンセル",
@@ -68,5 +77,25 @@
 		"false": "偽",
 		"on": "オン",
 		"off": "オフ"
+	},
+	"dashboard": {
+		"dashboard": "ダッシュボード"
+	},
+	"settings": {
+		"settings": "設定",
+		"general": "一般",
+		"security": "セキュリティ",
+		"privacy": "プライバシー",
+		"notifications": "通知",
+		"language": "言語",
+		"theme": "テーマ",
+		"dark": "ダーク",
+		"light": "ライト"
+	},
+	"footer": {
+		"footer": "フッター",
+		"copyright": "著作権",
+		"allRightsReserved": "すべての権利を留保",
+		"content": "TypeScript と Redux を使用した i18n MERN スタック"
 	}
 }

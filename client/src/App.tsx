@@ -51,6 +51,12 @@ function App() {
 		console.log('%cTheme State (App):', logStyle, mode)
 	}, [darkMode])
 
+	
+	const fakeUser: { name: string; role: string } = {
+		name: 'John M. Doe',
+		role: 'Admin',
+	}
+
 	useEffect(() => {
 		// Log isAuthenticated state and user
 		if (isAuthenticated) {
@@ -73,12 +79,7 @@ function App() {
 		} else {
 			console.log('%cAuthenticated State (App): %c' + isAuthenticated, 'color: red;', '')
 		}
-	}, [isAuthenticated])
-
-	const fakeUser: { name: string; role: string } = {
-		name: 'John M. Doe',
-		role: 'Admin',
-	}
+	}, [isAuthenticated, fakeUser.name, fakeUser.role])
 
 	const handleLoginToggle = (newState: boolean) => {
 		setIsAuthenticated(newState) // Update the authentication state

@@ -1,4 +1,5 @@
 {
+	"pageTitle": "Inicio",
 	"header": "Bienvenido a nuestro Sistema de Gestión de Contenidos",
 	"body": {
 		"content": "Esta es una aplicación de pila MERN (MongoDB, Express.js, React.js, Node.js) con Redux para la gestión de estado y soporte Docker.",

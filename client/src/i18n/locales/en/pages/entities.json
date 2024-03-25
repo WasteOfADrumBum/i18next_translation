@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singular": "Entity",
+		"plural": "Entities"
+	},
 	"fields": {
 		"id": "ID",
 		"parent": {

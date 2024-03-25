@@ -7,7 +7,6 @@ import {
 	IconButton,
 	Menu,
 	MenuItem,
-	SelectChangeEvent,
 	Switch,
 	Toolbar,
 	Typography,
@@ -26,18 +25,11 @@ interface NavBarProps {
 }
 
 const NavBar: FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) => {
-	const { t, i18n } = useTranslation()
+	const { t } = useTranslation()
 	const { isAuthenticated } = useAuth()
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
 	const [loginState, setLoginState] = useState<boolean>(isAuthenticated)
-	const [selectedLanguage, setSelectedLanguage] = useState(i18n.language)
-
-	const handleLanguageChange = (event: SelectChangeEvent<string>) => {
-		const newLanguage = event.target.value as string
-		setSelectedLanguage(newLanguage)
-		i18n.changeLanguage(newLanguage)
-	}
 
 	useEffect(() => {
 		// Update loginState when isAuthenticated changes
@@ -80,16 +72,16 @@ const NavBar: FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) =>
 					onClose={handleClose}>
 					{loginState && (
 						<MenuItem onClick={handleClose} component={Link} to='/dashboard'>
-							Dashboard
+							{t('common.dashboard.dashboard')}
 						</MenuItem>
 					)}
 					{!loginState && (
 						<span>
 							<MenuItem onClick={handleClose} component={Link} to='/'>
-								Home
+								{t('pages.home.pageTitle')}
 							</MenuItem>
 							<MenuItem onClick={handleClose} component={Link} to='/login'>
-								Login
+								{t('common.buttons.login')}
 							</MenuItem>
 						</span>
 					)}
@@ -101,7 +93,7 @@ const NavBar: FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) =>
 					<FormControlLabel
 						sx={{ mr: 5 }}
 						control={<Switch checked={loginState} onChange={handleLoginToggle} aria-label='login switch' />}
-						label={loginState ? 'Logout' : 'Login'}
+						label={loginState ? t('common.buttons.logout') : t('common.buttons.login')}
 					/>
 					<ThemeSwitcher darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 				</FormGroup>

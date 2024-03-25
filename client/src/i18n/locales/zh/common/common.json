@@ -1,4 +1,13 @@
 {
+	"app": {
+		"name": "事件管理系统",
+		"shortName": "EMS",
+		"description": "使用TypeScript和Redux的国际化（i18n）MERN Stack",
+		"version": "1.0.0",
+		"author": "Joshua M. Small",
+		"year": "2021",
+		"license": "MIT"
+	},
 	"buttons": {
 		"submit": "提交",
 		"cancel": "取消",
@@ -68,5 +77,25 @@
 		"false": "假",
 		"on": "开",
 		"off": "关"
+	},
+	"dashboard": {
+		"dashboard": "仪表板"
+	},
+	"settings": {
+		"settings": "设置",
+		"general": "一般",
+		"security": "安全",
+		"privacy": "隐私",
+		"notifications": "通知",
+		"language": "语言",
+		"theme": "主题",
+		"dark": "黑暗",
+		"light": "光"
+	},
+	"footer": {
+		"footer": "页脚",
+		"copyright": "版权",
+		"allRightsReserved": "保留所有权利",
+		"content": "带有 TypeScript 和 Redux 的 i18n MERN Stack"
 	}
 }

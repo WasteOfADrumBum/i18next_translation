@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singluar": "Usuario",
+		"plural": "Usuarios"
+	},
 	"profile": "Perfil",
 	"login": "Iniciar sesión",
 	"register": "Registrarse",

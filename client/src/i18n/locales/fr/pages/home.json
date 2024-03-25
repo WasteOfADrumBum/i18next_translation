@@ -1,4 +1,5 @@
 {
+	"pageTitle": "Maison",
 	"header": "Bienvenue dans notre Système de Gestion de Contenu",
 	"body": {
 		"content": "Il s'agit d'une application MERN (MongoDB, Express.js, React.js, Node.js) avec Redux pour la gestion de l'état et le support Docker.",

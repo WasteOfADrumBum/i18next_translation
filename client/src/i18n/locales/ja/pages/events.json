@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singular": "イベント",
+		"plural": "イベント"
+	},
 	"fields": {
 		"id": "ID",
 		"status": "ステータス",

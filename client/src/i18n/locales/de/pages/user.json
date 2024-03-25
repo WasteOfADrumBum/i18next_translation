@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singular": "Seite",
+		"plural": "Seiten"
+	},
 	"profile": "Profil",
 	"login": "Anmelden",
 	"register": "Registrieren",

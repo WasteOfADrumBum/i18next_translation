@@ -1,4 +1,5 @@
 {
+	"pgae": "家",
 	"header": "コンテンツ管理システムへようこそ",
 	"body": {
 		"content": "これは、Reduxを使用したMERN（MongoDB、Express.js、React.js、Node.js）スタックアプリケーションです。",

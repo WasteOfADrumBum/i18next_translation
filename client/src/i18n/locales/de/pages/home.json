@@ -1,4 +1,5 @@
 {
+	"pageTitle": "Startseite",
 	"header": "Willkommen in unserem Content Management System",
 	"body": {
 		"content": "Dies ist eine MERN (MongoDB, Express.js, React.js, Node.js) Stack-Anwendung mit Redux für das Zustandsmanagement und Docker-Unterstützung.",

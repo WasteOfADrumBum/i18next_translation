@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singular": "User",
+		"plural": "Users"
+	},
 	"profile": "Profile",
 	"login": "Login",
 	"register": "Register",

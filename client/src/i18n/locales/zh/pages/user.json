@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singular": "用户",
+		"plural": "用户"
+	},
 	"profile": "个人资料",
 	"login": "登录",
 	"register": "注册",

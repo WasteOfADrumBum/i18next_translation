@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singular": "实体",
+		"plural": "实体"
+	},
 	"fields": {
 		"id": "ID",
 		"parent": {

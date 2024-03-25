@@ -1,4 +1,13 @@
 {
+	"app": {
+		"name": "Veranstaltungsmanagement-System",
+		"shortName": "VMS",
+		"description": "Internationalisierung (i18n) MERN Stack mit TypeScript und Redux",
+		"version": "1.0.0",
+		"author": "Joshua M. Small",
+		"year": "2021",
+		"license": "MIT"
+	},
 	"buttons": {
 		"submit": "Einreichen",
 		"cancel": "Abbrechen",
@@ -68,5 +77,25 @@
 		"false": "Falsch",
 		"on": "An",
 		"off": "Aus"
+	},
+	"dashboard": {
+		"dashboard": "Dashboard"
+	},
+	"settings": {
+		"settings": "Einstellungen",
+		"general": "Allgemein",
+		"security": "Sicherheit",
+		"privacy": "Privatsphäre",
+		"notifications": "Benachrichtigungen",
+		"language": "Sprache",
+		"theme": "Thema",
+		"dark": "Dunkel",
+		"light": "Hell"
+	},
+	"footer": {
+		"footer": "Fußzeile",
+		"copyright": "Urheberrecht",
+		"allRightsReserved": "Alle Rechte vorbehalten",
+		"content": "i18n MERN Stack mit TypeScript und Redux"
 	}
 }

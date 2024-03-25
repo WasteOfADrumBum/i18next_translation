@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singular": "事件",
+		"plural": "活动"
+	},
 	"fields": {
 		"id": "编号",
 		"status": "状态",

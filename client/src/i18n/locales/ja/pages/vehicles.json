@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singular": "車両",
+		"plural": "乗り物"
+	},
 	"fields": {
 		"id": "ID",
 		"parent": {

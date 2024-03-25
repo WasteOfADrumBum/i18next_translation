@@ -1,4 +1,13 @@
 {
+	"app": {
+		"name": "Sistema de Gestión de Eventos",
+		"shortName": "SGE",
+		"description": "Internacionalización (i18n) MERN Stack con TypeScript y Redux",
+		"version": "1.0.0",
+		"author": "Joshua M. Small",
+		"year": "2021",
+		"license": "MIT"
+	},
 	"buttons": {
 		"submit": "Enviar",
 		"cancel": "Cancelar",
@@ -68,5 +77,25 @@
 		"false": "Falso",
 		"on": "Encendido",
 		"off": "Apagado"
+	},
+	"dashboard": {
+		"dashboard": "panel de control"
+	},
+	"settings": {
+		"settings": "Configuración",
+		"general": "General",
+		"security": "Seguridad",
+		"privacy": "Privacidad",
+		"notifications": "Notificaciones",
+		"language": "Idioma",
+		"theme": "Tema",
+		"dark": "Oscuro",
+		"light": "Claro"
+	},
+	"footer": {
+		"footer": "Pie de página",
+		"copyright": "Derechos de autor",
+		"allRightsReserved": "Todos los derechos reservados",
+		"content": "Pila i18n MERN con TypeScript y Redux"
 	}
 }

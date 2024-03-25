@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singular": "车辆",
+		"plural": "汽车"
+	},
 	"fields": {
 		"id": "ID",
 		"parent": {

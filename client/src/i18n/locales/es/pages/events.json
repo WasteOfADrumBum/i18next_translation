@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singluar": "Evento",
+		"plural": "Eventos"
+	},
 	"fields": {
 		"id": "ID",
 		"status": "Estado",

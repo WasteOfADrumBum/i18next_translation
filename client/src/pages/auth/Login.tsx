@@ -1,7 +1,9 @@
 import { Box, Button, Container, Paper, TextField, Typography } from '@mui/material'
 import React, { FC, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const Login: FC = () => {
+	const { t } = useTranslation()
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 
@@ -24,10 +26,10 @@ const Login: FC = () => {
 				}}>
 				<Paper elevation={3} sx={{ padding: '2rem', width: '300px' }}>
 					<Typography variant='h4' align='center' gutterBottom>
-						Login
+						{t('common.buttons.login')}
 					</Typography>
 					<TextField
-						label='Username'
+						label={t('pages.user.username')}
 						variant='outlined'
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
@@ -35,7 +37,7 @@ const Login: FC = () => {
 						margin='normal'
 					/>
 					<TextField
-						label='Password'
+						label={t('pages.user.password')}
 						variant='outlined'
 						type='password'
 						value={password}
@@ -50,7 +52,7 @@ const Login: FC = () => {
 						disabled={!username || !password} // Disable button if username or password is empty
 						fullWidth
 						sx={{ marginTop: '1rem' }}>
-						Login
+						{t('common.buttons.login')}
 					</Button>
 				</Paper>
 			</Box>

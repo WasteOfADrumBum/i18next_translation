@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singluar": "Vehículo",
+		"plural": "Vehículos"
+	},
 	"fields": {
 		"id": "ID",
 		"parent": {

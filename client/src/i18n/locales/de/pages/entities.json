@@ -1,4 +1,8 @@
 {
+	"pageTitle": {
+		"singular": "Einheit",
+		"plural": "Einheiten"
+	},
 	"fields": {
 		"id": "ID",
 		"parent": {

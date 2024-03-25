@@ -1,4 +1,5 @@
 {
+	"pageTitle": "Home",
 	"header": "Welcome to our Content Management System",
 	"body": {
 		"content": "This is a MERN (MongoDB, Express.js, React.js, Node.js) stack application with Redux for state management and Docker support.",

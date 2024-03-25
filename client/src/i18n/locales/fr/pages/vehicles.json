@@ -1,4 +1,8 @@
 {
+	"pgae": {
+		"singular": "Véhicule",
+		"plural": "Véhicules"
+	},
 	"fields": {
 		"id": "ID",
 		"parent": {

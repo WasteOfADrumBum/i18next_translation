@@ -1,4 +1,13 @@
 {
+	"app": {
+		"name": "Event Management System",
+		"shortName": "EMS",
+		"description": "Internationalization (i18n) MERN Stack with TypeScript and Redux",
+		"version": "1.0.0",
+		"author": "Joshua M. Small",
+		"year": "2021",
+		"license": "MIT"
+	},
 	"buttons": {
 		"submit": "Submit",
 		"cancel": "Cancel",
@@ -68,5 +77,25 @@
 		"false": "False",
 		"on": "On",
 		"off": "Off"
+	},
+	"dashboard": {
+		"dashboard": "Dashboard"
+	},
+	"settings": {
+		"settings": "Settings",
+		"general": "General",
+		"security": "Security",
+		"privacy": "Privacy",
+		"notifications": "Notifications",
+		"language": "Language",
+		"theme": "Theme",
+		"dark": "Dark",
+		"light": "Light"
+	},
+	"footer": {
+		"footer": "Footer",
+		"copyright": "Copyright",
+		"allRightsReserved": "All Rights Reserved",
+		"content": "i18n MERN Stack with TypeScript and Redux"
 	}
 }
