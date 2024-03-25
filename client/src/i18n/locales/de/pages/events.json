@@ -37,6 +37,16 @@
 			"state": "Bundesland"
 		}
 	},
+	"placeholders": {
+		"type": "Wählen Sie einen Ereignistyp aus",
+		"subType": "Wählen Sie einen Ereignisuntertyp aus",
+		"tagging": "Wählen Sie Ereignis-Tags aus",
+		"methodOfReceipt": "Wählen Sie eine Empfangsmethode aus",
+		"state": "Wählen Sie einen Bundesstaat aus",
+		"country": "Wählen Sie ein Land aus",
+		"zip": "Postleitzahl eingeben",
+		"zipNan": "Postleitzahl muss eine Zahl sein"
+	},
 	"titles": {
 		"reported": "Gemeldet",
 		"updated": "Aktualisiert",

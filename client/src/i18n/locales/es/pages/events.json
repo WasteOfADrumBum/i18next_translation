@@ -37,6 +37,16 @@
 			"state": "Estado"
 		}
 	},
+	"placeholders": {
+		"type": "Wählen Sie einen Ereignistyp aus",
+		"subType": "Wählen Sie einen Ereignisuntertyp aus",
+		"tagging": "Wählen Sie Ereignis-Tags aus",
+		"methodOfReceipt": "Wählen Sie eine Empfangsmethode aus",
+		"state": "Wählen Sie einen Bundesstaat aus",
+		"country": "Wählen Sie ein Land aus",
+		"zip": "Geben Sie eine Postleitzahl ein",
+		"zipNan": "Nur Zahlen sind erlaubt"
+	},
 	"titles": {
 		"reported": "Reportado",
 		"updated": "Actualizado",

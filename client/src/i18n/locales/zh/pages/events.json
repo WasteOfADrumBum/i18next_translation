@@ -37,6 +37,16 @@
 			"state": "州"
 		}
 	},
+	"placeholders": {
+		"type": "选择事件类型",
+		"subType": "选择事件子类型",
+		"tagging": "选择事件标签",
+		"methodOfReceipt": "选择接收方式",
+		"state": "选择州",
+		"country": "选择国家",
+		"zip": "输入邮政编码",
+		"zipNan": "邮政编码必须是数字"
+	},
 	"titles": {
 		"reported": "报告的",
 		"updated": "已更新",

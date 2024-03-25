@@ -37,6 +37,16 @@
 			"state": "État"
 		}
 	},
+	"placeholders": {
+		"type": "Sélectionnez un type d'événement",
+		"subType": "Sélectionnez un sous-type d'événement",
+		"tagging": "Sélectionnez des étiquettes d'événement",
+		"methodOfReceipt": "Sélectionnez une méthode de réception",
+		"state": "Sélectionnez un état",
+		"country": "Sélectionnez un pays",
+		"zip": "Entrez un code postal",
+		"zipNan": "Le code postal doit être un nombre"
+	},
 	"titles": {
 		"reported": "Signalé",
 		"updated": "Mis à Jour",

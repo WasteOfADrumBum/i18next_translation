@@ -362,7 +362,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									name='eventType'
 									value={formData.eventType}
 									onChange={handleFormSelectChange}>
-									<MenuItem value=''>Select Event Type</MenuItem>
+									<MenuItem value=''>{t('pages.events.placeholders.type')}</MenuItem>
 									{eventTypes.map((option, index) => (
 										<MenuItem key={index} value={option}>
 											{option}
@@ -381,7 +381,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									name='eventSubType'
 									value={formData.eventSubType}
 									onChange={handleFormSelectChange}>
-									<MenuItem value=''>Select Event Sub-Type</MenuItem>
+									<MenuItem value=''>{t('pages.events.placeholders.subType')}</MenuItem>
 									{formData.eventType &&
 										eventSubTypes[formData.eventType].map((option, index) => (
 											<MenuItem key={index} value={option}>
@@ -431,7 +431,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									name='methodOfReceipt'
 									value={formData.methodOfReceipt}
 									onChange={handleFormSelectChange}>
-									<MenuItem value=''>Select Method of Receipt</MenuItem>
+									<MenuItem value=''>{t('pages.events.placeholders.methodOfReceipt')}</MenuItem>
 									{methodsOfReceipt.map((option, index) => (
 										<MenuItem key={index} value={option}>
 											{option}
@@ -524,10 +524,12 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 										label={t('pages.events.fields.location.zip')}
 										variant='outlined'
 										fullWidth
-										placeholder='Enter ZIP'
+										placeholder={t('pages.events.placeholders.zip')}
 										value={formData.zip || ''}
 										onChange={handleFormChange}
-										helperText={!formData.zip || isNaN(formData.zip as number) ? 'Zip code must be a number' : ''}
+										helperText={
+											!formData.zip || isNaN(formData.zip as number) ? t('pages.events.placeholders.zipNan') : ''
+										}
 										inputProps={{
 											maxLength: 5, // Set maximum character limit for 5-digit Zip codes
 										}}

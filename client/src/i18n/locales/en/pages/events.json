@@ -37,6 +37,16 @@
 			"state": "State"
 		}
 	},
+	"placeholders": {
+		"type": "Select a Event Type",
+		"subType": "Select a Event Sub Type",
+		"tagging": "Select Event Tags",
+		"methodOfReceipt": "Select a Method of Receipt",
+		"state": "Select a State",
+		"country": "Select a Country",
+		"zip": "Enter a Zip Code",
+		"zipNan": "Zip Code must be a number"
+	},
 	"titles": {
 		"reported": "Reported",
 		"updated": "Updated",

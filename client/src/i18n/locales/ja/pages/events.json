@@ -37,6 +37,16 @@
 			"state": "州"
 		}
 	},
+	"placeholders": {
+		"type": "イベントタイプを選択",
+		"subType": "イベントサブタイプを選択",
+		"tagging": "イベントタグを選択",
+		"methodOfReceipt": "受信方法を選択",
+		"state": "州を選択",
+		"country": "国を選択",
+		"zip": "郵便番号を入力",
+		"zipNan": "数字のみを入力してください"
+	},
 	"titles": {
 		"reported": "報告された",
 		"updated": "更新された",
