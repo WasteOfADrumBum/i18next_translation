@@ -1,6 +1,7 @@
 import { ArrowBack } from '@mui/icons-material'
 import { alpha, Box, Button, Divider, Grid, Theme, Typography, useTheme } from '@mui/material'
 import React, { FC, ReactNode, useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { HeaderContext } from '../../contexts/HeaderContext'
 
@@ -63,6 +64,8 @@ const Header: FC<HeaderProps> = ({ user }) => {
 	}
 
 	const ReturnButton = () => {
+		const { t } = useTranslation()
+
 		return (
 			<Button
 				variant='text'
@@ -71,7 +74,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
 					navigate(headerData.returnPath!)
 				}}>
 				<ArrowBack />
-				Return
+				{t('common.buttons.return')}
 			</Button>
 		)
 	}
