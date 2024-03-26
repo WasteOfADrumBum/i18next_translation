@@ -1,153 +1,153 @@
 {
 	"eventTypes": {
-		"Accident": "Accident",
-		"Crime": "Crime",
-		"Death": "Death",
-		"Natural Disaster": "Natural Disaster",
-		"Health Emergency": "Health Emergency",
-		"Other": "Other"
+		"Accident": "Unfall",
+		"Crime": "Verbrechen",
+		"Death": "Tod",
+		"Natural Disaster": "Naturkatastrophe",
+		"Health Emergency": "Gesundheitsnotfall",
+		"Other": "Andere"
 	},
 	"eventSubTypes": {
 		"Accident": {
-			"Car Crash": "Car Crash",
-			"Slip and Fall": "Slip and Fall",
-			"Workplace Accident": "Workplace Accident",
-			"Sports Injury": "Sports Injury"
+			"Car Crash": "Autounfall",
+			"Slip and Fall": "Ausrutschen und Sturz",
+			"Workplace Accident": "Arbeitsunfall",
+			"Sports Injury": "Sportverletzung"
 		},
 		"Crime": {
-			"Theft": "Theft",
-			"Assault": "Assault",
-			"Burglary": "Burglary",
-			"Vandalism": "Vandalism"
+			"Theft": "Diebstahl",
+			"Assault": "Überfall",
+			"Burglary": "Einbruch",
+			"Vandalism": "Vandalismus"
 		},
 		"Death": {
-			"Suicide": "Suicide",
-			"Homicide": "Homicide",
-			"Accidental Death": "Accidental Death",
-			"Natural Death": "Natural Death"
+			"Suicide": "Selbstmord",
+			"Homicide": "Tötung",
+			"Accidental Death": "Unfalltod",
+			"Natural Death": "Natürlicher Tod"
 		},
 		"Natural Disaster": {
-			"Earthquake": "Earthquake",
-			"Flood": "Flood",
-			"Hurricane": "Hurricane",
-			"Wildfire": "Wildfire"
+			"Earthquake": "Erdbeben",
+			"Flood": "Flut",
+			"Hurricane": "Hurrikan",
+			"Wildfire": "Waldbrand"
 		},
 		"Health Emergency": {
-			"COVID-19 Outbreak": "COVID-19 Outbreak",
-			"Epidemic/Pandemic": "Epidemic/Pandemic",
-			"Biological Hazard": "Biological Hazard",
-			"Chemical Spill": "Chemical Spill"
+			"COVID-19 Outbreak": "COVID-19-Ausbruch",
+			"Epidemic/Pandemic": "Epidemie/Pandemie",
+			"Biological Hazard": "Biologische Gefahr",
+			"Chemical Spill": "Chemieunfall"
 		}
 	},
 	"tags": {
 		"Accident": {
 			"Car Crash": {
-				"Car Accident": "Car Accident",
-				"Traffic": "Traffic",
-				"Vehicle": "Vehicle"
+				"Car Accident": "Autounfall",
+				"Traffic": "Verkehr",
+				"Vehicle": "Fahrzeug"
 			},
 			"Slip and Fall": {
-				"Injury": "Injury",
-				"Accident": "Accident",
-				"Fall": "Fall"
+				"Injury": "Verletzung",
+				"Accident": "Unfall",
+				"Fall": "Sturz"
 			},
 			"Workplace Accident": {
-				"Workplace": "Workplace",
-				"Injury": "Injury",
-				"Accident": "Accident"
+				"Workplace": "Arbeitsplatz",
+				"Injury": "Verletzung",
+				"Accident": "Unfall"
 			},
 			"Sports Injury": {
-				"Sports": "Sports",
-				"Injury": "Injury",
-				"Accident": "Accident"
+				"Sports": "Sport",
+				"Injury": "Verletzung",
+				"Accident": "Unfall"
 			}
 		},
 		"Crime": {
 			"Theft": {
-				"Theft": "Theft",
-				"Property Crime": "Property Crime",
-				"Stolen": "Stolen"
+				"Theft": "Diebstahl",
+				"Property Crime": "Vermögensdelikt",
+				"Stolen": "Gestohlen"
 			},
 			"Assault": {
-				"Assault": "Assault",
-				"Violence": "Violence",
-				"Attack": "Attack"
+				"Assault": "Angriff",
+				"Violence": "Gewalt",
+				"Attack": "Angriff"
 			},
 			"Burglary": {
-				"Burglary": "Burglary",
-				"Break-in": "Break-in",
-				"Robbery": "Robbery"
+				"Burglary": "Einbruch",
+				"Break-in": "Einbruch",
+				"Robbery": "Raub"
 			},
 			"Vandalism": {
-				"Vandalism": "Vandalism",
-				"Damage": "Damage",
-				"Property Crime": "Property Crime"
+				"Vandalism": "Vandalismus",
+				"Damage": "Schaden",
+				"Property Crime": "Vermögensdelikt"
 			}
 		},
 		"Death": {
 			"Suicide": {
-				"Suicide": "Suicide",
-				"Mental Health": "Mental Health",
-				"Self-harm": "Self-harm"
+				"Suicide": "Selbstmord",
+				"Mental Health": "Geistige Gesundheit",
+				"Self-harm": "Selbstverletzung"
 			},
 			"Homicide": {
-				"Homicide": "Homicide",
-				"Murder": "Murder",
-				"Crime": "Crime"
+				"Homicide": "Tötung",
+				"Murder": "Mord",
+				"Crime": "Verbrechen"
 			},
 			"Accidental Death": {
-				"Accidental Death": "Accidental Death",
-				"Unintentional": "Unintentional",
-				"Fatal": "Fatal"
+				"Accidental Death": "Unfalltod",
+				"Unintentional": "Unbeabsichtigt",
+				"Fatal": "Tödlich"
 			},
 			"Natural Death": {
-				"Natural Death": "Natural Death",
-				"Passing Away": "Passing Away",
-				"Death": "Death"
+				"Natural Death": "Natürlicher Tod",
+				"Passing Away": "Sterben",
+				"Death": "Tod"
 			}
 		},
 		"Natural Disaster": {
 			"Earthquake": {
-				"Earthquake": "Earthquake",
-				"Seismic": "Seismic",
-				"Disaster": "Disaster"
+				"Earthquake": "Erdbeben",
+				"Seismic": "Seismisch",
+				"Disaster": "Katastrophe"
 			},
 			"Flood": {
-				"Flood": "Flood",
-				"Flooding": "Flooding",
-				"Water Damage": "Water Damage"
+				"Flood": "Flut",
+				"Flooding": "Überschwemmung",
+				"Water Damage": "Wasserschaden"
 			},
 			"Hurricane": {
-				"Hurricane": "Hurricane",
-				"Storm": "Storm",
-				"Weather": "Weather"
+				"Hurricane": "Hurrikan",
+				"Storm": "Sturm",
+				"Weather": "Wetter"
 			},
 			"Wildfire": {
-				"Wildfire": "Wildfire",
-				"Forest Fire": "Forest Fire",
-				"Fire": "Fire"
+				"Wildfire": "Waldbrand",
+				"Forest Fire": "Waldbrand",
+				"Fire": "Feuer"
 			}
 		},
 		"Health Emergency": {
 			"COVID-19 Outbreak": {
 				"COVID-19": "COVID-19",
-				"Pandemic": "Pandemic",
-				"Health Crisis": "Health Crisis"
+				"Pandemic": "Pandemie",
+				"Health Crisis": "Gesundheitskrise"
 			},
 			"Epidemic/Pandemic": {
-				"Epidemic": "Epidemic",
-				"Pandemic": "Pandemic",
-				"Health Crisis": "Health Crisis"
+				"Epidemic": "Epidemie",
+				"Pandemic": "Pandemie",
+				"Health Crisis": "Gesundheitskrise"
 			},
 			"Biological Hazard": {
-				"Biological Hazard": "Biological Hazard",
-				"Health Emergency": "Health Emergency",
-				"Outbreak": "Outbreak"
+				"Biological Hazard": "Biologische Gefahr",
+				"Health Emergency": "Gesundheitsnotfall",
+				"Outbreak": "Ausbruch"
 			},
 			"Chemical Spill": {
-				"Chemical Spill": "Chemical Spill",
-				"Hazardous Material": "Hazardous Material",
-				"Environmental": "Environmental"
+				"Chemical Spill": "Chemieunfall",
+				"Hazardous Material": "Gefährliches Material",
+				"Environmental": "Umwelt"
 			}
 		}
 	}

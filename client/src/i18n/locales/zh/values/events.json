@@ -1,153 +1,153 @@
 {
 	"eventTypes": {
-		"Accident": "Accident",
-		"Crime": "Crime",
-		"Death": "Death",
-		"Natural Disaster": "Natural Disaster",
-		"Health Emergency": "Health Emergency",
-		"Other": "Other"
+		"Accident": "事故",
+		"Crime": "犯罪",
+		"Death": "死亡",
+		"Natural Disaster": "自然灾害",
+		"Health Emergency": "健康紧急情况",
+		"Other": "其他"
 	},
 	"eventSubTypes": {
 		"Accident": {
-			"Car Crash": "Car Crash",
-			"Slip and Fall": "Slip and Fall",
-			"Workplace Accident": "Workplace Accident",
-			"Sports Injury": "Sports Injury"
+			"Car Crash": "车祸",
+			"Slip and Fall": "滑倒和摔倒",
+			"Workplace Accident": "工作场所事故",
+			"Sports Injury": "运动伤害"
 		},
 		"Crime": {
-			"Theft": "Theft",
-			"Assault": "Assault",
-			"Burglary": "Burglary",
-			"Vandalism": "Vandalism"
+			"Theft": "盗窃",
+			"Assault": "袭击",
+			"Burglary": "入室盗窃",
+			"Vandalism": "破坏行为"
 		},
 		"Death": {
-			"Suicide": "Suicide",
-			"Homicide": "Homicide",
-			"Accidental Death": "Accidental Death",
-			"Natural Death": "Natural Death"
+			"Suicide": "自杀",
+			"Homicide": "谋杀",
+			"Accidental Death": "意外死亡",
+			"Natural Death": "自然死亡"
 		},
 		"Natural Disaster": {
-			"Earthquake": "Earthquake",
-			"Flood": "Flood",
-			"Hurricane": "Hurricane",
-			"Wildfire": "Wildfire"
+			"Earthquake": "地震",
+			"Flood": "洪水",
+			"Hurricane": "飓风",
+			"Wildfire": "森林火灾"
 		},
 		"Health Emergency": {
-			"COVID-19 Outbreak": "COVID-19 Outbreak",
-			"Epidemic/Pandemic": "Epidemic/Pandemic",
-			"Biological Hazard": "Biological Hazard",
-			"Chemical Spill": "Chemical Spill"
+			"COVID-19 Outbreak": "COVID-19 疫情",
+			"Epidemic/Pandemic": "流行病/大流行",
+			"Biological Hazard": "生物危害",
+			"Chemical Spill": "化学泄漏"
 		}
 	},
 	"tags": {
 		"Accident": {
 			"Car Crash": {
-				"Car Accident": "Car Accident",
-				"Traffic": "Traffic",
-				"Vehicle": "Vehicle"
+				"Car Accident": "车祸",
+				"Traffic": "交通",
+				"Vehicle": "车辆"
 			},
 			"Slip and Fall": {
-				"Injury": "Injury",
-				"Accident": "Accident",
-				"Fall": "Fall"
+				"Injury": "受伤",
+				"Accident": "事故",
+				"Fall": "摔倒"
 			},
 			"Workplace Accident": {
-				"Workplace": "Workplace",
-				"Injury": "Injury",
-				"Accident": "Accident"
+				"Workplace": "工作场所",
+				"Injury": "受伤",
+				"Accident": "事故"
 			},
 			"Sports Injury": {
-				"Sports": "Sports",
-				"Injury": "Injury",
-				"Accident": "Accident"
+				"Sports": "运动",
+				"Injury": "受伤",
+				"Accident": "事故"
 			}
 		},
 		"Crime": {
 			"Theft": {
-				"Theft": "Theft",
-				"Property Crime": "Property Crime",
-				"Stolen": "Stolen"
+				"Theft": "盗窃",
+				"Property Crime": "财产犯罪",
+				"Stolen": "被盗"
 			},
 			"Assault": {
-				"Assault": "Assault",
-				"Violence": "Violence",
-				"Attack": "Attack"
+				"Assault": "袭击",
+				"Violence": "暴力",
+				"Attack": "攻击"
 			},
 			"Burglary": {
-				"Burglary": "Burglary",
-				"Break-in": "Break-in",
-				"Robbery": "Robbery"
+				"Burglary": "入室盗窃",
+				"Break-in": "闯入",
+				"Robbery": "抢劫"
 			},
 			"Vandalism": {
-				"Vandalism": "Vandalism",
-				"Damage": "Damage",
-				"Property Crime": "Property Crime"
+				"Vandalism": "破坏行为",
+				"Damage": "损坏",
+				"Property Crime": "财产犯罪"
 			}
 		},
 		"Death": {
 			"Suicide": {
-				"Suicide": "Suicide",
-				"Mental Health": "Mental Health",
-				"Self-harm": "Self-harm"
+				"Suicide": "自杀",
+				"Mental Health": "心理健康",
+				"Self-harm": "自伤"
 			},
 			"Homicide": {
-				"Homicide": "Homicide",
-				"Murder": "Murder",
-				"Crime": "Crime"
+				"Homicide": "谋杀",
+				"Murder": "谋杀",
+				"Crime": "犯罪"
 			},
 			"Accidental Death": {
-				"Accidental Death": "Accidental Death",
-				"Unintentional": "Unintentional",
-				"Fatal": "Fatal"
+				"Accidental Death": "意外死亡",
+				"Unintentional": "非故意的",
+				"Fatal": "致命的"
 			},
 			"Natural Death": {
-				"Natural Death": "Natural Death",
-				"Passing Away": "Passing Away",
-				"Death": "Death"
+				"Natural Death": "自然死亡",
+				"Passing Away": "逝世",
+				"Death": "死亡"
 			}
 		},
 		"Natural Disaster": {
 			"Earthquake": {
-				"Earthquake": "Earthquake",
-				"Seismic": "Seismic",
-				"Disaster": "Disaster"
+				"Earthquake": "地震",
+				"Seismic": "地震的",
+				"Disaster": "灾害"
 			},
 			"Flood": {
-				"Flood": "Flood",
-				"Flooding": "Flooding",
-				"Water Damage": "Water Damage"
+				"Flood": "洪水",
+				"Flooding": "水灾",
+				"Water Damage": "水灾"
 			},
 			"Hurricane": {
-				"Hurricane": "Hurricane",
-				"Storm": "Storm",
-				"Weather": "Weather"
+				"Hurricane": "飓风",
+				"Storm": "风暴",
+				"Weather": "天气"
 			},
 			"Wildfire": {
-				"Wildfire": "Wildfire",
-				"Forest Fire": "Forest Fire",
-				"Fire": "Fire"
+				"Wildfire": "森林火灾",
+				"Forest Fire": "森林火灾",
+				"Fire": "火灾"
 			}
 		},
 		"Health Emergency": {
 			"COVID-19 Outbreak": {
 				"COVID-19": "COVID-19",
-				"Pandemic": "Pandemic",
-				"Health Crisis": "Health Crisis"
+				"Pandemic": "大流行",
+				"Health Crisis": "卫生危机"
 			},
 			"Epidemic/Pandemic": {
-				"Epidemic": "Epidemic",
-				"Pandemic": "Pandemic",
-				"Health Crisis": "Health Crisis"
+				"Epidemic": "流行病",
+				"Pandemic": "大流行",
+				"Health Crisis": "卫生危机"
 			},
 			"Biological Hazard": {
-				"Biological Hazard": "Biological Hazard",
-				"Health Emergency": "Health Emergency",
-				"Outbreak": "Outbreak"
+				"Biological Hazard": "生物危害",
+				"Health Emergency": "健康紧急情况",
+				"Outbreak": "爆发"
 			},
 			"Chemical Spill": {
-				"Chemical Spill": "Chemical Spill",
-				"Hazardous Material": "Hazardous Material",
-				"Environmental": "Environmental"
+				"Chemical Spill": "化学泄漏",
+				"Hazardous Material": "危险物质",
+				"Environmental": "环境"
 			}
 		}
 	}
