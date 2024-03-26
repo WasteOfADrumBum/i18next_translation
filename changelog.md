@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0] - YYYY-MM-DD
+
+- Initial release (unreleased)
+
 ## [UNRELEASED] - 2024-03-26
 
 ### Added
@@ -135,7 +139,3 @@ All notable changes to this project will be documented in this file.
 - Initial project setup and implementation
 - Authentication, routes, and styles
 - Internationalization (i18n) setup and components
-
-## [1.0.0] - YYYY-MM-DD
-
-- Initial release
