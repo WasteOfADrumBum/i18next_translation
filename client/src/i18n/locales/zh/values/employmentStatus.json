@@ -1,15 +1,15 @@
 {
-	"fullTime": "Full-Time",
-	"partTime": "Part-Time",
-	"contract": "Contract",
-	"internship": "Internship",
-	"temporary": "Temporary",
-	"freelance": "Freelance",
-	"commission": "Commission",
-	"apprenticeship": "Apprenticeship",
-	"zeroHour": "Zero Hour",
-	"selfEmployed": "Self-Employed",
-	"volunteer": "Volunteer",
-	"seasonal": "Seasonal",
-	"other": "Other"
+	"fullTime": "全职",
+	"partTime": "兼职",
+	"contract": "合同",
+	"internship": "实习",
+	"temporary": "临时",
+	"freelance": "自由职业",
+	"commission": "佣金",
+	"apprenticeship": "学徒制",
+	"zeroHour": "零时",
+	"selfEmployed": "自雇",
+	"volunteer": "志愿者",
+	"seasonal": "季节性",
+	"other": "其他"
 }

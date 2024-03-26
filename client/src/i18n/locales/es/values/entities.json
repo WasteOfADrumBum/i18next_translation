@@ -1,21 +1,21 @@
 {
 	"entityTypes": {
-		"person": "Person",
-		"organization": "Organization",
-		"other": "Other"
+		"person": "Persona",
+		"organization": "Organización",
+		"other": "Otro"
 	},
 	"businessLegalEntityTypes": {
-		"soleProprietorship": "Sole Proprietorship",
-		"partnership": "Partnership",
-		"llc": "Limited Liability Company (LLC)",
-		"corporation": "Corporation",
-		"nonprofitOrganization": "Nonprofit Organization"
+		"soleProprietorship": "Propiedad Individual",
+		"partnership": "Sociedad Colectiva",
+		"llc": "Sociedad de Responsabilidad Limitada (SRL)",
+		"corporation": "Corporación",
+		"nonprofitOrganization": "Organización Sin Fines de Lucro"
 	},
 	"businessLegalStatus": {
-		"active": "Active",
-		"inactive": "Inactive",
-		"dissolved": "Dissolved",
-		"pending": "Pending",
-		"underInvestigation": "Under Investigation"
+		"active": "Activo",
+		"inactive": "Inactivo",
+		"dissolved": "Disuelto",
+		"pending": "Pendiente",
+		"underInvestigation": "Bajo Investigación"
 	}
 }

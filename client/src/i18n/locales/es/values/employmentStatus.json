@@ -1,15 +1,15 @@
 {
-	"fullTime": "Full-Time",
-	"partTime": "Part-Time",
-	"contract": "Contract",
-	"internship": "Internship",
-	"temporary": "Temporary",
-	"freelance": "Freelance",
-	"commission": "Commission",
-	"apprenticeship": "Apprenticeship",
-	"zeroHour": "Zero Hour",
-	"selfEmployed": "Self-Employed",
-	"volunteer": "Volunteer",
-	"seasonal": "Seasonal",
-	"other": "Other"
+	"fullTime": "Tiempo completo",
+	"partTime": "Medio tiempo",
+	"contract": "Contrato",
+	"internship": "Prácticas",
+	"temporary": "Temporal",
+	"freelance": "Independiente",
+	"commission": "Comisión",
+	"apprenticeship": "Aprendizaje",
+	"zeroHour": "Hora cero",
+	"selfEmployed": "Autónomo",
+	"volunteer": "Voluntario",
+	"seasonal": "Estacional",
+	"other": "Otro"
 }

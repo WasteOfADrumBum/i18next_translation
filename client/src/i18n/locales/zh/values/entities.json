@@ -1,21 +1,21 @@
 {
 	"entityTypes": {
-		"person": "Person",
-		"organization": "Organization",
-		"other": "Other"
+		"person": "个人",
+		"organization": "组织",
+		"other": "其他"
 	},
 	"businessLegalEntityTypes": {
-		"soleProprietorship": "Sole Proprietorship",
-		"partnership": "Partnership",
-		"llc": "Limited Liability Company (LLC)",
-		"corporation": "Corporation",
-		"nonprofitOrganization": "Nonprofit Organization"
+		"soleProprietorship": "独资企业",
+		"partnership": "合伙企业",
+		"llc": "有限责任公司（LLC）",
+		"corporation": "股份有限公司",
+		"nonprofitOrganization": "非营利组织"
 	},
 	"businessLegalStatus": {
-		"active": "Active",
-		"inactive": "Inactive",
-		"dissolved": "Dissolved",
-		"pending": "Pending",
-		"underInvestigation": "Under Investigation"
+		"active": "活跃",
+		"inactive": "不活跃",
+		"dissolved": "已解散",
+		"pending": "待定",
+		"underInvestigation": "调查中"
 	}
 }

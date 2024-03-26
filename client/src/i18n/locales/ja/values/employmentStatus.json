@@ -1,15 +1,15 @@
 {
-	"fullTime": "Full-Time",
-	"partTime": "Part-Time",
-	"contract": "Contract",
-	"internship": "Internship",
-	"temporary": "Temporary",
-	"freelance": "Freelance",
-	"commission": "Commission",
-	"apprenticeship": "Apprenticeship",
-	"zeroHour": "Zero Hour",
-	"selfEmployed": "Self-Employed",
-	"volunteer": "Volunteer",
-	"seasonal": "Seasonal",
-	"other": "Other"
+	"fullTime": "フルタイム",
+	"partTime": "パートタイム",
+	"contract": "契約",
+	"internship": "インターンシップ",
+	"temporary": "一時的な",
+	"freelance": "フリーランス",
+	"commission": "手数料",
+	"apprenticeship": "見習い",
+	"zeroHour": "ゼロ時間",
+	"selfEmployed": "自営業",
+	"volunteer": "ボランティア",
+	"seasonal": "季節の",
+	"other": "その他"
 }
