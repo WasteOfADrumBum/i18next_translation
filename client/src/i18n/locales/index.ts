@@ -7,6 +7,14 @@ import eventsDe from './de/pages/events.json'
 import homeDe from './de/pages/home.json'
 import userDe from './de/pages/user.json'
 import vehiclesDe from './de/pages/vehicles.json'
+import countriesValuesDe from './de/values/countries.json'
+import employmentStatusValuesDe from './de/values/employmentStatus.json'
+import countryValuesDe from './de/values/entities.json'
+import eventValuesDe from './de/values/events.json'
+import methodsOfReceiptValuesDe from './de/values/methodsOfReceipt.json'
+import nativeLanguageValuesDe from './de/values/nativeLanguages.json'
+import stateValuesDe from './de/values/states.json'
+import vehicleValuesDe from './de/values/vehicles.json'
 import commonEn from './en/common/common.json'
 import errorsEn from './en/errors/errors.json'
 import aboutEn from './en/pages/about.json'
@@ -33,6 +41,14 @@ import eventsEs from './es/pages/events.json'
 import homeEs from './es/pages/home.json'
 import userEs from './es/pages/user.json'
 import vehiclesEs from './es/pages/vehicles.json'
+import countriesValuesEs from './es/values/countries.json'
+import employmentStatusValuesEs from './es/values/employmentStatus.json'
+import countryValuesEs from './es/values/entities.json'
+import eventValuesEs from './es/values/events.json'
+import methodsOfReceiptValuesEs from './es/values/methodsOfReceipt.json'
+import nativeLanguageValuesEs from './es/values/nativeLanguages.json'
+import stateValuesEs from './es/values/states.json'
+import vehicleValuesEs from './es/values/vehicles.json'
 import commonFr from './fr/common/common.json'
 import errorsFr from './fr/errors/errors.json'
 import aboutFr from './fr/pages/about.json'
@@ -42,6 +58,14 @@ import eventsFr from './fr/pages/events.json'
 import homeFr from './fr/pages/home.json'
 import userFr from './fr/pages/user.json'
 import vehiclesFr from './fr/pages/vehicles.json'
+import countriesValuesFr from './fr/values/countries.json'
+import employmentStatusValuesFr from './fr/values/employmentStatus.json'
+import countryValuesFr from './fr/values/entities.json'
+import eventValuesFr from './fr/values/events.json'
+import methodsOfReceiptValuesFr from './fr/values/methodsOfReceipt.json'
+import nativeLanguageValuesFr from './fr/values/nativeLanguages.json'
+import stateValuesFr from './fr/values/states.json'
+import vehicleValuesFr from './fr/values/vehicles.json'
 import commonJa from './ja/common/common.json'
 import errorsJa from './ja/errors/errors.json'
 import aboutJa from './ja/pages/about.json'
@@ -51,6 +75,14 @@ import eventsJa from './ja/pages/events.json'
 import homeJa from './ja/pages/home.json'
 import userJa from './ja/pages/user.json'
 import vehiclesJa from './ja/pages/vehicles.json'
+import countriesValuesJa from './ja/values/countries.json'
+import employmentStatusValuesJa from './ja/values/employmentStatus.json'
+import countryValuesJa from './ja/values/entities.json'
+import eventValuesJa from './ja/values/events.json'
+import methodsOfReceiptValuesJa from './ja/values/methodsOfReceipt.json'
+import nativeLanguageValuesJa from './ja/values/nativeLanguages.json'
+import stateValuesJa from './ja/values/states.json'
+import vehicleValuesJa from './ja/values/vehicles.json'
 import commonZh from './zh/common/common.json'
 import errorsZh from './zh/errors/errors.json'
 import aboutZh from './zh/pages/about.json'
@@ -60,6 +92,14 @@ import eventsZh from './zh/pages/events.json'
 import homeZh from './zh/pages/home.json'
 import userZh from './zh/pages/user.json'
 import vehiclesZh from './zh/pages/vehicles.json'
+import countriesValuesZh from './zh/values/countries.json'
+import employmentStatusValuesZh from './zh/values/employmentStatus.json'
+import countryValuesZh from './zh/values/entities.json'
+import eventValuesZh from './zh/values/events.json'
+import methodsOfReceiptValuesZh from './zh/values/methodsOfReceipt.json'
+import nativeLanguageValuesZh from './zh/values/nativeLanguages.json'
+import stateValuesZh from './zh/values/states.json'
+import vehicleValuesZh from './zh/values/vehicles.json'
 
 const enTranslation = {
 	common: commonEn,
@@ -97,6 +137,16 @@ const esTranslation = {
 		user: userEs,
 		vehicles: vehiclesEs,
 	},
+	values: {
+		employmentStatus: employmentStatusValuesEs,
+		countries: countriesValuesEs,
+		entities: countryValuesEs,
+		events: eventValuesEs,
+		states: stateValuesEs,
+		methodsOfReceipt: methodsOfReceiptValuesEs,
+		nativeLanguages: nativeLanguageValuesEs,
+		vehicles: vehicleValuesEs,
+	},
 }
 
 const deTranslation = {
@@ -110,6 +160,16 @@ const deTranslation = {
 		home: homeDe,
 		user: userDe,
 		vehicles: vehiclesDe,
+	},
+	values: {
+		employmentStatus: employmentStatusValuesDe,
+		countries: countriesValuesDe,
+		entities: countryValuesDe,
+		events: eventValuesDe,
+		states: stateValuesDe,
+		methodsOfReceipt: methodsOfReceiptValuesDe,
+		nativeLanguages: nativeLanguageValuesDe,
+		vehicles: vehicleValuesDe,
 	},
 }
 
@@ -125,6 +185,16 @@ const frTranslation = {
 		user: userFr,
 		vehicles: vehiclesFr,
 	},
+	values: {
+		employmentStatus: employmentStatusValuesFr,
+		countries: countriesValuesFr,
+		entities: countryValuesFr,
+		events: eventValuesFr,
+		states: stateValuesFr,
+		methodsOfReceipt: methodsOfReceiptValuesFr,
+		nativeLanguages: nativeLanguageValuesFr,
+		vehicles: vehicleValuesFr,
+	},
 }
 
 const jaTranslation = {
@@ -139,6 +209,16 @@ const jaTranslation = {
 		user: userJa,
 		vehicles: vehiclesJa,
 	},
+	values: {
+		employmentStatus: employmentStatusValuesJa,
+		countries: countriesValuesJa,
+		entities: countryValuesJa,
+		events: eventValuesJa,
+		states: stateValuesJa,
+		methodsOfReceipt: methodsOfReceiptValuesJa,
+		nativeLanguages: nativeLanguageValuesJa,
+		vehicles: vehicleValuesJa,
+	},
 }
 
 const zhTranslation = {
@@ -152,6 +232,16 @@ const zhTranslation = {
 		home: homeZh,
 		user: userZh,
 		vehicles: vehiclesZh,
+	},
+	values: {
+		employmentStatus: employmentStatusValuesZh,
+		countries: countriesValuesZh,
+		entities: countryValuesZh,
+		events: eventValuesZh,
+		states: stateValuesZh,
+		methodsOfReceipt: methodsOfReceiptValuesZh,
+		nativeLanguages: nativeLanguageValuesZh,
+		vehicles: vehicleValuesZh,
 	},
 }
 
