@@ -1,8 +1,4 @@
-import { useTranslation } from 'react-i18next'
-
-export const getMethodsOfReceipt = () => {
-	const { t } = useTranslation()
-
+export const getMethodsOfReceipt = (t: (key: string) => string) => {
 	return [
 		{ key: 'Phone', value: t('values.methodsOfReceipt.phone') },
 		{ key: 'Email', value: t('values.methodsOfReceipt.email') },

@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next'
-
 type VehicleModels = {
 	[key: string]: string[]
 }
@@ -316,17 +314,14 @@ export const vehicleColors = [
 	'Other',
 ]
 
-export const getVehicleMakes = () => {
-	const { t } = useTranslation()
-
+export const getVehicleMakes = (t: (key: string) => string) => {
 	return vehicleMakes.map((make) => ({
-		[make]: t(`values.vehicles.vehicleMakes.${make}`),
+		key: make,
+		value: t(`values.vehicles.vehicleMakes.${make}`),
 	}))
 }
 
-export const getVehicleModels = () => {
-	const { t } = useTranslation()
-
+export const getVehicleModels = (t: (key: string) => string) => {
 	const translatedVehicleModels: VehicleModels = {}
 
 	for (const make in vehicleModels) {
@@ -338,10 +333,9 @@ export const getVehicleModels = () => {
 	return translatedVehicleModels
 }
 
-export const getVehicleColors = () => {
-	const { t } = useTranslation()
-
+export const getVehicleColors = (t: (key: string) => string) => {
 	return vehicleColors.map((color) => ({
-		[color]: t(`values.vehicles.vehicleColors.${color}`),
+		key: color,
+		value: t(`values.vehicles.vehicleColors.${color}`),
 	}))
 }

@@ -1,8 +1,4 @@
-import { useTranslation } from 'react-i18next'
-
-export const getStates = () => {
-	const { t } = useTranslation()
-
+export const getStates = (t: (key: string) => string) => {
 	return [
 		{ key: 'Alabama', value: t('values.states.alabama') },
 		{ key: 'Alaska', value: t('values.states.alaska') },

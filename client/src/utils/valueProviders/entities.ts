@@ -1,8 +1,4 @@
-import { useTranslation } from 'react-i18next'
-
-export const getEntityTypes = () => {
-	const { t } = useTranslation()
-
+export const getEntityTypes = (t: (key: string) => string) => {
 	return [
 		{ key: 'Person', value: t('values.entities.entityTypes.person') },
 		{ key: 'Organization', value: t('values.entities.entityTypes.organization') },
@@ -10,9 +6,7 @@ export const getEntityTypes = () => {
 	]
 }
 
-export const getBusinessLegalEntityTypes = () => {
-	const { t } = useTranslation()
-
+export const getBusinessLegalEntityTypes = (t: (key: string) => string) => {
 	return [
 		{ key: 'Sole Proprietorship', value: t('values.entities.businessLegalEntityTypes.soleProprietorship') },
 		{ key: 'Partnership', value: t('values.entities.businessLegalEntityTypes.partnership') },
@@ -22,9 +16,7 @@ export const getBusinessLegalEntityTypes = () => {
 	]
 }
 
-export const getBusinessLegalStatuses = () => {
-	const { t } = useTranslation()
-
+export const getBusinessLegalStatuses = (t: (key: string) => string) => {
 	return [
 		{ key: 'Active', value: t('values.entities.businessLegalStatus.active') },
 		{ key: 'Inactive', value: t('values.entities.businessLegalStatus.inactive') },

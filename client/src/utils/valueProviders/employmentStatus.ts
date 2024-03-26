@@ -1,8 +1,4 @@
-import { useTranslation } from 'react-i18next'
-
-export const getEmploymentStatuses = () => {
-	const { t } = useTranslation()
-
+export const getEmploymentStatuses = (t: (key: string) => string) => {
 	return [
 		{ key: 'Full-time', value: t('values.employmentStatus.fullTime') },
 		{ key: 'Part-time', value: t('values.employmentStatus.partTime') },

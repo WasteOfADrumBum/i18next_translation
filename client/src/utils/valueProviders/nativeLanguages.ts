@@ -1,8 +1,4 @@
-import { useTranslation } from 'react-i18next'
-
-export const getNativeLanguages = () => {
-	const { t } = useTranslation()
-
+export const getNativeLanguages = (t: (key: string) => string) => {
 	return [
 		{ key: 'English', value: t('values.nativeLanguages.english') },
 		{ key: 'Mandarin Chinese', value: t('values.nativeLanguages.mandarinChinese') },

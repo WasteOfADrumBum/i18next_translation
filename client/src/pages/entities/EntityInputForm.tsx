@@ -49,6 +49,13 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 	const dispatch = useDispatch<AppDispatch>()
 	const { eventId, entityId } = useParams<{ eventId: string; entityId: string }>()
 	// ----------------------------- States ----------------------------- //
+	const [states, setStates] = useState<{ key: string; value: string }[]>([])
+	const [countries, setCountries] = useState<{ key: string; value: string }[]>([])
+	const [entityTypes, setEntityTypes] = useState<{ key: string; value: string }[]>([])
+	const [employmentStatus, setEmploymentStatus] = useState<{ key: string; value: string }[]>([])
+	const [nativeLanguages, setNativeLanguages] = useState<{ key: string; value: string }[]>([])
+	const [businessLegalEntityTypes, setBusinessLegalEntityTypes] = useState<{ key: string; value: string }[]>([])
+	const [businessLegalStatus, setBusinessLegalStatus] = useState<{ key: string; value: string }[]>([])
 	const [formData, setFormData] = useState<EntityFormData>({
 		_id: entityValues?._id,
 		parentId: eventId || entityValues?.parentId || '',
@@ -326,13 +333,15 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 	}, [formData.personDob])
 
 	// Get value providers
-	const states = getStates()
-	const countries = getCountries()
-	const entityTypes = getEntityTypes()
-	const employmentStatus = getEmploymentStatuses()
-	const nativeLanguages = getNativeLanguages()
-	const businessLegalEntityTypes = getBusinessLegalEntityTypes()
-	const businessLegalStatus = getBusinessLegalStatuses()
+	useEffect(() => {
+		setStates(getStates(t))
+		setCountries(getCountries(t))
+		setEntityTypes(getEntityTypes(t))
+		setEmploymentStatus(getEmploymentStatuses(t))
+		setNativeLanguages(getNativeLanguages(t))
+		setBusinessLegalEntityTypes(getBusinessLegalEntityTypes(t))
+		setBusinessLegalStatus(getBusinessLegalStatuses(t))
+	}, [t])
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>

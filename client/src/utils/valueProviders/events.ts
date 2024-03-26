@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next'
-
 type EventSubTypes = {
 	[key: string]: string[]
 }
@@ -59,17 +57,16 @@ export const tags: Tags = {
 	},
 }
 
-export const getEventTypes = () => {
-	const { t } = useTranslation()
-
-	return eventTypes.map((eventType) => ({
-		[eventType]: t(`values.events.eventTypes.${eventType}`),
+export const getEventTypes = (t: (key: string) => string) => {
+	const translatedEventTypes = eventTypes.map((eventType) => ({
+		key: eventType,
+		value: t(`values.events.eventTypes.${eventType}`),
 	}))
+
+	return translatedEventTypes
 }
 
-export const getEventSubTypes = () => {
-	const { t } = useTranslation()
-
+export const getEventSubTypes = (t: (key: string) => string) => {
 	const translatedEventSubTypes: EventSubTypes = {}
 
 	for (const eventType in eventSubTypes) {
@@ -81,9 +78,7 @@ export const getEventSubTypes = () => {
 	return translatedEventSubTypes
 }
 
-export const getTags = () => {
-	const { t } = useTranslation()
-
+export const getTags = (t: (key: string) => string) => {
 	const translatedTags: Tags = {}
 
 	for (const eventType in tags) {

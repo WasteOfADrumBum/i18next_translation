@@ -43,6 +43,11 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	const dispatch = useDispatch<AppDispatch>()
 	const { eventId } = useParams<string>()
 	// ----------------------------- States ----------------------------- //
+	const [countries, setCountries] = useState<{ key: string; value: string }[]>([])
+	const [states, setStates] = useState<{ key: string; value: string }[]>([])
+	const [eventTypes, setEventTypes] = useState<{ key: string; value: string }[]>([])
+	const [eventSubTypes, setEventSubTypes] = useState<{ [key: string]: string[] }>({})
+	const [methodsOfReceipt, setMethodsOfReceipt] = useState<{ key: string; value: string }[]>([])
 	const [formData, setFormData] = useState<EventFormData>({
 		_id: eventValues?._id,
 		status: eventValues?.status || 'pending',
@@ -241,11 +246,13 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	}
 
 	// Get value providers
-	const countries = getCountries()
-	const states = getStates()
-	const eventTypes = getEventTypes()
-	const eventSubTypes: { [key: string]: string[] } = getEventSubTypes()
-	const methodsOfReceipt = getMethodsOfReceipt()
+	useEffect(() => {
+		setCountries(getCountries(t))
+		setStates(getStates(t))
+		setEventTypes(getEventTypes(t))
+		setEventSubTypes(getEventSubTypes(t))
+		setMethodsOfReceipt(getMethodsOfReceipt(t))
+	}, [t])
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>

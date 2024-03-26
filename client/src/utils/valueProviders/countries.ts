@@ -1,8 +1,4 @@
-import { useTranslation } from 'react-i18next'
-
-export const getCountries = () => {
-	const { t } = useTranslation()
-
+export const getCountries = (t: (key: string) => string) => {
 	const countries = [
 		'United States of America',
 		'Afghanistan',

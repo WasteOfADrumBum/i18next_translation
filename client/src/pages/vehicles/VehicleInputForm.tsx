@@ -69,6 +69,10 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	const dispatch = useDispatch<AppDispatch>()
 	const { eventId, vehicleId } = useParams<{ eventId: string; vehicleId?: string }>()
 	// ----------------------------- States ----------------------------- //
+	const [vehicleMakes, setVehicleMakes] = useState<{ key: string; value: string }[]>([])
+	const [vehicleModels, setVehicleModels] = useState<{ [key: string]: string[] }>({})
+	const [vehicleColors, setVehicleColors] = useState<{ key: string; value: string }[]>([])
+	const [states, setStates] = useState<{ key: string; value: string }[]>([])
 	const [formData, setFormData] = useState<VehicleFormData>({
 		_id: vehicleValues?._id,
 		parentId: eventId || vehicleValues?.parentId || '',
@@ -449,10 +453,12 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 	}
 
 	// Get value providers
-	const vehicleMakes = getVehicleMakes()
-	const vehicleModels = getVehicleModels()
-	const vehicleColors = getVehicleColors()
-	const states = getStates()
+	useEffect(() => {
+		setVehicleMakes(getVehicleMakes(t))
+		setVehicleModels(getVehicleModels(t))
+		setVehicleColors(getVehicleColors(t))
+		setStates(getStates(t))
+	}, [t])
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
