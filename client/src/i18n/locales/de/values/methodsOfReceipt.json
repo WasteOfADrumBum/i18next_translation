@@ -1,12 +1,12 @@
 {
-	"phone": "Phone",
-	"email": "Email",
-	"mail": "Mail",
+	"phone": "Telefon",
+	"email": "E-Mail",
+	"mail": "Post",
 	"fax": "Fax",
-	"inPerson": "In-person",
-	"textMessage": "Text message",
-	"onlinePortal": "Online portal",
-	"mobileAppNotification": "Mobile app notification",
-	"courierDelivery": "Courier delivery",
-	"videoCall": "Video call"
+	"inPerson": "Persönlich",
+	"textMessage": "Textnachricht",
+	"onlinePortal": "Online-Portal",
+	"mobileAppNotification": "Benachrichtigung über mobile App",
+	"courierDelivery": "Kurierlieferung",
+	"videoCall": "Videotelefonie"
 }

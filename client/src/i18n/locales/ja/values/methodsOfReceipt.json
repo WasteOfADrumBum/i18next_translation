@@ -1,12 +1,12 @@
 {
-	"phone": "Phone",
-	"email": "Email",
-	"mail": "Mail",
-	"fax": "Fax",
-	"inPerson": "In-person",
-	"textMessage": "Text message",
-	"onlinePortal": "Online portal",
-	"mobileAppNotification": "Mobile app notification",
-	"courierDelivery": "Courier delivery",
-	"videoCall": "Video call"
+	"phone": "電話",
+	"email": "Eメール",
+	"mail": "郵便",
+	"fax": "FAX",
+	"inPerson": "対面",
+	"textMessage": "テキストメッセージ",
+	"onlinePortal": "オンラインポータル",
+	"mobileAppNotification": "モバイルアプリ通知",
+	"courierDelivery": "宅配便配達",
+	"videoCall": "ビデオ通話"
 }
