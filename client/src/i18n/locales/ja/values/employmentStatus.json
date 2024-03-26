@@ -1,0 +1,15 @@
+{
+	"fullTime": "Full-Time",
+	"partTime": "Part-Time",
+	"contract": "Contract",
+	"internship": "Internship",
+	"temporary": "Temporary",
+	"freelance": "Freelance",
+	"commission": "Commission",
+	"apprenticeship": "Apprenticeship",
+	"zeroHour": "Zero Hour",
+	"selfEmployed": "Self-Employed",
+	"volunteer": "Volunteer",
+	"seasonal": "Seasonal",
+	"other": "Other"
+}

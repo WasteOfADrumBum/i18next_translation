@@ -1,0 +1,21 @@
+{
+	"entityTypes": {
+		"person": "Person",
+		"organization": "Organization",
+		"other": "Other"
+	},
+	"businessLegalEntityTypes": {
+		"soleProprietorship": "Sole Proprietorship",
+		"partnership": "Partnership",
+		"llc": "Limited Liability Company (LLC)",
+		"corporation": "Corporation",
+		"nonprofitOrganization": "Nonprofit Organization"
+	},
+	"businessLegalStatus": {
+		"active": "Active",
+		"inactive": "Inactive",
+		"dissolved": "Dissolved",
+		"pending": "Pending",
+		"underInvestigation": "Under Investigation"
+	}
+}
