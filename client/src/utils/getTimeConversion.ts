@@ -1,4 +1,4 @@
-interface TimeConversionsHelper {
+interface getTimeConversion {
 	convertTime: (
 		t: (key: string) => string,
 		input: Date | string | number,
@@ -8,7 +8,7 @@ interface TimeConversionsHelper {
 	) => string
 }
 
-export const TimeConversionsHelper: TimeConversionsHelper = {
+export const getTimeConversion: getTimeConversion = {
 	convertTime: (t, input, format, includeTime, timeZone): string => {
 		let date: Date
 

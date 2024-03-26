@@ -16,6 +16,14 @@ import eventsEn from './en/pages/events.json'
 import homeEn from './en/pages/home.json'
 import userEn from './en/pages/user.json'
 import vehiclesEn from './en/pages/vehicles.json'
+import countriesValuesEn from './en/values/countries.json'
+import employmentStatusValuesEn from './en/values/employmentStatus.json'
+import countryValuesEn from './en/values/entities.json'
+import eventValuesEn from './en/values/events.json'
+import methodsOfReceiptValuesEn from './en/values/methodsOfReceipt.json'
+import nativeLanguageValuesEn from './en/values/nativeLanguages.json'
+import stateValuesEn from './en/values/states.json'
+import vehicleValuesEn from './en/values/vehicles.json'
 import commonEs from './es/common/common.json'
 import errorsEs from './es/errors/errors.json'
 import aboutEs from './es/pages/about.json'
@@ -64,6 +72,16 @@ const enTranslation = {
 		home: homeEn,
 		user: userEn,
 		vehicles: vehiclesEn,
+	},
+	values: {
+		employmentStatus: employmentStatusValuesEn,
+		countries: countriesValuesEn,
+		entities: countryValuesEn,
+		events: eventValuesEn,
+		states: stateValuesEn,
+		methodsOfReceipt: methodsOfReceiptValuesEn,
+		nativeLanguages: nativeLanguageValuesEn,
+		vehicles: vehicleValuesEn,
 	},
 }
 

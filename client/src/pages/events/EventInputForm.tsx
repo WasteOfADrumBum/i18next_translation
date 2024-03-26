@@ -30,7 +30,7 @@ import { EventFormData } from '../../../types/events/EventFormTypes'
 import { HeaderContext } from '../../contexts'
 import { createEvent, readEvent, updateEvent } from '../../store/actions/mongodb/eventActions'
 import { Event } from '../../store/types/EventTypes'
-import { countries, eventSubTypes, eventTypes, methodsOfReceipt, states } from '../../utils'
+import { getCountries, getEventSubTypes, getEventTypes, getMethodsOfReceipt, getStates } from '../../utils'
 
 interface EventInputFormProps {
 	eventValues?: EventFormData
@@ -60,7 +60,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		methodOfReceipt: eventValues?.methodOfReceipt || '',
 		address: eventValues?.address || '',
 		city: eventValues?.city || '',
-		zip: eventValues?.zip || null,
+		zip: eventValues?.zip ?? null,
 		country: eventValues?.country || '',
 		county: eventValues?.county || '',
 		state: eventValues?.state || '',
@@ -240,6 +240,13 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 		}
 	}
 
+	// Get value providers
+	const countries = getCountries()
+	const states = getStates()
+	const eventTypes = getEventTypes()
+	const eventSubTypes: { [key: string]: string[] } = getEventSubTypes()
+	const methodsOfReceipt = getMethodsOfReceipt()
+
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<Container>
@@ -363,9 +370,9 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									value={formData.eventType}
 									onChange={handleFormSelectChange}>
 									<MenuItem value=''>{t('pages.events.placeholders.type')}</MenuItem>
-									{eventTypes.map((option, index) => (
-										<MenuItem key={index} value={option}>
-											{option}
+									{eventTypes.map((eventType: { [x: string]: string }, index: number) => (
+										<MenuItem key={index} value={eventType.key}>
+											{eventType.value}
 										</MenuItem>
 									))}
 								</Select>
@@ -383,9 +390,9 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									onChange={handleFormSelectChange}>
 									<MenuItem value=''>{t('pages.events.placeholders.subType')}</MenuItem>
 									{formData.eventType &&
-										eventSubTypes[formData.eventType].map((option, index) => (
-											<MenuItem key={index} value={option}>
-												{option}
+										eventSubTypes[formData.eventType].map((subtype: string, index: number) => (
+											<MenuItem key={index} value={subtype}>
+												{subtype}
 											</MenuItem>
 										))}
 								</Select>
@@ -411,11 +418,11 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 										</div>
 									)}>
 									{formData.eventType &&
-										eventSubTypes[formData.eventType] &&
-										eventSubTypes[formData.eventType].map((tag, index) => (
-											<MenuItem key={index} value={tag}>
-												<Checkbox checked={formData.tagging.indexOf(tag) > -1} />
-												<ListItemText primary={tag} />
+										eventSubTypes[formData.eventType] && // Type guard to check if eventSubTypes[formData.eventType] is defined
+										eventSubTypes[formData.eventType].map((subtype: string, index: number) => (
+											<MenuItem key={index} value={subtype}>
+												<Checkbox checked={formData.tagging.indexOf(subtype) > -1} />
+												<ListItemText primary={subtype} />
 											</MenuItem>
 										))}
 								</Select>
@@ -432,11 +439,19 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 									value={formData.methodOfReceipt}
 									onChange={handleFormSelectChange}>
 									<MenuItem value=''>{t('pages.events.placeholders.methodOfReceipt')}</MenuItem>
-									{methodsOfReceipt.map((option, index) => (
-										<MenuItem key={index} value={option}>
-											{option}
-										</MenuItem>
-									))}
+									{methodsOfReceipt.map(
+										(
+											option: {
+												key: string
+												value: string
+											},
+											index: number,
+										) => (
+											<MenuItem key={index} value={option.key}>
+												{option.value}
+											</MenuItem>
+										),
+									)}
 								</Select>
 							</FormControl>
 						</Grid>
@@ -510,11 +525,19 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 										select
 										value={formData.state}
 										onChange={handleFormChange}>
-										{states.map((state) => (
-											<MenuItem key={state} value={state}>
-												{state}
-											</MenuItem>
-										))}
+										{states.map(
+											(
+												option: {
+													key: string
+													value: string
+												},
+												index: number,
+											) => (
+												<MenuItem key={index} value={option.key}>
+													{option.value}
+												</MenuItem>
+											),
+										)}
 									</TextField>
 								</Grid>
 								<Grid item xs={3}>
@@ -555,11 +578,19 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 										select
 										value={formData.country}
 										onChange={handleFormChange}>
-										{countries.map((country) => (
-											<MenuItem key={country} value={country}>
-												{country}
-											</MenuItem>
-										))}
+										{countries.map(
+											(
+												option: {
+													key: string
+													value: string
+												},
+												index: number,
+											) => (
+												<MenuItem key={index} value={option.key}>
+													{option.value}
+												</MenuItem>
+											),
+										)}
 									</TextField>
 								</Grid>
 							</Grid>

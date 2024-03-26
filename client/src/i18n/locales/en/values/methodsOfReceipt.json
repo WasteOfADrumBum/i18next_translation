@@ -1,0 +1,12 @@
+{
+	"phone": "Phone",
+	"email": "Email",
+	"mail": "Mail",
+	"fax": "Fax",
+	"inPerson": "In-person",
+	"textMessage": "Text message",
+	"onlinePortal": "Online portal",
+	"mobileAppNotification": "Mobile app notification",
+	"courierDelivery": "Courier delivery",
+	"videoCall": "Video call"
+}

@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { HeaderContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { readEntity } from '../../store/actions/mongodb/entityActions'
-import { GetCountryAbbreviation, GetStateAbbreviation, TimeConversionsHelper } from '../../utils'
+import { getCountryAbbreviation, getStateAbbreviation, getTimeConversion } from '../../utils'
 
 const EntityDetailsView: FC = () => {
 	const { t } = useTranslation()
@@ -113,7 +113,7 @@ const EntityDetailsView: FC = () => {
 								</Typography>
 								<Typography variant='body2'>
 									{entity?.person.dob
-										? TimeConversionsHelper.convertTime(t, entity?.person.dob, 'MM/DD/YYYY', false, 'UTC')
+										? getTimeConversion.convertTime(t, entity?.person.dob, 'MM/DD/YYYY', false, 'UTC')
 										: t('pages.entities.fields.person.dob') + ' ' + t('common.statusIndicator.notAvailable')}
 									{entity?.person.age ||
 										t('pages.entities.fields.person.age') + ' ' + t('common.statusIndicator.notAvailable')}
@@ -151,7 +151,7 @@ const EntityDetailsView: FC = () => {
 								</Typography>
 								<Typography variant='body2'>
 									{entity?.person.identification.passportCountry &&
-										GetCountryAbbreviation(entity?.person.identification.passportCountry) + ' '}
+										getCountryAbbreviation(entity?.person.identification.passportCountry) + ' '}
 									{entity?.person.identification.passportNumber ||
 										t('pages.entities.fields.person.identification.passportNumber') +
 											' ' +
@@ -164,7 +164,7 @@ const EntityDetailsView: FC = () => {
 								</Typography>
 								<Typography variant='body2'>
 									{entity?.person.identification.driverLicenseState &&
-										GetStateAbbreviation(entity?.person.identification.driverLicenseState) + ' '}
+										getStateAbbreviation(entity?.person.identification.driverLicenseState) + ' '}
 									{entity?.person.identification.driverLicenseNumber ||
 										t('pages.entities.fields.person.identification.driverLicenseNumber') +
 											' ' +
@@ -193,7 +193,7 @@ const EntityDetailsView: FC = () => {
 											t('common.statusIndicator.notAvailable')}
 									{entity?.person.identification.visaType &&
 										entity?.person.identification.visaExpiryDate &&
-										` (${t('common.statusIndicator.expires')}: ${TimeConversionsHelper.convertTime(t, entity?.person.identification.visaExpiryDate, 'MM/DD/YYYY', false, 'UTC')})`}
+										` (${t('common.statusIndicator.expires')}: ${getTimeConversion.convertTime(t, entity?.person.identification.visaExpiryDate, 'MM/DD/YYYY', false, 'UTC')})`}
 								</Typography>
 							</Grid>
 							{(entity?.person.identification.isIllegalResident && (
@@ -261,13 +261,7 @@ const EntityDetailsView: FC = () => {
 								</Typography>
 								<Typography variant='body2'>
 									{entity?.person.employment.hireDate
-										? TimeConversionsHelper.convertTime(
-												t,
-												entity?.person.employment.hireDate,
-												'MM/DD/YYYY',
-												false,
-												'UTC',
-											)
+										? getTimeConversion.convertTime(t, entity?.person.employment.hireDate, 'MM/DD/YYYY', false, 'UTC')
 										: t('pages.entities.fields.person.employment.hireDate') +
 											' ' +
 											t('common.statusIndicator.notAvailable')}
@@ -327,7 +321,7 @@ const EntityDetailsView: FC = () => {
 								</Typography>
 								<Typography variant='body2'>
 									{entity?.organization.legal.incorporationDate
-										? TimeConversionsHelper.convertTime(
+										? getTimeConversion.convertTime(
 												t,
 												entity?.organization.legal.incorporationDate,
 												'MM/DD/YYYY',
@@ -409,10 +403,10 @@ const EntityDetailsView: FC = () => {
 						<Typography variant='body2'>
 							{entity?.address.city || ''}
 							{entity?.address.state && ', '}
-							{GetStateAbbreviation(entity?.address.state || '')} {entity?.address.zip || ''}
+							{getStateAbbreviation(entity?.address.state || '')} {entity?.address.zip || ''}
 						</Typography>
 						<Typography variant='body2'>
-							{GetCountryAbbreviation(entity?.address.country || '')}{' '}
+							{getCountryAbbreviation(entity?.address.country || '')}{' '}
 							{entity?.address.county && `(${entity?.address.county} ${t('pages.entities.fields.address.county')})`}
 						</Typography>
 						<Typography variant='body2'></Typography>

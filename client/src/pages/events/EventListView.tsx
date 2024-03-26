@@ -9,7 +9,7 @@ import { HeaderContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { getEvents } from '../../store/actions/mongodb/eventActions'
 import { Event } from '../../store/types/EventTypes'
-import { ExtractLastFiveDigits, GetCountryAbbreviation, GetStateAbbreviation, TimeConversionsHelper } from '../../utils'
+import { getCountryAbbreviation, getLastFiveDigits, getStateAbbreviation, getTimeConversion } from '../../utils'
 
 const EventListView: FC = () => {
 	const { t } = useTranslation()
@@ -83,7 +83,7 @@ const EventListView: FC = () => {
 			id: '_id',
 			label: t('pages.events.fields.id'),
 			render: (data: Event) => (
-				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common.statusIndicator.na')}</Typography>
+				<Typography>{data._id ? getLastFiveDigits(data._id) : t('common.statusIndicator.na')}</Typography>
 			),
 		},
 		{
@@ -123,7 +123,7 @@ const EventListView: FC = () => {
 			render: (data: Event) => (
 				<Typography>
 					{data.location
-						? `${data.location.city}, ${GetStateAbbreviation(data.location.state)}, ${GetCountryAbbreviation(
+						? `${data.location.city}, ${getStateAbbreviation(data.location.state)}, ${getCountryAbbreviation(
 								data.location.country,
 							)}`
 						: t('common.statusIndicator.na')}
@@ -144,21 +144,21 @@ const EventListView: FC = () => {
 				<Typography>
 					{t('pages.events.titles.reported')}:{' '}
 					{data.reported
-						? TimeConversionsHelper.convertTime(t, data.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC') +
+						? getTimeConversion.convertTime(t, data.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC') +
 							` ${t('common.prepositions.by')} ` +
 							(data.reported.reporter ? data.reported.reporter : t('common.statusIndicator.na'))
 						: t('common.statusIndicator.na')}
 					<br />
 					{t('pages.events.titles.submitted')}:{' '}
 					{data.submitted
-						? TimeConversionsHelper.convertTime(t, data.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC') +
+						? getTimeConversion.convertTime(t, data.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC') +
 							` ${t('common.prepositions.by')} ` +
 							(data.submitted.submittedBy ? data.submitted.submittedBy : t('common.statusIndicator.na'))
 						: t('common.statusIndicator.na')}
 					<br />
 					{t('pages.events.titles.updated')}:{' '}
 					{data.updated
-						? TimeConversionsHelper.convertTime(t, data.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC') +
+						? getTimeConversion.convertTime(t, data.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC') +
 							` ${t('common.prepositions.by')} ` +
 							(data.updated.updatedBy ? data.updated.updatedBy : t('common.statusIndicator.na'))
 						: t('common.statusIndicator.na')}

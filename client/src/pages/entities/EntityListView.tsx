@@ -9,7 +9,7 @@ import { HeaderContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { Entity } from '../../store/types/EntityTypes'
-import { ExtractLastFiveDigits, GetCountryAbbreviation, getEntitiesByEventId, GetStateAbbreviation } from '../../utils'
+import { getCountryAbbreviation, getEntitiesByEventId, getLastFiveDigits, getStateAbbreviation } from '../../utils'
 
 const EntityListView: FC = () => {
 	const { t } = useTranslation()
@@ -93,7 +93,7 @@ const EntityListView: FC = () => {
 			id: '_id',
 			label: t('pages.entities.fields.id'),
 			render: (data: Entity) => (
-				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common.statusIndicatorT.na')}</Typography>
+				<Typography>{data._id ? getLastFiveDigits(data._id) : t('common.statusIndicatorT.na')}</Typography>
 			),
 		},
 		{
@@ -125,7 +125,7 @@ const EntityListView: FC = () => {
 			render: (data: Entity) => (
 				<Typography>
 					{data.address
-						? `${data.address.city}, ${GetStateAbbreviation(data.address.state || t('common.statusIndicatorT.na'))}, ${GetCountryAbbreviation(
+						? `${data.address.city}, ${getStateAbbreviation(data.address.state || t('common.statusIndicatorT.na'))}, ${getCountryAbbreviation(
 								data.address.country || t('common.statusIndicatorT.na'),
 							)}`
 						: t('common.statusIndicatorT.na')}

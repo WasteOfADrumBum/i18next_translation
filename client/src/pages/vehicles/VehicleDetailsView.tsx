@@ -7,7 +7,7 @@ import { HeaderContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { readVehicle } from '../../store/actions/mongodb/vehicleActions'
-import { TimeConversionsHelper } from '../../utils'
+import { getTimeConversion } from '../../utils'
 
 const VehicleDetailsView: FC = () => {
 	const { t } = useTranslation()
@@ -213,13 +213,7 @@ const VehicleDetailsView: FC = () => {
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.registration?.expirationDate
-								? TimeConversionsHelper.convertTime(
-										t,
-										vehicle?.registration?.expirationDate,
-										'MM/DD/YYYY',
-										false,
-										'UTC',
-									)
+								? getTimeConversion.convertTime(t, vehicle?.registration?.expirationDate, 'MM/DD/YYYY', false, 'UTC')
 								: t('pages.vehicles.fields.registration.expirationDate') +
 									' ' +
 									t('common.statusIndicator.notAvailable')}
@@ -256,7 +250,7 @@ const VehicleDetailsView: FC = () => {
 						</Typography>
 						<Typography variant='body2'>
 							{vehicle?.insurance?.expirationDate
-								? TimeConversionsHelper.convertTime(t, vehicle?.insurance?.expirationDate, 'MM/DD/YYYY', false, 'UTC')
+								? getTimeConversion.convertTime(t, vehicle?.insurance?.expirationDate, 'MM/DD/YYYY', false, 'UTC')
 								: t('pages.vehicles.fields.insurance.expirationDate') + ' ' + t('common.statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>

@@ -33,7 +33,7 @@ import { HeaderContext } from '../../contexts'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { createVehicle, readVehicle, updateVehicle } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
-import { states, vehicleColors, vehicleMakes, vehicleModels } from '../../utils'
+import { getStates, getVehicleColors, getVehicleMakes, getVehicleModels } from '../../utils'
 
 interface VehicleInputFormProps {
 	vehicleValues?: VehicleFormData
@@ -448,6 +448,12 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 		)
 	}
 
+	// Get value providers
+	const vehicleMakes = getVehicleMakes()
+	const vehicleModels = getVehicleModels()
+	const vehicleColors = getVehicleColors()
+	const states = getStates()
+
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<Container>
@@ -497,8 +503,8 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									onChange={handleFormConditionalSelectChange}>
 									<MenuItem value=''>{t('pages.vehicles.placeholders.make')}</MenuItem>
 									{vehicleMakes.map((option, index) => (
-										<MenuItem key={index} value={option}>
-											{option}
+										<MenuItem key={index} value={option.key}>
+											{option.value}
 										</MenuItem>
 									))}
 								</Select>
@@ -540,8 +546,8 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 									onChange={handleFormConditionalSelectChange}>
 									<MenuItem value=''>{t('pages.vehicles.placeholders.color')}</MenuItem>
 									{vehicleColors.map((option, index) => (
-										<MenuItem key={index} value={option}>
-											{option}
+										<MenuItem key={index} value={option.key}>
+											{option.value}
 										</MenuItem>
 									))}
 								</Select>
@@ -660,9 +666,9 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								select
 								value={formData.registrationState}
 								onChange={handleFormSelectChange}>
-								{states.map((state) => (
-									<MenuItem key={state} value={state}>
-										{state}
+								{states.map((option, index) => (
+									<MenuItem key={index} value={option.key}>
+										{option.value}
 									</MenuItem>
 								))}
 							</TextField>

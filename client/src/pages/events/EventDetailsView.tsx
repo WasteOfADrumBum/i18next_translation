@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { HeaderContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { readEvent } from '../../store/actions/mongodb/eventActions'
-import { TimeConversionsHelper } from '../../utils'
+import { getTimeConversion } from '../../utils'
 
 const EventDetailsView: FC = () => {
 	const { t } = useTranslation()
@@ -49,7 +49,7 @@ const EventDetailsView: FC = () => {
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
 							{event?.submitted?.submittedDate
-								? TimeConversionsHelper.convertTime(t, event?.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')
+								? getTimeConversion.convertTime(t, event?.submitted.submittedDate, 'MM/DD/YYYY', false, 'UTC')
 								: t('pages.events.fields.submitted.submittedDate') + ' ' + t('common.statusIndicator.na')}{' '}
 							{t('common.prepositions.by')}{' '}
 							{event?.submitted?.submittedBy ||
@@ -62,7 +62,7 @@ const EventDetailsView: FC = () => {
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
 							{event?.reported?.reportedDate
-								? TimeConversionsHelper.convertTime(t, event?.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC')
+								? getTimeConversion.convertTime(t, event?.reported.reportedDate, 'MM/DD/YYYY', false, 'UTC')
 								: t('pages.events.fields.reported.reportedDate') + ' ' + t('common.statusIndicator.na')}{' '}
 							{t('common.prepositions.by')}{' '}
 							{event?.reported?.reporter ||
@@ -75,7 +75,7 @@ const EventDetailsView: FC = () => {
 					<Grid item xs={6}>
 						<Typography variant='caption' color='primary'>
 							{event?.updated?.updatedDate
-								? TimeConversionsHelper.convertTime(t, event?.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC')
+								? getTimeConversion.convertTime(t, event?.updated.updatedDate, 'MM/DD/YYYY', false, 'UTC')
 								: t('pages.events.fields.updated.updatedDate') + ' ' + t('common.statusIndicator.na')}{' '}
 							{t('common.prepositions.by')}{' '}
 							{event?.updated?.updatedBy ||

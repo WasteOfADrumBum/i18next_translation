@@ -1,0 +1,154 @@
+{
+	"eventTypes": {
+		"Accident": "Accident",
+		"Crime": "Crime",
+		"Death": "Death",
+		"Natural Disaster": "Natural Disaster",
+		"Health Emergency": "Health Emergency",
+		"Other": "Other"
+	},
+	"eventSubTypes": {
+		"Accident": {
+			"Car Crash": "Car Crash",
+			"Slip and Fall": "Slip and Fall",
+			"Workplace Accident": "Workplace Accident",
+			"Sports Injury": "Sports Injury"
+		},
+		"Crime": {
+			"Theft": "Theft",
+			"Assault": "Assault",
+			"Burglary": "Burglary",
+			"Vandalism": "Vandalism"
+		},
+		"Death": {
+			"Suicide": "Suicide",
+			"Homicide": "Homicide",
+			"Accidental Death": "Accidental Death",
+			"Natural Death": "Natural Death"
+		},
+		"Natural Disaster": {
+			"Earthquake": "Earthquake",
+			"Flood": "Flood",
+			"Hurricane": "Hurricane",
+			"Wildfire": "Wildfire"
+		},
+		"Health Emergency": {
+			"COVID-19 Outbreak": "COVID-19 Outbreak",
+			"Epidemic/Pandemic": "Epidemic/Pandemic",
+			"Biological Hazard": "Biological Hazard",
+			"Chemical Spill": "Chemical Spill"
+		}
+	},
+	"tags": {
+		"Accident": {
+			"Car Crash": {
+				"Car Accident": "Car Accident",
+				"Traffic": "Traffic",
+				"Vehicle": "Vehicle"
+			},
+			"Slip and Fall": {
+				"Injury": "Injury",
+				"Accident": "Accident",
+				"Fall": "Fall"
+			},
+			"Workplace Accident": {
+				"Workplace": "Workplace",
+				"Injury": "Injury",
+				"Accident": "Accident"
+			},
+			"Sports Injury": {
+				"Sports": "Sports",
+				"Injury": "Injury",
+				"Accident": "Accident"
+			}
+		},
+		"Crime": {
+			"Theft": {
+				"Theft": "Theft",
+				"Property Crime": "Property Crime",
+				"Stolen": "Stolen"
+			},
+			"Assault": {
+				"Assault": "Assault",
+				"Violence": "Violence",
+				"Attack": "Attack"
+			},
+			"Burglary": {
+				"Burglary": "Burglary",
+				"Break-in": "Break-in",
+				"Robbery": "Robbery"
+			},
+			"Vandalism": {
+				"Vandalism": "Vandalism",
+				"Damage": "Damage",
+				"Property Crime": "Property Crime"
+			}
+		},
+		"Death": {
+			"Suicide": {
+				"Suicide": "Suicide",
+				"Mental Health": "Mental Health",
+				"Self-harm": "Self-harm"
+			},
+			"Homicide": {
+				"Homicide": "Homicide",
+				"Murder": "Murder",
+				"Crime": "Crime"
+			},
+			"Accidental Death": {
+				"Accidental Death": "Accidental Death",
+				"Unintentional": "Unintentional",
+				"Fatal": "Fatal"
+			},
+			"Natural Death": {
+				"Natural Death": "Natural Death",
+				"Passing Away": "Passing Away",
+				"Death": "Death"
+			}
+		},
+		"Natural Disaster": {
+			"Earthquake": {
+				"Earthquake": "Earthquake",
+				"Seismic": "Seismic",
+				"Disaster": "Disaster"
+			},
+			"Flood": {
+				"Flood": "Flood",
+				"Flooding": "Flooding",
+				"Water Damage": "Water Damage"
+			},
+			"Hurricane": {
+				"Hurricane": "Hurricane",
+				"Storm": "Storm",
+				"Weather": "Weather"
+			},
+			"Wildfire": {
+				"Wildfire": "Wildfire",
+				"Forest Fire": "Forest Fire",
+				"Fire": "Fire"
+			}
+		},
+		"Health Emergency": {
+			"COVID-19 Outbreak": {
+				"COVID-19": "COVID-19",
+				"Pandemic": "Pandemic",
+				"Health Crisis": "Health Crisis"
+			},
+			"Epidemic/Pandemic": {
+				"Epidemic": "Epidemic",
+				"Pandemic": "Pandemic",
+				"Health Crisis": "Health Crisis"
+			},
+			"Biological Hazard": {
+				"Biological Hazard": "Biological Hazard",
+				"Health Emergency": "Health Emergency",
+				"Outbreak": "Outbreak"
+			},
+			"Chemical Spill": {
+				"Chemical Spill": "Chemical Spill",
+				"Hazardous Material": "Hazardous Material",
+				"Environmental": "Environmental"
+			}
+		}
+	}
+}

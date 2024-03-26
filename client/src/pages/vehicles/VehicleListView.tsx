@@ -10,7 +10,7 @@ import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { getVehicles } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
-import { ExtractLastFiveDigits, getVehiclesByEventId } from '../../utils'
+import { getLastFiveDigits, getVehiclesByEventId } from '../../utils'
 
 const VehicleListView: FC = () => {
 	const { t } = useTranslation()
@@ -131,7 +131,7 @@ const VehicleListView: FC = () => {
 			id: '_id',
 			label: t('pages.vehicles.fields.id'),
 			render: (data: Vehicle) => (
-				<Typography>{data._id ? ExtractLastFiveDigits(data._id) : t('common.statusIndicator.na')}</Typography>
+				<Typography>{data._id ? getLastFiveDigits(data._id) : t('common.statusIndicator.na')}</Typography>
 			),
 		},
 		{

@@ -1,6 +1,6 @@
 // Example Usage:
 // const countryName = 'United States of America'
-// const abbreviation = GetCountryAbbreviation(countryName)
+// const abbreviation = getCountryAbbreviation(countryName)
 // console.log(`${countryName} abbreviation is ${abbreviation}`)
 
 const countryAbbreviations: { [key: string]: string } = {
@@ -201,6 +201,6 @@ const countryAbbreviations: { [key: string]: string } = {
 	'Zimbabwe': 'ZW',
 }
 
-export const GetCountryAbbreviation = (country: string): string | undefined => {
+export const getCountryAbbreviation = (country: string): string | undefined => {
 	return countryAbbreviations[country]
 }

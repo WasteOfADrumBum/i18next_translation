@@ -29,13 +29,13 @@ import { HeaderContext } from '../../contexts'
 import { createEntity, readEntity, updateEntity } from '../../store/actions/mongodb/entityActions'
 import { Entity } from '../../store/types/EntityTypes'
 import {
-	businessLegalEntityTypes,
-	businessLegalStatus,
-	countries,
-	employmentStatus,
-	entityTypes,
-	nativeLanguages,
-	states,
+	getBusinessLegalEntityTypes,
+	getBusinessLegalStatuses,
+	getCountries,
+	getEmploymentStatuses,
+	getEntityTypes,
+	getNativeLanguages,
+	getStates,
 } from '../../utils'
 
 interface EntityInputFormProps {
@@ -325,6 +325,15 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 		}))
 	}, [formData.personDob])
 
+	// Get value providers
+	const states = getStates()
+	const countries = getCountries()
+	const entityTypes = getEntityTypes()
+	const employmentStatus = getEmploymentStatuses()
+	const nativeLanguages = getNativeLanguages()
+	const businessLegalEntityTypes = getBusinessLegalEntityTypes()
+	const businessLegalStatus = getBusinessLegalStatuses()
+
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs}>
 			<Container>
@@ -355,8 +364,8 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 									onChange={handleFormSelectChange}>
 									<MenuItem value=''>Select a Entity Type</MenuItem>
 									{entityTypes.map((option, index) => (
-										<MenuItem key={index} value={option}>
-											{option}
+										<MenuItem key={index} value={option.key}>
+											{option.value}
 										</MenuItem>
 									))}
 								</Select>
@@ -396,8 +405,8 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 													onChange={handleFormSelectChange}>
 													<MenuItem value=''>Select a Legal Entity Type</MenuItem>
 													{businessLegalEntityTypes.map((option, index) => (
-														<MenuItem key={index} value={option}>
-															{option}
+														<MenuItem key={index} value={option.key}>
+															{option.value}
 														</MenuItem>
 													))}
 												</Select>
@@ -416,8 +425,8 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 													onChange={handleFormSelectChange}>
 													<MenuItem value=''>Select a Legal Status</MenuItem>
 													{businessLegalStatus.map((option, index) => (
-														<MenuItem key={index} value={option}>
-															{option}
+														<MenuItem key={index} value={option.key}>
+															{option.value}
 														</MenuItem>
 													))}
 												</Select>
@@ -536,8 +545,8 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 													onChange={handleFormSelectChange}>
 													<MenuItem value=''>Select a Native Language</MenuItem>
 													{nativeLanguages.map((option, index) => (
-														<MenuItem key={index} value={option}>
-															{option}
+														<MenuItem key={index} value={option.key}>
+															{option.value}
 														</MenuItem>
 													))}
 												</Select>
@@ -592,11 +601,19 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 													value={formData.personIdentificationPassportCountry || ''}
 													onChange={handleFormSelectChange}>
 													<MenuItem value=''>Select a Passport Country</MenuItem>
-													{countries.map((option, index) => (
-														<MenuItem key={index} value={option}>
-															{option}
-														</MenuItem>
-													))}
+													{countries.map(
+														(
+															option: {
+																key: string
+																value: string
+															},
+															index: number,
+														) => (
+															<MenuItem key={index} value={option.key}>
+																{option.value}
+															</MenuItem>
+														),
+													)}
 												</Select>
 											</FormControl>
 										</Grid>
@@ -623,8 +640,8 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 													onChange={handleFormSelectChange}>
 													<MenuItem value=''>Select a Driver License State</MenuItem>
 													{states.map((option, index) => (
-														<MenuItem key={index} value={option}>
-															{option}
+														<MenuItem key={index} value={option.key}>
+															{option.value}
 														</MenuItem>
 													))}
 												</Select>
@@ -745,8 +762,8 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 													onChange={handleFormSelectChange}>
 													<MenuItem value=''>Select an Employment Status</MenuItem>
 													{employmentStatus.map((option, index) => (
-														<MenuItem key={index} value={option}>
-															{option}
+														<MenuItem key={index} value={option.key}>
+															{option.value}
 														</MenuItem>
 													))}
 												</Select>
@@ -843,8 +860,8 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 									onChange={handleFormSelectChange}>
 									<MenuItem value=''>Select a State</MenuItem>
 									{states.map((option, index) => (
-										<MenuItem key={index} value={option}>
-											{option}
+										<MenuItem key={index} value={option.key}>
+											{option.value}
 										</MenuItem>
 									))}
 								</Select>
@@ -890,8 +907,8 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 									onChange={handleFormSelectChange}>
 									<MenuItem value=''>Select a Country</MenuItem>
 									{countries.map((option, index) => (
-										<MenuItem key={index} value={option}>
-											{option}
+										<MenuItem key={index} value={option.key}>
+											{option.value}
 										</MenuItem>
 									))}
 								</Select>
