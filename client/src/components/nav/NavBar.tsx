@@ -76,7 +76,7 @@ const NavBar: FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) =>
 								{t('common.dashboard.dashboard')}
 							</MenuItem>
 							<MenuItem onClick={handleClose} component={Link} to='/analytics'>
-								Event Analytics
+								Event Analytics {/* TODO: Add Translation */}
 							</MenuItem>
 						</span>
 					)}
