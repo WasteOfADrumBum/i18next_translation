@@ -71,9 +71,14 @@ const NavBar: FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) =>
 					open={open}
 					onClose={handleClose}>
 					{loginState && (
-						<MenuItem onClick={handleClose} component={Link} to='/dashboard'>
-							{t('common.dashboard.dashboard')}
-						</MenuItem>
+						<span>
+							<MenuItem onClick={handleClose} component={Link} to='/dashboard'>
+								{t('common.dashboard.dashboard')}
+							</MenuItem>
+							<MenuItem onClick={handleClose} component={Link} to='/analytics'>
+								Event Analytics
+							</MenuItem>
+						</span>
 					)}
 					{!loginState && (
 						<span>

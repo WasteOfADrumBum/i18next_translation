@@ -11,6 +11,7 @@ import {
 	EntityDetailsView,
 	EntityInputForm,
 	EntityListView,
+	EventAnalyticsDetailsView,
 	EventDetailsView,
 	EventInputForm,
 	EventListView,
@@ -185,6 +186,11 @@ function App() {
 							<Route
 								path='/users/:userId'
 								element={<PrivateRoute element={<UserDetailsView />} isAuthenticated={isAuthenticated} />}
+							/>
+							{/* Event Analytics */}
+							<Route
+								path='analytics'
+								element={<PrivateRoute element={<EventAnalyticsDetailsView />} isAuthenticated={isAuthenticated} />}
 							/>
 							{/* Catch-all route for 404 */}
 							<Route path='*' element={<NotFound />} />
