@@ -10,7 +10,7 @@ import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { getVehicles } from '../../store/actions/mongodb/vehicleActions'
 import { Vehicle } from '../../store/types/VehicleTypes'
-import { getLastFiveDigits, getVehiclesByEventId } from '../../utils'
+import { getLastFiveDigits } from '../../utils'
 
 const VehicleListView: FC = () => {
 	const { t } = useTranslation()
@@ -28,7 +28,7 @@ const VehicleListView: FC = () => {
 	const { vehicles, loading, error } = useSelector((state: RootState) => state.vehicles)
 
 	// Make a new array of vehicles that are associated with the current event
-	const eventVehicles = getVehiclesByEventId(vehicles, eventId ?? '')
+	const eventVehicles = vehicles.filter((vehicle) => vehicle.parent._id === eventId)
 
 	// Fetch entities from Redux store
 	useEffect(() => {
@@ -85,7 +85,7 @@ const VehicleListView: FC = () => {
 							</Grid>
 							<Grid item xs={6}>
 								<Typography variant='caption' color={'primary'}>
-									{vehicles.length}
+									{eventVehicles.length}
 								</Typography>
 							</Grid>
 						</>
