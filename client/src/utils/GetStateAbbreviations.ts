@@ -56,6 +56,6 @@ const stateAbbreviations: { [key: string]: string } = {
 	'Wyoming': 'WY',
 }
 
-export const getStateAbbreviation = (state: string): string | undefined => {
+export const getStateAbbreviations = (state: string): string | undefined => {
 	return stateAbbreviations[state]
 }

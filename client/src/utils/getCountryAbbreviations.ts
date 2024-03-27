@@ -201,6 +201,6 @@ const countryAbbreviations: { [key: string]: string } = {
 	'Zimbabwe': 'ZW',
 }
 
-export const getCountryAbbreviation = (country: string): string | undefined => {
+export const getCountryAbbreviations = (country: string): string | undefined => {
 	return countryAbbreviations[country]
 }
