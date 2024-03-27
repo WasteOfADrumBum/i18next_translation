@@ -1,6 +1,6 @@
 // Example Usage:
 // const countryName = 'United States of America'
-// const abbreviation = getCountryAbbreviation(countryName)
+// const abbreviation = getCountryAbbreviations(countryName)
 // console.log(`${countryName} abbreviation is ${abbreviation}`)
 
 const countryAbbreviations: { [key: string]: string } = {

@@ -9,7 +9,7 @@ import { HeaderContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { getEvents } from '../../store/actions/mongodb/eventActions'
 import { Event } from '../../store/types/EventTypes'
-import { getCountryAbbreviation, getLastFiveDigits, getStateAbbreviation, getTimeConversion } from '../../utils'
+import { getCountryAbbreviations, getLastFiveDigits, getStateAbbreviations, getTimeConversion } from '../../utils'
 
 const EventListView: FC = () => {
 	const { t } = useTranslation()
@@ -123,7 +123,7 @@ const EventListView: FC = () => {
 			render: (data: Event) => (
 				<Typography>
 					{data.location
-						? `${data.location.city}, ${getStateAbbreviation(data.location.state)}, ${getCountryAbbreviation(
+						? `${data.location.city}, ${getStateAbbreviations(data.location.state)}, ${getCountryAbbreviations(
 								data.location.country,
 							)}`
 						: t('common.statusIndicator.na')}

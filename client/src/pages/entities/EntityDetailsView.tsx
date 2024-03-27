@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { HeaderContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { readEntity } from '../../store/actions/mongodb/entityActions'
-import { getCountryAbbreviation, getStateAbbreviation, getTimeConversion } from '../../utils'
+import { getCountryAbbreviations, getStateAbbreviations, getTimeConversion } from '../../utils'
 
 const EntityDetailsView: FC = () => {
 	const { t } = useTranslation()
@@ -151,7 +151,7 @@ const EntityDetailsView: FC = () => {
 								</Typography>
 								<Typography variant='body2'>
 									{entity?.person.identification.passportCountry &&
-										getCountryAbbreviation(entity?.person.identification.passportCountry) + ' '}
+										getCountryAbbreviations(entity?.person.identification.passportCountry) + ' '}
 									{entity?.person.identification.passportNumber ||
 										t('pages.entities.fields.person.identification.passportNumber') +
 											' ' +
@@ -164,7 +164,7 @@ const EntityDetailsView: FC = () => {
 								</Typography>
 								<Typography variant='body2'>
 									{entity?.person.identification.driverLicenseState &&
-										getStateAbbreviation(entity?.person.identification.driverLicenseState) + ' '}
+										getStateAbbreviations(entity?.person.identification.driverLicenseState) + ' '}
 									{entity?.person.identification.driverLicenseNumber ||
 										t('pages.entities.fields.person.identification.driverLicenseNumber') +
 											' ' +
@@ -403,10 +403,10 @@ const EntityDetailsView: FC = () => {
 						<Typography variant='body2'>
 							{entity?.address.city || ''}
 							{entity?.address.state && ', '}
-							{getStateAbbreviation(entity?.address.state || '')} {entity?.address.zip || ''}
+							{getStateAbbreviations(entity?.address.state || '')} {entity?.address.zip || ''}
 						</Typography>
 						<Typography variant='body2'>
-							{getCountryAbbreviation(entity?.address.country || '')}{' '}
+							{getCountryAbbreviations(entity?.address.country || '')}{' '}
 							{entity?.address.county && `(${entity?.address.county} ${t('pages.entities.fields.address.county')})`}
 						</Typography>
 						<Typography variant='body2'></Typography>

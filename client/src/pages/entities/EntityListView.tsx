@@ -9,7 +9,7 @@ import { HeaderContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { getEntities } from '../../store/actions/mongodb/entityActions'
 import { Entity } from '../../store/types/EntityTypes'
-import { getCountryAbbreviation, getEntitiesByEventId, getLastFiveDigits, getStateAbbreviation } from '../../utils'
+import { getCountryAbbreviations, getEntitiesByEventId, getLastFiveDigits, getStateAbbreviations } from '../../utils'
 
 const EntityListView: FC = () => {
 	const { t } = useTranslation()
@@ -125,7 +125,7 @@ const EntityListView: FC = () => {
 			render: (data: Entity) => (
 				<Typography>
 					{data.address
-						? `${data.address.city}, ${getStateAbbreviation(data.address.state || t('common.statusIndicatorT.na'))}, ${getCountryAbbreviation(
+						? `${data.address.city}, ${getStateAbbreviations(data.address.state || t('common.statusIndicatorT.na'))}, ${getCountryAbbreviations(
 								data.address.country || t('common.statusIndicatorT.na'),
 							)}`
 						: t('common.statusIndicatorT.na')}
