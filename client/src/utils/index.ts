@@ -1,5 +1,5 @@
 export { getEntitiesByEventId, getVehiclesByEventId } from './filters/filters'
-export { getCountryAbbreviations } from ./getCountryAbbreviationsns'
+export { getCountryAbbreviations } from './getCountryAbbreviations'
 export { getLastFiveDigits } from './getLastFiveDigits'
 export { getStateAbbreviations } from './getStateAbbreviations'
 export { getTimeConversion } from './getTimeConversion'
