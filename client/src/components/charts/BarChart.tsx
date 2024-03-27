@@ -51,8 +51,9 @@ const BarChart: FC<BarChartProps> = ({ labels, datasets, colors, vertical, title
 		labels: labels,
 		datasets: datasets.map((dataset, index) => ({
 			...dataset,
-			backgroundColor: colorsWithOpacity[index % colorsWithOpacity.length], // Cycle through colorsWithOpacity array
-			borderColor: colorsWithOpacity[index % colorsWithOpacity.length], // Cycle through colorsWithOpacity array
+			// Cycle through colorsWithOpacity array
+			backgroundColor: colorsWithOpacity[index % colorsWithOpacity.length],
+			borderColor: colorsWithOpacity[index % colorsWithOpacity.length],
 		})),
 	}
 
