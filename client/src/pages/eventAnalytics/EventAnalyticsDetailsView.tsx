@@ -1,25 +1,16 @@
-import { capitalize, Divider, Grid, Typography } from '@mui/material'
+import { Container, Divider, Grid, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { HeaderContext } from '../../contexts'
+import { PieChart } from '../../components'
+import { HeaderContext, ThemeContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { getEvents } from '../../store/actions/mongodb/eventActions'
-import { Event } from '../../store/types/EventTypes'
 
 const EventAnalyticsDetailsView: FC = () => {
-	// TODO: EventAnalyticsDetailsView tasks
-	// * Add Translations
-	// * Setup Header
-	// * Add Stats/Chart for dynamically displaying the occurance of events based on month and year (Reported Date)
-	// * Add Stats/Chart for dynamically displaying the occurance of events based on event type
-	// * Add Stats/Chart for dynamically displaying the occurance of events based on event sub-type
-	// * Add Stats/Chart for dynamically displaying the occurance of events based on event country and us states
-	// * Add Stats/Chart for dynamically displaying the occurance of events based on method of reciept
-	// * Add Stats/Chart for dynamically displaying the occurance of events based on tags
-
 	const { t } = useTranslation()
 	const { setHeaderData } = useContext(HeaderContext)
+	const isDarkTheme = useContext(ThemeContext)
 	const dispatch: AppDispatch = useDispatch()
 
 	// Fetch events from Redux store
@@ -33,22 +24,25 @@ const EventAnalyticsDetailsView: FC = () => {
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
-			header: t('pages.events.header.title.all'),
-			subheader: t('pages.events.header.subtitle.all'),
+			header: 'Event Analytics', // TODO: Add Translation
+			subheader: 'Event Analytics Details', // TODO: Add Translation
 			extraContent: (
 				/* TODO: Fix this formatting to match others */
-				<Grid container spacing={1} direction='column' alignItems='flex-start'>
-					<Grid item>
-						<Typography>Event Analytics {/* TODO: Add Translation */}</Typography>
+				<Grid container spacing={1}>
+					<Grid item xs={12}>
+						<Typography>Event Analytics{/* TODO: Add Translation */}</Typography>
+					</Grid>
+					<Grid item xs={12}>
 						<Divider />
 					</Grid>
-					{getEventStatusCounts(events).map(({ status, count }) => (
-						<Grid item key={status}>
-							<Typography>
-								{capitalize(status)}: {count}
-							</Typography>
-						</Grid>
-					))}
+					<Grid item xs={6}>
+						<Typography variant='caption'>Total Events:{/* TODO: Add Translation */}</Typography>
+					</Grid>
+					<Grid item xs={6}>
+						<Typography variant='caption' color='primary'>
+							{events.length}
+						</Typography>
+					</Grid>
 				</Grid>
 			),
 		})
@@ -63,16 +57,183 @@ const EventAnalyticsDetailsView: FC = () => {
 		}
 	}, [setHeaderData, events, t])
 
-	const getEventStatusCounts = (events: Event[]) => {
-		const statusCounts: { [key: string]: number } = {}
-		events.forEach((event) => {
-			const status = event.status.toLowerCase()
-			statusCounts[status] = (statusCounts[status] || 0) + 1
-		})
-		return Object.entries(statusCounts).map(([status, count]) => ({ status, count }))
-	}
+	// Calculate the total number of events
+	const totalEvents = events.length
 
-	return <></>
+	// Calculate the total number of events reported by each month of each year
+	const monthlyEvents = events.reduce(
+		(acc, event) => {
+			const reportedDate = new Date(event.reported.reportedDate)
+			const month = reportedDate.getMonth()
+			const year = reportedDate.getFullYear()
+			const key = `${month}/${year}`
+			acc[key] = acc[key] ? acc[key] + 1 : 1
+			return acc
+		},
+		{} as { [key: string]: number },
+	)
+
+	// Calculate the total number of events by each event type
+	const eventTypeEvents = events.reduce(
+		(acc, event) => {
+			const key = event.type.eventType
+			acc[key] = acc[key] ? acc[key] + 1 : 1
+			return acc
+		},
+		{} as { [key: string]: number },
+	)
+
+	// Calculate the total number of events by each event sub-type
+	const eventSubTypeEvents = events.reduce(
+		(acc, event) => {
+			const key = event.type.eventSubType
+			acc[key] = acc[key] ? acc[key] + 1 : 1
+			return acc
+		},
+		{} as { [key: string]: number },
+	)
+
+	// Calculate the total number of events by each country
+	const countryEvents = events.reduce(
+		(acc, event) => {
+			const key = event.location.country
+			acc[key] = acc[key] ? acc[key] + 1 : 1
+			return acc
+		},
+		{} as { [key: string]: number },
+	)
+
+	// Calculate the total number of events by each US state if the country is the US
+	const usStateEvents = events.reduce(
+		(acc, event) => {
+			if (event.location.country === 'United States of America') {
+				const key = event.location.state
+				acc[key] = acc[key] ? acc[key] + 1 : 1
+			}
+			return acc
+		},
+		{} as { [key: string]: number },
+	)
+
+	// Calculate the total number of events by each method of receipt
+	const methodOfReceiptEvents = events.reduce(
+		(acc, event) => {
+			const key = event.details.methodOfReceipt
+			acc[key] = acc[key] ? acc[key] + 1 : 1
+			return acc
+		},
+		{} as { [key: string]: number },
+	)
+
+	// Calculate the total number of events by each tag
+	const tagEvents = events.reduce(
+		(acc, event) => {
+			event.details.tagging.forEach((tag) => {
+				acc[tag] = acc[tag] ? acc[tag] + 1 : 1
+			})
+			return acc
+		},
+		{} as { [key: string]: number },
+	)
+
+	useEffect(() => {
+		console.log('---------------------------------')
+		console.log('totalEvents:', totalEvents)
+		console.log('monthlyEvents:', monthlyEvents)
+		console.log('eventTypeEvents:', eventTypeEvents)
+		console.log('eventSubTypeEvents:', eventSubTypeEvents)
+		console.log('countryEvents:', countryEvents)
+		console.log('usStateEvents:', usStateEvents)
+		console.log('methodOfReceiptEvents:', methodOfReceiptEvents)
+		console.log('tagEvents:', tagEvents)
+	}, [])
+
+	const colors = isDarkTheme
+		? ['#90caf9', '#64b5f6', '#42a5f5', '#2196f3', '#1e88e5', '#1976d2', '#1565c0', '#0d47a1']
+		: ['#64b5f6', '#42a5f5', '#2196f3', '#1e88e5', '#1976d2', '#1565c0', '#0d47a1', '#82b1ff']
+
+	return (
+		<Container maxWidth='xl'>
+			{loading ? (
+				<Typography variant='h6'>{t('common.statusIndicator.loading')}</Typography>
+			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
+				<Typography variant='h6'>
+					{t('common.statusIndicator.error')}: {error.toString()}
+				</Typography>
+			) : (
+				<Container>
+					<Grid container spacing={4}>
+						<Grid item xs={12}>
+							<Typography variant='h6'>Events by Month and Year</Typography>
+							<Grid container spacing={2}>
+								{Object.entries(monthlyEvents).map(([key, value]) => (
+									<Grid item xs={12} sm={6} md={4} lg={3} key={key}>
+										<Typography>
+											{key}: {value}
+										</Typography>
+									</Grid>
+								))}
+							</Grid>
+						</Grid>
+						<Grid item xs={4}>
+							<Typography variant='h6'>Events by Type</Typography>
+							<PieChart
+								data={Object.values(eventTypeEvents)}
+								title='Events by Event Type'
+								labels={Object.keys(eventTypeEvents)}
+								colors={colors}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<Typography variant='h6'>Events by Sub-Type</Typography>
+							<PieChart
+								data={Object.values(eventSubTypeEvents)}
+								title='Events by Event Sub-Type'
+								labels={Object.keys(eventSubTypeEvents)}
+								colors={colors}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<Typography variant='h6'>Events by Country</Typography>
+							<PieChart
+								data={Object.values(countryEvents)}
+								title='Events by Country'
+								labels={Object.keys(countryEvents)}
+								colors={colors}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<Typography variant='h6'>Events by US State</Typography>
+							<PieChart
+								data={Object.values(usStateEvents)}
+								title='Events by US State'
+								labels={Object.keys(usStateEvents)}
+								colors={colors}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<Typography variant='h6'>Events by Method of Receipt</Typography>
+							<PieChart
+								data={Object.values(methodOfReceiptEvents)}
+								title='Events by Method of Receipt'
+								labels={Object.keys(methodOfReceiptEvents)}
+								colors={colors}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<Typography variant='h6'>Events by Tag</Typography>
+							<PieChart
+								data={Object.values(tagEvents)}
+								title='Events by Tag'
+								labels={Object.keys(tagEvents)}
+								colors={colors}
+							/>
+						</Grid>
+					</Grid>
+				</Container>
+			)}
+		</Container>
+	)
 }
 
 export default EventAnalyticsDetailsView

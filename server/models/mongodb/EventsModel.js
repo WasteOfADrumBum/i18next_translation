@@ -30,7 +30,7 @@ const eventsModelSchema = new mongoose.Schema({
 		city: { type: String, required: true },
 		zip: { type: String, required: true },
 		country: { type: String, required: true },
-		county: { type: String, required: true },
+		county: { type: String, required: false },
 		state: { type: String, required: true },
 	},
 })
