@@ -181,8 +181,8 @@ const EventAnalyticsDetailsView: FC = () => {
 										{
 											label: 'Events by Month and Year',
 											data: Object.values(monthlyEvents),
-											borderColor: darkMode ? '#90caf9' : '#2196f3',
-											backgroundColor: darkMode ? '#90caf9' : '#2196f3',
+											borderColor: darkMode ? '#90caf9B3' : '#2196f3B3',
+											backgroundColor: darkMode ? '#90caf9B3' : '#2196f3B3',
 										},
 									]}
 								/>
