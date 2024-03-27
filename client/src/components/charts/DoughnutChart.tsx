@@ -1,5 +1,6 @@
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
-import React, { FC } from 'react'
+import 'chart.js/auto'
+import React, { FC, useRef } from 'react'
 import { Doughnut } from 'react-chartjs-2'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
@@ -12,6 +13,8 @@ interface DoughnutChartProps {
 }
 
 const DoughnutChart: FC<DoughnutChartProps> = ({ data, title, labels, colors }) => {
+	const ref = useRef()
+
 	const chartData = {
 		labels: labels,
 		datasets: [
@@ -23,7 +26,7 @@ const DoughnutChart: FC<DoughnutChartProps> = ({ data, title, labels, colors }) 
 		],
 	}
 
-	return <Doughnut data={chartData} />
+	return <Doughnut ref={ref} data={chartData} />
 }
 
 export default DoughnutChart

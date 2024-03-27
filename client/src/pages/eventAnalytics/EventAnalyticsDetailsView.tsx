@@ -57,9 +57,6 @@ const EventAnalyticsDetailsView: FC = () => {
 		}
 	}, [setHeaderData, events, t])
 
-	// Calculate the total number of events
-	const totalEvents = events.length
-
 	// Calculate the total number of events reported by each month of each year
 	const monthlyEvents = events.reduce(
 		(acc, event) => {

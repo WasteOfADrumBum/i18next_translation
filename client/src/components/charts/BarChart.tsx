@@ -1,5 +1,6 @@
 import { BarController, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js'
-import React, { FC } from 'react'
+import 'chart.js/auto'
+import React, { FC, useRef } from 'react'
 import { Bar } from 'react-chartjs-2'
 
 ChartJS.register(BarController, CategoryScale, LinearScale, Title, Tooltip, Legend)
@@ -28,6 +29,7 @@ interface BarChartOptions {
 }
 
 const BarChart: FC<BarChartProps> = ({ labels, datasets, vertical, title }) => {
+	const ref = useRef()
 	const indexAxis = vertical ? 'y' : 'x'
 	const displayTitle = !!title
 	const titleText = title || ''
@@ -48,7 +50,7 @@ const BarChart: FC<BarChartProps> = ({ labels, datasets, vertical, title }) => {
 		datasets: datasets,
 	}
 
-	return <Bar options={options} data={data} />
+	return <Bar ref={ref} options={options} data={data} />
 }
 
 export default BarChart

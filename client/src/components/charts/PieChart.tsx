@@ -1,5 +1,6 @@
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
-import React, { FC } from 'react'
+import 'chart.js/auto'
+import React, { FC, useRef } from 'react'
 import { Pie } from 'react-chartjs-2'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
@@ -12,6 +13,7 @@ interface PieChartProps {
 }
 
 const PieChart: FC<PieChartProps> = ({ data, title, labels, colors }) => {
+	const ref = useRef()
 	const chartData = {
 		labels: labels,
 		datasets: [
@@ -23,7 +25,7 @@ const PieChart: FC<PieChartProps> = ({ data, title, labels, colors }) => {
 		],
 	}
 
-	return <Pie data={chartData} />
+	return <Pie ref={ref} data={chartData} />
 }
 
 export default PieChart

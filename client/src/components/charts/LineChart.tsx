@@ -8,7 +8,8 @@ import {
 	Title,
 	Tooltip,
 } from 'chart.js'
-import React, { FC } from 'react'
+import 'chart.js/auto'
+import React, { FC, useRef } from 'react'
 import { Line } from 'react-chartjs-2'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
@@ -38,6 +39,7 @@ interface LineChartOptions {
 }
 
 const LineChart: FC<LineChartProps> = ({ labels, datasets, title }) => {
+	const ref = useRef()
 	const displayTitle = !!title
 	const titleText = title || ''
 
@@ -59,7 +61,7 @@ const LineChart: FC<LineChartProps> = ({ labels, datasets, title }) => {
 		datasets: datasets,
 	}
 
-	return <Line options={options} data={data} />
+	return <Line ref={ref} options={options} data={data} />
 }
 
 export default LineChart
