@@ -11,4 +11,3 @@ export { getMethodsOfReceipt } from './valueProviders/methodsOfReceipt'
 export { getNativeLanguages } from './valueProviders/nativeLanguages'
 export { getStates } from './valueProviders/usStates'
 export { getVehicleColors, getVehicleMakes, getVehicleModels } from './valueProviders/vehicleDescriptions'
-s
