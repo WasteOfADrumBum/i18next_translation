@@ -110,7 +110,7 @@ const VehicleListView: FC = () => {
 				extraContent: null,
 			})
 		}
-	}, [setHeaderData, vehicles.length, eventId, entities.length, t])
+	}, [setHeaderData, vehicles.length, eventId, entities.length, t, eventVehicles.length])
 
 	const handleView = (id: string | undefined) => {
 		if (id) {

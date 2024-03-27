@@ -54,7 +54,7 @@ export const updateEvent = (updatedEvent: Event) => async (dispatch: Dispatch<Ev
 export const deleteEvent = (eventId: number) => async (dispatch: Dispatch<EventActionTypes>) => {
 	console.log('\x1b[36mPostgreSQL:\x1b[0m Action \x1b[32mDelete Event\x1b[0m')
 	try {
-		const res = await axios.delete(`/api/events/${eventId}`) // Adjust the API endpoint accordingly
+		await axios.delete(`/api/events/${eventId}`) // Adjust the API endpoint accordingly
 		dispatch({
 			type: DELETE_EVENT,
 			payload: eventId,
