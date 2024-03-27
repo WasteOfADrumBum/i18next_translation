@@ -43,6 +43,8 @@ interface RadarChartOptions {
 	}
 }
 
+// TODO: Fix data not displaying correctly
+
 const RadarChart: FC<RadarChartProps> = ({ data, title, labels, colors }) => {
 	const ref = useRef(null)
 	const theme = useTheme()

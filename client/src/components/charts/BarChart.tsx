@@ -10,9 +10,8 @@ interface BarChartProps {
 	datasets: {
 		label: string
 		data: number[]
-		borderColor: string
-		backgroundColor: string
 	}[]
+	colors: string[] // Accepts an array of colors
 	vertical?: boolean
 	title?: string
 }
@@ -28,11 +27,13 @@ interface BarChartOptions {
 	}
 }
 
-const BarChart: FC<BarChartProps> = ({ labels, datasets, vertical, title }) => {
+const BarChart: FC<BarChartProps> = ({ labels, datasets, colors, vertical, title }) => {
 	const ref = useRef()
 	const indexAxis = vertical ? 'y' : 'x'
 	const displayTitle = !!title
 	const titleText = title || ''
+
+	console.log('BarChart', { labels, datasets, colors, vertical, title })
 
 	const options: BarChartOptions = {
 		indexAxis: indexAxis,
@@ -47,7 +48,11 @@ const BarChart: FC<BarChartProps> = ({ labels, datasets, vertical, title }) => {
 
 	const data = {
 		labels: labels,
-		datasets: datasets,
+		datasets: datasets.map((dataset, index) => ({
+			...dataset,
+			backgroundColor: colors[index % colors.length], // Cycle through colors array
+			borderColor: colors[index % colors.length], // Cycle through colors array
+		})),
 	}
 
 	return <Bar ref={ref} options={options} data={data} />
