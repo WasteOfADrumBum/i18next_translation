@@ -2,6 +2,7 @@ import { BarController, CategoryScale, Chart as ChartJS, Legend, LinearScale, Ti
 import 'chart.js/auto'
 import React, { FC, useRef } from 'react'
 import { Bar } from 'react-chartjs-2'
+import { useAddOpacityToHexColors } from '../../utils'
 
 ChartJS.register(BarController, CategoryScale, LinearScale, Title, Tooltip, Legend)
 
@@ -33,7 +34,7 @@ const BarChart: FC<BarChartProps> = ({ labels, datasets, colors, vertical, title
 	const displayTitle = !!title
 	const titleText = title || ''
 
-	console.log('BarChart', { labels, datasets, colors, vertical, title })
+	const colorsWithOpacity = useAddOpacityToHexColors(colors, 0.7)
 
 	const options: BarChartOptions = {
 		indexAxis: indexAxis,
@@ -50,8 +51,8 @@ const BarChart: FC<BarChartProps> = ({ labels, datasets, colors, vertical, title
 		labels: labels,
 		datasets: datasets.map((dataset, index) => ({
 			...dataset,
-			backgroundColor: colors[index % colors.length], // Cycle through colors array
-			borderColor: colors[index % colors.length], // Cycle through colors array
+			backgroundColor: colorsWithOpacity[index % colorsWithOpacity.length], // Cycle through colorsWithOpacity array
+			borderColor: colorsWithOpacity[index % colorsWithOpacity.length], // Cycle through colorsWithOpacity array
 		})),
 	}
 
