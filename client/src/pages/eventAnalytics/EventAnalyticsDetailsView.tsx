@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { HeaderContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { getEvents } from '../../store/actions/mongodb/eventActions'
+import { Event } from '../../store/types/EventTypes'
 
 const EventAnalyticsDetailsView: FC = () => {
 	// TODO: EventAnalyticsDetailsView tasks
@@ -38,9 +39,7 @@ const EventAnalyticsDetailsView: FC = () => {
 				/* TODO: Fix this formatting to match others */
 				<Grid container spacing={1} direction='column' alignItems='flex-start'>
 					<Grid item>
-						<Typography>
-							Event Analytics {/* TODO: Add Translation */}
-						</Typography>
+						<Typography>Event Analytics {/* TODO: Add Translation */}</Typography>
 						<Divider />
 					</Grid>
 					{getEventStatusCounts(events).map(({ status, count }) => (
@@ -64,7 +63,6 @@ const EventAnalyticsDetailsView: FC = () => {
 		}
 	}, [setHeaderData, events, t])
 
-	
 	const getEventStatusCounts = (events: Event[]) => {
 		const statusCounts: { [key: string]: number } = {}
 		events.forEach((event) => {
