@@ -11,28 +11,27 @@ import {
 	Toolbar,
 	Typography,
 } from '@mui/material'
-import React, { FC, MouseEvent, useEffect, useState } from 'react'
+import React, { FC, MouseEvent, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { LanguageSwticher, ThemeSwitcher } from '../../components'
+import { ThemeContext } from '../../contexts'
 import { useAuth } from '../../pages'
 
 interface NavBarProps {
 	onLoginToggle: (newState: boolean) => void
-	darkMode: boolean
-	toggleDarkMode: () => void
-	changeLanguage?: (lng: string) => void
 }
 
-const NavBar: FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) => {
+const NavBar: FC<NavBarProps> = ({ onLoginToggle }) => {
 	const { t } = useTranslation()
 	const { isAuthenticated } = useAuth()
+	const { darkMode, setDarkMode } = useContext(ThemeContext)
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
 	const [loginState, setLoginState] = useState<boolean>(isAuthenticated)
 
 	useEffect(() => {
-		// Update loginState when isAuthenticated changes
+		// TODO: Update loginState when isAuthenticated changes
 		setLoginState(isAuthenticated)
 	}, [isAuthenticated])
 
@@ -48,6 +47,10 @@ const NavBar: FC<NavBarProps> = ({ onLoginToggle, darkMode, toggleDarkMode }) =>
 		const newLoginState = !loginState
 		setLoginState(newLoginState)
 		onLoginToggle(newLoginState)
+	}
+
+	const toggleDarkMode = () => {
+		setDarkMode((prevMode) => !prevMode) // Toggle dark mode using context
 	}
 
 	return (

@@ -14,8 +14,8 @@ interface HeaderContextValue {
 }
 
 const initialHeaderData: HeaderData = {
-	header: 'React MUI Template',
-	subheader: 'A template for building React applications with Material-UI',
+	header: '',
+	subheader: '',
 	extraContent: null,
 	returnButton: false,
 	returnPath: '/',

@@ -10,7 +10,7 @@ import { getEvents } from '../../store/actions/mongodb/eventActions'
 const EventAnalyticsDetailsView: FC = () => {
 	const { t } = useTranslation()
 	const { setHeaderData } = useContext(HeaderContext)
-	const isDarkTheme = useContext(ThemeContext)
+	const { darkMode } = useContext(ThemeContext)
 	const dispatch: AppDispatch = useDispatch()
 
 	// Fetch events from Redux store
@@ -133,23 +133,27 @@ const EventAnalyticsDetailsView: FC = () => {
 		{} as { [key: string]: number },
 	)
 
-	const colors = isDarkTheme
+	const colors = darkMode
 		? ['#90caf9', '#64b5f6', '#42a5f5', '#2196f3', '#1e88e5', '#1976d2', '#1565c0', '#0d47a1']
 		: ['#64b5f6', '#42a5f5', '#2196f3', '#1e88e5', '#1976d2', '#1565c0', '#0d47a1', '#82b1ff']
 
 	return (
 		<Container maxWidth='xl'>
 			{loading ? (
-				<Typography variant='h6'>{t('common.statusIndicator.loading')}</Typography>
+				<Typography variant='h6' sx={{ textAlign: 'center' }}>
+					{t('common.statusIndicator.loading')}
+				</Typography>
 			) : typeof error === 'object' && Object.keys(error).length !== 0 ? (
-				<Typography variant='h6'>
+				<Typography variant='h6' sx={{ textAlign: 'center' }}>
 					{t('common.statusIndicator.error')}: {error.toString()}
 				</Typography>
 			) : (
 				<Container>
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
-							<Typography variant='h6'>Events by Month and Year</Typography>
+							<Typography variant='h6' sx={{ textAlign: 'center' }}>
+								Events by Month and Year
+							</Typography>
 							<Grid container spacing={2}>
 								{Object.entries(monthlyEvents).map(([key, value]) => (
 									<Grid item xs={12} sm={6} md={4} lg={3} key={key}>
@@ -161,7 +165,9 @@ const EventAnalyticsDetailsView: FC = () => {
 							</Grid>
 						</Grid>
 						<Grid item xs={4}>
-							<Typography variant='h6'>Events by Type</Typography>
+							<Typography variant='h6' sx={{ textAlign: 'center' }}>
+								Events by Type
+							</Typography>
 							<PieChart
 								data={Object.values(eventTypeEvents)}
 								title='Events by Event Type'
@@ -170,7 +176,9 @@ const EventAnalyticsDetailsView: FC = () => {
 							/>
 						</Grid>
 						<Grid item xs={4}>
-							<Typography variant='h6'>Events by Sub-Type</Typography>
+							<Typography variant='h6' sx={{ textAlign: 'center' }}>
+								Events by Sub-Type
+							</Typography>
 							<PieChart
 								data={Object.values(eventSubTypeEvents)}
 								title='Events by Event Sub-Type'
@@ -179,7 +187,9 @@ const EventAnalyticsDetailsView: FC = () => {
 							/>
 						</Grid>
 						<Grid item xs={4}>
-							<Typography variant='h6'>Events by Country</Typography>
+							<Typography variant='h6' sx={{ textAlign: 'center' }}>
+								Events by Country
+							</Typography>
 							<PieChart
 								data={Object.values(countryEvents)}
 								title='Events by Country'
@@ -188,7 +198,9 @@ const EventAnalyticsDetailsView: FC = () => {
 							/>
 						</Grid>
 						<Grid item xs={4}>
-							<Typography variant='h6'>Events by US State</Typography>
+							<Typography variant='h6' sx={{ textAlign: 'center' }}>
+								Events by US State
+							</Typography>
 							<PolarAreaChart
 								data={Object.values(usStateEvents)}
 								title='Events by US State'
@@ -197,7 +209,9 @@ const EventAnalyticsDetailsView: FC = () => {
 							/>
 						</Grid>
 						<Grid item xs={4}>
-							<Typography variant='h6'>Events by Method of Receipt</Typography>
+							<Typography variant='h6' sx={{ textAlign: 'center' }}>
+								Events by Method of Receipt
+							</Typography>
 							<DoughnutChart
 								data={Object.values(methodOfReceiptEvents)}
 								title='Events by Method of Receipt'
@@ -206,7 +220,9 @@ const EventAnalyticsDetailsView: FC = () => {
 							/>
 						</Grid>
 						<Grid item xs={4}>
-							<Typography variant='h6'>Events by Tag</Typography>
+							<Typography variant='h6' sx={{ textAlign: 'center' }}>
+								Events by Tag
+							</Typography>
 							<RadarChart
 								data={Object.values(tagEvents)}
 								title='Events by Tag'

@@ -1,9 +1,11 @@
-import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js'
+import { useTheme } from '@mui/material'
+import { ArcElement, Chart as ChartJS, Legend, RadialLinearScale, Tooltip } from 'chart.js'
 import 'chart.js/auto'
 import React, { FC, useRef } from 'react'
 import { PolarArea } from 'react-chartjs-2'
+import { useAddOpacityToHexColors } from '../../utils'
 
-ChartJS.register(ArcElement, Tooltip, Legend)
+ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend)
 
 interface PolarAreaChartProps {
 	data: number[]
@@ -12,20 +14,82 @@ interface PolarAreaChartProps {
 	colors: string[]
 }
 
+interface PolarAreaChartOptions {
+	plugins: {
+		legend: {
+			position: 'top'
+			labels: {
+				color: string
+			}
+		}
+	}
+	scales: {
+		r: {
+			ticks: {
+				beginAtZero: boolean
+				color: string
+				backdropColor: string
+			}
+			pointLabels: {
+				color: string
+			}
+			grid: {
+				color: string
+			}
+			angleLines: {
+				color: string
+			}
+		}
+	}
+}
+
 const PolarAreaChart: FC<PolarAreaChartProps> = ({ data, title, labels, colors }) => {
-	const ref = useRef()
+	const ref = useRef(null)
+	const theme = useTheme()
+	const colorsWithOpacity = useAddOpacityToHexColors(colors, 0.7)
+
+	const options: PolarAreaChartOptions = {
+		plugins: {
+			legend: {
+				position: 'top',
+				labels: {
+					color: theme.palette.text.primary,
+				},
+			},
+		},
+		scales: {
+			r: {
+				ticks: {
+					beginAtZero: true,
+					color: theme.palette.text.primary,
+					backdropColor: 'rgba(0, 0, 0, 0)',
+				},
+				pointLabels: {
+					color: theme.palette.text.primary,
+				},
+				grid: {
+					color: theme.palette.secondary.main,
+				},
+				angleLines: {
+					color: theme.palette.secondary.main,
+				},
+			},
+		},
+	}
+
 	const chartData = {
-		labels: labels,
+		labels,
 		datasets: [
 			{
 				label: title,
-				data: data,
-				backgroundColor: colors,
+				data,
+				backgroundColor: colorsWithOpacity,
+				borderWidth: 1,
 			},
 		],
 	}
 
-	return <PolarArea ref={ref} data={chartData} />
+	return <PolarArea ref={ref} options={options} data={chartData} />
 }
 
 export default PolarAreaChart

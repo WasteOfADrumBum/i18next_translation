@@ -1,19 +1,43 @@
-// ThemeContextProvider.tsx
-import React, { createContext, FC, useState } from 'react'
+import React, { createContext, Dispatch, FC, SetStateAction, useState } from 'react'
 
-export const ThemeContext = createContext<boolean>(true)
+// Define the interface for the theme context value
+interface ThemeContextValue {
+	darkMode: boolean
+	setDarkMode: Dispatch<SetStateAction<boolean>>
+}
 
+// Define the initial theme value
+const initialThemeValue: ThemeContextValue = {
+	darkMode: true,
+	setDarkMode: () => {
+		throw new Error('setDarkMode must be overridden')
+	}, // This should be initialized with an actual function
+}
+
+// Create context with a default value
+export const ThemeContext = createContext<ThemeContextValue>(initialThemeValue)
+
+// Define the props interface for ThemeContextProvider
 interface ThemeContextProviderProps {
 	children: React.ReactNode
 }
 
+// Define the ThemeContextProvider component
 export const ThemeContextProvider: FC<ThemeContextProviderProps> = ({ children }) => {
-	const [darkMode, setDarkMode] = useState<boolean>(true)
+	// Initialize state for dark mode
+	const [darkMode, setDarkMode] = useState<boolean>(initialThemeValue.darkMode)
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	// Define the function to toggle dark mode
 	const toggleDarkMode = () => {
-		setDarkMode((prevMode) => !prevMode)
+		setDarkMode((prevDarkMode) => !prevDarkMode)
 	}
 
-	return <ThemeContext.Provider value={darkMode}>{children}</ThemeContext.Provider>
+	// Create the context value
+	const contextValue: ThemeContextValue = {
+		darkMode,
+		setDarkMode: toggleDarkMode, // Assign the toggleDarkMode function here
+	}
+
+	// Return the ThemeContextProvider with the provided context value
+	return <ThemeContext.Provider value={contextValue}>{children}</ThemeContext.Provider>
 }
