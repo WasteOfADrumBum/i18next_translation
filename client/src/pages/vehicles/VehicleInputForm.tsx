@@ -400,18 +400,31 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 			.filter((entity) => {
 				if (entityType === 'All') {
 					return entity.parent?._id === eventId
+				} else if (entityType === 'Person') {
+					return entity.type === 'Person' && entity.parent?._id === eventId
+				} else if (entityType === 'Organization') {
+					return entity.type === 'Organization' && entity.parent?._id === eventId
 				} else {
-					return entity.parent?._id === eventId && entity.type === entityType
+					return false
 				}
 			})
 			.map((entity) => {
 				if (!entity._id) return null
-
-				return (
-					<MenuItem key={entity._id} value={entity._id}>
-						{entity.person.name.first || ''} {entity.person.name.last || ''}
-					</MenuItem>
-				)
+				if (entity.type === 'Organization') {
+					return (
+						<MenuItem key={entity._id} value={entity._id}>
+							{entity.organization.legal.legalName || ''} ({entity.organization.contactName || ''})
+						</MenuItem>
+					)
+				} else if (entity.type === 'Person') {
+					return (
+						<MenuItem key={entity._id} value={entity._id}>
+							{entity.person.name.first || ''} {entity.person.name.last || ''}
+						</MenuItem>
+					)
+				} else {
+					return null
+				}
 			})
 			.filter(Boolean) as JSX.Element[]
 	}

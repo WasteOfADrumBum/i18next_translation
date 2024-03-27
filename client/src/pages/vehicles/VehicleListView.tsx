@@ -27,6 +27,9 @@ const VehicleListView: FC = () => {
 	// Access vehicles from Redux store
 	const { vehicles, loading, error } = useSelector((state: RootState) => state.vehicles)
 
+	// Make a new array of vehicles that are associated with the current event
+	const eventVehicles = getVehiclesByEventId(vehicles, eventId ?? '')
+
 	// Fetch entities from Redux store
 	useEffect(() => {
 		dispatch(getEntities())
@@ -34,6 +37,9 @@ const VehicleListView: FC = () => {
 
 	// Access entities from Redux store
 	const { entities } = useSelector((state: RootState) => state.entities)
+
+	// Make a new array of entities that are associated with the current event
+	const eventEntities = entities.filter((entity) => entity.parent._id === eventId)
 
 	// Get entity name from entity ID
 	const getEntityName = (id: string | undefined) => {
@@ -54,9 +60,6 @@ const VehicleListView: FC = () => {
 		return t('common.statusIndicator.na')
 	}
 
-	// Make a new array of vehicles that are associated with the current event
-	const eventVehicles = getVehiclesByEventId(vehicles, eventId ?? '')
-
 	useEffect(() => {
 		// Update header data when component mounts
 		setHeaderData({
@@ -75,7 +78,7 @@ const VehicleListView: FC = () => {
 					<Grid item xs={12}>
 						<Divider />
 					</Grid>
-					{entities.length > 0 ? (
+					{eventVehicles.length > 0 ? (
 						<>
 							<Grid item xs={6}>
 								<Typography variant='caption'>{t('pages.vehicles.header.content.total')}:</Typography>
@@ -180,7 +183,7 @@ const VehicleListView: FC = () => {
 	return (
 		<Container maxWidth='xl'>
 			<Grid container justifyContent='flex-end'>
-				{entities.length > 0 && (
+				{eventEntities.length > 0 && (
 					<Button onClick={() => navigate(`create`)} sx={{ margin: 1 }}>
 						<AddCircleOutline sx={{ marginRight: 1 }} /> {t('pages.vehicles.buttons.new')}
 					</Button>
