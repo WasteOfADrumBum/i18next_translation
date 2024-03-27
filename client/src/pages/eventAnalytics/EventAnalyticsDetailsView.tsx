@@ -2,7 +2,7 @@ import { Container, Divider, Grid, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { PieChart } from '../../components'
+import { DoughnutChart, PieChart, PolarAreaChart, RadarChart } from '../../components'
 import { HeaderContext, ThemeContext } from '../../contexts'
 import { AppDispatch, RootState } from '../../store'
 import { getEvents } from '../../store/actions/mongodb/eventActions'
@@ -136,18 +136,6 @@ const EventAnalyticsDetailsView: FC = () => {
 		{} as { [key: string]: number },
 	)
 
-	useEffect(() => {
-		console.log('---------------------------------')
-		console.log('totalEvents:', totalEvents)
-		console.log('monthlyEvents:', monthlyEvents)
-		console.log('eventTypeEvents:', eventTypeEvents)
-		console.log('eventSubTypeEvents:', eventSubTypeEvents)
-		console.log('countryEvents:', countryEvents)
-		console.log('usStateEvents:', usStateEvents)
-		console.log('methodOfReceiptEvents:', methodOfReceiptEvents)
-		console.log('tagEvents:', tagEvents)
-	}, [])
-
 	const colors = isDarkTheme
 		? ['#90caf9', '#64b5f6', '#42a5f5', '#2196f3', '#1e88e5', '#1976d2', '#1565c0', '#0d47a1']
 		: ['#64b5f6', '#42a5f5', '#2196f3', '#1e88e5', '#1976d2', '#1565c0', '#0d47a1', '#82b1ff']
@@ -204,7 +192,7 @@ const EventAnalyticsDetailsView: FC = () => {
 						</Grid>
 						<Grid item xs={4}>
 							<Typography variant='h6'>Events by US State</Typography>
-							<PieChart
+							<PolarAreaChart
 								data={Object.values(usStateEvents)}
 								title='Events by US State'
 								labels={Object.keys(usStateEvents)}
@@ -213,7 +201,7 @@ const EventAnalyticsDetailsView: FC = () => {
 						</Grid>
 						<Grid item xs={4}>
 							<Typography variant='h6'>Events by Method of Receipt</Typography>
-							<PieChart
+							<DoughnutChart
 								data={Object.values(methodOfReceiptEvents)}
 								title='Events by Method of Receipt'
 								labels={Object.keys(methodOfReceiptEvents)}
@@ -222,7 +210,7 @@ const EventAnalyticsDetailsView: FC = () => {
 						</Grid>
 						<Grid item xs={4}>
 							<Typography variant='h6'>Events by Tag</Typography>
-							<PieChart
+							<RadarChart
 								data={Object.values(tagEvents)}
 								title='Events by Tag'
 								labels={Object.keys(tagEvents)}
