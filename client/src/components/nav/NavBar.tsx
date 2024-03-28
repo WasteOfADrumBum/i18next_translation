@@ -1,3 +1,4 @@
+import { AnalyticsOutlined, DashboardOutlined, HomeOutlined, LoginOutlined } from '@mui/icons-material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import MenuIcon from '@mui/icons-material/Menu'
 import {
@@ -76,9 +77,11 @@ const NavBar: FC<NavBarProps> = ({ onLoginToggle }) => {
 					{loginState && (
 						<span>
 							<MenuItem onClick={handleClose} component={Link} to='/dashboard'>
+								<DashboardOutlined sx={{ marginRight: 1 }} color='primary' />
 								{t('common.dashboard.dashboard')}
 							</MenuItem>
 							<MenuItem onClick={handleClose} component={Link} to='/analytics'>
+								<AnalyticsOutlined sx={{ marginRight: 1 }} color='primary' />
 								Event Analytics {/* TODO: Add Translation */}
 							</MenuItem>
 						</span>
@@ -86,9 +89,11 @@ const NavBar: FC<NavBarProps> = ({ onLoginToggle }) => {
 					{!loginState && (
 						<span>
 							<MenuItem onClick={handleClose} component={Link} to='/'>
+								<HomeOutlined sx={{ marginRight: 1 }} color='primary' />
 								{t('pages.home.pageTitle')}
 							</MenuItem>
 							<MenuItem onClick={handleClose} component={Link} to='/login'>
+								<LoginOutlined sx={{ marginRight: 1 }} color='primary' />
 								{t('common.buttons.login')}
 							</MenuItem>
 						</span>
