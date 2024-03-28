@@ -20,6 +20,7 @@ module.exports = {
 		'react/react-in-jsx-scope': 'off',
 		'react/display-name': 'off',
 		'react/prop-types': 'off',
+		'@typescript-eslint/no-var-requires': 'off', // Allow require statements
 	},
 	settings: {
 		react: {

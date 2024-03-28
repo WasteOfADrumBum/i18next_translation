@@ -70,8 +70,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
 			<Button
 				variant='text'
 				onClick={() => {
-					console.log('Return to:', headerData.returnPath!)
-					navigate(headerData.returnPath!)
+					navigate(headerData.returnPath ?? '/')
 				}}>
 				<ArrowBack />
 				{t('common.buttons.return')}

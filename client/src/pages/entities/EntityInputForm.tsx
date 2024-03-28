@@ -139,7 +139,7 @@ const EntityInputForm: FC<EntityInputFormProps> = ({ entityValues }) => {
 	useEffect(() => {
 		if (entityId && entity) {
 			setFormData({
-				_id: entity._id!,
+				_id: entity._id ?? '',
 				parentId: entity.parent._id ?? '',
 				parentName: entity.parent.name ?? '',
 				type: entity.type ?? '',

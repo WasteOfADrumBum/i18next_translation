@@ -111,7 +111,7 @@ const EventInputForm: FC<EventInputFormProps> = ({ eventValues }) => {
 	useEffect(() => {
 		if (eventId && event) {
 			setFormData({
-				_id: event._id!,
+				_id: eventId,
 				status: event.status,
 				reporter: event.reported.reporter,
 				reportedDate: event.reported.reportedDate,
