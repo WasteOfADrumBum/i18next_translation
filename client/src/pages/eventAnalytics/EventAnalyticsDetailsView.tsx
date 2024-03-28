@@ -220,7 +220,7 @@ const EventAnalyticsDetailsView: FC = () => {
 								<BarChart vertical labels={['']} colors={colors} datasets={getDatasets(eventSubTypeEvents)} />
 							</Grid>
 						</Grid>
-						<Grid item mb={4} p={2} xs={4}>
+						<Grid item mb={4} p={2} xs={3}>
 							<Typography variant='h6' mb={1} sx={{ textAlign: 'center' }}>
 								Events by Country
 							</Typography>
@@ -241,7 +241,7 @@ const EventAnalyticsDetailsView: FC = () => {
 								/>
 							</Grid>
 						</Grid>
-						<Grid item mb={4} p={2} xs={4}>
+						<Grid item mb={4} p={2} xs={3}>
 							<Typography variant='h6' mb={1} sx={{ textAlign: 'center' }}>
 								Events by US State
 							</Typography>
@@ -262,7 +262,7 @@ const EventAnalyticsDetailsView: FC = () => {
 								/>
 							</Grid>
 						</Grid>
-						<Grid item mb={4} p={2} xs={4}>
+						<Grid item mb={4} p={2} xs={3}>
 							<Typography variant='h6' mb={1} sx={{ textAlign: 'center' }}>
 								Events by Method of Receipt
 							</Typography>
@@ -283,7 +283,7 @@ const EventAnalyticsDetailsView: FC = () => {
 								/>
 							</Grid>
 						</Grid>
-						<Grid item mb={4} p={2} xs={6}>
+						<Grid item mb={4} p={2} xs={3}>
 							<Typography variant='h6' mb={1} sx={{ textAlign: 'center' }}>
 								Events by Tag
 							</Typography>
