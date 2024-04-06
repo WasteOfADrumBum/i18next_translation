@@ -131,6 +131,7 @@ const EventDetailsView: FC = () => {
 						</Typography>
 					</Grid>
 					<Grid item xs={12}>
+						{/* TODO: convert to MUI Chips <Chip label="Chip Outlined" variant="outlined" /> */}
 						<Typography variant='subtitle1'>
 							{t('pages.events.fields.details.tagging')}:{' '}
 							{event?.details?.tagging?.join(', ') ||

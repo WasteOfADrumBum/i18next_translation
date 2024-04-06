@@ -3,7 +3,8 @@ import React, { createContext, Dispatch, FC, ReactNode, SetStateAction, useState
 interface HeaderData {
 	header: string
 	subheader: string
-	extraContent: React.ReactNode | null
+	tagging?: React.ReactNode | null
+	extraContent?: React.ReactNode | null
 	returnButton?: boolean
 	returnPath?: string
 }
@@ -16,6 +17,7 @@ interface HeaderContextValue {
 const initialHeaderData: HeaderData = {
 	header: '',
 	subheader: '',
+	tagging: null,
 	extraContent: null,
 	returnButton: false,
 	returnPath: '/',
