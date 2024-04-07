@@ -1,4 +1,4 @@
-import { Container, Divider, Grid, Typography } from '@mui/material'
+import { Chip, Container, Divider, Grid, Stack, Typography } from '@mui/material'
 import React, { FC, useContext, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -30,6 +30,13 @@ const EventDetailsView: FC = () => {
 		setHeaderData({
 			header: t('pages.events.header.title.single'),
 			subheader: t('pages.events.header.subtitle.single'),
+			tagging: (
+				<Stack direction='row' spacing={1}>
+					{event?.details?.tagging?.map((tag, index) => (
+						<Chip key={index} label={tag} variant='outlined' size='small' sx={{ marginRight: 1 }} />
+					)) || t('common.statusIndicator.notAvailable')}
+				</Stack>
+			),
 			extraContent: (
 				<Grid container spacing={1}>
 					<Grid item xs={6}>
@@ -93,6 +100,7 @@ const EventDetailsView: FC = () => {
 			setHeaderData({
 				header: '',
 				subheader: '',
+				tagging: null,
 				extraContent: null,
 			})
 		}
@@ -128,14 +136,6 @@ const EventDetailsView: FC = () => {
 						<Typography variant='subtitle1'>
 							{t('pages.events.titles.location')}: {event?.location?.address}, {event?.location?.city},{' '}
 							{event?.location?.state}, {event?.location?.zip}
-						</Typography>
-					</Grid>
-					<Grid item xs={12}>
-						{/* TODO: convert to MUI Chips <Chip label="Chip Outlined" variant="outlined" /> */}
-						<Typography variant='subtitle1'>
-							{t('pages.events.fields.details.tagging')}:{' '}
-							{event?.details?.tagging?.join(', ') ||
-								t('pages.events.fields.details.tagging') + ' ' + t('common.statusIndicator.notAvailable')}
 						</Typography>
 					</Grid>
 				</Grid>

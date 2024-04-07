@@ -41,6 +41,12 @@ const Header: FC<HeaderProps> = ({ user }) => {
 				<Typography variant='subtitle1' color={'secondary'}>
 					{headerData.subheader}
 				</Typography>
+				{/* TODO: Move Stack/Chip Here and Just pass tags */}
+				{headerData.tagging && (
+					<Box mt={1} display='flex'>
+						{headerData.tagging}
+					</Box>
+				)}
 			</>
 		)
 	}
