@@ -583,6 +583,7 @@ const VehicleInputForm: FC<VehicleInputFormProps> = ({ vehicleValues }) => {
 								onChange={handleFormChange}
 							/>
 						</Grid>
+						{/* TODO: Add Vehilce type here (Car, Van Truck, etc.), Make List, Add Everywhere needed, and Make icon on list view  */}
 						<Grid item xs={12}>
 							<Typography variant='h4' color={'primary'} mb={1}>
 								{t('pages.vehicles.titles.occupants')}
