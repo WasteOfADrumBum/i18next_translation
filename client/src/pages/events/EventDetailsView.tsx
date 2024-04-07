@@ -137,6 +137,7 @@ const EventDetailsView: FC = () => {
 							{t('pages.events.titles.location')}: {event?.location?.address}, {event?.location?.city},{' '}
 							{event?.location?.state}, {event?.location?.zip}
 						</Typography>
+						{/* TODO: Add React Simple Maps Here */}
 					</Grid>
 				</Grid>
 			)}
