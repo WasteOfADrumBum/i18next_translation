@@ -28,6 +28,7 @@ import {
 } from './pages'
 import { AuthProvider } from './pages/auth/AuthProvider'
 import { clearUser, setUser } from './store/actions/mongodb/userActions'
+import './styles/scss/_global.scss'
 import { darkTheme, lightTheme } from './styles/theme'
 
 function PrivateRoute({ element, isAuthenticated }: { element: ReactNode; isAuthenticated: boolean }) {
