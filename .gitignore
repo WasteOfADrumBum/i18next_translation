@@ -16,3 +16,10 @@ pgdata/
 
 # Ignore MongoDB Data from Docker
 data/
+# Keep retirement cleanup from reintroducing private runtime configuration.
+.env
+.env.*
+config.env
+!.env.example
+!.env.sample
+!.env-example

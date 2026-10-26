@@ -1,3 +1,5 @@
+> **Retired reference — archive preparation.** This project is no longer maintained or deployed. See [RETIREMENT.md](RETIREMENT.md) for preservation notes and cleanup limits.
+
 # MERN Stack Application
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
